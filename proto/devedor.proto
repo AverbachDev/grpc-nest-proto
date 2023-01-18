@@ -1,0 +1,82 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+
+package devedor;
+
+service DevedorService {
+  rpc list (ListCriteriaRequest) returns (ServiceResponse) {}
+  rpc findOne (IdRequest) returns (ServiceResponse) {}
+  rpc create (DevedorRequest) returns (ServiceResponse) {}
+  rpc update (DevedorUpdateRequest) returns (ServiceResponse) {}//modificar
+  rpc remove (IdDevedorRequest) returns (ServiceResponse) {}
+}
+
+
+message ListCriteriaRequest {
+    int32 idDevedor = 1;
+    string nmDevedor = 2; 
+    string deEmail = 3;
+    string cdCnpjCpf = 4;
+    string deDddWhatsapp = 5;
+    string deWhatsapp = 6;
+    string idMunicipio = 7;
+    int32 items = 8;
+    int32 page = 9;
+    //order: { [key: string]: string }
+}
+
+message IdRequest{
+    int32 idDevedor = 1;
+}
+
+message DevedorRequest {
+    optional string deComplemento = 1;
+    optional int32 idCliente = 2;
+    optional int32 idMunicipio = 3;
+    string nmDevedor = 4;
+    string cdPessoa = 5;
+    optional string cdCnpjCpf = 6;
+    optional string deInscEstadual = 7;
+    optional string deInscMunicipal = 8;
+    optional string deLogradouro = 9;
+    optional int32 idDevedorPai = 10;
+    optional string deCep = 11;
+    optional string deDdd = 12;
+    optional string deTelefone = 13;
+    optional string deFax = 14;
+    optional string deEmail = 15;
+    google.protobuf.Timestamp dtCadastro = 16;
+    optional bool cdEtiqueta = 17;
+    optional string deContatoPrincipal = 18;
+    int32 idUsuaOper = 19;
+    google.protobuf.Timestamp dtRegistro = 20;
+    optional string nmBairro = 21;
+    optional string deDddCelular = 22;
+    optional string deCelular = 23;
+    optional string cdPesquisado = 24;
+    optional bool cdWhatsapp = 25;
+    optional string deDddWhatsapp = 26;
+    optional string deWhatsapp = 27;
+    optional string nmFantasia = 28;
+    optional string deCelularLogin = 29;
+    optional string deTokenNegocie = 30;
+    optional string deCodigoNegocie = 31;
+    optional google.protobuf.Timestamp dtCodigoNegocie = 32;
+    optional google.protobuf.Timestamp createdDate = 33;
+    optional google.protobuf.Timestamp updatedDate = 34;
+    optional google.protobuf.Timestamp deletedDate = 35;
+}
+
+message DevedorUpdateRequest{
+    int32 idDevedor = 1;
+    DevedorRequest Devedor = 2;
+}
+
+message ServiceResponse {
+    int32 status = 1;
+    string message = 2;
+    repeated any data = 3;
+    string error = 4;
+}
