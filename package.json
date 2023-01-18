@@ -4,9 +4,18 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "proto:devedor": "protoc --plugin=node_modules/.bin/protoc-gen-ts_proto.cmd -I=./proto --ts_proto_out=proto-example/ proto/devedor.proto --ts_proto_opt=nestJs=true --ts_proto_opt=fileSuffix=.pb"
   },
   "keywords": [],
   "author": "Fabio Toscano",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "@grpc/grpc-js": "^1.8.4",
+    "@grpc/proto-loader": "^0.7.4"
+  },
+  "devDependencies": {
+    "@types/node": "^18.11.18",
+    "ts-proto": "^1.138.0"
+  }
 }

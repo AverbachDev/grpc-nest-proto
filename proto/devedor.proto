@@ -24,7 +24,7 @@ message ListCriteriaRequest {
     string idMunicipio = 7;
     int32 items = 8;
     int32 page = 9;
-    //order: { [key: string]: string }
+    map<string, string> order =10;
 }
 
 message IdRequest{
