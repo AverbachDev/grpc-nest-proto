@@ -8,9 +8,9 @@ package devedor;
 service DevedorService {
   rpc list (ListCriteriaRequest) returns (ServiceResponse) {}
   rpc findOne (IdRequest) returns (ServiceResponse) {}
-  rpc create (DevedorRequest) returns (ServiceResponse) {}
+  rpc create (DevedorData) returns (ServiceResponse) {}
   rpc update (DevedorUpdateRequest) returns (ServiceResponse) {}//modificar
-  rpc remove (IdDevedorRequest) returns (ServiceResponse) {}
+  rpc remove (IdRequest) returns (ServiceResponse) {}
 }
 
 
@@ -31,7 +31,7 @@ message IdRequest{
     int32 idDevedor = 1;
 }
 
-message DevedorRequest {
+message DevedorData {
     optional string deComplemento = 1;
     optional int32 idCliente = 2;
     optional int32 idMunicipio = 3;
@@ -71,12 +71,12 @@ message DevedorRequest {
 
 message DevedorUpdateRequest{
     int32 idDevedor = 1;
-    DevedorRequest Devedor = 2;
+    DevedorData Devedor = 2;
 }
 
 message ServiceResponse {
     int32 status = 1;
     string message = 2;
-    repeated any data = 3;
+    repeated DevedorData data = 3;
     string error = 4;
 }
