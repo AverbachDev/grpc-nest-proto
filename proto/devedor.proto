@@ -1,8 +1,5 @@
 syntax = "proto3";
 
-import "google/protobuf/timestamp.proto";
-
-
 package devedor;
 
 service DevedorService {
@@ -47,11 +44,11 @@ message DevedorData {
     optional string deTelefone = 13;
     optional string deFax = 14;
     optional string deEmail = 15;
-    google.protobuf.Timestamp dtCadastro = 16;
+    string dtCadastro = 16;
     optional bool cdEtiqueta = 17;
     optional string deContatoPrincipal = 18;
     int32 idUsuaOper = 19;
-    google.protobuf.Timestamp dtRegistro = 20;
+    string dtRegistro = 20;
     optional string nmBairro = 21;
     optional string deDddCelular = 22;
     optional string deCelular = 23;
@@ -63,10 +60,10 @@ message DevedorData {
     optional string deCelularLogin = 29;
     optional string deTokenNegocie = 30;
     optional string deCodigoNegocie = 31;
-    optional google.protobuf.Timestamp dtCodigoNegocie = 32;
-    optional google.protobuf.Timestamp createdDate = 33;
-    optional google.protobuf.Timestamp updatedDate = 34;
-    optional google.protobuf.Timestamp deletedDate = 35;
+    optional string dtCodigoNegocie = 32;
+    optional string createdDate = 33;
+    optional string updatedDate = 34;
+    optional string deletedDate = 35;
 }
 
 message DevedorUpdateRequest{
