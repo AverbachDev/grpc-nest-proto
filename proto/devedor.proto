@@ -2,8 +2,6 @@ syntax = "proto3";
 
 package devedor;
 
-import "google/protobuf/struct.proto";
-
 service DevedorService {
   rpc list (ListCriteriaRequest) returns (ServiceResponse) {}
   rpc findOne (IdRequest) returns (ServiceResponse) {}
@@ -12,12 +10,6 @@ service DevedorService {
   rpc remove (IdRequest) returns (ServiceResponse) {}
 }
 
-message NullableString {
-    oneof kind {
-        string value = 1;
-        google.protobuf.NullValue null = 2;
-    }
-}
 
 message ListCriteriaRequest {
     int32 idDevedor = 1;
@@ -37,41 +29,41 @@ message IdRequest{
 }
 
 message DevedorData {
-    string deComplemento = 1;
-    int32 idCliente = 2;
-    int32 idMunicipio = 3;
+    optional string deComplemento = 1;
+    optional int32 idCliente = 2;
+    optional int32 idMunicipio = 3;
     string nmDevedor = 4;
     string cdPessoa = 5;
-    string cdCnpjCpf = 6;
-    string deInscEstadual = 7;
-    NullableString deInscMunicipal = 8;
-    string deLogradouro = 9;
-    int32 idDevedorPai = 10;
-    string deCep = 11;
-    string deDdd = 12;
-    string deTelefone = 13;
-    string deFax = 14;
-    string deEmail = 15;
+    optional string cdCnpjCpf = 6;
+    optional string deInscEstadual = 7;
+    optional string deInscMunicipal = 8;
+    optional string deLogradouro = 9;
+    optional int32 idDevedorPai = 10;
+    optional string deCep = 11;
+    optional string deDdd = 12;
+    optional string deTelefone = 13;
+    optional string deFax = 14;
+    optional string deEmail = 15;
     string dtCadastro = 16;
-    bool cdEtiqueta = 17;
-    string deContatoPrincipal = 18;
+    optional bool cdEtiqueta = 17;
+    optional string deContatoPrincipal = 18;
     int32 idUsuaOper = 19;
     string dtRegistro = 20;
-    string nmBairro = 21;
-    string deDddCelular = 22;
-    string deCelular = 23;
-    string cdPesquisado = 24;
-    bool cdWhatsapp = 25;
-    string deDddWhatsapp = 26;
-    string deWhatsapp = 27;
-    string nmFantasia = 28;
-    string deCelularLogin = 29;
-    string deTokenNegocie = 30;
-    string deCodigoNegocie = 31;
-    string dtCodigoNegocie = 32;
-    string createdDate = 33;
-    string updatedDate = 34;
-    string deletedDate = 35;
+    optional string nmBairro = 21;
+    optional string deDddCelular = 22;
+    optional string deCelular = 23;
+    optional string cdPesquisado = 24;
+    optional bool cdWhatsapp = 25;
+    optional string deDddWhatsapp = 26;
+    optional string deWhatsapp = 27;
+    optional string nmFantasia = 28;
+    optional string deCelularLogin = 29;
+    optional string deTokenNegocie = 30;
+    optional string deCodigoNegocie = 31;
+    optional string dtCodigoNegocie = 32;
+    optional string createdDate = 33;
+    optional string updatedDate = 34;
+    optional string deletedDate = 35;
 }
 
 message DevedorUpdateRequest{
