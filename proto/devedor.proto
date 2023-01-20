@@ -2,6 +2,8 @@ syntax = "proto3";
 
 package devedor;
 
+import "google/protobuf/struct.proto";
+
 service DevedorService {
   rpc list (ListCriteriaRequest) returns (ServiceResponse) {}
   rpc findOne (IdRequest) returns (ServiceResponse) {}
@@ -10,6 +12,12 @@ service DevedorService {
   rpc remove (IdRequest) returns (ServiceResponse) {}
 }
 
+message NullableString {
+    oneof kind {
+        string value = 1;
+        google.protobuf.NullValue null = 2;
+    }
+}
 
 message ListCriteriaRequest {
     int32 idDevedor = 1;
@@ -36,7 +44,7 @@ message DevedorData {
     string cdPessoa = 5;
     string cdCnpjCpf = 6;
     string deInscEstadual = 7;
-    string deInscMunicipal = 8;
+    NullableString deInscMunicipal = 8;
     string deLogradouro = 9;
     int32 idDevedorPai = 10;
     string deCep = 11;
