@@ -67,6 +67,9 @@ message CasoJudicialData {
     int32 idStatusCobranca = 34;
     int32 idCliente = 35;
     int32 idDevedor = 36; 
+    string createdDate = 37;
+    string updatedDate = 38;
+    string deletedDate = 39;
 }
 
 message CasoJudicialUpdateRequest{
