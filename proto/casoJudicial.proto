@@ -1,0 +1,82 @@
+syntax = "proto3";
+
+package casoJudicial;
+
+service casoJudicial {
+  rpc list (ListCriteriaRequest) returns (ServiceResponse) {}
+  rpc findOne (IdRequest) returns (ServiceResponse) {}
+  rpc create (CasoJudicialData) returns (ServiceResponse) {}
+  rpc update (CasoJudicialUpdateRequest) returns (ServiceResponse) {}//modificar
+  rpc remove (IdRequest) returns (ServiceResponse) {}
+  rpc getCasoJudicial (IdCasoRequest) returns (ServiceResponse) {}
+}
+
+
+message ListCriteriaRequest {
+    string nmCliente=1; 
+    string nmDevedor=2; 
+    int32 idCaso=3;
+    string cdJudicial=4;
+    int32 items = 5;
+    int32 page = 6;
+    map<string, string> order =7;
+}
+
+message IdRequest{
+    int32 idCasoJudicial = 1;
+}
+
+message IdCasoRequest{
+    int32 idCaso = 1;
+}
+
+message CasoJudicialData {
+    optional int32 idCasoJudicial = 1;
+    optional int32 idCaso = 2;
+    optional string cdProcuracao = 3;
+    optional string dtProcuracao = 4;
+    optional bool cdContratoSocial = 5;
+    optional string dtContrato = 6;
+    optional bool cdAcordo = 7;
+    optional string cdAcao = 8;
+    optional string deAcaoContra = 9;
+    optional string deProcesso = 10;
+    optional string deComarca = 11;
+    optional string deVara = 12;
+    optional string deArqPeticao = 13;
+    optional string dtGeracaoPeticao = 14;
+    optional int32 nuSentenca = 15;
+    optional string dtDocumentacao = 16;
+    optional string dtPrimeiraDoc = 17;
+    optional string dtAcaoConv = 18;
+    optional string dtAjuizamento = 19;
+    optional string dtCitacao = 20;
+    optional string cdProbAjuiz = 21;
+    optional string cdProbPerda = 22;
+    optional string cdJudicial = 23;
+    optional string dtConfissaoDivida = 24;
+    optional string dtInteresseAcompAcao = 25;
+    optional int32 idUsuaOper = 26;
+    optional string dtRegistro = 27;
+    optional string nmCliente = 28;
+    optional string nmDevedor = 29; 
+    optional string nuTotalPrincipal = 30;
+    optional string desMunicipio = 31;
+    optional string dtMinVenc = 32;
+    optional string desStatusCobranca = 33;
+    optional int32 idStatusCobranca = 34;
+    optional int32 idCliente = 35;
+    optional int32 idDevedor = 36; 
+}
+
+message CasoJudicialUpdateRequest{
+    int32 idCasoJudicial = 1;
+    CasoJudicialData CasoJudicial = 2;
+}
+
+message ServiceResponse {
+    int32 status = 1;
+    string message = 2;
+    repeated CasoJudicialData data = 3;
+    string error = 4;
+}

@@ -29,41 +29,42 @@ message IdRequest{
 }
 
 message DevedorData {
-    optional string deComplemento = 1;
-    optional int32 idCliente = 2;
-    optional int32 idMunicipio = 3;
-    string nmDevedor = 4;
-    string cdPessoa = 5;
-    optional string cdCnpjCpf = 6;
-    optional string deInscEstadual = 7;
-    optional string deInscMunicipal = 8;
-    optional string deLogradouro = 9;
-    optional int32 idDevedorPai = 10;
-    optional string deCep = 11;
-    optional string deDdd = 12;
-    optional string deTelefone = 13;
-    optional string deFax = 14;
-    optional string deEmail = 15;
-    string dtCadastro = 16;
-    optional bool cdEtiqueta = 17;
-    optional string deContatoPrincipal = 18;
-    int32 idUsuaOper = 19;
-    string dtRegistro = 20;
-    optional string nmBairro = 21;
-    optional string deDddCelular = 22;
-    optional string deCelular = 23;
-    optional string cdPesquisado = 24;
-    optional bool cdWhatsapp = 25;
-    optional string deDddWhatsapp = 26;
-    optional string deWhatsapp = 27;
-    optional string nmFantasia = 28;
-    optional string deCelularLogin = 29;
-    optional string deTokenNegocie = 30;
-    optional string deCodigoNegocie = 31;
-    optional string dtCodigoNegocie = 32;
-    optional string createdDate = 33;
-    optional string updatedDate = 34;
-    optional string deletedDate = 35;
+    optional int32 idDevedor = 1;
+    optional string deComplemento = 2;
+    optional int32 idCliente = 3;
+    optional int32 idMunicipio = 4;
+    string nmDevedor = 5;
+    string cdPessoa = 6;
+    optional string cdCnpjCpf = 7;
+    optional string deInscEstadual = 8;
+    optional string deInscMunicipal = 9;
+    optional string deLogradouro = 10;
+    optional int32 idDevedorPai = 11;
+    optional string deCep = 12;
+    optional string deDdd = 13;
+    optional string deTelefone = 14;
+    optional string deFax = 15;
+    optional string deEmail = 16;
+    string dtCadastro = 17;
+    optional bool cdEtiqueta = 18;
+    optional string deContatoPrincipal = 19;
+    int32 idUsuaOper = 20;
+    string dtRegistro = 21;
+    optional string nmBairro = 22;
+    optional string deDddCelular = 23;
+    optional string deCelular = 24;
+    optional string cdPesquisado = 25;
+    optional bool cdWhatsapp = 26;
+    optional string deDddWhatsapp = 27;
+    optional string deWhatsapp = 28;
+    optional string nmFantasia = 29;
+    optional string deCelularLogin = 30;
+    optional string deTokenNegocie = 31;
+    optional string deCodigoNegocie = 32;
+    optional string dtCodigoNegocie = 33;
+    optional string createdDate = 34;
+    optional string updatedDate = 35;
+    optional string deletedDate = 36;
 }
 
 message DevedorUpdateRequest{
