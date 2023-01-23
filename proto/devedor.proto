@@ -29,42 +29,42 @@ message IdRequest{
 }
 
 message DevedorData {
-    optional int32 idDevedor = 1;
-    optional string deComplemento = 2;
-    optional int32 idCliente = 3;
-    optional int32 idMunicipio = 4;
+    int32 idDevedor = 1;
+    string deComplemento = 2;
+    int32 idCliente = 3;
+    int32 idMunicipio = 4;
     string nmDevedor = 5;
     string cdPessoa = 6;
-    optional string cdCnpjCpf = 7;
-    optional string deInscEstadual = 8;
-    optional string deInscMunicipal = 9;
-    optional string deLogradouro = 10;
-    optional int32 idDevedorPai = 11;
-    optional string deCep = 12;
-    optional string deDdd = 13;
-    optional string deTelefone = 14;
-    optional string deFax = 15;
-    optional string deEmail = 16;
+    string cdCnpjCpf = 7;
+    string deInscEstadual = 8;
+    string deInscMunicipal = 9;
+    string deLogradouro = 10;
+    int32 idDevedorPai = 11;
+    string deCep = 12;
+    string deDdd = 13;
+    string deTelefone = 14;
+    string deFax = 15;
+    string deEmail = 16;
     string dtCadastro = 17;
-    optional bool cdEtiqueta = 18;
-    optional string deContatoPrincipal = 19;
+    bool cdEtiqueta = 18;
+    string deContatoPrincipal = 19;
     int32 idUsuaOper = 20;
     string dtRegistro = 21;
-    optional string nmBairro = 22;
-    optional string deDddCelular = 23;
-    optional string deCelular = 24;
-    optional string cdPesquisado = 25;
-    optional bool cdWhatsapp = 26;
-    optional string deDddWhatsapp = 27;
-    optional string deWhatsapp = 28;
-    optional string nmFantasia = 29;
-    optional string deCelularLogin = 30;
-    optional string deTokenNegocie = 31;
-    optional string deCodigoNegocie = 32;
-    optional string dtCodigoNegocie = 33;
-    optional string createdDate = 34;
-    optional string updatedDate = 35;
-    optional string deletedDate = 36;
+    string nmBairro = 22;
+    string deDddCelular = 23;
+    string deCelular = 24;
+    string cdPesquisado = 25;
+    bool cdWhatsapp = 26;
+    string deDddWhatsapp = 27;
+    string deWhatsapp = 28;
+    string nmFantasia = 29;
+    string deCelularLogin = 30;
+    string deTokenNegocie = 31;
+    string deCodigoNegocie = 32;
+    string dtCodigoNegocie = 33;
+    string createdDate = 34;
+    string updatedDate = 35;
+    string deletedDate = 36;
 }
 
 message DevedorUpdateRequest{
