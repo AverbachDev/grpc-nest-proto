@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package casoJudicial;
 
-service casoJudicial {
+service CasoJudicialService {
   rpc list (ListCriteriaRequest) returns (ServiceResponse) {}
   rpc findOne (IdRequest) returns (ServiceResponse) {}
   rpc create (CasoJudicialData) returns (ServiceResponse) {}
