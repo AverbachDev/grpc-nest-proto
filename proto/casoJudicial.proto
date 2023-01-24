@@ -45,7 +45,7 @@ message CasoJudicialData {
     string deVara = 12;
     string deArqPeticao = 13;
     string dtGeracaoPeticao = 14;
-    int32 nuSentenca = 15;
+    double nuSentenca = 15;
     string dtDocumentacao = 16;
     string dtPrimeiraDoc = 17;
     string dtAcaoConv = 18;
@@ -60,7 +60,7 @@ message CasoJudicialData {
     string dtRegistro = 27;
     string nmCliente = 28;
     string nmDevedor = 29; 
-    string nuTotalPrincipal = 30;
+    double nuTotalPrincipal = 30;
     string desMunicipio = 31;
     string dtMinVenc = 32;
     string desStatusCobranca = 33;
