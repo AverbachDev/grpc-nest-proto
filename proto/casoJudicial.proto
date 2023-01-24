@@ -33,7 +33,7 @@ message IdCasoRequest{
 message CasoJudicialData {
     int32 idCasoJudicial = 1;
     int32 idCaso = 2;
-    string cdProcuracao = 3;
+    bool cdProcuracao = 3;
     string dtProcuracao = 4;
     bool cdContratoSocial = 5;
     string dtContrato = 6;
