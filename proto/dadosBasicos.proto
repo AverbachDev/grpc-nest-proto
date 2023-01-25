@@ -1,0 +1,114 @@
+syntax = "proto3";
+
+package dadosBasicos;
+
+service DadosBasicosService {
+    rpc listFederacao (ListCriteriaRequestFederacao) returns (ServiceResponseListFederacao) {}
+    rpc findOneFederacao (IdRequest) returns (ServiceResponseFederacao) {}
+    rpc createFederacao (FederacaoData) returns (ServiceResponseFederacao) {}
+    rpc updateFederacao (FederacaoUpdateRequest) returns (ServiceResponseFederacao) {}
+    rpc removeFederacao (IdRequest) returns (ServiceResponseFederacao) {}
+
+    rpc listMunicipio (ListCriteriaRequestMunicipio) returns (ServiceResponseListMunicipio) {}
+    rpc findOneMunicipio (IdRequest) returns (ServiceResponseMunicipio) {}
+    rpc createMunicipio (MunicipioData) returns (ServiceResponseMunicipio) {}
+    rpc updateMunicipio (MunicipioUpdateRequest) returns (ServiceResponseMunicipio) {}
+    rpc removeMunicipio (IdRequest) returns (ServiceResponseMunicipio) {}
+  }
+
+  message IdRequest{
+    int32 id = 1;
+}
+
+//FederacaoData
+
+message ListCriteriaRequestFederacao {
+    string desFederacao = 1;
+    string codFederacao = 2;
+    int32 items = 3;
+    int32 page = 4;
+    map<string, string> order = 5;    
+}
+
+message FederacaoData {
+    int32 idFederacao = 1;
+    string desFederacao = 2;
+    int32 idUsuaOper = 3;
+    string dtRegistro = 4;
+    string codFederacao = 5;
+    int32 idIndiceCorrecao = 6;
+    double nuLatitude = 7;
+    double nuLongitude = 8;
+    string createdDate = 9;
+    string updatedDate = 10;
+    string deletedDate = 11;
+}
+
+message FederacaoUpdateRequest{
+    int32 idFederacao = 1;
+    FederacaoData federacao = 2;
+}
+
+message ServiceResponseFederacao {
+    int32 status = 1;
+    string message = 2;
+    repeated FederacaoData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListFederacao {
+    int32 status = 1;
+    string message = 2;
+    ListResultFederacao data = 3;
+    string error = 4;
+}
+
+message ListResultFederacao {
+    repeated FederacaoData result = 1;
+    int32 total = 2;
+}
+
+//MunicipioData
+
+message ListCriteriaRequestMunicipio {
+    string desMunicipio = 1;
+    int32 idFederacao = 2;
+    int32 items = 3;
+    int32 page = 4;
+    map<string, string> order = 5;
+}
+
+message MunicipioData {
+    int32 idMunicipio = 1;
+    string desMunicipio = 2;
+    int32 idUsuaOper = 3;
+    string dtRegistro = 4;
+    int32 idFederacao = 5;
+    string createdDate = 6;
+    string updatedDate = 7;
+    string deletedDate = 8;
+}
+
+message MunicipioUpdateRequest {
+    int32 idMunicipio = 1;
+    MunicipioData municipio = 2;
+}
+
+message ServiceResponseMunicipio {
+    int32 status = 1;
+    string message = 2;
+    repeated MunicipioData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListMunicipio {
+    int32 status = 1;
+    string message = 2;
+    ListResultMunicipio data = 3;
+    string error = 4;
+}
+
+message ListResultMunicipio {
+    repeated MunicipioData result = 1;
+    int32 total = 2;
+}
