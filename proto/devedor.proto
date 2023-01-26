@@ -2,16 +2,31 @@ syntax = "proto3";
 
 package devedor;
 
+
 service DevedorService {
-  rpc list (ListCriteriaRequest) returns (ServiceResponse) {}
-  rpc findOne (IdRequest) returns (ServiceResponse) {}
-  rpc create (DevedorData) returns (ServiceResponse) {}
-  rpc update (DevedorUpdateRequest) returns (ServiceResponse) {}//modificar
-  rpc remove (IdRequest) returns (ServiceResponse) {}
+  //Devedor
+  rpc listDevedor (ListCriteriaRequestDevedor) returns (ServiceResponseListDevedor) {}
+  rpc findOneDevedor (IdRequest) returns (ServiceResponseDevedor) {}
+  rpc createDevedor (DevedorData) returns (ServiceResponseDevedor) {}
+  rpc updateDevedor (DevedorUpdateRequest) returns (ServiceResponseDevedor) {}
+  rpc removeDevedor (IdRequest) returns (ServiceResponseDevedor) {}
+
+  //Contato
+  rpc listContato (ListCriteriaRequestContato) returns (ServiceResponseListContato) {}
+  rpc findOneContato (IdRequest) returns (ServiceResponseContato) {}
+  rpc createContato (ContatoData) returns (ServiceResponseContato) {}
+  rpc updateContato (ContatoUpdateRequest) returns (ServiceResponseContato) {} 
+  rpc removeContato (IdRequest) returns (ServiceResponseContato) {}
 }
 
 
-message ListCriteriaRequest {
+message IdRequest{
+    int32 id = 1;
+}
+
+//Devedor
+
+message ListCriteriaRequestDevedor {
     int32 idDevedor = 1;
     string nmDevedor = 2; 
     string deEmail = 3;
@@ -22,10 +37,6 @@ message ListCriteriaRequest {
     int32 items = 8;
     int32 page = 9;
     map<string, string> order =10;
-}
-
-message IdRequest{
-    int32 idDevedor = 1;
 }
 
 message DevedorData {
@@ -69,12 +80,85 @@ message DevedorData {
 
 message DevedorUpdateRequest{
     int32 idDevedor = 1;
-    DevedorData Devedor = 2;
+    DevedorData devedor = 2;
 }
 
-message ServiceResponse {
+message ServiceResponseDevedor {
     int32 status = 1;
     string message = 2;
     repeated DevedorData data = 3;
     string error = 4;
 }
+
+message ServiceResponseListDevedor {
+    int32 status = 1;
+    string message = 2;
+    ListResultDevedor data = 3;
+    string error = 4;
+}
+
+message ListResultDevedor {
+    repeated DevedorData result = 1;
+    int32 total = 2;
+}
+
+
+//Contato
+
+message ListCriteriaRequestContato {
+    string idDevedor = 1;
+    string nmContato = 2; 
+    string deEmail = 3;
+    string deDdd = 4;
+    string deTelefone = 5;
+    int32 items = 6;
+    int32 page = 7;
+    map<string, string> order =8;
+}
+
+message ContatoData {
+    int32 idContato = 1;
+    string deDdd = 2;
+    int32 idDevedor = 3;
+    string nmContato = 4;
+    string deTelefone = 5;
+    string deEmail = 6;
+    bool cdCopiaremail = 7;
+    int32 idUsuaOper = 8;
+    string deInscMunicipal = 9;
+    string dtRegistro = 10;
+    int32 idDevedorPai = 11;
+    string deCargo = 12;
+    int32 idPerfil = 13;
+    bool cdPrincipal = 14;
+    bool cdDadosAdicionais = 15;
+    bool cdWhatsapp = 16;
+    string createdDate = 17;
+    string updatedDate = 18;
+    string deletedDate = 19;
+}
+
+message ContatoUpdateRequest{
+    int32 id = 1;
+    DevedorData cevedor = 2;
+}
+
+message ServiceResponseContato {
+    int32 status = 1;
+    string message = 2;
+    repeated ContatoData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListContato {
+    int32 status = 1;
+    string message = 2;
+    ListResultContato data = 3;
+    string error = 4;
+}
+
+message ListResultContato {
+    repeated ContatoData result = 1;
+    int32 total = 2;
+}
+

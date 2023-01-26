@@ -1,18 +1,26 @@
 syntax = "proto3";
 
-package casoJudicial;
+package juridico;
 
-service CasoJudicialService {
-  rpc list (ListCriteriaRequest) returns (ServiceResponse) {}
-  rpc findOne (IdRequest) returns (ServiceResponse) {}
-  rpc create (CasoJudicialData) returns (ServiceResponse) {}
-  rpc update (CasoJudicialUpdateRequest) returns (ServiceResponse) {}//modificar
-  rpc remove (IdRequest) returns (ServiceResponse) {}
-  rpc getCasoJudicial (IdCasoRequest) returns (ServiceResponse) {}
+service JuridicoService {
+
+  //Caso Judicial
+  rpc listCasoJudicial (ListCriteriaRequestCasoJudicial) returns (ServiceResponseListCasoJudicial) {}
+  rpc findOneCasoJudicial (IdRequest) returns (ServiceResponseCasoJudicial) {}
+  rpc createCasoJudicial (CasoJudicialData) returns (ServiceResponseCasoJudicial) {}
+  rpc updateCasoJudicial (CasoJudicialUpdateRequest) returns (ServiceResponseCasoJudicial) {}//modificar
+  rpc removeCasoJudicial (IdRequest) returns (ServiceResponseCasoJudicial) {}
+  rpc getCasoJudicial (IdCasoRequest) returns (ServiceResponseCasoJudicial) {}
+
+  //
 }
 
+message IdRequest{
+    int32 id = 1;
+}
 
-message ListCriteriaRequest {
+//Caso Judicial
+message ListCriteriaRequestCasoJudicial {
     string nmCliente=1; 
     string nmDevedor=2; 
     int32 idCaso=3;
@@ -22,9 +30,6 @@ message ListCriteriaRequest {
     map<string, string> order =7;
 }
 
-message IdRequest{
-    int32 idCasoJudicial = 1;
-}
 
 message IdCasoRequest{
     int32 idCaso = 1;
@@ -74,12 +79,24 @@ message CasoJudicialData {
 
 message CasoJudicialUpdateRequest{
     int32 idCasoJudicial = 1;
-    CasoJudicialData CasoJudicial = 2;
+    CasoJudicialData casoJudicial = 2;
 }
 
-message ServiceResponse {
+message ServiceResponseCasoJudicial {
     int32 status = 1;
     string message = 2;
     repeated CasoJudicialData data = 3;
     string error = 4;
+}
+
+message ServiceResponseListCasoJudicial {
+    int32 status = 1;
+    string message = 2;
+    ListResultCasoJudicial data = 3;
+    string error = 4;
+}
+
+message ListResultCasoJudicial {
+    repeated CasoJudicialData result = 1;
+    int32 total = 2;
 }
