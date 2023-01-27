@@ -14,6 +14,12 @@ service DadosBasicosService {
     rpc createMunicipio (MunicipioData) returns (ServiceResponseMunicipio) {}
     rpc updateMunicipio (MunicipioUpdateRequest) returns (ServiceResponseMunicipio) {}
     rpc removeMunicipio (IdRequest) returns (ServiceResponseMunicipio) {}
+
+    rpc listStatusCobranca (ListCriteriaRequestStatusCobranca) returns (ServiceResponseListStatusCobranca) {}
+    rpc findOneStatusCobranca (IdRequest) returns (ServiceResponseStatusCobranca) {}
+    rpc createStatusCobranca (StatusCobrancaData) returns (ServiceResponseStatusCobranca) {}
+    rpc updateStatusCobranca (StatusCobrancaUpdateRequest) returns (ServiceResponseStatusCobranca) {}
+    rpc removeStatusCobranca (IdRequest) returns (ServiceResponseStatusCobranca) {}
   }
 
   message IdRequest{
@@ -21,7 +27,6 @@ service DadosBasicosService {
 }
 
 //FederacaoData
-
 message ListCriteriaRequestFederacao {
     string desFederacao = 1;
     string codFederacao = 2;
@@ -69,7 +74,6 @@ message ListResultFederacao {
 }
 
 //MunicipioData
-
 message ListCriteriaRequestMunicipio {
     string desMunicipio = 1;
     int32 idFederacao = 2;
@@ -110,5 +114,47 @@ message ServiceResponseListMunicipio {
 
 message ListResultMunicipio {
     repeated MunicipioData result = 1;
+    int32 total = 2;
+}
+
+//StatusCobranca
+message ListCriteriaRequestStatusCobranca {
+    string desStatusCobranca = 1;    
+    int32 items = 2;
+    int32 page = 3;
+    map<string, string> order = 4;
+}
+
+message StatusCobrancaData {
+    int32 idStatusCobranca = 1;
+    string desStatusCobranca = 2;
+    int32 idUsuaOper = 3;
+    string dtRegistro = 4;    
+    string createdDate = 5;
+    string updatedDate = 6;
+    string deletedDate = 7;
+}
+
+message StatusCobrancaUpdateRequest {
+    int32 idStatusCobranca = 1;
+    StatusCobrancaData statusCobranca = 2;
+}
+
+message ServiceResponseStatusCobranca {
+    int32 status = 1;
+    string message = 2;
+    repeated StatusCobrancaData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListStatusCobranca {
+    int32 status = 1;
+    string message = 2;
+    ListResultStatusCobranca data = 3;
+    string error = 4;
+}
+
+message ListResultStatusCobranca {
+    repeated StatusCobrancaData result = 1;
     int32 total = 2;
 }
