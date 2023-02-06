@@ -127,15 +127,14 @@ message ContatoData {
     int32 idUsuaOper = 8;
     string deInscMunicipal = 9;
     string dtRegistro = 10;
-    int32 idDevedorPai = 11;
-    string deCargo = 12;
-    int32 idPerfil = 13;
-    bool cdPrincipal = 14;
-    bool cdDadosAdicionais = 15;
-    bool cdWhatsapp = 16;
-    string createdDate = 17;
-    string updatedDate = 18;
-    string deletedDate = 19;
+    string deCargo = 11;
+    int32 idPerfil = 12;
+    bool cdPrincipal = 13;
+    bool cdDadosAdicionais = 14;
+    bool cdWhatsapp = 15;
+    string createdDate = 16;
+    string updatedDate = 17;
+    string deletedDate = 18;
 }
 
 message ContatoUpdateRequest{
