@@ -125,16 +125,15 @@ message ContatoData {
     string deEmail = 6;
     bool cdCopiaremail = 7;
     int32 idUsuaOper = 8;
-    string deInscMunicipal = 9;
-    string dtRegistro = 10;
-    string deCargo = 11;
-    int32 idPerfil = 12;
-    bool cdPrincipal = 13;
-    bool cdDadosAdicionais = 14;
-    bool cdWhatsapp = 15;
-    string createdDate = 16;
-    string updatedDate = 17;
-    string deletedDate = 18;
+    string dtRegistro = 9;
+    string deCargo = 10;
+    int32 idPerfil = 11;
+    bool cdPrincipal = 12;
+    bool cdDadosAdicionais = 13;
+    bool cdWhatsapp = 14;
+    string createdDate = 15;
+    string updatedDate = 16;
+    string deletedDate = 17;
 }
 
 message ContatoUpdateRequest{
