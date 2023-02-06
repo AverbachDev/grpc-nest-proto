@@ -140,7 +140,7 @@ message ContatoData {
 
 message ContatoUpdateRequest{
     int32 id = 1;
-    DevedorData cevedor = 2;
+    ContatoData contato = 2;
 }
 
 message ServiceResponseContato {
