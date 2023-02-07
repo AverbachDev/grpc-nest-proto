@@ -21,7 +21,7 @@ service JuridicoService {
 
   //Acordo Judicial
   rpc listAcordoJudicial (ListCriteriaRequestAcordoJudicial) returns (ServiceResponseListAcordoJudicial) {}
-  rpc findAcordoJudicial (IdRequest) returns (ServiceResponseAcordoJudicial) {}
+  rpc findOneAcordoJudicial (IdRequest) returns (ServiceResponseAcordoJudicial) {}
   rpc createAcordoJudicial (AcordoJudicialData) returns (ServiceResponseAcordoJudicial) {}
   rpc updateAcordoJudicial (AcordoJudicialUpdateRequest) returns (ServiceResponseAcordoJudicial) {}
   rpc removeAcordoJudicial (IdRequest) returns (ServiceResponseAcordoJudicial) {}   
@@ -29,7 +29,7 @@ service JuridicoService {
 
   //Parcela Judicial
   rpc listParcelaJudicial (ListCriteriaRequestParcelaJudicial) returns (ServiceResponseListParcelaJudicial) {}
-  rpc findParcelaJudicial (IdRequest) returns (ServiceResponseParcelaJudicial) {}
+  rpc findOneParcelaJudicial (IdRequest) returns (ServiceResponseParcelaJudicial) {}
   rpc createParcelaJudicial (ParcelaJudicialData) returns (ServiceResponseParcelaJudicial) {}
   rpc updateParcelaJudicial (ParcelaJudicialUpdateRequest) returns (ServiceResponseParcelaJudicial) {}
   rpc removeParcelaJudicial (IdRequest) returns (ServiceResponseParcelaJudicial) {}     
