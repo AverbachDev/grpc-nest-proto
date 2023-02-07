@@ -8,16 +8,40 @@ service JuridicoService {
   rpc listCasoJudicial (ListCriteriaRequestCasoJudicial) returns (ServiceResponseListCasoJudicial) {}
   rpc findOneCasoJudicial (IdRequest) returns (ServiceResponseCasoJudicial) {}
   rpc createCasoJudicial (CasoJudicialData) returns (ServiceResponseCasoJudicial) {}
-  rpc updateCasoJudicial (CasoJudicialUpdateRequest) returns (ServiceResponseCasoJudicial) {}//modificar
+  rpc updateCasoJudicial (CasoJudicialUpdateRequest) returns (ServiceResponseCasoJudicial) {}
   rpc removeCasoJudicial (IdRequest) returns (ServiceResponseCasoJudicial) {}
   rpc getCasoJudicial (IdCasoRequest) returns (ServiceResponseCasoJudicial) {}
 
-  //
+  //Titulo Judicial
+  rpc listTituloJudicial (ListCriteriaRequestTituloJudicial) returns (ServiceResponseListTituloJudicial) {}
+  rpc findOneTituloJudicial (IdRequest) returns (ServiceResponseTituloJudicial) {}
+  rpc createTituloJudicial (TituloJudicialData) returns (ServiceResponseTituloJudicial) {}
+  rpc updateTituloJudicial (TituloJudicialUpdateRequest) returns (ServiceResponseTituloJudicial) {}
+  rpc removeTituloJudicial (IdRequest) returns (ServiceResponseTituloJudicial) {} 
+
+  //Acordo Judicial
+  rpc listAcordoJudicial (ListCriteriaRequestAcordoJudicial) returns (ServiceResponseListAcordoJudicial) {}
+  rpc findAcordoJudicial (IdRequest) returns (ServiceResponseAcordoJudicial) {}
+  rpc createAcordoJudicial (AcordoJudicialData) returns (ServiceResponseAcordoJudicial) {}
+  rpc updateAcordoJudicial (AcordoJudicialUpdateRequest) returns (ServiceResponseAcordoJudicial) {}
+  rpc removeAcordoJudicial (IdRequest) returns (ServiceResponseAcordoJudicial) {}   
+
+
+  //Parcela Judicial
+  rpc listParcelaJudicial (ListCriteriaRequestParcelaJudicial) returns (ServiceResponseListParcelaJudicial) {}
+  rpc findParcelaJudicial (IdRequest) returns (ServiceResponseParcelaJudicial) {}
+  rpc createParcelaJudicial (ParcelaJudicialData) returns (ServiceResponseParcelaJudicial) {}
+  rpc updateParcelaJudicial (ParcelaJudicialUpdateRequest) returns (ServiceResponseParcelaJudicial) {}
+  rpc removeParcelaJudicial (IdRequest) returns (ServiceResponseParcelaJudicial) {}     
 }
 
 message IdRequest{
     int32 id = 1;
 }
+
+
+
+
 
 //Caso Judicial
 message ListCriteriaRequestCasoJudicial {
@@ -98,5 +122,195 @@ message ServiceResponseListCasoJudicial {
 
 message ListResultCasoJudicial {
     repeated CasoJudicialData result = 1;
+    int32 total = 2;
+}
+
+
+  //Titulo Judicial
+
+message TituloJudicialUpdateRequest{
+    int32 idTituloJudicial = 1;
+    TituloJudicialData tituloJudicialData = 2;
+}  
+
+message ListCriteriaRequestTituloJudicial {
+    int32 idTituloJudicial=1; 
+    int32 idCasoJudicial=2; 
+    string deDoc=3;
+    int32 items = 4;
+    int32 page = 5;
+    map<string, string> order =6;
+}
+
+message TituloJudicialData {
+    int32 idTituloJudicial = 1;
+    int32 idCasoJudicial = 2;
+    string deDoc = 3;
+    double nuValor = 4;
+    string dtVenc = 5;
+    double nuProtesto = 6;
+    double perMulta = 7;
+    double nuMulta = 8;
+    string dtMulta = 9;
+    string cdMulta = 10;
+    double perJuros = 11;
+    double nuJuros = 12;
+    string dtJuros = 13;
+    string cdJuros = 14;
+    double nuCorrecao = 15;
+    string dtCorrecao = 16;
+    string cdCorrecao = 17;
+    double perHonorDevedor = 18;
+    double nuHonorDevedor = 19;
+    int32 idIndiceCorrecao = 20;
+    int32 idContrato = 21;
+    int32 idUsuaOper = 22;
+    string dtRegistro = 23;
+    string createdDate = 24;
+    string updatedDate = 25;
+    string deletedDate = 26;
+}
+
+message ServiceResponseTituloJudicial {
+    int32 status = 1;
+    string message = 2;
+    repeated TituloJudicialData data = 3;
+    string error = 4;
+}
+
+
+message ServiceResponseListTituloJudicial {
+    int32 status = 1;
+    string message = 2;
+    ListResultTituloJudicial data = 3;
+    string error = 4;
+}
+
+message ListResultTituloJudicial {
+    repeated CasoJudicialData result = 1;
+    int32 total = 2;
+}
+
+
+//Acordo Judicial
+message ListCriteriaRequestAcordoJudicial {
+    int32 idAcordoJudicial=1; 
+    int32 idCasoJudicial=2; 
+    int32 items = 3;
+    int32 page = 4;
+    map<string, string> order =5;
+}
+
+message AcordoJudicialData {
+    int32 idAcordoJudicial = 1;
+    int32 idCasoJudicial = 2;
+    double perPrincipal = 3;
+    double nuPrincipal = 4;
+    double nuPrincipalDevido = 5;
+    double perJuros = 6;
+    double nuJuros = 7;
+    double perMulta = 8;
+    double nuMulta = 9;
+    double perCorrecao = 10;
+    double nuCorrecao = 11;
+    double perProtesto = 12;
+    double nuProtesto = 13;
+    double perHonorDevedor = 14;
+    double nuHonorDevedor = 15;
+    double cdHonorDevedor = 16;
+    double perCustas = 17;
+    double nuCustas = 18;
+    double perJurosAcordo = 19;
+    double nuJurosAcordo = 20;
+    double perJurosInadimplencia = 21;
+    double nuJurosInadimplencia = 22;
+    double perMultaInadimplencia = 23;
+    double nuMultaInadimplencia = 24;
+    int32 idIndiceCorrecao = 25;
+    double nuCorrecaoInadimplencia = 26;
+    string dtAcordo = 27;
+    string dtFimAcordo = 28;
+    int32 idUsuaOper = 29;
+    string dtRegistro = 30;
+    string createdDate = 31;
+    string updatedDate = 32;
+    string deletedDate = 33;
+    repeated ParcelaJudicialData parcelaJudicials = 34;
+}
+
+message AcordoJudicialUpdateRequest{
+    int32 idAcordoJudicial = 1;
+    AcordoJudicialData acordoJudicialData = 2;
+}
+
+message ServiceResponseAcordoJudicial {
+    int32 status = 1;
+    string message = 2;
+    repeated AcordoJudicialData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListAcordoJudicial {
+    int32 status = 1;
+    string message = 2;
+    ListResultAcordoJudicial data = 3;
+    string error = 4;
+}
+
+message ListResultAcordoJudicial {
+    repeated AcordoJudicialData result = 1;
+    int32 total = 2;
+}
+
+
+//Parcela Judicial
+
+message ListCriteriaRequestParcelaJudicial {
+    int32 idParcelaJudicial=1; 
+    int32 idAcordoJudicial=2; 
+    int32 items = 3;
+    int32 page = 4;
+    map<string, string> order =5;
+}
+
+
+message ParcelaJudicialData {
+    int32 idParcelaJudicial = 1;
+    int32 idAcordoJudicial = 2;
+    int32 idNatureza = 3;
+    string deParcela = 4;
+    double nuValor = 5;
+    string dtVenc = 6;
+    int32 idPagtoJudical = 7;
+    double nuValorPago = 8;
+    string dtPagto = 9;
+    int32 idUsuaOper = 10;
+    string dtRegistro = 11;
+    string createdDate = 12;
+    string updatedDate = 13;
+    string deletedDate = 14;
+}
+
+message ParcelaJudicialUpdateRequest{
+    int32 idParcelaJudicial = 1;
+    ParcelaJudicialData parcelaJudicialData = 2;
+}
+
+message ServiceResponseParcelaJudicial {
+    int32 status = 1;
+    string message = 2;
+    repeated ParcelaJudicialData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListParcelaJudicial {
+    int32 status = 1;
+    string message = 2;
+    ListResultParcelaJudicial data = 3;
+    string error = 4;
+}
+
+message ListResultParcelaJudicial {
+    repeated ParcelaJudicialData result = 1;
     int32 total = 2;
 }
