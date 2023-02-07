@@ -217,7 +217,7 @@ message AcordoJudicialData {
     double nuProtesto = 13;
     double perHonorDevedor = 14;
     double nuHonorDevedor = 15;
-    double cdHonorDevedor = 16;
+    bool cdHonorDevedor = 16;
     double perCustas = 17;
     double nuCustas = 18;
     double perJurosAcordo = 19;
