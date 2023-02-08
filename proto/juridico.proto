@@ -145,30 +145,31 @@ message ListCriteriaRequestTituloJudicial {
 message TituloJudicialData {
     int32 idTituloJudicial = 1;
     int32 idCasoJudicial = 2;
-    string deDoc = 3;
-    double nuValor = 4;
-    string dtVenc = 5;
-    double nuProtesto = 6;
-    double perMulta = 7;
-    double nuMulta = 8;
-    string dtMulta = 9;
-    string cdMulta = 10;
-    double perJuros = 11;
-    double nuJuros = 12;
-    string dtJuros = 13;
-    string cdJuros = 14;
-    double nuCorrecao = 15;
-    string dtCorrecao = 16;
-    string cdCorrecao = 17;
-    double perHonorDevedor = 18;
-    double nuHonorDevedor = 19;
-    int32 idIndiceCorrecao = 20;
-    int32 idContrato = 21;
-    int32 idUsuaOper = 22;
-    string dtRegistro = 23;
-    string createdDate = 24;
-    string updatedDate = 25;
-    string deletedDate = 26;
+    int32 idTitulo = 3;
+    string deDoc = 4;
+    double nuValor = 5;
+    string dtVenc = 6;
+    double nuProtesto = 7;
+    double perMulta = 8;
+    double nuMulta = 9;
+    string dtMulta = 10;
+    string cdMulta = 11;
+    double perJuros = 12;
+    double nuJuros = 13;
+    string dtJuros = 14;
+    string cdJuros = 15;
+    double nuCorrecao = 16;
+    string dtCorrecao = 17;
+    string cdCorrecao = 18;
+    double perHonorDevedor = 19;
+    double nuHonorDevedor = 20;
+    int32 idIndiceCorrecao = 21;
+    int32 idContrato = 22;
+    int32 idUsuaOper = 23;
+    string dtRegistro = 24;
+    string createdDate = 25;
+    string updatedDate = 26;
+    string deletedDate = 27;
 }
 
 message ServiceResponseTituloJudicial {
@@ -187,7 +188,7 @@ message ServiceResponseListTituloJudicial {
 }
 
 message ListResultTituloJudicial {
-    repeated CasoJudicialData result = 1;
+    repeated TituloJudicialData result = 1;
     int32 total = 2;
 }
 
