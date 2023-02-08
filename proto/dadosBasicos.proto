@@ -3,30 +3,97 @@ syntax = "proto3";
 package dadosBasicos;
 
 service DadosBasicosService {
+    //
     rpc listFederacao (ListCriteriaRequestFederacao) returns (ServiceResponseListFederacao) {}
     rpc findOneFederacao (IdRequest) returns (ServiceResponseFederacao) {}
     rpc createFederacao (FederacaoData) returns (ServiceResponseFederacao) {}
     rpc updateFederacao (FederacaoUpdateRequest) returns (ServiceResponseFederacao) {}
     rpc removeFederacao (IdRequest) returns (ServiceResponseFederacao) {}
-
+    //
     rpc listMunicipio (ListCriteriaRequestMunicipio) returns (ServiceResponseListMunicipio) {}
     rpc findOneMunicipio (IdRequest) returns (ServiceResponseMunicipio) {}
     rpc createMunicipio (MunicipioData) returns (ServiceResponseMunicipio) {}
     rpc updateMunicipio (MunicipioUpdateRequest) returns (ServiceResponseMunicipio) {}
     rpc removeMunicipio (IdRequest) returns (ServiceResponseMunicipio) {}
-
+    //
     rpc listStatusCobranca (ListCriteriaRequestStatusCobranca) returns (ServiceResponseListStatusCobranca) {}
     rpc findOneStatusCobranca (IdRequest) returns (ServiceResponseStatusCobranca) {}
     rpc createStatusCobranca (StatusCobrancaData) returns (ServiceResponseStatusCobranca) {}
     rpc updateStatusCobranca (StatusCobrancaUpdateRequest) returns (ServiceResponseStatusCobranca) {}
     rpc removeStatusCobranca (IdRequest) returns (ServiceResponseStatusCobranca) {}
-  }
+    //
+    rpc listNatureza (ListCriteriaRequestNatureza) returns (ServiceResponseListNatureza) {}
+    rpc findOneNatureza (IdRequest) returns (ServiceResponseNatureza) {}
+    rpc createNatureza (NaturezaData) returns (ServiceResponseNatureza) {}
+    rpc updateNatureza (NaturezaUpdateRequest) returns (ServiceResponseNatureza) {}
+    rpc removeNatureza (IdRequest) returns (ServiceResponseNatureza) {}
+    //
+    rpc listBanco (ListCriteriaRequestBanco) returns (ServiceResponseListBanco) {}
+    rpc findOneBanco (IdRequest) returns (ServiceResponseBanco) {}
+    rpc createBanco (BancoData) returns (ServiceResponseBanco) {}
+    rpc updateBanco (BancoUpdateRequest) returns (ServiceResponseBanco) {}
+    rpc removeBanco (IdRequest) returns (ServiceResponseBanco) {}
+    //
+    rpc listAgenciaBradesco (ListCriteriaRequestAgenciaBradesco) returns (ServiceResponseListAgenciaBradesco) {}
+    rpc findOneAgenciaBradesco (IdRequest) returns (ServiceResponseAgenciaBradesco) {}
+    rpc createAgenciaBradesco (AgenciaBradescoData) returns (ServiceResponseAgenciaBradesco) {}
+    rpc updateAgenciaBradesco (AgenciaBradescoUpdateRequest) returns (ServiceResponseAgenciaBradesco) {}
+    rpc removeAgenciaBradesco (IdRequest) returns (ServiceResponseAgenciaBradesco) {}
+    //
+    rpc listNaturezaCusta (ListCriteriaRequestNaturezaCusta) returns (ServiceResponseListNaturezaCusta) {}
+    rpc findOneNaturezaCusta (IdRequest) returns (ServiceResponseNaturezaCusta) {}
+    rpc createNaturezaCusta (NaturezaCustaData) returns (ServiceResponseNaturezaCusta) {}
+    rpc updateNaturezaCusta (NaturezaCustaUpdateRequest) returns (ServiceResponseNaturezaCusta) {}
+    rpc removeNaturezaCusta (IdRequest) returns (ServiceResponseNaturezaCusta) {}
+    //
+    rpc listIndiceCorrecao (ListCriteriaRequestIndiceCorrecao) returns (ServiceResponseListIndiceCorrecao) {}
+    rpc findOneIndiceCorrecao (IdRequest) returns (ServiceResponseIndiceCorrecao) {}
+    rpc createIndiceCorrecao (IndiceCorrecaoData) returns (ServiceResponseIndiceCorrecao) {}
+    rpc updateIndiceCorrecao (IndiceCorrecaoUpdateRequest) returns (ServiceResponseIndiceCorrecao) {}
+    rpc removeIndiceCorrecao (IdRequest) returns (ServiceResponseIndiceCorrecao) {}
+    //
+    rpc listImposto (ListCriteriaRequestImposto) returns (ServiceResponseListImposto) {}
+    rpc findOneImposto (IdRequest) returns (ServiceResponseImposto) {}
+    rpc createImposto (ImpostoData) returns (ServiceResponseImposto) {}
+    rpc updateImposto (ImpostoUpdateRequest) returns (ServiceResponseImposto) {}
+    rpc removeImposto (IdRequest) returns (ServiceResponseImposto) {}
+    //
+    rpc listParametro (ListCriteriaRequestParametro) returns (ServiceResponseListParametro) {}
+    rpc findOneParametro (IdRequest) returns (ServiceResponseParametro) {}
+    rpc createParametro (ParametroData) returns (ServiceResponseParametro) {}
+    rpc updateParametro (ParametroUpdateRequest) returns (ServiceResponseParametro) {}
+    rpc removeParametro (IdRequest) returns (ServiceResponseParametro) {}
+    //
+    rpc listFeriado (ListCriteriaRequestFeriado) returns (ServiceResponseListFeriado) {}
+    rpc findOneFeriado (IdRequest) returns (ServiceResponseFeriado) {}
+    rpc createFeriado (FeriadoData) returns (ServiceResponseFeriado) {}
+    rpc updateFeriado (FeriadoUpdateRequest) returns (ServiceResponseFeriado) {}
+    rpc removeFeriado (IdRequest) returns (ServiceResponseFeriado) {}
+    //
+    rpc listPromoter (ListCriteriaRequestPromoter) returns (ServiceResponseListPromoter) {}
+    rpc findOnePromoter (IdRequest) returns (ServiceResponsePromoter) {}
+    rpc createPromoter (PromoterData) returns (ServiceResponsePromoter) {}
+    rpc updatePromoter (PromoterUpdateRequest) returns (ServiceResponsePromoter) {}
+    rpc removePromoter (IdRequest) returns (ServiceResponsePromoter) {}
+    //
+    rpc listOcorrenciaLigacao (ListCriteriaRequestOcorrenciaLigacao) returns (ServiceResponseListOcorrenciaLigacao) {}
+    rpc findOneOcorrenciaLigacao (IdRequest) returns (ServiceResponseOcorrenciaLigacao) {}
+    rpc createOcorrenciaLigacao (OcorrenciaLigacaoData) returns (ServiceResponseOcorrenciaLigacao) {}
+    rpc updateOcorrenciaLigacao (OcorrenciaLigacaoUpdateRequest) returns (ServiceResponseOcorrenciaLigacao) {}
+    rpc removeOcorrenciaLigacao (IdRequest) returns (ServiceResponseOcorrenciaLigacao) {}
+    //
+    rpc listSegmento (ListCriteriaRequestSegmento) returns (ServiceResponseListSegmento) {}
+    rpc findOneSegmento (IdRequest) returns (ServiceResponseSegmento) {}
+    rpc createSegmento (SegmentoData) returns (ServiceResponseSegmento) {}
+    rpc updateSegmento (SegmentoUpdateRequest) returns (ServiceResponseSegmento) {}
+    rpc removeSegmento (IdRequest) returns (ServiceResponseSegmento) {}    
+}
 
   message IdRequest{
     int32 id = 1;
 }
 
-//FederacaoData
+//Federacao
 message ListCriteriaRequestFederacao {
     string desFederacao = 1;
     string codFederacao = 2;
@@ -73,7 +140,7 @@ message ListResultFederacao {
     int32 total = 2;
 }
 
-//MunicipioData
+//Municipio
 message ListCriteriaRequestMunicipio {
     string desMunicipio = 1;
     int32 idFederacao = 2;
@@ -156,5 +223,514 @@ message ServiceResponseListStatusCobranca {
 
 message ListResultStatusCobranca {
     repeated StatusCobrancaData result = 1;
+    int32 total = 2;
+}
+
+//Natureza
+message ListCriteriaRequestNatureza {
+    string desNatureza = 1;    
+    int32 items = 2;
+    int32 page = 3;
+    map<string, string> order = 4;
+}
+
+message NaturezaData {
+    int32 idNatureza = 1;
+    string desNatureza = 2;
+    string codFebraban = 3;
+    int32 idUsuaOper = 4;
+    string dtRegistro = 5;
+    string cdCnabBB = 6;
+    bool cdSite = 7;
+    string createdDate = 8;
+    string updatedDate = 9;
+    string deletedDate = 10;
+}
+
+message NaturezaUpdateRequest {
+    int32 idNatureza = 1;
+    NaturezaData natureza = 2;
+}
+
+message ServiceResponseNatureza {
+    int32 status = 1;
+    string message = 2;
+    repeated NaturezaData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListNatureza {
+    int32 status = 1;
+    string message = 2;
+    ListResultNatureza data = 3;
+    string error = 4;
+}
+
+message ListResultNatureza {
+    repeated NaturezaData result = 1;
+    int32 total = 2;
+}
+
+//Banco
+message ListCriteriaRequestBanco {
+    string desBanco = 1;    
+    string codBanco = 2;
+    int32 items = 3;
+    int32 page = 4;
+    map<string, string> order = 5;
+}
+
+message BancoData {
+    int32 idBanco = 1;
+    string desBanco = 2;
+    string codBanco = 3;
+    int32 idUsuaOper = 4;
+    string dtRegistro = 5;    
+    string createdDate = 6;
+    string updatedDate = 7;
+    string deletedDate = 8;
+}
+
+message BancoUpdateRequest {
+    int32 idBanco = 1;
+    BancoData banco = 2;
+}
+
+message ServiceResponseBanco {
+    int32 status = 1;
+    string message = 2;
+    repeated BancoData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListBanco {
+    int32 status = 1;
+    string message = 2;
+    ListResultBanco data = 3;
+    string error = 4;
+}
+
+message ListResultBanco {
+    repeated BancoData result = 1;
+    int32 total = 2;
+}
+
+//AgenciaBradesco
+message ListCriteriaRequestAgenciaBradesco {
+    string nuAgencia = 1;    
+    string deAgencia = 2;
+    string nuConta = 3;
+    string deCodigoCarteira = 4;    
+    int32 items = 5;
+    int32 page = 6;
+    map<string, string> order = 7;
+}
+
+message AgenciaBradescoData {
+    int32 idAgencia = 1;
+    string nuAgencia = 2;
+    string deAgencia = 3;
+    string nuConta = 4;
+    string nuDigConta = 5;
+    int32 idFederacao = 6;
+    int32 idBanco = 7;
+    double nuValorMin = 8;
+    double nuValorMax = 9;
+    double nuValorBoleto = 10;
+    int32 idUsuaOper = 11;
+    string dtRegistro = 12;
+    bool cdPadrao = 13;
+    string deCodigoCarteira = 14;  
+    string createdDate = 15;
+    string updatedDate = 16;
+    string deletedDate = 17;
+}
+
+message AgenciaBradescoUpdateRequest {
+    int32 idAgencia = 1;
+    AgenciaBradescoData agenciaBradesco = 2;
+}
+
+message ServiceResponseAgenciaBradesco {
+    int32 status = 1;
+    string message = 2;
+    repeated AgenciaBradescoData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListAgenciaBradesco {
+    int32 status = 1;
+    string message = 2;
+    ListResultAgenciaBradesco data = 3;
+    string error = 4;
+}
+
+message ListResultAgenciaBradesco {
+    repeated AgenciaBradescoData result = 1;
+    int32 total = 2;
+}
+
+//NaturezaCusta
+message ListCriteriaRequestNaturezaCusta {
+    string desNaturezaCusta = 1;    
+    int32 items = 2;
+    int32 page = 3;
+    map<string, string> order = 4;
+}
+
+message NaturezaCustaData {
+    int32 idNaturezaCusta = 1;
+    string desNaturezaCusta = 2;
+    string cdCreditoDebito = 3;
+    int32 idUsuaOper = 4;
+    string dtRegistro = 5;    
+    string createdDate = 6;
+    string updatedDate = 7;
+    string deletedDate = 8;
+}
+
+message NaturezaCustaUpdateRequest {
+    int32 idNaturezaCusta = 1;
+    NaturezaCustaData naturezaCusta = 2;
+}
+
+message ServiceResponseNaturezaCusta {
+    int32 status = 1;
+    string message = 2;
+    repeated NaturezaCustaData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListNaturezaCusta {
+    int32 status = 1;
+    string message = 2;
+    ListResultNaturezaCusta data = 3;
+    string error = 4;
+}
+
+message ListResultNaturezaCusta {
+    repeated NaturezaCustaData result = 1;
+    int32 total = 2;
+}
+
+//IndiceCorrecao
+message ListCriteriaRequestIndiceCorrecao {
+    string deIndice = 1;    
+    int32 items = 2;
+    int32 page = 3;
+    map<string, string> order = 4;
+}
+
+message IndiceCorrecaoData {
+    int32 idIndiceCorrecao = 1;
+    string deIndice = 2;
+    string cdFormula = 3;
+    int32 idUsuaOper = 4;
+    string dtRegistro = 5;    
+    string createdDate = 6;
+    string updatedDate = 7;
+    string deletedDate = 8;
+}
+
+message IndiceCorrecaoUpdateRequest {
+    int32 idIndiceCorrecao = 1;
+    IndiceCorrecaoData indiceCorrecao = 2;
+}
+
+message ServiceResponseIndiceCorrecao {
+    int32 status = 1;
+    string message = 2;
+    repeated IndiceCorrecaoData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListIndiceCorrecao {
+    int32 status = 1;
+    string message = 2;
+    ListResultIndiceCorrecao data = 3;
+    string error = 4;
+}
+
+message ListResultIndiceCorrecao {
+    repeated IndiceCorrecaoData result = 1;
+    int32 total = 2;
+}
+
+//Imposto
+message ListCriteriaRequestImposto {
+    string deDescricao = 1;
+    double perImposto = 2;
+    double nuImposto = 3;
+    int32 items = 4;
+    int32 page = 5;
+    map<string, string> order = 6;
+}
+
+message ImpostoData {
+    int32 idImposto = 1;
+    string deDescricao = 2;
+    double perImposto = 3;
+    double nuImposto = 4;
+    int32 idUsuaOper = 5;
+    string dtRegistro = 6;    
+    string createdDate = 7;
+    string updatedDate = 8;
+    string deletedDate = 9;
+}
+
+message ImpostoUpdateRequest {
+    int32 idImposto = 1;
+    ImpostoData imposto = 2;
+}
+
+message ServiceResponseImposto {
+    int32 status = 1;
+    string message = 2;
+    repeated ImpostoData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListImposto {
+    int32 status = 1;
+    string message = 2;
+    ListResultImposto data = 3;
+    string error = 4;
+}
+
+message ListResultImposto {
+    repeated ImpostoData result = 1;
+    int32 total = 2;
+}
+
+//Parametro
+message ListCriteriaRequestParametro {
+    string cdParametro = 1;
+    string deParametro = 2;
+    int32 items = 3;
+    int32 page = 4;
+    map<string, string> order = 5;
+}
+
+message ParametroData {
+    int32 idParametro = 1;
+    string cdParametro = 2;
+    string deParametro = 3;
+    int32 nuDias = 4;
+    int32 nuHoras = 5;
+    int32 nuMinutos = 6;
+    string deBanco = 7;
+    string deAgencia = 8;
+    string deContaCorrente = 9;
+    string deCnpj = 10;      
+    int32 idUsuaOper = 11;
+    string dtRegistro = 12;    
+    string createdDate = 13;
+    string updatedDate = 14;
+    string deletedDate = 15;
+}
+
+message ParametroUpdateRequest {
+    int32 idParametro = 1;
+    ParametroData parametro = 2;
+}
+
+message ServiceResponseParametro {
+    int32 status = 1;
+    string message = 2;
+    repeated ParametroData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListParametro {
+    int32 status = 1;
+    string message = 2;
+    ListResultParametro data = 3;
+    string error = 4;
+}
+
+message ListResultParametro {
+    repeated ParametroData result = 1;
+    int32 total = 2;
+}
+
+//Feriado
+message ListCriteriaRequestFeriado {
+    string deFeriado = 1;
+    string deMes = 2;    
+    int32 items = 3;
+    int32 page = 4;
+    map<string, string> order = 5;
+}
+
+message FeriadoData {
+    int32 idFeriado = 1;
+    string deFeriado = 2;
+    int32 nuDia = 3;
+    int32 nuMes = 4;
+    string deMes = 5;
+    int32 idUsuaOper = 6;
+    string dtRegistro = 7;    
+    string createdDate = 8;
+    string updatedDate = 9;
+    string deletedDate = 10;
+}
+
+message FeriadoUpdateRequest {
+    int32 idFeriado = 1;
+    FeriadoData feriado = 2;
+}
+
+message ServiceResponseFeriado {
+    int32 status = 1;
+    string message = 2;
+    repeated FeriadoData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListFeriado {
+    int32 status = 1;
+    string message = 2;
+    ListResultFeriado data = 3;
+    string error = 4;
+}
+
+message ListResultFeriado {
+    repeated FeriadoData result = 1;
+    int32 total = 2;
+}
+
+//Promoter
+message ListCriteriaRequestPromoter {
+    string nomPromoter = 1;        
+    int32 items = 2;
+    int32 page = 3;
+    map<string, string> order = 4;
+}
+
+message PromoterData {
+    int32 idPromoter = 1;
+    string desTelefone = 2;
+    string nomPromoter = 3;
+    string desLogradouro = 4;
+    string desComplemento = 5;
+    string desCep = 6;
+    int32 idMunicipio = 7;
+    string desEmail = 8;
+    double perComissao = 9;
+    int32 idUsuaOper = 10;
+    string dtRegistro = 11;    
+    string createdDate = 12;
+    string updatedDate = 13;
+    string deletedDate = 14;
+}
+
+message PromoterUpdateRequest {
+    int32 idPromoter = 1;
+    PromoterData promoter = 2;
+}
+
+message ServiceResponsePromoter {
+    int32 status = 1;
+    string message = 2;
+    repeated PromoterData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListPromoter {
+    int32 status = 1;
+    string message = 2;
+    ListResultPromoter data = 3;
+    string error = 4;
+}
+
+message ListResultPromoter {
+    repeated PromoterData result = 1;
+    int32 total = 2;
+}
+
+//OcorrenciaLigacao
+message ListCriteriaRequestOcorrenciaLigacao {
+    string nmOcorrencia = 1;
+    bool cdAtivo = 2;
+    int32 items = 3;
+    int32 page = 4;
+    map<string, string> order = 5;
+}
+
+message OcorrenciaLigacaoData {
+    int32 idOcorrenciaLigacao = 1;
+    string nmOcorrencia = 2;
+    bool cdAtivo = 3;    
+    int32 idUsuaOper = 4;
+    string dtRegistro = 5;    
+    string createdDate = 6;
+    string updatedDate = 7;
+    string deletedDate = 8;
+}
+
+message OcorrenciaLigacaoUpdateRequest {
+    int32 idOcorrenciaLigacao = 1;
+    OcorrenciaLigacaoData ocorrenciaLigacao = 2;
+}
+
+message ServiceResponseOcorrenciaLigacao {
+    int32 status = 1;
+    string message = 2;
+    repeated OcorrenciaLigacaoData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListOcorrenciaLigacao {
+    int32 status = 1;
+    string message = 2;
+    ListResultOcorrenciaLigacao data = 3;
+    string error = 4;
+}
+
+message ListResultOcorrenciaLigacao {
+    repeated OcorrenciaLigacaoData result = 1;
+    int32 total = 2;
+}
+
+//Segmento
+message ListCriteriaRequestSegmento {
+    string deSegmento = 1;    
+    int32 items = 2;
+    int32 page = 3;
+    map<string, string> order = 4;
+}
+
+message SegmentoData {
+    int32 idSegmento = 1;
+    string deSegmento = 2;
+    int32 idRamoAtividade = 3;    
+    int32 idUsuaOper = 4;
+    string dtRegistro = 5;    
+    string createdDate = 6;
+    string updatedDate = 7;
+    string deletedDate = 8;
+}
+
+message SegmentoUpdateRequest {
+    int32 idSegmento = 1;
+    SegmentoData segmento = 2;
+}
+
+message ServiceResponseSegmento {
+    int32 status = 1;
+    string message = 2;
+    repeated SegmentoData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListSegmento {
+    int32 status = 1;
+    string message = 2;
+    ListResultSegmento data = 3;
+    string error = 4;
+}
+
+message ListResultSegmento {
+    repeated SegmentoData result = 1;
     int32 total = 2;
 }
