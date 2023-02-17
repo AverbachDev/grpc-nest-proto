@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "proto:devedor": "protoc --plugin=node_modules/.bin/protoc-gen-ts_proto.cmd -I=./proto --ts_proto_out=proto-example/ proto/devedor.proto --ts_proto_opt=nestJs=true --ts_proto_opt=fileSuffix=.pb",
     "proto:dadosBasicos": "protoc --plugin=node_modules/.bin/protoc-gen-ts_proto.cmd -I=./proto --ts_proto_out=proto-example/ proto/dadosBasicos.proto --ts_proto_opt=nestJs=true --ts_proto_opt=fileSuffix=.pb",
-    "proto:juridico": "protoc --plugin=node_modules/.bin/protoc-gen-ts_proto.cmd -I=./proto --ts_proto_out=proto-example/ proto/juridico.proto --ts_proto_opt=nestJs=true --ts_proto_opt=fileSuffix=.pb"
+    "proto:juridico": "protoc --plugin=node_modules/.bin/protoc-gen-ts_proto.cmd -I=./proto --ts_proto_out=proto-example/ proto/juridico.proto --ts_proto_opt=nestJs=true --ts_proto_opt=fileSuffix=.pb",
+    "proto:cliente": "protoc --plugin=node_modules/.bin/protoc-gen-ts_proto.cmd -I=./proto --ts_proto_out=proto-example/ proto/cliente.proto --ts_proto_opt=nestJs=true --ts_proto_opt=fileSuffix=.pb"
   },
   "keywords": [],
   "author": "Fabio Toscano",

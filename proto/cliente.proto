@@ -1,0 +1,174 @@
+syntax = "proto3";
+
+package cliente;
+
+
+service ClienteService {
+  //Devedor
+  rpc listCliente (ListCriteriaRequestCliente) returns (ServiceResponseListCliente) {}
+  rpc findOneCliente (IdRequest) returns (ServiceResponseCliente) {}
+  rpc createCliente (ClienteData) returns (ServiceResponseCliente) {}
+  rpc updateCliente (ClienteUpdateRequest) returns (ServiceResponseCliente) {}
+  rpc removeCliente (IdRequest) returns (ServiceResponseCliente) {}
+
+  //Contato
+  rpc listContato (ListCriteriaRequestContato) returns (ServiceResponseListContato) {}
+  rpc findOneContato (IdRequest) returns (ServiceResponseContato) {}
+  rpc createContato (ContatoData) returns (ServiceResponseContato) {}
+  rpc updateContato (ContatoUpdateRequest) returns (ServiceResponseContato) {} 
+  rpc removeContato (IdRequest) returns (ServiceResponseContato) {}
+}
+
+
+message IdRequest{
+    int32 id = 1;
+}
+
+//Cliente
+
+message ListCriteriaRequestCliente {
+    int32 idCliente = 1;
+    string nmCliente = 2; 
+    string deDdd = 3;
+    string cdCnpjCpf = 4;
+    bool cdBloqueado = 5;
+    string cdClassificacao = 6;
+    int32 idMunicipio = 7;
+    int32 items = 8;
+    int32 page = 9;
+    map<string, string> order =10;
+}
+
+message ClienteData {
+    string deInscMunicipal = 1;
+    string deLogradouro = 2;
+    string deComplemento = 3;
+    string deCep = 4;
+    string deDdd = 5;
+    string deTelefone = 6;
+    string deFax = 7;
+    string deEmail = 8;
+    string deObs = 9;
+    int32 nuHistorico = 10;
+    string dtCadastro = 11;
+    string deRamoAtividade = 12;
+    bool cdEtiqueta = 13;
+    int32 idUsuaOper = 14;
+    string dtRegistro = 15;
+    string cdAjuizamento = 16;
+    string nmFantasia = 17;
+    string nuFuncionarios = 18;
+    string nuFaturamento = 19;
+    string deDominio = 20;
+    string deSite = 21;
+    string dtAgendamento = 22;
+    int32 idStatusLigacao = 23;
+    int32 idClassificacao = 24;
+    string deReferencia = 25;
+    string dtPromessaBorderaux = 26;
+    string idEmpresaMkt = 27;
+    int32 idGrupo = 28;
+    string deDdd1 = 29;
+    string deTelefone1 = 30;
+    string deDdd2 = 31;
+    string deTelefone2 = 32;
+    int32 idEnquete = 33;
+    int32 cdSucursal = 34;
+    int32 idStatusProspect = 35;
+    int32 cdBorderauxInferiorSite = 36;
+    string dtCadastroProspect = 37;
+    string cdLatitude = 38;
+    string cdLongitude = 39;
+    string deBairro = 40;
+    string nmRepresentante = 41;
+    int32 idClienteCampanha = 42;
+    string dtInativacao = 43;
+    string createdDate = 44;
+    string updatedDate = 45;
+    string deletedDate = 46;
+}
+
+message ClienteUpdateRequest{
+    int32 idCliente = 1;
+    ClienteData cliente = 2;
+}
+
+message ServiceResponseCliente {
+    int32 status = 1;
+    string message = 2;
+    repeated ClienteData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListCliente {
+    int32 status = 1;
+    string message = 2;
+    ListResultCliente data = 3;
+    string error = 4;
+}
+
+message ListResultCliente {
+    repeated ClienteData result = 1;
+    int32 total = 2;
+}
+
+
+
+
+//Contato
+
+message ListCriteriaRequestContato {
+    string idCliente = 1;
+    string nmContato = 2; 
+    string deEmail = 3;
+    string deDdd = 4;
+    string deTelefone = 5;
+    int32 items = 6;
+    int32 page = 7;
+    map<string, string> order =8;
+}
+
+message ContatoData {
+    int32 idContato = 1;
+    string deDdd = 2;
+    int32 idCliente = 3;
+    string nmContato = 4;
+    string deTelefone = 5;
+    string deEmail = 6;
+    bool cdCopiaremail = 7;
+    int32 idUsuaOper = 8;
+    string dtRegistro = 9;
+    string deCargo = 10;
+    int32 idPerfil = 11;
+    bool cdPrincipal = 12;
+    bool cdDadosAdicionais = 13;
+    bool cdWhatsapp = 14;
+    string createdDate = 15;
+    string updatedDate = 16;
+    string deletedDate = 17;
+}
+
+message ContatoUpdateRequest{
+    int32 id = 1;
+    ContatoData contato = 2;
+}
+
+message ServiceResponseContato {
+    int32 status = 1;
+    string message = 2;
+    repeated ContatoData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListContato {
+    int32 status = 1;
+    string message = 2;
+    ListResultContato data = 3;
+    string error = 4;
+}
+
+message ListResultContato {
+    repeated ContatoData result = 1;
+    int32 total = 2;
+}
+
