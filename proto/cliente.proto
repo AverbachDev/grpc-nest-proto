@@ -82,7 +82,7 @@ message ClienteData {
     int32 idClassificacao = 40;
     string deReferencia = 41;
     string dtPromessaBorderaux = 42;
-    string idEmpresaMkt = 43;
+    int32 idEmpresaMkt = 43;
     int32 idGrupo = 44;
     string deDdd1 = 45;
     string deTelefone1 = 46;
