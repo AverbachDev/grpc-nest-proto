@@ -86,6 +86,7 @@ message ClienteData {
     string createdDate = 44;
     string updatedDate = 45;
     string deletedDate = 46;
+    int32 idCliente = 47;
 }
 
 message ClienteUpdateRequest{
