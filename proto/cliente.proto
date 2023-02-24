@@ -4,7 +4,7 @@ package cliente;
 
 
 service ClienteService {
-  //Devedor
+  //Cliente
   rpc listCliente (ListCriteriaRequestCliente) returns (ServiceResponseListCliente) {}
   rpc findOneCliente (IdRequest) returns (ServiceResponseCliente) {}
   rpc createCliente (ClienteData) returns (ServiceResponseCliente) {}

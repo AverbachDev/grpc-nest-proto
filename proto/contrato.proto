@@ -1,0 +1,61 @@
+syntax = "proto3";
+
+package contrato;
+
+
+service ContratoService {
+  //Contrato
+  rpc listContrato (ListCriteriaRequestContrato) returns (ServiceResponseListContrato) {}
+  rpc findOneContrato (IdRequest) returns (ServiceResponseContrato) {}
+  rpc createContrato (ContratoData) returns (ServiceResponseContrato) {}
+  rpc updateContrato (ContratoUpdateRequest) returns (ServiceResponseContrato) {}
+  rpc removeContrato (IdRequest) returns (ServiceResponseContrato) {}
+
+}
+
+message IdRequest{
+    int32 id = 1;
+}
+
+
+//Contrato
+
+message ListCriteriaRequestContrato {
+    int32 idContrato = 1;
+    int32 idCliente = 2;
+    int32 items = 3;
+    int32 page = 4;
+    map<string, string> order =10;
+}
+
+message ContratoData {
+    int32 idContrato = 1;
+    int32 idCliente = 2;
+    string createdDate = 3;
+    string updatedDate = 4;
+    string deletedDate = 5;
+}
+
+message ContratoUpdateRequest{
+    int32 idContrato = 1;
+    ContratoData contrato = 2;
+}
+
+message ServiceResponseContrato {
+    int32 status = 1;
+    string message = 2;
+    repeated ContratoData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListContrato {
+    int32 status = 1;
+    string message = 2;
+    ListResultContrato data = 3;
+    string error = 4;
+}
+
+message ListResultContrato {
+    repeated ContratoData result = 1;
+    int32 total = 2;
+}
