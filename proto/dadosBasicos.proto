@@ -3,85 +3,97 @@ syntax = "proto3";
 package dadosBasicos;
 
 service DadosBasicosService {
-    //
+    
     rpc listFederacao (ListCriteriaRequestFederacao) returns (ServiceResponseListFederacao) {}
     rpc findOneFederacao (IdRequest) returns (ServiceResponseFederacao) {}
     rpc createFederacao (FederacaoData) returns (ServiceResponseFederacao) {}
     rpc updateFederacao (FederacaoUpdateRequest) returns (ServiceResponseFederacao) {}
     rpc removeFederacao (IdRequest) returns (ServiceResponseFederacao) {}
-    //
+    
     rpc listMunicipio (ListCriteriaRequestMunicipio) returns (ServiceResponseListMunicipio) {}
     rpc findOneMunicipio (IdRequest) returns (ServiceResponseMunicipio) {}
     rpc createMunicipio (MunicipioData) returns (ServiceResponseMunicipio) {}
     rpc updateMunicipio (MunicipioUpdateRequest) returns (ServiceResponseMunicipio) {}
     rpc removeMunicipio (IdRequest) returns (ServiceResponseMunicipio) {}
-    //
+    
     rpc listStatusCobranca (ListCriteriaRequestStatusCobranca) returns (ServiceResponseListStatusCobranca) {}
     rpc findOneStatusCobranca (IdRequest) returns (ServiceResponseStatusCobranca) {}
     rpc createStatusCobranca (StatusCobrancaData) returns (ServiceResponseStatusCobranca) {}
     rpc updateStatusCobranca (StatusCobrancaUpdateRequest) returns (ServiceResponseStatusCobranca) {}
     rpc removeStatusCobranca (IdRequest) returns (ServiceResponseStatusCobranca) {}
-    //
+    
+    rpc listMotivoDevolucao (ListCriteriaRequestMotivoDevolucao) returns (ServiceResponseListMotivoDevolucao) {}
+    rpc findOneMotivoDevolucao (IdRequest) returns (ServiceResponseMotivoDevolucao) {}
+    rpc createMotivoDevolucao (MotivoDevolucaoData) returns (ServiceResponseMotivoDevolucao) {}
+    rpc updateMotivoDevolucao (MotivoDevolucaoUpdateRequest) returns (ServiceResponseMotivoDevolucao) {}
+    rpc removeMotivoDevolucao (IdRequest) returns (ServiceResponseMotivoDevolucao) {}
+
+    rpc listMotivoInadimplencia (ListCriteriaRequestMotivoInadimplencia) returns (ServiceResponseListMotivoInadimplencia) {}
+    rpc findOneMotivoInadimplencia (IdRequest) returns (ServiceResponseMotivoInadimplencia) {}
+    rpc createMotivoInadimplencia (MotivoInadimplenciaData) returns (ServiceResponseMotivoInadimplencia) {}
+    rpc updateMotivoInadimplencia (MotivoInadimplenciaUpdateRequest) returns (ServiceResponseMotivoInadimplencia) {}
+    rpc removeMotivoInadimplencia (IdRequest) returns (ServiceResponseMotivoInadimplencia) {}
+    
     rpc listNatureza (ListCriteriaRequestNatureza) returns (ServiceResponseListNatureza) {}
     rpc findOneNatureza (IdRequest) returns (ServiceResponseNatureza) {}
     rpc createNatureza (NaturezaData) returns (ServiceResponseNatureza) {}
     rpc updateNatureza (NaturezaUpdateRequest) returns (ServiceResponseNatureza) {}
     rpc removeNatureza (IdRequest) returns (ServiceResponseNatureza) {}
-    //
+    
     rpc listBanco (ListCriteriaRequestBanco) returns (ServiceResponseListBanco) {}
     rpc findOneBanco (IdRequest) returns (ServiceResponseBanco) {}
     rpc createBanco (BancoData) returns (ServiceResponseBanco) {}
     rpc updateBanco (BancoUpdateRequest) returns (ServiceResponseBanco) {}
     rpc removeBanco (IdRequest) returns (ServiceResponseBanco) {}
-    //
+    
     rpc listAgenciaBradesco (ListCriteriaRequestAgenciaBradesco) returns (ServiceResponseListAgenciaBradesco) {}
     rpc findOneAgenciaBradesco (IdRequest) returns (ServiceResponseAgenciaBradesco) {}
     rpc createAgenciaBradesco (AgenciaBradescoData) returns (ServiceResponseAgenciaBradesco) {}
     rpc updateAgenciaBradesco (AgenciaBradescoUpdateRequest) returns (ServiceResponseAgenciaBradesco) {}
     rpc removeAgenciaBradesco (IdRequest) returns (ServiceResponseAgenciaBradesco) {}
-    //
+    
     rpc listNaturezaCusta (ListCriteriaRequestNaturezaCusta) returns (ServiceResponseListNaturezaCusta) {}
     rpc findOneNaturezaCusta (IdRequest) returns (ServiceResponseNaturezaCusta) {}
     rpc createNaturezaCusta (NaturezaCustaData) returns (ServiceResponseNaturezaCusta) {}
     rpc updateNaturezaCusta (NaturezaCustaUpdateRequest) returns (ServiceResponseNaturezaCusta) {}
     rpc removeNaturezaCusta (IdRequest) returns (ServiceResponseNaturezaCusta) {}
-    //
+    
     rpc listIndiceCorrecao (ListCriteriaRequestIndiceCorrecao) returns (ServiceResponseListIndiceCorrecao) {}
     rpc findOneIndiceCorrecao (IdRequest) returns (ServiceResponseIndiceCorrecao) {}
     rpc createIndiceCorrecao (IndiceCorrecaoData) returns (ServiceResponseIndiceCorrecao) {}
     rpc updateIndiceCorrecao (IndiceCorrecaoUpdateRequest) returns (ServiceResponseIndiceCorrecao) {}
     rpc removeIndiceCorrecao (IdRequest) returns (ServiceResponseIndiceCorrecao) {}
-    //
+    
     rpc listImposto (ListCriteriaRequestImposto) returns (ServiceResponseListImposto) {}
     rpc findOneImposto (IdRequest) returns (ServiceResponseImposto) {}
     rpc createImposto (ImpostoData) returns (ServiceResponseImposto) {}
     rpc updateImposto (ImpostoUpdateRequest) returns (ServiceResponseImposto) {}
     rpc removeImposto (IdRequest) returns (ServiceResponseImposto) {}
-    //
+    
     rpc listParametro (ListCriteriaRequestParametro) returns (ServiceResponseListParametro) {}
     rpc findOneParametro (IdRequest) returns (ServiceResponseParametro) {}
     rpc createParametro (ParametroData) returns (ServiceResponseParametro) {}
     rpc updateParametro (ParametroUpdateRequest) returns (ServiceResponseParametro) {}
     rpc removeParametro (IdRequest) returns (ServiceResponseParametro) {}
-    //
+    
     rpc listFeriado (ListCriteriaRequestFeriado) returns (ServiceResponseListFeriado) {}
     rpc findOneFeriado (IdRequest) returns (ServiceResponseFeriado) {}
     rpc createFeriado (FeriadoData) returns (ServiceResponseFeriado) {}
     rpc updateFeriado (FeriadoUpdateRequest) returns (ServiceResponseFeriado) {}
     rpc removeFeriado (IdRequest) returns (ServiceResponseFeriado) {}
-    //
+    
     rpc listPromoter (ListCriteriaRequestPromoter) returns (ServiceResponseListPromoter) {}
     rpc findOnePromoter (IdRequest) returns (ServiceResponsePromoter) {}
     rpc createPromoter (PromoterData) returns (ServiceResponsePromoter) {}
     rpc updatePromoter (PromoterUpdateRequest) returns (ServiceResponsePromoter) {}
     rpc removePromoter (IdRequest) returns (ServiceResponsePromoter) {}
-    //
+    
     rpc listOcorrenciaLigacao (ListCriteriaRequestOcorrenciaLigacao) returns (ServiceResponseListOcorrenciaLigacao) {}
     rpc findOneOcorrenciaLigacao (IdRequest) returns (ServiceResponseOcorrenciaLigacao) {}
     rpc createOcorrenciaLigacao (OcorrenciaLigacaoData) returns (ServiceResponseOcorrenciaLigacao) {}
     rpc updateOcorrenciaLigacao (OcorrenciaLigacaoUpdateRequest) returns (ServiceResponseOcorrenciaLigacao) {}
     rpc removeOcorrenciaLigacao (IdRequest) returns (ServiceResponseOcorrenciaLigacao) {}
-    //
+    
     rpc listSegmento (ListCriteriaRequestSegmento) returns (ServiceResponseListSegmento) {}
     rpc findOneSegmento (IdRequest) returns (ServiceResponseSegmento) {}
     rpc createSegmento (SegmentoData) returns (ServiceResponseSegmento) {}
@@ -223,6 +235,94 @@ message ServiceResponseListStatusCobranca {
 
 message ListResultStatusCobranca {
     repeated StatusCobrancaData result = 1;
+    int32 total = 2;
+}
+
+//MotivoDevolucao
+message ListCriteriaRequestMotivoDevolucao {
+    string deMotivoDevolucao = 1;
+    string cdTipo = 2;
+    int32 items = 3;
+    int32 page = 4;
+    map<string, string> order = 5;
+}
+
+message MotivoDevolucaoData {
+    int32 idMotivoDevolucao = 1;
+    string deMotivoDevolucao = 2;
+    string cdTipo = 3;
+    int32 idUsuaOper = 4;
+    string dtRegistro = 5;    
+    string createdDate = 6;
+    string updatedDate = 7;
+    string deletedDate = 8;
+}
+
+message MotivoDevolucaoUpdateRequest {
+    int32 idMotivoDevolucao = 1;
+    MotivoDevolucaoData motivoDevolucao = 2;
+}
+
+message ServiceResponseMotivoDevolucao {
+    int32 status = 1;
+    string message = 2;
+    repeated MotivoDevolucaoData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListMotivoDevolucao {
+    int32 status = 1;
+    string message = 2;
+    ListResultMotivoDevolucao data = 3;
+    string error = 4;
+}
+
+message ListResultMotivoDevolucao {
+    repeated MotivoDevolucaoData result = 1;
+    int32 total = 2;
+}
+
+//MotivoInadimplencia
+message ListCriteriaRequestMotivoInadimplencia {
+    string deMotivoInadimplencia = 1;
+    int32 cdEmpresa = 2;
+    int32 items = 3;
+    int32 page = 4;
+    map<string, string> order = 5;
+}
+
+message MotivoInadimplenciaData {
+    int32 idMotivoInadimplencia = 1;
+    string deMotivoInadimplencia = 2;
+    int32 cdEmpresa = 3;
+    int32 idUsuaOper = 4;
+    string dtRegistro = 5;    
+    string createdDate = 6;
+    string updatedDate = 7;
+    string deletedDate = 8;
+}
+
+message MotivoInadimplenciaUpdateRequest {
+    int32 idMotivoInadimplencia = 1;
+    MotivoInadimplenciaData motivoInadimplencia = 2;
+}
+
+message ServiceResponseMotivoInadimplencia {
+    int32 status = 1;
+    string message = 2;
+    repeated MotivoInadimplenciaData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListMotivoInadimplencia {
+    int32 status = 1;
+    string message = 2;
+    ListResultMotivoInadimplencia data = 3;
+    string error = 4;
+}
+
+message ListResultMotivoInadimplencia {
+    repeated MotivoInadimplenciaData result = 1;
     int32 total = 2;
 }
 
