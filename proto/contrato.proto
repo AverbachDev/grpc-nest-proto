@@ -117,6 +117,7 @@ message ContratoData {
     string createdDate = 86;
     string updatedDate = 87;
     string deletedDate = 88;
+    int32 idCliente=89;
 }
 
 message ContratoUpdateRequest{
