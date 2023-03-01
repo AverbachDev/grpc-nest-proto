@@ -216,7 +216,7 @@ message StatusCobrancaData {
 
 message StatusCobrancaUpdateRequest {
     int32 idStatusCobranca = 1;
-    StatusCobrancaData statusCobranca = 2;
+    StatusCobrancaData testeStatusCobranca = 2;
 }
 
 message ServiceResponseStatusCobranca {
