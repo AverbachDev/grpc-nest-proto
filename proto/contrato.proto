@@ -120,6 +120,11 @@ message ContratoData {
     int32 idCliente = 89;
     string nmCliente = 90;
     string cdCnpjCpf = 91;
+    bool cdDesabPorTitulosSupMaxParcelas = 92;
+    bool cdDesabilitaAcordoIntegral = 93;
+    bool cdDesabilitaAcordoParcelado = 94;
+    bool cdDesabilitaAcordoPorConta = 95;
+
 }
 
 message ContratoUpdateRequest{
