@@ -23,9 +23,11 @@ message IdRequest{
 message ListCriteriaRequestContrato {
     int32 idContrato = 1;
     int32 idCliente = 2;
-    int32 items = 3;
-    int32 page = 4;
-    map<string, string> order =10;
+    string nmCliente = 3;
+    string cdCnpjCpf = 4;
+    int32 items = 5;
+    int32 page = 6;
+    map<string, string> order =7;
 }
 
 message ContratoData {
