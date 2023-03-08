@@ -15,6 +15,7 @@ service DadosBasicosService {
     rpc createMunicipio (MunicipioData) returns (ServiceResponseMunicipio) {}
     rpc updateMunicipio (MunicipioUpdateRequest) returns (ServiceResponseMunicipio) {}
     rpc removeMunicipio (IdRequest) returns (ServiceResponseMunicipio) {}
+    rpc getFederacaoByIdMunicipio (IdRequest) returns (ServiceResponseMunicipio) {}
     
     rpc listStatusCobranca (ListCriteriaRequestStatusCobranca) returns (ServiceResponseListStatusCobranca) {}
     rpc findOneStatusCobranca (IdRequest) returns (ServiceResponseStatusCobranca) {}
