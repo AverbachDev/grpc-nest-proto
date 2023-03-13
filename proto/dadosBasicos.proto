@@ -99,12 +99,21 @@ service DadosBasicosService {
     rpc findOneSegmento (IdRequest) returns (ServiceResponseSegmento) {}
     rpc createSegmento (SegmentoData) returns (ServiceResponseSegmento) {}
     rpc updateSegmento (SegmentoUpdateRequest) returns (ServiceResponseSegmento) {}
-    rpc removeSegmento (IdRequest) returns (ServiceResponseSegmento) {}    
+    rpc removeSegmento (IdRequest) returns (ServiceResponseSegmento) {}
+    
+    rpc listPossibilidadeExitoCaso (ListCriteriaRequestPossibilidadeExitoCaso) returns (ServiceResponseListPossibilidadeExitoCaso) {}
+    rpc findOnePossibilidadeExitoCaso (IdRequest) returns (ServiceResponseSegmento) {}
+    rpc createPossibilidadeExitoCaso (PossibilidadeExitoCasoData) returns (ServiceResponsePossibilidadeExitoCaso) {}
+    rpc updatePossibilidadeExitoCaso (PossibilidadeExitoCasoUpdateRequest) returns (ServiceResponsePossibilidadeExitoCaso) {}
+    rpc removePossibilidadeExitoCaso (IdRequest) returns (ServiceResponsePossibilidadeExitoCaso) {}
+
 }
 
   message IdRequest{
     int32 id = 1;
 }
+
+
 
 //Federacao
 message ListCriteriaRequestFederacao {
@@ -833,5 +842,47 @@ message ServiceResponseListSegmento {
 
 message ListResultSegmento {
     repeated SegmentoData result = 1;
+    int32 total = 2;
+}
+
+//PossibilidadeExitoCaso
+message ListCriteriaRequestPossibilidadeExitoCaso {
+    string dePossibilidade = 1;
+    int32 items = 2;
+    int32 page = 3;
+    map<string, string> order = 4;    
+}
+
+message PossibilidadeExitoCasoData {
+    int32 idPossibilidadeExito = 1;
+    string dePossibilidade = 2;
+    int32 idUsuaOper = 3;
+    string dtRegistro = 4;
+    string createdDate =5;
+    string updatedDate = 6;
+    string deletedDate = 7;
+}
+
+message PossibilidadeExitoCasoUpdateRequest{
+    int32 idPossibilidadeExito = 1;
+    PossibilidadeExitoCasoData possibilidadeExitoCaso = 2;
+}
+
+message ServiceResponsePossibilidadeExitoCaso {
+    int32 status = 1;
+    string message = 2;
+    repeated PossibilidadeExitoCasoData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListPossibilidadeExitoCaso {
+    int32 status = 1;
+    string message = 2;
+    PossibilidadeExitoCasoData data = 3;
+    string error = 4;
+}
+
+message ListResultPossibilidadeExitoCaso {
+    repeated PossibilidadeExitoCasoData result = 1;
     int32 total = 2;
 }
