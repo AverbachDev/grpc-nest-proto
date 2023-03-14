@@ -878,7 +878,7 @@ message ServiceResponsePossibilidadeExitoCaso {
 message ServiceResponseListPossibilidadeExitoCaso {
     int32 status = 1;
     string message = 2;
-    PossibilidadeExitoCasoData data = 3;
+    ListResultPossibilidadeExitoCaso data = 3;
     string error = 4;
 }
 
