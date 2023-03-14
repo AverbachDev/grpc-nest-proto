@@ -102,7 +102,7 @@ service DadosBasicosService {
     rpc removeSegmento (IdRequest) returns (ServiceResponseSegmento) {}
     
     rpc listPossibilidadeExitoCaso (ListCriteriaRequestPossibilidadeExitoCaso) returns (ServiceResponseListPossibilidadeExitoCaso) {}
-    rpc findOnePossibilidadeExitoCaso (IdRequest) returns (ServiceResponseSegmento) {}
+    rpc findOnePossibilidadeExitoCaso (IdRequest) returns (ServiceResponsePossibilidadeExitoCaso) {}
     rpc createPossibilidadeExitoCaso (PossibilidadeExitoCasoData) returns (ServiceResponsePossibilidadeExitoCaso) {}
     rpc updatePossibilidadeExitoCaso (PossibilidadeExitoCasoUpdateRequest) returns (ServiceResponsePossibilidadeExitoCaso) {}
     rpc removePossibilidadeExitoCaso (IdRequest) returns (ServiceResponsePossibilidadeExitoCaso) {}
