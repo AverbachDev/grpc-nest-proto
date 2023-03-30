@@ -31,7 +31,7 @@ message ListCriteriaRequestHistorico {
 }
 
 message HistoricoData {
-    string idHistorico = 1;
+    int32 idHistorico = 1;
     int32 cdHistorico = 2;
     string deDescricao = 3;
     string dtCadastro = 4;
