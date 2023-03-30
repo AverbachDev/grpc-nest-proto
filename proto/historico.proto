@@ -3,7 +3,7 @@ syntax = "proto3";
 package historico;
 
 
-service ContratoService {
+service HistoricoService {
   //Contrato
   rpc listHistorico (ListCriteriaRequestHistorico) returns (ServiceResponseListHistorico) {}
   rpc findOneHistorico (IdRequest) returns (ServiceResponseHistorico) {}
