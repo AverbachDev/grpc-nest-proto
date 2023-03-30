@@ -50,7 +50,7 @@ message HistoricoData {
 }
 
 message HistoricoUpdateRequest{
-    int32 idHistorico = 1;
+    string idHistorico = 1;
     HistoricoData historico = 2;
 }
 
