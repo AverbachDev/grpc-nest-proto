@@ -43,6 +43,9 @@ message HistoricoData {
     int32 idResponsavel = 10;
     string dtLimite = 11;
     int32 idStatusHistorico = 12;
+    string createdDate = 13;
+    string updatedDate = 14;
+    string deletedDate = 15;
 
 }
 
