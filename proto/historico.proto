@@ -1,0 +1,71 @@
+syntax = "proto3";
+
+package historico;
+
+
+service ContratoService {
+  //Contrato
+  rpc listHistorico (ListCriteriaRequestHistorico) returns (ServiceResponseListHistorico) {}
+  rpc findOneHistorico (IdRequest) returns (ServiceResponseHistorico) {}
+  rpc createHistorico (HistoricoData) returns (ServiceResponseHistorico) {}
+  rpc updateHistorico (HistoricoUpdateRequest) returns (ServiceResponseHistorico) {}
+  rpc removeHistorico (IdRequest) returns (ServiceResponseHistorico) {}
+
+}
+
+message IdRequest{
+    int32 id = 1;
+}
+
+
+//Historico
+
+message ListCriteriaRequestHistorico {
+    int32 idCaso = 1;
+    bool cdSite = 2;
+    string deDescricao = 3;
+    int32 cdHistorico = 4;
+    int32 items = 5;
+    int32 page = 6;
+    map<string, string> order =7;
+}
+
+message HistoricoData {
+    string idHistorico = 1;
+    int32 cdHistorico = 2;
+    string deDescricao = 3;
+    string dtCadastro = 4;
+    bool cdSite = 5;
+    int32 idUsuaOper = 6;
+    string dtRegistro = 7;
+    int32 idCaso = 8;
+    bool cdPrioridade = 9;
+    int32 idResponsavel = 10;
+    string dtLimite = 11;
+    int32 idStatusHistorico = 12;
+
+}
+
+message HistoricoUpdateRequest{
+    int32 idHistorico = 1;
+    HistoricoData historico = 2;
+}
+
+message ServiceResponseHistorico {
+    int32 status = 1;
+    string message = 2;
+    repeated HistoricoData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListHistorico {
+    int32 status = 1;
+    string message = 2;
+    ListResultHistorico data = 3;
+    string error = 4;
+}
+
+message ListResultHistorico {
+    repeated HistoricoData result = 1;
+    int32 total = 2;
+}
