@@ -10,7 +10,7 @@ service HistoricoService {
   rpc createHistorico (HistoricoData) returns (ServiceResponseHistorico) {}
   rpc updateHistorico (HistoricoUpdateRequest) returns (ServiceResponseHistorico) {}
   rpc removeHistorico (IdRequest) returns (ServiceResponseHistorico) {}
-  rpc findHistoricosCaso (IdRequest) returns (ServiceResponseHistorico) {}
+  rpc findHistoricosCaso (IdRequest) returns (ServiceResponseCasoHistorico) {}
 
 }
 
