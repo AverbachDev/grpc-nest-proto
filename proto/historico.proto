@@ -78,6 +78,14 @@ message ServiceResponseHistorico {
     string error = 4;
 }
 
+
+message ServiceResponseCasoHistorico {
+    int32 status = 1;
+    string message = 2;
+    repeated HistoricoCasoData data = 3;
+    string error = 4;
+}
+
 message ServiceResponseListHistorico {
     int32 status = 1;
     string message = 2;
