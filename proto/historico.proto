@@ -49,6 +49,22 @@ message HistoricoData {
 
 }
 
+
+message HistoricoCasoData {
+
+    int32 idHistorico = 1;
+    int32 idCaso = 2;
+    int32 cdHistorico = 3;
+    string dtCadastro = 4;
+    string deDescricao = 5;
+    int32 idUsuaOper = 6;
+    bool cdSite = 7;
+    bool cdPrioridade = 8;
+    string dtLimite = 9;
+    string nmUsuarioLogin = 10;
+
+}
+
 message HistoricoUpdateRequest{
     int32 idHistorico = 1;
     HistoricoData historico = 2;
