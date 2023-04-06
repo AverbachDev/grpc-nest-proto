@@ -50,9 +50,10 @@ message ListCriteriaRequestCasoJudicial {
     int32 idCaso=3;
     string cdJudicial=4;
     string cdCnpjCpfDevedor=5;
-    int32 items = 6;
-    int32 page = 7;
-    map<string, string> order =8;
+    repeated int32 idStatusCobranca=6;
+    int32 items = 7;
+    int32 page = 8;
+    map<string, string> order =9;
 }
 
 
