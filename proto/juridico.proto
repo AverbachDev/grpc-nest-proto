@@ -96,9 +96,11 @@ message CasoJudicialData {
     int32 idStatusCobranca = 34;
     int32 idCliente = 35;
     int32 idDevedor = 36; 
-    string createdDate = 37;
-    string updatedDate = 38;
-    string deletedDate = 39;
+    string cdCnpjCpfDevedor = 37;
+    string dtCadastro = 38;
+    string createdDate = 39;
+    string updatedDate = 40;
+    string deletedDate = 41;
 }
 
 message CasoJudicialUpdateRequest{
