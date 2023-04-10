@@ -64,6 +64,12 @@ service DadosBasicosService {
     rpc createIndiceCorrecao (IndiceCorrecaoData) returns (ServiceResponseIndiceCorrecao) {}
     rpc updateIndiceCorrecao (IndiceCorrecaoUpdateRequest) returns (ServiceResponseIndiceCorrecao) {}
     rpc removeIndiceCorrecao (IdRequest) returns (ServiceResponseIndiceCorrecao) {}
+
+    rpc listIndiceCorrecaoAno (ListCriteriaRequestIndiceCorrecaoAno) returns (ServiceResponseListIndiceCorrecaoAno) {}
+    rpc findOneIndiceCorrecaoAno (IdRequest) returns (ServiceResponseIndiceCorrecaoAno) {}
+    rpc createIndiceCorrecaoAno (IndiceCorrecaoAnoData) returns (ServiceResponseIndiceCorrecaoAno) {}
+    rpc updateIndiceCorrecaoAno (IndiceCorrecaoAnoUpdateRequest) returns (ServiceResponseIndiceCorrecaoAno) {}
+    rpc removeIndiceCorrecaoAno (IdRequest) returns (ServiceResponseIndiceCorrecaoAno) {}
     
     rpc listImposto (ListCriteriaRequestImposto) returns (ServiceResponseListImposto) {}
     rpc findOneImposto (IdRequest) returns (ServiceResponseImposto) {}
@@ -563,6 +569,65 @@ message ServiceResponseListIndiceCorrecao {
 
 message ListResultIndiceCorrecao {
     repeated IndiceCorrecaoData result = 1;
+    int32 total = 2;
+}
+
+
+//IndiceCorrecaoAno
+message ListCriteriaRequestIndiceCorrecaoAno {
+    int32 idIndiceCorrecao = 1;   
+    int32 nuAno = 2; 
+    int32 items = 3;
+    int32 page = 4;
+    map<string, string> order = 5;
+}
+
+message IndiceCorrecaoAnoData {
+    int32 idIndiceCorrecaoAno = 1;
+    int32 idIndiceCorrecao = 2;
+    double nuAno = 3;
+    double nuValorJan = 4;
+    double nuValorFev = 5;
+    double nuValorMar = 6;
+    double nuValorAbr = 7;
+    double nuValorMai = 8;
+    double nuValorJun = 9;
+    double nuValorJul = 10;
+    double nuValorAgo = 11;
+    double nuValorSet = 12;
+    double nuValorOut = 13;
+    double nuValorNov = 14;
+    double nuValorDez = 15;
+    double nuValorAnual = 16;
+    string cdVariacaoLocal = 17;
+    string cdVariacaoTempo = 18;    
+    string dtRegistro = 19;    
+    string createdDate = 20;
+    string updatedDate = 21;
+    string deletedDate = 22;
+}
+
+message IndiceCorrecaoAnoUpdateRequest {
+    int32 idIndiceCorrecaoAno = 1;
+    IndiceCorrecaoAnoData indiceCorrecaoAno = 2;
+}
+
+message ServiceResponseIndiceCorrecaoAno {
+    int32 status = 1;
+    string message = 2;
+    repeated IndiceCorrecaoAnoData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListIndiceCorrecaoAno {
+    int32 status = 1;
+    string message = 2;
+    ListResultIndiceCorrecaoAno data = 3;
+    string error = 4;
+}
+
+message ListResultIndiceCorrecaoAno {
+    repeated IndiceCorrecaoAnoData result = 1;
     int32 total = 2;
 }
 
