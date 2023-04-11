@@ -18,6 +18,8 @@ service JuridicoService {
   rpc createTituloJudicial (TituloJudicialData) returns (ServiceResponseTituloJudicial) {}
   rpc updateTituloJudicial (TituloJudicialUpdateRequest) returns (ServiceResponseTituloJudicial) {}
   rpc removeTituloJudicial (IdRequest) returns (ServiceResponseTituloJudicial) {} 
+  rpc calculateTituloJudicial (CalculoTituloJudicialRequest) returns (ServiceResponseTituloJudicial) {}
+
 
   //Acordo Judicial
   rpc listAcordoJudicial (ListCriteriaRequestAcordoJudicial) returns (ServiceResponseListAcordoJudicial) {}
@@ -176,6 +178,21 @@ message TituloJudicialData {
     string deletedDate = 27;
     int32 idParcela = 28;
 }
+
+message CalculoTituloJudicialRequest{
+    float perMulta = 1;
+    string dtMulta = 2;
+    string cdMulta = 3;
+    float perJuros = 4;
+    string dtJuros = 5;
+    string cdJuros = 6;
+    float dtCorrecao = 7;
+    string cdCorrecao = 8;
+    float perHonorDevedor = 9;
+    int32 idIndiceCorrecao = 10;
+    repeated TituloJudicialData titulos = 11;
+}
+
 
 message ServiceResponseTituloJudicial {
     int32 status = 1;
