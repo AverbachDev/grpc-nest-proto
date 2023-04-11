@@ -600,11 +600,12 @@ message IndiceCorrecaoAnoData {
     double nuValorDez = 15;
     double nuValorAnual = 16;
     string cdVariacaoLocal = 17;
-    string cdVariacaoTempo = 18;    
-    string dtRegistro = 19;    
-    string createdDate = 20;
-    string updatedDate = 21;
-    string deletedDate = 22;
+    string cdVariacaoTempo = 18;  
+    int32 idUsuaOper = 19 ; 
+    string dtRegistro = 20;    
+    string createdDate = 21;
+    string updatedDate = 22;
+    string deletedDate = 23;
 }
 
 message IndiceCorrecaoAnoUpdateRequest {
