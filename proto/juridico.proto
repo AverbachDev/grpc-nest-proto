@@ -186,7 +186,7 @@ message CalculoTituloJudicialRequest{
     float perJuros = 4;
     string dtJuros = 5;
     string cdJuros = 6;
-    float dtCorrecao = 7;
+    string dtCorrecao = 7;
     string cdCorrecao = 8;
     float perHonorDevedor = 9;
     int32 idIndiceCorrecao = 10;
