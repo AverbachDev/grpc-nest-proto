@@ -21,6 +21,37 @@ service PagamentoJudicialService {
     rpc updateCustasJudicial (CustasJudicialUpdateRequest) returns (ServiceResponseCustasJudicial) {}
     rpc removeCustasJudicial (IdRequest) returns (ServiceResponseCustasJudicial) {}
 
+    rpc listDepositosJudicial (ListCriteriaRequestDepositosJudicial) returns (ServiceResponseListDepositosJudicial) {}
+    rpc findOneDepositosJudicial (IdRequest) returns (ServiceResponseDepositosJudicial) {}
+    rpc createDepositosJudicial (DepositosJudicialData) returns (ServiceResponseDepositosJudicial) {}
+    rpc updateDepositosJudicial (DepositosJudicialUpdateRequest) returns (ServiceResponseDepositosJudicial) {}
+    rpc removeDepositosJudicial (IdRequest) returns (ServiceResponseDepositosJudicial) {}
+
+
+    rpc listHonorarioAdvogado (ListCriteriaRequestHonorarioAdvogado) returns (ServiceResponseListHonorarioAdvogado) {}
+    rpc findOneHonorarioAdvogado (IdRequest) returns (ServiceResponseHonorarioAdvogado) {}
+    rpc createHonorarioAdvogado (HonorarioAdvogadoData) returns (ServiceResponseHonorarioAdvogado) {}
+    rpc updateHonorarioAdvogado (HonorarioAdvogadoUpdateRequest) returns (ServiceResponseHonorarioAdvogado) {}
+    rpc removeHonorarioAdvogado (IdRequest) returns (ServiceResponseHonorarioAdvogado) {}
+
+    rpc listHonorarioJudicial (ListCriteriaRequestHonorarioJudicial) returns (ServiceResponseListHonorarioJudicial) {}
+    rpc findOneHonorarioJudicial (IdRequest) returns (ServiceResponseHonorarioJudicial) {}
+    rpc createHonorarioJudicial (HonorarioJudicialData) returns (ServiceResponseHonorarioJudicial) {}
+    rpc updateHonorarioJudicial (HonorarioJudicialUpdateRequest) returns (ServiceResponseHonorarioJudicial) {}
+    rpc removeHonorarioJudicial (IdRequest) returns (ServiceResponseHonorarioJudicial) {}
+
+    rpc listPrestContaJudicial (ListCriteriaRequestPrestContaJudicial) returns (ServiceResponseListPrestContaJudicial) {}
+    rpc findOnePrestContaJudicial (IdRequest) returns (ServiceResponsePrestContaJudicial) {}
+    rpc createPrestContaJudicial (PrestContaJudicialData) returns (ServiceResponsePrestContaJudicial) {}
+    rpc updatePrestContaJudicial (PrestContaJudicialUpdateRequest) returns (ServiceResponsePrestContaJudicial) {}
+    rpc removePrestContaJudicial (IdRequest) returns (ServiceResponsePrestContaJudicial) {}
+
+    rpc listTituloPagamentoJudicial (ListCriteriaRequestTituloPagamentoJudicial) returns (ServiceResponseListTituloPagamentoJudicial) {}
+    rpc findOneTituloPagamentoJudicial (IdRequest) returns (ServiceResponseTituloPagamentoJudicial) {}
+    rpc createTituloPagamentoJudicial (TituloPagamentoJudicialData) returns (ServiceResponseTituloPagamentoJudicial) {}
+    rpc updateTituloPagamentoJudicial (TituloPagamentoJudicialUpdateRequest) returns (ServiceResponseTituloPagamentoJudicial) {}
+    rpc removeTituloPagamentoJudicial (IdRequest) returns (ServiceResponseTituloPagamentoJudicial) {}
+
 }
 
 message IdRequest{
@@ -99,7 +130,7 @@ message AlteracaoHonorariosJudicialData {
 }
 
 message AlteracaoHonorariosJudicialUpdateRequest{
-    int32 idPagtoJudicial = 1;
+    int32 idAlteracao = 1;
     AlteracaoHonorariosJudicialData alteracaoHonorariosJudicial = 2;
 }
 
@@ -149,7 +180,7 @@ message CustasJudicialData {
 }
 
 message CustasJudicialUpdateRequest{
-    int32 idPagtoJudicial = 1;
+    int32 idCustasJudicial = 1;
     CustasJudicialData custasJudicial = 2;
 }
 
@@ -169,5 +200,302 @@ message ServiceResponseListCustasJudicial {
 
 message ListResultCustasJudicial {
     repeated CustasJudicialData result = 1;
+    int32 total = 2;
+}
+
+//DepositosJudicial
+message ListCriteriaRequestDepositosJudicial {
+    string cdStatus = 1;
+    int32 idPagtoJudicial = 2;
+    int32 items = 3;
+    int32 page = 4;
+    map<string, string> order = 5;    
+}
+
+message DepositosJudicialData {
+    int32 idDepositoJudicial = 1;
+    int32 idAgencia = 2;
+    int32 idPagtoJudicial = 3;
+    string dtExtrato = 4;
+    string nuConta = 5;
+    string dtDeposito = 6;
+    string deDepositante = 7;
+    string deTipo = 8;
+    double nuValor = 9;
+    bool cdImportado = 10;
+    bool cdPrestconta = 11;
+    string cdCnpjCpf = 12;
+    string cdStatus = 13;
+    string cdDeposito = 14;
+    bool cdCll = 15;
+
+    int32 idUsuaOper = 16;
+    string dtRegistro = 17;
+    string createdDate = 18;
+    string updatedDate = 19;
+    string deletedDate = 20;
+}
+
+message DepositosJudicialUpdateRequest{
+    int32 idDepositoJudicial = 1;
+    DepositosJudicialData depositosJudicial = 2;
+}
+
+message ServiceResponseDepositosJudicial {
+    int32 status = 1;
+    string message = 2;
+    repeated DepositosJudicialData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListDepositosJudicial {
+    int32 status = 1;
+    string message = 2;
+    ListResultDepositosJudicial data = 3;
+    string error = 4;
+}
+
+message ListResultDepositosJudicial {
+    repeated DepositosJudicialData result = 1;
+    int32 total = 2;
+}
+
+//HonorarioAdvogado
+message ListCriteriaRequestHonorarioAdvogado {
+    string dtPagto = 1;
+    double nuValorPago = 2;
+    int32 items = 3;
+    int32 page = 4;
+    map<string, string> order = 5;    
+}
+
+message HonorarioAdvogadoData {
+    int32 idHonorarioAdvogado = 1;
+    int32 idHonorarioJudicial = 2;
+    int32 idUsuario = 3;
+    double nuValor = 4;
+    double perValor = 5;
+    string dtPagto = 6;
+    string nmUsuarioLogin = 7;
+
+    int32 idUsuaOper = 8;
+    string dtRegistro = 9;
+    string createdDate = 10;
+    string updatedDate = 11;
+    string deletedDate = 12;
+}
+
+message HonorarioAdvogadoUpdateRequest{
+    int32 idHonorarioAdvogado = 1;
+    HonorarioAdvogadoData honorarioAdvogado = 2;
+}
+
+message ServiceResponseHonorarioAdvogado {
+    int32 status = 1;
+    string message = 2;
+    repeated HonorarioAdvogadoData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListHonorarioAdvogado {
+    int32 status = 1;
+    string message = 2;
+    ListResultHonorarioAdvogado data = 3;
+    string error = 4;
+}
+
+message ListResultHonorarioAdvogado {
+    repeated HonorarioAdvogadoData result = 1;
+    int32 total = 2;
+}
+
+//HonorarioJudicial
+message ListCriteriaRequestHonorarioJudicial {
+    string dtPagto = 1;
+    double nuValorPago = 2;
+    int32 items = 3;
+    int32 page = 4;
+    map<string, string> order = 5;    
+}
+
+message HonorarioJudicialData {
+    int32 idHonorarioJudicial = 1;
+    int32 idCasoJudicial = 2;
+    int32 idPagtoJudicial = 3;
+    int32 idConveniado = 4;
+    double nuValorIof = 5;
+    double perValorIof = 6;
+    double nuValorIr = 7;
+    double perValorIr = 8;
+    double nuValorCll = 9;
+    double perValorCll = 10;
+    double perValor = 11;
+    double nuValor = 12;
+    double nuValorLiquido = 13;
+    double nuValorAverbach = 14;
+    double perValorAverbach = 15;
+    double nuValorAdvogado = 16;
+    double perValorAdvogado = 17;
+    double nuValorConveniado = 18;
+    double perValorConveniado = 19;
+    string dtPagto = 20;
+    string cdHonorario = 21;
+    double perValorFinal = 22;
+    double nuValorFinal = 23;
+
+    int32 idUsuaOper = 24;
+    string dtRegistro = 25;
+    string createdDate = 26;
+    string updatedDate = 27;
+    string deletedDate = 28;
+}
+
+message HonorarioJudicialUpdateRequest{
+    int32 idHonorarioJudicial = 1;
+    HonorarioJudicialData honorarioJudicial = 2;
+}
+
+message ServiceResponseHonorarioJudicial {
+    int32 status = 1;
+    string message = 2;
+    repeated HonorarioJudicialData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListHonorarioJudicial {
+    int32 status = 1;
+    string message = 2;
+    ListResultHonorarioJudicial data = 3;
+    string error = 4;
+}
+
+message ListResultHonorarioJudicial {
+    repeated HonorarioJudicialData result = 1;
+    int32 total = 2;
+}
+
+//PrestContaJudicial
+message ListCriteriaRequestPrestContaJudicial {
+    int32 idCliente = 1;
+    string dtCadastro = 2;
+    int32 items = 3;
+    int32 page = 4;
+    map<string, string> order = 5;    
+}
+
+message PrestContaJudicialData {
+    int32 idPrestconta = 1;
+    int32 idCliente = 2;
+    string dtCadastro = 3;
+    string deArquivo = 4;
+    string deArquivoResumido = 5;
+
+    int32 idUsuaOper = 6;
+    string dtRegistro = 7;
+    string createdDate = 8;
+    string updatedDate = 9;
+    string deletedDate = 10;
+}
+
+message PrestContaJudicialUpdateRequest{
+    int32 idPrestconta = 1;
+    PrestContaJudicialData prestContaJudicial = 2;
+}
+
+message ServiceResponsePrestContaJudicial {
+    int32 status = 1;
+    string message = 2;
+    repeated PrestContaJudicialData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListPrestContaJudicial {
+    int32 status = 1;
+    string message = 2;
+    ListResultPrestContaJudicial data = 3;
+    string error = 4;
+}
+
+message ListResultPrestContaJudicial {
+    repeated PrestContaJudicialData result = 1;
+    int32 total = 2;
+}
+
+
+//TituloPagamentoJudicial
+message ListCriteriaRequestTituloPagamentoJudicial {
+    int32 idPagtoJudicial = 1;
+    int32 idTitulo = 2;
+    int32 idPrestconta = 3;
+    string deVoucher = 4;
+    int32 items = 5;
+    int32 page = 6;
+    map<string, string> order = 7;    
+}
+
+message TituloPagamentoJudicialData {
+    int32 idTitPagtoJudicial = 1;
+    int32 idTipoVoucher = 2;
+    int32 idTitulo = 3;
+    int32 idPagtoJudicial = 4;
+    string deVoucher = 5;
+    double nuProtesto = 6;
+    double nuProtestoPago = 7;
+    string cdProtestoParte = 8;
+    double nuMulta = 9;
+    double nuMultaPago = 10;
+    string cdMultaParte = 11;
+    double nuJuros = 12;
+    double nuJurosPago = 13;
+    string cdJurosParte = 14;
+    double nuCorrecao = 15;
+    double nuCorrecaoPago = 16;
+    string cdCorrecaoParte = 17;
+    double nuHonorCliente = 18;
+    double nuHonorClientePago = 19;
+    string cdHonorClienteParte = 20;
+    double nuPrincipal = 21;
+    double nuPrincipalPago = 22;
+    string cdPrincipalParte = 23;
+    double nuHonorDevedor = 24;
+    double nuHonorDevedorPago = 25;
+    string cdHonorDevedorParte = 26;
+    string cdQuitado = 27;
+    int32 cdPrestconta = 28;
+    string dtRepasse = 29;
+    bool cdRetorno = 30;
+    double nuJurosAmigavel = 31;
+    int32 idPrestconta = 32;
+    double nuCustas = 33;
+    double nuCustasPago = 34;
+
+    int32 idUsuaOper = 35;
+    string dtRegistro = 36;
+    string createdDate = 37;
+    string updatedDate = 38;
+    string deletedDate = 39;
+}
+
+message TituloPagamentoJudicialUpdateRequest{
+    int32 idTitPagtoJudicial = 1;
+    TituloPagamentoJudicialData tituloPagamentoJudicial = 2;
+}
+
+message ServiceResponseTituloPagamentoJudicial {
+    int32 status = 1;
+    string message = 2;
+    repeated TituloPagamentoJudicialData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListTituloPagamentoJudicial {
+    int32 status = 1;
+    string message = 2;
+    ListResultTituloPagamentoJudicial data = 3;
+    string error = 4;
+}
+
+message ListResultTituloPagamentoJudicial {
+    repeated TituloPagamentoJudicialData result = 1;
     int32 total = 2;
 }
