@@ -8,6 +8,19 @@ service PagamentoJudicialService {
     rpc createPagamentoJudicial (PagamentoJudicialData) returns (ServiceResponsePagamentoJudicial) {}
     rpc updatePagamentoJudicial (PagamentoJudicialUpdateRequest) returns (ServiceResponsePagamentoJudicial) {}
     rpc removePagamentoJudicial (IdRequest) returns (ServiceResponsePagamentoJudicial) {}
+
+    rpc listAlteracaoHonorariosJudicial (ListCriteriaRequestAlteracaoHonorariosJudicial) returns (ServiceResponseListAlteracaoHonorariosJudicial) {}
+    rpc findOneAlteracaoHonorariosJudicial (IdRequest) returns (ServiceResponseAlteracaoHonorariosJudicial) {}
+    rpc createAlteracaoHonorariosJudicial (AlteracaoHonorariosJudicialData) returns (ServiceResponseAlteracaoHonorariosJudicial) {}
+    rpc updateAlteracaoHonorariosJudicial (AlteracaoHonorariosJudicialUpdateRequest) returns (ServiceResponseAlteracaoHonorariosJudicial) {}
+    rpc removeAlteracaoHonorariosJudicial (IdRequest) returns (ServiceResponseAlteracaoHonorariosJudicial) {}
+
+    rpc listCustasJudicial (ListCriteriaRequestCustasJudicial) returns (ServiceResponseListCustasJudicial) {}
+    rpc findOneCustasJudicial (IdRequest) returns (ServiceResponseCustasJudicial) {}
+    rpc createCustasJudicial (CustasJudicialData) returns (ServiceResponseCustasJudicial) {}
+    rpc updateCustasJudicial (CustasJudicialUpdateRequest) returns (ServiceResponseCustasJudicial) {}
+    rpc removeCustasJudicial (IdRequest) returns (ServiceResponseCustasJudicial) {}
+
 }
 
 message IdRequest{
@@ -61,5 +74,100 @@ message ServiceResponseListPagamentoJudicial {
 
 message ListResultPagamentoJudicial {
     repeated PagamentoJudicialData result = 1;
+    int32 total = 2;
+}
+
+//AlteracaoHonorariosJudicial
+message ListCriteriaRequestAlteracaoHonorariosJudicial {
+    int32 idCasoJudicial = 1;
+    int32 items = 2;
+    int32 page = 3;
+    map<string, string> order = 4;    
+}
+
+message AlteracaoHonorariosJudicialData {
+    int32 idAlteracao = 1;
+    int32 idCasoJudicial = 2;
+    double perValorAnte = 3;
+    double perValorFinal = 4;
+    double nuTotalCausa = 5;
+    int32 idUsuaOper = 6;
+    string dtRegistro = 7;
+    string createdDate = 8;
+    string updatedDate = 9;
+    string deletedDate = 10;
+}
+
+message AlteracaoHonorariosJudicialUpdateRequest{
+    int32 idPagtoJudicial = 1;
+    AlteracaoHonorariosJudicialData alteracaoHonorariosJudicial = 2;
+}
+
+message ServiceResponseAlteracaoHonorariosJudicial {
+    int32 status = 1;
+    string message = 2;
+    repeated AlteracaoHonorariosJudicialData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListAlteracaoHonorariosJudicial {
+    int32 status = 1;
+    string message = 2;
+    ListResultAlteracaoHonorariosJudicial data = 3;
+    string error = 4;
+}
+
+message ListResultAlteracaoHonorariosJudicial {
+    repeated AlteracaoHonorariosJudicialData result = 1;
+    int32 total = 2;
+}
+
+//CustasJudicial
+message ListCriteriaRequestCustasJudicial {
+    int32 idCasoJudicial = 1;
+    int32 idPagtoJudicial = 2;
+    int32 items = 3;
+    int32 page = 4;
+    map<string, string> order = 5;    
+}
+
+message CustasJudicialData {
+    int32 idCustasJudicial = 1;
+    int32 idCasoJudicial = 2;
+    int32 idNatureza = 3;
+    int32 idNaturezaOrig = 4;
+    double nuCustas = 5;
+    string dtCustas = 6;
+    string dtIdentificacao = 7;
+    int32 idPagtoJudicial = 8;
+
+    int32 idUsuaOper = 9;
+    string dtRegistro = 10;
+    string createdDate = 11;
+    string updatedDate = 12;
+    string deletedDate = 13;
+}
+
+message CustasJudicialUpdateRequest{
+    int32 idPagtoJudicial = 1;
+    CustasJudicialData custasJudicial = 2;
+}
+
+message ServiceResponseCustasJudicial {
+    int32 status = 1;
+    string message = 2;
+    repeated CustasJudicialData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListCustasJudicial {
+    int32 status = 1;
+    string message = 2;
+    ListResultCustasJudicial data = 3;
+    string error = 4;
+}
+
+message ListResultCustasJudicial {
+    repeated CustasJudicialData result = 1;
     int32 total = 2;
 }
