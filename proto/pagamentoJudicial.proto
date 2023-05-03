@@ -1,0 +1,65 @@
+syntax = "proto3";
+
+package pagamentoJudicial;
+
+service PagamentoJudicialService {
+    rpc listPagamentoJudicial (ListCriteriaRequestPagamentoJudicial) returns (ServiceResponseListPagamentoJudicial) {}
+    rpc findOnePagamentoJudicial (IdRequest) returns (ServiceResponsePagamentoJudicial) {}
+    rpc createPagamentoJudicial (PagamentoJudicialData) returns (ServiceResponsePagamentoJudicial) {}
+    rpc updatePagamentoJudicial (PagamentoJudicialUpdateRequest) returns (ServiceResponsePagamentoJudicial) {}
+    rpc removePagamentoJudicial (IdRequest) returns (ServiceResponsePagamentoJudicial) {}
+}
+
+message IdRequest{
+    int32 id = 1;
+}
+
+
+
+//PagamentoJudicial
+message ListCriteriaRequestPagamentoJudicial {
+    string dtPagto = 1;
+    double nuValorPago = 2;
+    int32 items = 3;
+    int32 page = 4;
+    map<string, string> order = 5;    
+}
+
+message PagamentoJudicialData {
+    int32 idPagtoJudicial = 1;
+    string deObs = 2;
+    double nuValorPago = 3;
+    string dtPagto = 4;
+    bool cdPagto = 5;
+    string cdCheque = 6;
+    string deCheque = 7;
+    int32 idUsuaOper = 8;
+    string dtRegistro = 9;
+    string createdDate = 10;
+    string updatedDate = 11;
+    string deletedDate = 12;
+}
+
+message PagamentoJudicialUpdateRequest{
+    int32 idPagtoJudicial = 1;
+    PagamentoJudicialData pagamentoJudicial = 2;
+}
+
+message ServiceResponsePagamentoJudicial {
+    int32 status = 1;
+    string message = 2;
+    repeated PagamentoJudicialData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListPagamentoJudicial {
+    int32 status = 1;
+    string message = 2;
+    ListResultPagamentoJudicial data = 3;
+    string error = 4;
+}
+
+message ListResultPagamentoJudicial {
+    repeated PagamentoJudicialData result = 1;
+    int32 total = 2;
+}
