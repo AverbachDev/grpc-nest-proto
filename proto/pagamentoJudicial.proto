@@ -263,10 +263,11 @@ message ListResultDepositosJudicial {
 //HonorarioAdvogado
 message ListCriteriaRequestHonorarioAdvogado {
     string dtPagto = 1;
-    double nuValorPago = 2;
-    int32 items = 3;
-    int32 page = 4;
-    map<string, string> order = 5;    
+    int32 idHonorarioJudicial = 2;
+    int32 idUsuario = 3;
+    int32 items = 4;
+    int32 page = 5;
+    map<string, string> order = 6;    
 }
 
 message HonorarioAdvogadoData {
@@ -311,8 +312,8 @@ message ListResultHonorarioAdvogado {
 
 //HonorarioJudicial
 message ListCriteriaRequestHonorarioJudicial {
-    string dtPagto = 1;
-    double nuValorPago = 2;
+    int32 idCasoJudicial = 1;
+    int32 idPagtoJudicial = 2;
     int32 items = 3;
     int32 page = 4;
     map<string, string> order = 5;    
