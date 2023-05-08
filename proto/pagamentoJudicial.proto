@@ -51,7 +51,7 @@ service PagamentoJudicialService {
     rpc createTituloPagamentoJudicial (TituloPagamentoJudicialData) returns (ServiceResponseTituloPagamentoJudicial) {}
     rpc updateTituloPagamentoJudicial (TituloPagamentoJudicialUpdateRequest) returns (ServiceResponseTituloPagamentoJudicial) {}
     rpc removeTituloPagamentoJudicial (IdRequest) returns (ServiceResponseTituloPagamentoJudicial) {}
-    rpc findTotalPayments (idTitulos) returns (ServiceResponseTituloPagamentoJudicial) {}
+    rpc findTotalPayments (idTitulos) returns (ServiceResponseFindTotalPayments) {}
 
 }
 
@@ -491,6 +491,7 @@ message ServiceResponseTituloPagamentoJudicial {
     string error = 4;
 }
 
+
 message ServiceResponseListTituloPagamentoJudicial {
     int32 status = 1;
     string message = 2;
@@ -506,4 +507,30 @@ message ListResultTituloPagamentoJudicial {
 
 message idTitulos{
     repeated int32 idTitulos = 1;
+}
+
+message ServiceResponseFindTotalPayments {
+    int32 status = 1;
+    string message = 2;
+    repeated FindTotalPaymentsData data = 3;
+    string error = 4;
+}
+
+message FindTotalPaymentsData {
+    double nuProtesto = 1;
+    double nuProtestoPago = 2;
+    double nuMulta = 3;
+    double nuMultaPago = 4;
+    double nuJuros = 5;
+    double nuJurosPago = 6;
+    double nuCorrecao = 7;
+    double nuCorrecaoPago = 8;
+    double nuHonorCliente = 9;
+    double nuHonorClientePago = 10;
+    double nuPrincipal = 11;
+    double nuPrincipalPago = 12;
+    double nuHonorDevedor = 13;
+    double nuHonorDevedorPago = 14;
+    double nuCustas = 15;
+    double nuCustasPago = 16;
 }
