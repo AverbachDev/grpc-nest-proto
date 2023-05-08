@@ -51,8 +51,10 @@ service PagamentoJudicialService {
     rpc createTituloPagamentoJudicial (TituloPagamentoJudicialData) returns (ServiceResponseTituloPagamentoJudicial) {}
     rpc updateTituloPagamentoJudicial (TituloPagamentoJudicialUpdateRequest) returns (ServiceResponseTituloPagamentoJudicial) {}
     rpc removeTituloPagamentoJudicial (IdRequest) returns (ServiceResponseTituloPagamentoJudicial) {}
+    rpc findTotalPayments (idTitulos) returns (ServiceResponseTituloPagamentoJudicial) {}
 
 }
+
 
 message IdRequest{
     int32 id = 1;
@@ -499,4 +501,9 @@ message ServiceResponseListTituloPagamentoJudicial {
 message ListResultTituloPagamentoJudicial {
     repeated TituloPagamentoJudicialData result = 1;
     int32 total = 2;
+}
+
+
+message idTitulos{
+    repeated int32 idTitulos = 1;
 }
