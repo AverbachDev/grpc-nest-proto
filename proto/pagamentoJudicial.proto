@@ -316,9 +316,10 @@ message ListResultHonorarioAdvogado {
 message ListCriteriaRequestHonorarioJudicial {
     int32 idCasoJudicial = 1;
     int32 idPagtoJudicial = 2;
-    int32 items = 3;
-    int32 page = 4;
-    map<string, string> order = 5;    
+    string cdHonorario = 3;
+    int32 items = 4;
+    int32 page = 5;
+    map<string, string> order = 6;
 }
 
 message HonorarioJudicialData {
