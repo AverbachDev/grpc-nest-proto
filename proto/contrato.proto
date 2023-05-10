@@ -241,7 +241,7 @@ message ListResultHonorJudicialDiasVenc {
 
 message ListCriteriaRequestHonorJudicialValTitulos {
     int32 idHonorJudicialValTitulos = 1;
-    int32 idCcontrato = 2;
+    int32 idContrato = 2;
     double nuValIni = 3;
     double nuValFim = 4;
     int32 items = 5;
