@@ -10,6 +10,23 @@ service ContratoService {
   rpc createContrato (ContratoData) returns (ServiceResponseContrato) {}
   rpc updateContrato (ContratoUpdateRequest) returns (ServiceResponseContrato) {}
   rpc removeContrato (IdRequest) returns (ServiceResponseContrato) {}
+  rpc getHonorariosClienteJudicial (IdRequest) returns (ServiceResponseGetHonorariosClienteJudicial) {}
+
+
+  //HonorJudicialDiasVenc
+  rpc listHonorJudicialDiasVenc (ListCriteriaRequestHonorJudicialDiasVenc) returns (ServiceResponseListHonorJudicialDiasVenc) {}
+  rpc findOneHonorJudicialDiasVenc (IdRequest) returns (ServiceResponseHonorJudicialDiasVenc) {}
+  rpc createHonorJudicialDiasVenc (HonorJudicialDiasVencData) returns (ServiceResponseHonorJudicialDiasVenc) {}
+  rpc updateHonorJudicialDiasVenc (HonorJudicialDiasVencUpdateRequest) returns (ServiceResponseHonorJudicialDiasVenc) {}
+  rpc removeHonorJudicialDiasVenc (IdRequest) returns (ServiceResponseHonorJudicialDiasVenc) {}
+  
+  
+  //HonorJudicialValTitulos
+  rpc listHonorJudicialValTitulos (ListCriteriaRequestHonorJudicialValTitulos) returns (ServiceResponseListHonorJudicialValTitulos) {}
+  rpc findOneHonorJudicialValTitulos (IdRequest) returns (ServiceResponseHonorJudicialValTitulos) {}
+  rpc createHonorJudicialValTitulos (HonorJudicialValTitulosData) returns (ServiceResponseHonorJudicialValTitulos) {}
+  rpc updateHonorJudicialValTitulos (HonorJudicialValTitulosUpdateRequest) returns (ServiceResponseHonorJudicialValTitulos) {}
+  rpc removeHonorJudicialValTitulos (IdRequest) returns (ServiceResponseHonorJudicialValTitulos) {}
 
 }
 
@@ -129,6 +146,12 @@ message ContratoData {
 
 }
 
+message GetHonorariosClienteJudicialData{
+    double nuFixoJudicAnte = 1;
+    double nuFixoJudicFinal = 2;
+}
+
+
 message ContratoUpdateRequest{
     int32 idContrato = 1;
     ContratoData contrato = 2;
@@ -138,6 +161,13 @@ message ServiceResponseContrato {
     int32 status = 1;
     string message = 2;
     repeated ContratoData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseGetHonorariosClienteJudicial {
+    int32 status = 1;
+    string message = 2;
+    repeated GetHonorariosClienteJudicialData data = 3;
     string error = 4;
 }
 
@@ -152,3 +182,109 @@ message ListResultContrato {
     repeated ContratoData result = 1;
     int32 total = 2;
 }
+
+
+//HonorJudicialDiasVenc
+
+message ListCriteriaRequestHonorJudicialDiasVenc {
+    int32 idHonorJudicialDiasVenc = 1;
+    int32 idContrato = 2;
+    int32 nuDiaIni = 3;
+    int32 nuDiaFim = 4;
+    int32 items = 5;
+    int32 page = 6;
+    map<string, string> order =7;
+}
+
+message HonorJudicialDiasVencData {
+    int32 idHonorJudicialDiasVenc = 1;
+    int32 idContrato = 2;
+    double nuDiaIni = 3;
+    double nuDiaFim = 4;
+    double nuJudicInicial = 5;
+    double nuJudicFinal = 6;
+    int32 idUsuaOper = 7;
+    string dtRegistro = 8;
+    string createdDate = 9;
+    string updatedDate = 10;
+    string deletedDate = 11;
+
+}
+
+message HonorJudicialDiasVencUpdateRequest{
+    int32 idHonorJudicialDiasVenc = 1;
+    HonorJudicialDiasVencData honorJudicialDiasVenc = 2;
+}
+
+message ServiceResponseHonorJudicialDiasVenc {
+    int32 status = 1;
+    string message = 2;
+    repeated HonorJudicialDiasVencData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListHonorJudicialDiasVenc {
+    int32 status = 1;
+    string message = 2;
+    ListResultHonorJudicialDiasVenc data = 3;
+    string error = 4;
+}
+
+message ListResultHonorJudicialDiasVenc {
+    repeated HonorJudicialDiasVencData result = 1;
+    int32 total = 2;
+}
+
+
+
+//HonorJudicialValTitulos
+
+message ListCriteriaRequestHonorJudicialValTitulos {
+    int32 idHonorJudicialValTitulos = 1;
+    int32 idCcontrato = 2;
+    double nuValIni = 3;
+    double nuValFim = 4;
+    int32 items = 5;
+    int32 page = 6;
+    map<string, string> order =7;
+}
+
+message HonorJudicialValTitulosData {
+    int32 idHonorJudicialValTitulos = 1;
+    int32 idContrato = 2;
+    double nuValIni = 3;
+    double nuValFim = 4;
+    double nuJudicInicial = 5;
+    double nuJudicFinal= 6;
+    int32 idUsuaOper = 7;
+    string dtRegistro = 8;
+    string createdDate = 9;
+    string updatedDate = 10;
+    string deletedDate = 11;
+
+}
+
+message HonorJudicialValTitulosUpdateRequest{
+    int32 idHonorJudicialValTitulos = 1;
+    HonorJudicialValTitulosData honorJudicialValTitulos = 2;
+}
+
+message ServiceResponseHonorJudicialValTitulos {
+    int32 status = 1;
+    string message = 2;
+    repeated HonorJudicialValTitulosData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListHonorJudicialValTitulos {
+    int32 status = 1;
+    string message = 2;
+    ListResultHonorJudicialValTitulos data = 3;
+    string error = 4;
+}
+
+message ListResultHonorJudicialValTitulos {
+    repeated HonorJudicialValTitulosData result = 1;
+    int32 total = 2;
+}
+

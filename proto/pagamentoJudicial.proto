@@ -61,7 +61,6 @@ message IdRequest{
 }
 
 
-
 //PagamentoJudicial
 message ListCriteriaRequestPagamentoJudicial {
     string dtPagto = 1;
