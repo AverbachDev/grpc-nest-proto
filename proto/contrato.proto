@@ -10,7 +10,7 @@ service ContratoService {
   rpc createContrato (ContratoData) returns (ServiceResponseContrato) {}
   rpc updateContrato (ContratoUpdateRequest) returns (ServiceResponseContrato) {}
   rpc removeContrato (IdRequest) returns (ServiceResponseContrato) {}
-  rpc getHonorariosClienteJudicial (getHonorariosClienteJudicialRequest) returns (ServiceResponseGetHonorariosClienteJudicial) {}
+  rpc getHonorariosClienteJudicial (GetHonorariosClienteJudicialRequest) returns (ServiceResponseGetHonorariosClienteJudicial) {}
 
 
   //HonorJudicialDiasVenc
@@ -152,8 +152,8 @@ message GetHonorariosClienteJudicialData{
 }
 
 
-message getHonorariosClienteJudicialRequest{
-    int32 idContrato = 1;
+message GetHonorariosClienteJudicialRequest{
+    int32 idCliente = 1;
     optional double totalCausa = 2;
     optional string dtVencimentoMaisAntigo = 3;
 }
