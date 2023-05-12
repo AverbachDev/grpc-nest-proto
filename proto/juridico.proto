@@ -177,6 +177,7 @@ message TituloJudicialData {
     string updatedDate = 26;
     string deletedDate = 27;
     int32 idParcela = 28;
+    bool cdCalculado = 29;
 }
 
 message CalculoTituloJudicialRequest{
