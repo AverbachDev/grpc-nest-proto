@@ -19,6 +19,7 @@ service JuridicoService {
   rpc updateTituloJudicial (TituloJudicialUpdateRequest) returns (ServiceResponseTituloJudicial) {}
   rpc removeTituloJudicial (IdRequest) returns (ServiceResponseTituloJudicial) {} 
   rpc calculateTituloJudicial (CalculoTituloJudicialRequest) returns (ServiceResponseTituloJudicial) {}
+  rpc updateHonDevTituloJudicial (CalculoTituloJudicialRequest) returns (ServiceResponseTituloJudicial) {}
 
 
   //Acordo Judicial
