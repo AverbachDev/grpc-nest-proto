@@ -112,9 +112,13 @@ message ListResultPagamentoJudicial {
 //AlteracaoHonorariosJudicial
 message ListCriteriaRequestAlteracaoHonorariosJudicial {
     int32 idCasoJudicial = 1;
-    int32 items = 2;
-    int32 page = 3;
-    map<string, string> order = 4;    
+    int32 idCaso = 2;
+    string nmCliente = 3;
+    string nmDevedor = 4; 
+    double nuTotalCausa = 5;
+    int32 items = 6;
+    int32 page = 7;
+    map<string, string> order = 8;
 }
 
 message AlteracaoHonorariosJudicialData {
@@ -123,11 +127,14 @@ message AlteracaoHonorariosJudicialData {
     double perValorAnte = 3;
     double perValorFinal = 4;
     double nuTotalCausa = 5;
-    int32 idUsuaOper = 6;
-    string dtRegistro = 7;
-    string createdDate = 8;
-    string updatedDate = 9;
-    string deletedDate = 10;
+    int32 idCaso = 6;
+    string nmCliente = 7;
+    string nmDevedor = 8; 
+    int32 idUsuaOper = 9;
+    string dtRegistro = 10;
+    string createdDate = 11;
+    string updatedDate = 12;
+    string deletedDate = 13;
 }
 
 message AlteracaoHonorariosJudicialUpdateRequest{
