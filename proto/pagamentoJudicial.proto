@@ -129,12 +129,14 @@ message AlteracaoHonorariosJudicialData {
     double nuTotalCausa = 5;
     int32 idCaso = 6;
     string nmCliente = 7;
-    string nmDevedor = 8; 
-    int32 idUsuaOper = 9;
-    string dtRegistro = 10;
-    string createdDate = 11;
-    string updatedDate = 12;
-    string deletedDate = 13;
+    string nmDevedor = 8;
+    int32 idDevedor = 9;
+    int32 idCliente = 10; 
+    int32 idUsuaOper = 11;
+    string dtRegistro = 12;
+    string createdDate = 13;
+    string updatedDate = 14;
+    string deletedDate = 15;
 }
 
 message AlteracaoHonorariosJudicialUpdateRequest{
