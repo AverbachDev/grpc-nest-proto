@@ -14,7 +14,10 @@ service PagamentoJudicialService {
     rpc createAlteracaoHonorariosJudicial (AlteracaoHonorariosJudicialData) returns (ServiceResponseAlteracaoHonorariosJudicial) {}
     rpc updateAlteracaoHonorariosJudicial (AlteracaoHonorariosJudicialUpdateRequest) returns (ServiceResponseAlteracaoHonorariosJudicial) {}
     rpc removeAlteracaoHonorariosJudicial (IdRequest) returns (ServiceResponseAlteracaoHonorariosJudicial) {}
+    rpc acceptChangeAlteracaoHonorariosJudicial (AcceptRejectAlteracao) returns (ServiceResponseAlteracaoHonorariosJudicial) {}
+    rpc rejectChangeAlteracaoHonorariosJudicial (AcceptRejectAlteracao) returns (ServiceResponseAlteracaoHonorariosJudicial) {}
 
+    
     rpc listCustasJudicial (ListCriteriaRequestCustasJudicial) returns (ServiceResponseListCustasJudicial) {}
     rpc findOneCustasJudicial (IdRequest) returns (ServiceResponseCustasJudicial) {}
     rpc createCustasJudicial (CustasJudicialData) returns (ServiceResponseCustasJudicial) {}
@@ -161,6 +164,12 @@ message ServiceResponseListAlteracaoHonorariosJudicial {
 message ListResultAlteracaoHonorariosJudicial {
     repeated AlteracaoHonorariosJudicialData result = 1;
     int32 total = 2;
+}
+
+
+message AcceptRejectAlteracao {
+    int32 idAlteracao = 1;
+    int32 idUsuaOper = 2;
 }
 
 //CustasJudicial
