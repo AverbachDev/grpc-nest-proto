@@ -42,7 +42,7 @@ service PagamentoJudicialService {
     rpc createHonorarioJudicial (HonorarioJudicialData) returns (ServiceResponseHonorarioJudicial) {}
     rpc updateHonorarioJudicial (HonorarioJudicialUpdateRequest) returns (ServiceResponseHonorarioJudicial) {}
     rpc removeHonorarioJudicial (IdRequest) returns (ServiceResponseHonorarioJudicial) {}
-    rpc getAllIdCasoJudicialPaid (emptyParameters) returns (ServiceResponseHonorarioJudicial) {}
+    rpc getAllIdCasoJudicialPaid (emptyParameters) returns (ServiceResponseHonorarioJudicialGetAllIdCasoJudicialPaid) {}
 
 
     rpc listPrestContaJudicial (ListCriteriaRequestPrestContaJudicial) returns (ServiceResponseListPrestContaJudicial) {}
@@ -399,6 +399,17 @@ message ServiceResponseListHonorarioJudicial {
 message ListResultHonorarioJudicial {
     repeated HonorarioJudicialData result = 1;
     int32 total = 2;
+}
+
+message ServiceResponseHonorarioJudicialGetAllIdCasoJudicialPaid {
+    int32 status = 1;
+    string message = 2;
+    repeated HonorarioJudicialIdCasoJudicialData data = 3;
+    string error = 4;
+}
+
+message HonorarioJudicialIdCasoJudicialData {
+    int32 idCasoJudicial = 1;
 }
 
 //PrestContaJudicial
