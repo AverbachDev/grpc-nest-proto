@@ -42,6 +42,8 @@ service PagamentoJudicialService {
     rpc createHonorarioJudicial (HonorarioJudicialData) returns (ServiceResponseHonorarioJudicial) {}
     rpc updateHonorarioJudicial (HonorarioJudicialUpdateRequest) returns (ServiceResponseHonorarioJudicial) {}
     rpc removeHonorarioJudicial (IdRequest) returns (ServiceResponseHonorarioJudicial) {}
+    rpc getAllIdCasoJudicialPaid (emptyParameters) returns (ServiceResponseHonorarioJudicial) {}
+
 
     rpc listPrestContaJudicial (ListCriteriaRequestPrestContaJudicial) returns (ServiceResponseListPrestContaJudicial) {}
     rpc findOnePrestContaJudicial (IdRequest) returns (ServiceResponsePrestContaJudicial) {}
@@ -61,6 +63,10 @@ service PagamentoJudicialService {
 
 message IdRequest{
     int32 id = 1;
+}
+
+
+message emptyParameters{
 }
 
 
