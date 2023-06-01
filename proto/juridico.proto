@@ -11,6 +11,7 @@ service JuridicoService {
   rpc updateCasoJudicial (CasoJudicialUpdateRequest) returns (ServiceResponseCasoJudicial) {}
   rpc removeCasoJudicial (IdRequest) returns (ServiceResponseCasoJudicial) {}
   rpc getCasoJudicial (IdCasoRequest) returns (ServiceResponseCasoJudicial) {}
+  rpc listCasoJudicialVoucher (ListCriteriaRequestCasoJudicial) returns (ServiceResponseListCasoJudicial) {}
 
   //Titulo Judicial
   rpc listTituloJudicial (ListCriteriaRequestTituloJudicial) returns (ServiceResponseListTituloJudicial) {}
