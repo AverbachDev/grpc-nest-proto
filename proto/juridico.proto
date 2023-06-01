@@ -27,7 +27,8 @@ service JuridicoService {
   rpc findOneAcordoJudicial (IdRequest) returns (ServiceResponseAcordoJudicial) {}
   rpc createAcordoJudicial (AcordoJudicialData) returns (ServiceResponseAcordoJudicial) {}
   rpc updateAcordoJudicial (AcordoJudicialUpdateRequest) returns (ServiceResponseAcordoJudicial) {}
-  rpc removeAcordoJudicial (IdRequest) returns (ServiceResponseAcordoJudicial) {}   
+  rpc removeAcordoJudicial (IdRequest) returns (ServiceResponseAcordoJudicial) {}
+  rpc getAllIdCasoJudicialPaid (emptyParameters) returns (ServiceResponseAcordoJudicialGetAllIdCasoJudicialPaid) {}   
 
 
   //Parcela Judicial
@@ -42,7 +43,8 @@ message IdRequest{
     int32 id = 1;
 }
 
-
+message emptyParameters{
+}
 
 
 
@@ -287,6 +289,16 @@ message ListResultAcordoJudicial {
     int32 total = 2;
 }
 
+message ServiceResponseAcordoJudicialGetAllIdCasoJudicialPaid {
+    int32 status = 1;
+    string message = 2;
+    repeated AcordoJudicialIdCasoJudicialData data = 3;
+    string error = 4;
+}
+
+message AcordoJudicialIdCasoJudicialData {
+    int32 idCasoJudicial = 1;
+}
 
 //Parcela Judicial
 
