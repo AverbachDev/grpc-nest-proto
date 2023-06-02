@@ -145,7 +145,7 @@ message ServiceResponseListCasoJudicialVoucher {
     string error = 4;
 }
 message CasoJudicialVoucherData {
-    int32 idPagtoJudical = 1;
+    int32 idPagtoJudicial = 1;
     int32 idCaso = 2;
     int32 nuVoucher = 3;
     string dtVenc = 4;
@@ -337,7 +337,7 @@ message ParcelaJudicialData {
     string deParcela = 4;
     double nuValor = 5;
     string dtVenc = 6;
-    int32 idPagtoJudical = 7;
+    int32 idPagtoJudicial = 7;
     double nuValorPago = 8;
     string dtPagto = 9;
     int32 idUsuaOper = 10;
