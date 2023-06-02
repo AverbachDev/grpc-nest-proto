@@ -43,6 +43,7 @@ service PagamentoJudicialService {
     rpc updateHonorarioJudicial (HonorarioJudicialUpdateRequest) returns (ServiceResponseHonorarioJudicial) {}
     rpc removeHonorarioJudicial (IdRequest) returns (ServiceResponseHonorarioJudicial) {}
     rpc getAllIdCasoJudicialPaid (emptyParameters) returns (ServiceResponseHonorarioJudicialGetAllIdCasoJudicialPaid) {}
+    rpc getHonorarioVoucherJudicial (IdCasoRequest) returns (ServiceResponseListHonorarioJudicialVoucher) {}
 
 
     rpc listPrestContaJudicial (ListCriteriaRequestPrestContaJudicial) returns (ServiceResponseListPrestContaJudicial) {}
@@ -69,6 +70,9 @@ message IdRequest{
 message emptyParameters{
 }
 
+message IdCasoRequest{
+    int32 idCaso = 1;
+}
 
 //PagamentoJudicial
 message ListCriteriaRequestPagamentoJudicial {
@@ -412,6 +416,23 @@ message HonorarioJudicialIdCasoJudicialData {
     int32 idCasoJudicial = 1;
 }
 
+
+message ServiceResponseListHonorarioJudicialVoucher {
+    int32 status = 1;
+    string message = 2;
+    repeated HonorarioJudicialVoucherData data = 3;
+    string error = 4;
+}
+
+message HonorarioJudicialVoucherData {
+    int32 idPagtoJudical = 1;
+    int32 idCaso = 2;
+    int32 nuVoucher = 3;
+    string dtVenc = 4;
+    string dtPagto =5;
+    double nuValor = 6;
+    double nuValorPago = 7;
+}
 //PrestContaJudicial
 message ListCriteriaRequestPrestContaJudicial {
     int32 idCliente = 1;
