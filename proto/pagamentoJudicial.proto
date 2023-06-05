@@ -629,7 +629,7 @@ message TituloValorAcordoData {
 }
 
 message TituloValorAcordoUpdateRequest{
-    int32 idPrestconta = 1;
+    int32 idTituloReal = 1;
     TituloValorAcordoData tituloValorAcordo = 2;
 }
 
