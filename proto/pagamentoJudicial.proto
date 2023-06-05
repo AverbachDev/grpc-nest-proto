@@ -59,6 +59,12 @@ service PagamentoJudicialService {
     rpc removeTituloPagamentoJudicial (IdRequest) returns (ServiceResponseTituloPagamentoJudicial) {}
     rpc findTotalPayments (idTitulos) returns (ServiceResponseFindTotalPayments) {}
 
+    rpc listTituloValorAcordo (ListCriteriaRequestTituloValorAcordo) returns (ServiceResponseListTituloValorAcordo) {}
+    rpc findOneTituloValorAcordo (IdRequest) returns (ServiceResponseTituloValorAcordo) {}
+    rpc createTituloValorAcordo (TituloValorAcordoData) returns (ServiceResponseTituloValorAcordo) {}
+    rpc updateTituloValorAcordo (TituloValorAcordoUpdateRequest) returns (ServiceResponseTituloValorAcordo) {}
+    rpc removeTituloValorAcordo (IdRequest) returns (ServiceResponseTituloValorAcordo) {}
+
 }
 
 
@@ -589,4 +595,57 @@ message FindTotalPaymentsData {
     double nuHonorDevedorPago = 14;
     double nuCustas = 15;
     double nuCustasPago = 16;
+}
+
+
+//TituloValorAcordo
+message ListCriteriaRequestTituloValorAcordo {
+    int32 idCliente = 1;
+    string dtCadastro = 2;
+    int32 items = 3;
+    int32 page = 4;
+    map<string, string> order = 5;    
+}
+
+message TituloValorAcordoData {
+    int32 idTituloReal =1;
+    int32 idCaso =2;
+    string deDoc =3;
+    string dtVencimento =4;
+    double nuValor =5;
+    double nuJuros =6;
+    double nuProtesto =7;
+    double nuCorrecao =8;
+    double nuMulta =9;
+    double nuValorBaixa =10;
+
+    int32 idUsuaOper = 11;
+    string dtRegistro = 12;
+    string createdDate = 13;
+    string updatedDate = 14;
+    string deletedDate = 15;
+}
+
+message TituloValorAcordoUpdateRequest{
+    int32 idPrestconta = 1;
+    TituloValorAcordoData TituloValorAcordo = 2;
+}
+
+message ServiceResponseTituloValorAcordo {
+    int32 status = 1;
+    string message = 2;
+    repeated TituloValorAcordoData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListTituloValorAcordo {
+    int32 status = 1;
+    string message = 2;
+    ListResultTituloValorAcordo data = 3;
+    string error = 4;
+}
+
+message ListResultTituloValorAcordo {
+    repeated TituloValorAcordoData result = 1;
+    int32 total = 2;
 }
