@@ -36,6 +36,8 @@ service PagamentoJudicialService {
     rpc createHonorarioAdvogado (HonorarioAdvogadoData) returns (ServiceResponseHonorarioAdvogado) {}
     rpc updateHonorarioAdvogado (HonorarioAdvogadoUpdateRequest) returns (ServiceResponseHonorarioAdvogado) {}
     rpc removeHonorarioAdvogado (IdRequest) returns (ServiceResponseHonorarioAdvogado) {}
+    rpc getHonorariosAdvogadoByHonorarioJudicial (IdRequest) returns (ServiceResponseHonorarioAdvogado) {}
+    
 
     rpc listHonorarioJudicial (ListCriteriaRequestHonorarioJudicial) returns (ServiceResponseListHonorarioJudicial) {}
     rpc findOneHonorarioJudicial (IdRequest) returns (ServiceResponseHonorarioJudicial) {}
