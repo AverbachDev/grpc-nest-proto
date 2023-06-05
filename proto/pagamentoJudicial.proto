@@ -44,6 +44,7 @@ service PagamentoJudicialService {
     rpc removeHonorarioJudicial (IdRequest) returns (ServiceResponseHonorarioJudicial) {}
     rpc getAllIdCasoJudicialPaid (emptyParameters) returns (ServiceResponseHonorarioJudicialGetAllIdCasoJudicialPaid) {}
     rpc getHonorarioVoucherJudicial (IdCasoRequest) returns (ServiceResponseListHonorarioJudicialVoucher) {}
+    rpc getDetailsVoucherHonorario (IdPagtoRequest) returns (ServiceResponseTituloValorAcordo) {}//TODO: CRIAR O RESPONSE ADEQUADO
 
 
     rpc listPrestContaJudicial (ListCriteriaRequestPrestContaJudicial) returns (ServiceResponseListPrestContaJudicial) {}
@@ -58,12 +59,14 @@ service PagamentoJudicialService {
     rpc updateTituloPagamentoJudicial (TituloPagamentoJudicialUpdateRequest) returns (ServiceResponseTituloPagamentoJudicial) {}
     rpc removeTituloPagamentoJudicial (IdRequest) returns (ServiceResponseTituloPagamentoJudicial) {}
     rpc findTotalPayments (idTitulos) returns (ServiceResponseFindTotalPayments) {}
+    rpc getDetailsVoucherAcordo (IdVoucherAcordoRequest) returns (ServiceResponseTituloValorAcordo) {}//TODO: CRIAR O RESPONSE ADEQUADO
 
     rpc listTituloValorAcordo (ListCriteriaRequestTituloValorAcordo) returns (ServiceResponseListTituloValorAcordo) {}
     rpc findOneTituloValorAcordo (IdRequest) returns (ServiceResponseTituloValorAcordo) {}
     rpc createTituloValorAcordo (TituloValorAcordoData) returns (ServiceResponseTituloValorAcordo) {}
     rpc updateTituloValorAcordo (TituloValorAcordoUpdateRequest) returns (ServiceResponseTituloValorAcordo) {}
     rpc removeTituloValorAcordo (IdRequest) returns (ServiceResponseTituloValorAcordo) {}
+    rpc getTitulosVoucherAcordo (IdPagtoRequest) returns (ServiceResponseTituloValorAcordo) {}
 
 }
 
@@ -78,6 +81,15 @@ message emptyParameters{
 
 message IdCasoRequest{
     int32 idCaso = 1;
+}
+
+message IdPagtoRequest{
+    int32 idPagtoJudicial = 1;
+}
+
+message IdVoucherAcordoRequest{
+    int32 idPagtoJudicial = 1;
+    int32 idTitulo = 2;
 }
 
 //PagamentoJudicial
