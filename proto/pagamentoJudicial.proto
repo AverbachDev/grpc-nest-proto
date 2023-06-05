@@ -44,7 +44,7 @@ service PagamentoJudicialService {
     rpc removeHonorarioJudicial (IdRequest) returns (ServiceResponseHonorarioJudicial) {}
     rpc getAllIdCasoJudicialPaid (emptyParameters) returns (ServiceResponseHonorarioJudicialGetAllIdCasoJudicialPaid) {}
     rpc getHonorarioVoucherJudicial (IdCasoRequest) returns (ServiceResponseListHonorarioJudicialVoucher) {}
-    rpc getDetailsVoucherHonorario (IdPagtoRequest) returns (ServiceResponseTituloValorAcordo) {}//TODO: CRIAR O RESPONSE ADEQUADO
+    rpc getDetailsVoucherHonorario (IdPagtoRequest) returns (ServiceResponseDetailsVoucherHonorario) {}
 
 
     rpc listPrestContaJudicial (ListCriteriaRequestPrestContaJudicial) returns (ServiceResponseListPrestContaJudicial) {}
@@ -59,7 +59,7 @@ service PagamentoJudicialService {
     rpc updateTituloPagamentoJudicial (TituloPagamentoJudicialUpdateRequest) returns (ServiceResponseTituloPagamentoJudicial) {}
     rpc removeTituloPagamentoJudicial (IdRequest) returns (ServiceResponseTituloPagamentoJudicial) {}
     rpc findTotalPayments (idTitulos) returns (ServiceResponseFindTotalPayments) {}
-    rpc getDetailsVoucherAcordo (IdVoucherAcordoRequest) returns (ServiceResponseTituloValorAcordo) {}//TODO: CRIAR O RESPONSE ADEQUADO
+    rpc getDetailsVoucherAcordo (IdVoucherAcordoRequest) returns (ServiceResponseDetailsVoucherAcordo) {}
 
     rpc listTituloValorAcordo (ListCriteriaRequestTituloValorAcordo) returns (ServiceResponseListTituloValorAcordo) {}
     rpc findOneTituloValorAcordo (IdRequest) returns (ServiceResponseTituloValorAcordo) {}
@@ -451,6 +451,23 @@ message HonorarioJudicialVoucherData {
     double nuValor = 6;
     double nuValorPago = 7;
 }
+
+
+message ServiceResponseDetailsVoucherHonorario {
+    int32 status = 1;
+    string message = 2;
+    repeated FindDetailsVoucherHonorarioData data = 3;
+    string error = 4;
+}
+
+message FindDetailsVoucherHonorarioData {
+    int32 ordem = 1;
+    string descricao =2;
+    double nuPercentual = 3;
+    double nuValor=4;
+}
+
+
 //PrestContaJudicial
 message ListCriteriaRequestPrestContaJudicial {
     int32 idCliente = 1;
@@ -609,6 +626,21 @@ message FindTotalPaymentsData {
     double nuCustasPago = 16;
 }
 
+
+message ServiceResponseDetailsVoucherAcordo {
+    int32 status = 1;
+    string message = 2;
+    repeated FindDetailsVoucherAcordoData data = 3;
+    string error = 4;
+}
+
+message FindDetailsVoucherAcordoData {
+    int32 idTitulo = 1;
+    int32 ordem = 2;
+    string descricao =3;
+    double nuPercentual = 4;
+    double nuValor=5;
+}
 
 //TituloValorAcordo
 message ListCriteriaRequestTituloValorAcordo {
