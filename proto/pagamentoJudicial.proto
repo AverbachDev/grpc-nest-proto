@@ -600,11 +600,12 @@ message FindTotalPaymentsData {
 
 //TituloValorAcordo
 message ListCriteriaRequestTituloValorAcordo {
-    int32 idCliente = 1;
-    string dtCadastro = 2;
-    int32 items = 3;
-    int32 page = 4;
-    map<string, string> order = 5;    
+    int32 idTitulo = 1;
+    int32 idCaso = 2;
+    string deDoc = 3;
+    int32 items = 4;
+    int32 page = 5;
+    map<string, string> order = 6;    
 }
 
 message TituloValorAcordoData {
