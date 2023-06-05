@@ -609,22 +609,23 @@ message ListCriteriaRequestTituloValorAcordo {
 }
 
 message TituloValorAcordoData {
-    int32 idTituloReal =1;
-    int32 idCaso =2;
-    string deDoc =3;
-    string dtVencimento =4;
-    double nuValor =5;
-    double nuJuros =6;
-    double nuProtesto =7;
-    double nuCorrecao =8;
-    double nuMulta =9;
-    double nuValorBaixa =10;
+    int32 idTituloReal = 1;
+    int32 idTitulo = 2;
+    int32 idCaso = 3;
+    string deDoc = 4;
+    string dtVencimento = 5;
+    double nuValor = 6;
+    double nuJuros = 7;
+    double nuProtesto = 8;
+    double nuCorrecao = 9;
+    double nuMulta = 10;
+    double nuValorBaixa = 11;
 
-    int32 idUsuaOper = 11;
-    string dtRegistro = 12;
-    string createdDate = 13;
-    string updatedDate = 14;
-    string deletedDate = 15;
+    int32 idUsuaOper = 12;
+    string dtRegistro = 13;
+    string createdDate = 14;
+    string updatedDate = 15;
+    string deletedDate = 16;
 }
 
 message TituloValorAcordoUpdateRequest{
