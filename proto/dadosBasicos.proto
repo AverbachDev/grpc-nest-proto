@@ -436,10 +436,11 @@ message ListCriteriaRequestAgenciaBradesco {
     string nuAgencia = 1;    
     string deAgencia = 2;
     string nuConta = 3;
-    string deCodigoCarteira = 4;    
-    int32 items = 5;
-    int32 page = 6;
-    map<string, string> order = 7;
+    string deCodigoCarteira = 4;
+    bool cdPadrao = 5;
+    int32 items = 6;
+    int32 page = 7;
+    map<string, string> order = 8;
 }
 
 message AgenciaBradescoData {
