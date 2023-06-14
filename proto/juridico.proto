@@ -40,6 +40,8 @@ service JuridicoService {
   rpc createParcelaJudicial (ParcelaJudicialData) returns (ServiceResponseParcelaJudicial) {}
   rpc updateParcelaJudicial (ParcelaJudicialUpdateRequest) returns (ServiceResponseParcelaJudicial) {}
   rpc removeParcelaJudicial (IdRequest) returns (ServiceResponseParcelaJudicial) {}     
+  rpc getParcelasToIdentify (ListCriteriaRequestParcelaIdentifyJudicial) returns (ServiceResponseParcelasToIdentify) {}
+
 }
 
 message IdRequest{
@@ -329,7 +331,6 @@ message ListCriteriaRequestParcelaJudicial {
     map<string, string> order =5;
 }
 
-
 message ParcelaJudicialData {
     int32 idParcelaJudicial = 1;
     int32 idAcordoJudicial = 2;
@@ -369,4 +370,37 @@ message ServiceResponseListParcelaJudicial {
 message ListResultParcelaJudicial {
     repeated ParcelaJudicialData result = 1;
     int32 total = 2;
+}
+
+message ListCriteriaRequestParcelaIdentifyJudicial{
+    double nuValorInicial=1; 
+    double nuValorFinal=2; 
+    string nmDevedor = 3;
+}
+
+message ServiceResponseParcelasToIdentify {
+    int32 status = 1;
+    string message = 2;
+    repeated ParcelasToIdentifyData data = 3;
+    string error = 4;
+}
+
+message ParcelasToIdentifyData {
+    int32 idParcelaJudicial = 1;
+    int32 idAcordoJudicial = 2;
+    int32 idNatureza = 3;
+    string deParcela = 4;
+    double nuValor = 5;
+    string dtVenc = 6;
+    int32 idPagtoJudicial = 7;
+    double nuValorPago = 8;
+    string dtPagto = 9;
+    int32 idUsuaOper = 10;
+    string dtRegistro = 11;
+    string createdDate = 12;
+    string updatedDate = 13;
+    string deletedDate = 14;
+    string nmCliente = 15;
+    string nmDevedor = 16;
+    int32 idCaso = 17;
 }
