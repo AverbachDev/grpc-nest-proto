@@ -14,6 +14,7 @@ service JuridicoService {
   rpc listCasoJudicialVoucherHonorario (ListCriteriaRequestCasoJudicial) returns (ServiceResponseListCasoJudicial) {}
   rpc listCasoJudicialVoucherAcordo (ListCriteriaRequestCasoJudicial) returns (ServiceResponseListCasoJudicial) {}
   rpc getCasoVoucherJudicial (IdCasoRequest) returns (ServiceResponseListCasoJudicialVoucher) {}
+  rpc getCasosJudiciaisByIds (IdsCasosJudiciaisRequest) returns (ServiceResponseCasoJudicial) {}
 
   //Titulo Judicial
   rpc listTituloJudicial (ListCriteriaRequestTituloJudicial) returns (ServiceResponseListTituloJudicial) {}
@@ -155,6 +156,11 @@ message CasoJudicialVoucherData {
     double nuValor = 6;
     double nuValorPago = 7;
 }
+
+message IdsCasosJudiciaisRequest{
+    repeated int32 idCasoJudicial = 1;
+}
+
 
   //Titulo Judicial
 
