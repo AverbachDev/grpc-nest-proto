@@ -47,6 +47,7 @@ service PagamentoJudicialService {
     rpc getAllIdCasoJudicialPaid (emptyParameters) returns (ServiceResponseHonorarioJudicialGetAllIdCasoJudicialPaid) {}
     rpc getHonorarioVoucherJudicial (IdCasoRequest) returns (ServiceResponseListHonorarioJudicialVoucher) {}
     rpc getDetailsVoucherHonorario (IdPagtoRequest) returns (ServiceResponseDetailsVoucherHonorario) {}
+    rpc getHonorariosToIdentify (ListCriteriaRequestHonorarioJudicialIdentify) returns (ServiceResponseHonorariosToIdentify) {}
 
 
     rpc listPrestContaJudicial (ListCriteriaRequestPrestContaJudicial) returns (ServiceResponseListPrestContaJudicial) {}
@@ -469,6 +470,57 @@ message FindDetailsVoucherHonorarioData {
     double nuValor=4;
 }
 
+
+
+message ListCriteriaRequestHonorarioJudicialIdentify{
+    double nuValorInicial=1; 
+    double nuValorFinal=2; 
+    string nmDevedor = 3;
+    int32 idCaso = 4;
+    int32 items = 5;
+}
+
+message ServiceResponseHonorariosToIdentify {
+    int32 status = 1;
+    string message = 2;
+    repeated HonorariosToIdentifyData data = 3;
+    string error = 4;
+}
+
+message HonorariosToIdentifyData {
+    int32 idHonorarioJudicial = 1;
+    int32 idCasoJudicial = 2;
+    int32 idPagtoJudicial = 3;
+    int32 idConveniado = 4;
+    double nuValorIof = 5;
+    double perValorIof = 6;
+    double nuValorIr = 7;
+    double perValorIr = 8;
+    double nuValorCll = 9;
+    double perValorCll = 10;
+    double perValor = 11;
+    double nuValor = 12;
+    double nuValorLiquido = 13;
+    double nuValorAverbach = 14;
+    double perValorAverbach = 15;
+    double nuValorAdvogado = 16;
+    double perValorAdvogado = 17;
+    double nuValorConveniado = 18;
+    double perValorConveniado = 19;
+    string dtPagto = 20;
+    string cdHonorario = 21;
+    double perValorFinal = 22;
+    double nuValorFinal = 23;
+
+    int32 idUsuaOper = 24;
+    string dtRegistro = 25;
+    string createdDate = 26;
+    string updatedDate = 27;
+    string deletedDate = 28;
+    string nmCliente = 29;
+    string nmDevedor = 30;
+    int32 idCaso = 31;
+}
 
 //PrestContaJudicial
 message ListCriteriaRequestPrestContaJudicial {
