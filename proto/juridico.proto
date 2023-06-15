@@ -376,7 +376,8 @@ message ListCriteriaRequestParcelaIdentifyJudicial{
     double nuValorInicial=1; 
     double nuValorFinal=2; 
     string nmDevedor = 3;
-    int32 items = 4;
+    int32 idCaso = 4;
+    int32 items = 5;
 }
 
 message ServiceResponseParcelasToIdentify {
