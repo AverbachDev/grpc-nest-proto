@@ -155,7 +155,7 @@ message ListResultPagamentoJudicial {
 }
 
 
-message ParcelaJudicialData {
+message ParcelasToIdentifyData {
     int32 idParcelaJudicial = 1;
     int32 idAcordoJudicial = 2;
     int32 idNatureza = 3;
@@ -170,10 +170,13 @@ message ParcelaJudicialData {
     string createdDate = 12;
     string updatedDate = 13;
     string deletedDate = 14;
+    string nmCliente = 15;
+    string nmDevedor = 16;
+    int32 idCaso = 17;
 }
 
 message CreatePagamentoJudicialIdentifyAcordoRequest{
-    repeated ParcelaJudicialData parcelasJudiciais = 1;
+    repeated ParcelasToIdentifyData parcelasJudiciais = 1;
     DepositosJudicialData depositoJudicial = 2;
 }
 
