@@ -73,6 +73,9 @@ service PagamentoJudicialService {
     rpc updateTituloValorAcordo (TituloValorAcordoUpdateRequest) returns (ServiceResponseTituloValorAcordo) {}
     rpc removeTituloValorAcordo (IdRequest) returns (ServiceResponseTituloValorAcordo) {}
     rpc getTitulosVoucherAcordo (IdPagtoRequest) returns (ServiceResponseTituloValorAcordo) {}
+    rpc tituloValorAcordoFindbyIdsTitulos (IdsTitulosRequest) returns (ServiceResponseTituloValorAcordo) {}
+
+    
 
 }
 
@@ -96,6 +99,11 @@ message IdPagtoRequest{
 message IdVoucherAcordoRequest{
     int32 idPagtoJudicial = 1;
     int32 idTitulo = 2;
+}
+
+
+message IdsTitulosRequest{
+    repeated int32 idsTitulos = 1;
 }
 
 //PagamentoJudicial
