@@ -417,4 +417,6 @@ message ParcelasToIdentifyData {
 message IdPagtoParcelaJudicialUpdateRequest{
     int32 idParcelaJudicial = 1;
     int32 idPagtoJudicial = 2;
+    double nuValorPago = 3;
+    string dtPagto = 4;
 }
