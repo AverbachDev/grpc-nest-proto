@@ -720,6 +720,7 @@ message FindTotalPaymentsData {
     double nuHonorDevedorPago = 14;
     double nuCustas = 15;
     double nuCustasPago = 16;
+    bool cdQuitado = 17;
 }
 
 

@@ -42,7 +42,7 @@ service JuridicoService {
   rpc updateParcelaJudicial (ParcelaJudicialUpdateRequest) returns (ServiceResponseParcelaJudicial) {}
   rpc removeParcelaJudicial (IdRequest) returns (ServiceResponseParcelaJudicial) {}     
   rpc getParcelasToIdentify (ListCriteriaRequestParcelaIdentifyJudicial) returns (ServiceResponseParcelasToIdentify) {}
-
+  rpc updateIdPagtoParcelaJudicial (IdPagtoParcelaJudicialUpdateRequest) returns (ServiceResponseParcelaJudicial) {}
 }
 
 message IdRequest{
@@ -411,4 +411,10 @@ message ParcelasToIdentifyData {
     string nmCliente = 15;
     string nmDevedor = 16;
     int32 idCaso = 17;
+}
+
+
+message IdPagtoParcelaJudicialUpdateRequest{
+    int32 idParcelaJudicial = 1;
+    int32 idPagtoJudicial = 2;
 }
