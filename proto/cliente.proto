@@ -103,6 +103,7 @@ message ClienteData {
     string createdDate = 60;
     string updatedDate = 61;
     string deletedDate = 62;
+    string deTokenapp = 63;
 }
 
 message ClienteUpdateRequest{
@@ -132,6 +133,19 @@ message ListResultCliente {
 message CredentialsRequestCliente {
     string deSenSite = 1;
     string deUsuSite = 2;
+}
+
+message ResultLoginCliente {
+    int32 idCliente =1;
+    string accessToken = 2;
+    string refreshToken = 3;
+    bool senhaMaster = 4;
+}
+message ServiceResponseLoginCliente{
+    int32 status = 1;
+    string message = 2;
+    repeated ResultLoginCliente data = 3;
+    string error = 4;
 }
 
 
