@@ -10,6 +10,7 @@ service ClienteService {
   rpc createCliente (ClienteData) returns (ServiceResponseCliente) {}
   rpc updateCliente (ClienteUpdateRequest) returns (ServiceResponseCliente) {}
   rpc removeCliente (IdRequest) returns (ServiceResponseCliente) {}
+  rpc loginCliente (CredentialsRequestCliente) returns (ServiceResponseListCliente) {}
 
   //Contato
   rpc listContato (ListCriteriaRequestContato) returns (ServiceResponseListContato) {}
@@ -128,7 +129,10 @@ message ListResultCliente {
     int32 total = 2;
 }
 
-
+message CredentialsRequestCliente {
+    string deSenSite = 1;
+    string deUsuSite = 2;
+}
 
 
 //Contato
