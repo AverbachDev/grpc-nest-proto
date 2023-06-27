@@ -11,6 +11,7 @@ service ClienteService {
   rpc updateCliente (ClienteUpdateRequest) returns (ServiceResponseCliente) {}
   rpc removeCliente (IdRequest) returns (ServiceResponseCliente) {}
   rpc loginCliente (CredentialsRequestCliente) returns (ServiceResponseLoginCliente) {}
+  rpc refreshTokens (CredentialsRefreshRequestCliente) returns (ServiceResponseLoginCliente) {}
 
   //Contato
   rpc listContato (ListCriteriaRequestContato) returns (ServiceResponseListContato) {}
@@ -135,6 +136,12 @@ message CredentialsRequestCliente {
     string deUsuSite = 2;
 }
 
+message CredentialsRefreshRequestCliente {
+    int32 idCliente = 1;
+    bool senhaMaster = 2;
+    string refreshToken = 3;
+}
+
 message ResultLoginCliente {
     int32 idCliente =1;
     string accessToken = 2;
@@ -144,7 +151,7 @@ message ResultLoginCliente {
 message ServiceResponseLoginCliente{
     int32 status = 1;
     string message = 2;
-    repeated ResultLoginCliente data = 3;
+    ResultLoginCliente data = 3;
     string error = 4;
 }
 
