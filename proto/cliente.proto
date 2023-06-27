@@ -10,7 +10,7 @@ service ClienteService {
   rpc createCliente (ClienteData) returns (ServiceResponseCliente) {}
   rpc updateCliente (ClienteUpdateRequest) returns (ServiceResponseCliente) {}
   rpc removeCliente (IdRequest) returns (ServiceResponseCliente) {}
-  rpc loginCliente (CredentialsRequestCliente) returns (ServiceResponseListCliente) {}
+  rpc loginCliente (CredentialsRequestCliente) returns (ServiceResponseLoginCliente) {}
 
   //Contato
   rpc listContato (ListCriteriaRequestContato) returns (ServiceResponseListContato) {}
