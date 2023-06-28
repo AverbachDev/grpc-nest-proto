@@ -12,6 +12,8 @@ service ClienteService {
   rpc removeCliente (IdRequest) returns (ServiceResponseCliente) {}
   rpc loginCliente (CredentialsRequestCliente) returns (ServiceResponseLoginCliente) {}
   rpc refreshTokens (CredentialsRefreshRequestCliente) returns (ServiceResponseLoginCliente) {}
+  rpc createWithIdCliente (ClienteData) returns (ServiceResponseCliente) {}
+
 
   //Contato
   rpc listContato (ListCriteriaRequestContato) returns (ServiceResponseListContato) {}
