@@ -21,6 +21,15 @@ service ClienteService {
   rpc createContato (ContatoData) returns (ServiceResponseContato) {}
   rpc updateContato (ContatoUpdateRequest) returns (ServiceResponseContato) {} 
   rpc removeContato (IdRequest) returns (ServiceResponseContato) {}
+
+
+  
+  //UnNegocio
+  rpc listUnNegocio (ListCriteriaRequestUnNegocio) returns (ServiceResponseListUnNegocio) {}
+  rpc findOneUnNegocio (IdRequest) returns (ServiceResponseListUnNegocio) {}
+  rpc createUnNegocio (UnNegocioData) returns (ServiceResponseListUnNegocio) {}
+  rpc updateUnNegocio (UnNegocioUpdateRequest) returns (ServiceResponseListUnNegocio) {} 
+  rpc removeUnNegocio (IdRequest) returns (ServiceResponseListUnNegocio) {}
 }
 
 
@@ -214,4 +223,63 @@ message ListResultContato {
     repeated ContatoData result = 1;
     int32 total = 2;
 }
+
+
+// UN Negocio
+
+message ListCriteriaRequestUnNegocio {
+    string idCliente = 1;
+    string deUnNegocio = 2;
+    string deUsuSite = 3;
+    int32 items = 4;
+    int32 page = 5;
+    map<string, string> order =6;
+}
+
+message UnNegocioData {
+    int32 idUnNegocio = 1;
+    int32 idCliente = 2;    
+    string deUnNegocio = 3;
+    string deUsuSite = 4;
+    string deSenSite = 5;
+    int32 nuHistorico = 6;
+    bool cdSenCliente = 7;
+    int32 nuCnab = 8;
+    int32 idBanco = 9;
+    int32 idUsuaOper = 10;
+    string dtRegistro = 11;
+    string codAgencia = 12;
+    string deDigitoAgencia = 13;
+    string desConta = 14;
+    string deDigitoConta = 15;
+    string deEmail = 16;
+    string createdDate = 17;
+    string updatedDate = 18;
+    string deletedDate = 19;
+}
+
+message UnNegocioUpdateRequest{
+    int32 id = 1;
+    UnNegocioData UnNegocio = 2;
+}
+
+message ServiceResponseUnNegocio {
+    int32 status = 1;
+    string message = 2;
+    repeated UnNegocioData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListUnNegocio {
+    int32 status = 1;
+    string message = 2;
+    ListResultUnNegocio data = 3;
+    string error = 4;
+}
+
+message ListResultUnNegocio {
+    repeated UnNegocioData result = 1;
+    int32 total = 2;
+}
+
 
