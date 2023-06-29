@@ -260,7 +260,7 @@ message UnNegocioData {
 
 message UnNegocioUpdateRequest{
     int32 id = 1;
-    UnNegocioData UnNegocio = 2;
+    UnNegocioData unNegocio = 2;
 }
 
 message ServiceResponseUnNegocio {
