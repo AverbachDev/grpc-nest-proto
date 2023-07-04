@@ -168,6 +168,18 @@ message ServiceResponseLoginCliente{
 }
 
 
+message ResultGetClientes {
+    int32 idCliente =1;
+    string nmCliente = 2;
+    bool cdBloqueado = 3;
+}
+message ServiceResponseGetClientes{
+    int32 status = 1;
+    string message = 2;
+    ResultGetClientes data = 3;
+    string error = 4;
+}
+
 //Contato
 
 message ListCriteriaRequestContato {
@@ -283,4 +295,15 @@ message ListResultUnNegocio {
     int32 total = 2;
 }
 
+
+message ResultGetUnNegocio {
+    int32 idUnNegocio =1;
+    string deUnNegocio = 2;
+}
+message ServiceResponseGetUnNegocio{
+    int32 status = 1;
+    string message = 2;
+    ResultGetUnNegocio data = 3;
+    string error = 4;
+}
 
