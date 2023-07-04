@@ -47,9 +47,10 @@ message ListCriteriaRequestCliente {
     bool cdBloqueado = 5;
     string cdClassificacao = 6;
     int32 idMunicipio = 7;
-    int32 items = 8;
-    int32 page = 9;
-    map<string, string> order =10;
+    int32 idClientePai = 8;
+    int32 items = 9;
+    int32 page = 10;
+    map<string, string> order =11;
 }
 
 message ClienteData {
