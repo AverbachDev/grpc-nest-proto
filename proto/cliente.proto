@@ -241,7 +241,7 @@ message ListResultContato {
 // UN Negocio
 
 message ListCriteriaRequestUnNegocio {
-    string idCliente = 1;
+    int32 idCliente = 1;
     string deUnNegocio = 2;
     string deUsuSite = 3;
     int32 items = 4;
