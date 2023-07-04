@@ -176,7 +176,7 @@ message ResultGetClientes {
 message ServiceResponseGetClientes{
     int32 status = 1;
     string message = 2;
-    ResultGetClientes data = 3;
+    repeated ResultGetClientes data = 3;
     string error = 4;
 }
 
@@ -303,7 +303,7 @@ message ResultGetUnNegocio {
 message ServiceResponseGetUnNegocio{
     int32 status = 1;
     string message = 2;
-    ResultGetUnNegocio data = 3;
+    repeated ResultGetUnNegocio data = 3;
     string error = 4;
 }
 
