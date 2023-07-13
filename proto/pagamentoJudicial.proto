@@ -589,6 +589,7 @@ message PrestContaJudicialData {
     string deletedDate = 10;
     string nmCliente = 11;
     string cdCnpjCpf = 12;
+    int32 cdNovaPC = 13;
 }
 
 message PrestContaJudicialUpdateRequest{
