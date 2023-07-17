@@ -164,6 +164,8 @@ message IdsCasosJudiciaisRequest{
 
 message IdsTitulosJudiciaisRequest{
     repeated int32 idTitulo = 1;
+    string nmCliente = 2;
+    string cdCnpjCpf = 3;
 }
 
 
