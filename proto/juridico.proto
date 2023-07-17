@@ -15,6 +15,7 @@ service JuridicoService {
   rpc listCasoJudicialVoucherAcordo (ListCriteriaRequestCasoJudicial) returns (ServiceResponseListCasoJudicial) {}
   rpc getCasoVoucherJudicial (IdCasoRequest) returns (ServiceResponseListCasoJudicialVoucher) {}
   rpc getCasosJudiciaisByIds (IdsCasosJudiciaisRequest) returns (ServiceResponseCasoJudicial) {}
+  rpc getClientesPrestContaEmissao (IdsTitulosJudiciaisRequest) returns (ServiceResponseCasoJudicial) {}
 
   //Titulo Judicial
   rpc listTituloJudicial (ListCriteriaRequestTituloJudicial) returns (ServiceResponseListTituloJudicial) {}
@@ -159,6 +160,10 @@ message CasoJudicialVoucherData {
 
 message IdsCasosJudiciaisRequest{
     repeated int32 idCasoJudicial = 1;
+}
+
+message IdsTitulosJudiciaisRequest{
+    repeated int32 idTitulo = 1;
 }
 
 
