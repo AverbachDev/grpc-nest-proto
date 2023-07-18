@@ -16,6 +16,7 @@ service JuridicoService {
   rpc getCasoVoucherJudicial (IdCasoRequest) returns (ServiceResponseListCasoJudicialVoucher) {}
   rpc getCasosJudiciaisByIds (IdsCasosJudiciaisRequest) returns (ServiceResponseCasoJudicial) {}
   rpc getClientesPrestContaEmissao (IdsTitulosJudiciaisRequest) returns (ServiceResponseCasoJudicial) {}
+  rpc getPrestContaEmissao (IdsTitulosJudiciaisRequest) returns (ServiceResponseCasoJudicial) {}
 
   //Titulo Judicial
   rpc listTituloJudicial (ListCriteriaRequestTituloJudicial) returns (ServiceResponseListTituloJudicial) {}
