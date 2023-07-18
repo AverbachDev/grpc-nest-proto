@@ -60,6 +60,7 @@ service PagamentoJudicialService {
     rpc removePrestContaJudicial (IdRequest) returns (ServiceResponsePrestContaJudicial) {}
     rpc listPrestContaJudicialClientes (ListCriteriaRequestPrestContaListaCliente) returns (ServiceResponseListPrestContaJudicial) {}
     rpc listPrestContaJudicialClientesEmissao (ListCriteriaRequestPrestContaListaCliente) returns (ServiceResponseListPrestContaJudicial) {}
+    rpc listPrestContaJudicialEmissao (IdRequest) returns (ServiceResponsePrestContaJudicialEmissao) {}
 
     rpc listTituloPagamentoJudicial (ListCriteriaRequestTituloPagamentoJudicial) returns (ServiceResponseListTituloPagamentoJudicial) {}
     rpc findOneTituloPagamentoJudicial (IdRequest) returns (ServiceResponseTituloPagamentoJudicial) {}
@@ -616,6 +617,23 @@ message ServiceResponseListPrestContaJudicial {
 message ListResultPrestContaJudicial {
     repeated PrestContaJudicialData result = 1;
     int32 total = 2;
+}
+
+message ServiceResponsePrestContaJudicialEmissao {
+    int32 status = 1;
+    string message = 2;
+    repeated PrestContaJudicialEmissaoData data = 3;
+    string error = 4;
+}
+
+message PrestContaJudicialEmissaoData {
+    int32 idCliente = 1;
+    int32 idCaso = 2;
+    string nmDevedor = 3;
+    string dtVoucher = 4;
+    string deVoucher = 5;
+    float nuRepasse = 6;
+    string dtDeposito = 7;
 }
 
 
