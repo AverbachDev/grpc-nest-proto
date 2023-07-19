@@ -634,6 +634,7 @@ message PrestContaJudicialEmissaoData {
     string deVoucher = 5;
     float nuRepasse = 6;
     string dtDeposito = 7;
+    int32 IdPagtoJudicial = 8;
 }
 
 
