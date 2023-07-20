@@ -70,6 +70,13 @@ service PagamentoJudicialService {
     rpc findTotalPayments (idTitulos) returns (ServiceResponseFindTotalPayments) {}
     rpc getDetailsVoucherAcordo (IdVoucherAcordoRequest) returns (ServiceResponseDetailsVoucherAcordo) {}
 
+
+    rpc listTituloPagamentoJudicialBalancete (ListCriteriaRequestTituloPagamentoJudicialBalancete) returns (ServiceResponseListTituloPagamentoJudicialBalancete) {}
+    rpc findOneTituloPagamentoJudicialBalancete (IdRequest) returns (ServiceResponseTituloPagamentoJudicialBalancete) {}
+    rpc createTituloPagamentoJudicialBalancete (TituloPagamentoJudicialBalanceteData) returns (ServiceResponseTituloPagamentoJudicialBalancete) {}
+    rpc updateTituloPagamentoJudicialBalancete (TituloPagamentoJudicialBalanceteUpdateRequest) returns (ServiceResponseTituloPagamentoJudicialBalancete) {}
+    rpc removeTituloPagamentoJudicialBalancete (IdRequest) returns (ServiceResponseTituloPagamentoJudicialBalancete) {}
+
     rpc listTituloValorAcordo (ListCriteriaRequestTituloValorAcordo) returns (ServiceResponseListTituloValorAcordo) {}
     rpc findOneTituloValorAcordo (IdRequest) returns (ServiceResponseTituloValorAcordo) {}
     rpc createTituloValorAcordo (TituloValorAcordoData) returns (ServiceResponseTituloValorAcordo) {}
@@ -593,6 +600,10 @@ message PrestContaJudicialData {
     string nmCliente = 11;
     string cdCnpjCpf = 12;
     int32 cdNovaPC = 13;
+    string nmClienteDocumento = 14;
+    string cdCnpjCpfDocumento = 15;
+    string cdPrestContaVl = 16;
+    bool cdPrestContaHonorJudicialDev = 17;
 }
 
 message PrestContaJudicialUpdateRequest{
@@ -698,6 +709,10 @@ message TituloPagamentoJudicialData {
     string createdDate = 37;
     string updatedDate = 38;
     string deletedDate = 39;
+    string nmDevedor = 40;
+    string cdCnpjCpfDevedor = 41;
+    string deCodDevedor = 42;
+    repeated TituloPagamentoJudicialBalanceteData tituloPagamentoJudicialBalancetes = 43;
 }
 
 message TituloPagamentoJudicialUpdateRequest{
@@ -724,7 +739,6 @@ message ListResultTituloPagamentoJudicial {
     repeated TituloPagamentoJudicialData result = 1;
     int32 total = 2;
 }
-
 
 message idTitulos{
     repeated int32 idTitulos = 1;
@@ -772,6 +786,59 @@ message FindDetailsVoucherAcordoData {
     double nuPercentual = 4;
     double nuValor=5;
 }
+
+
+
+//TituloPagamentoJudicialBalancete
+message ListCriteriaRequestTituloPagamentoJudicialBalancete {
+    int32 idTitPagtoJudicial = 1;
+    double nuSaldo = 2;
+    int32 items = 3;
+    int32 page = 4;
+    map<string, string> order = 5;
+}
+
+message TituloPagamentoJudicialBalanceteData {
+    int32 idTitPagtoBal = 1;
+    int32 idTitPagtoJudicial = 2;
+    string deValor = 3;
+    double nuValor = 4;
+    string cdParte = 5;
+    int32 nuOrdem = 6;
+    double nuSaldo = 7;
+
+    int32 idUsuaOper = 8;
+    string dtRegistro = 9;
+    string createdDate = 10;
+    string updatedDate = 11;
+    string deletedDate = 12;
+}
+
+message TituloPagamentoJudicialBalanceteUpdateRequest{
+    int32 idTitPagtoBal = 1;
+    TituloPagamentoJudicialBalanceteData tituloPagamentoJudicialBalancete = 2;
+}
+
+message ServiceResponseTituloPagamentoJudicialBalancete {
+    int32 status = 1;
+    string message = 2;
+    repeated TituloPagamentoJudicialBalanceteData data = 3;
+    string error = 4;
+}
+
+
+message ServiceResponseListTituloPagamentoJudicialBalancete {
+    int32 status = 1;
+    string message = 2;
+    ListResultTituloPagamentoJudicialBalancete data = 3;
+    string error = 4;
+}
+
+message ListResultTituloPagamentoJudicialBalancete {
+    repeated TituloPagamentoJudicialBalanceteData result = 1;
+    int32 total = 2;
+}
+
 
 //TituloValorAcordo
 message ListCriteriaRequestTituloValorAcordo {

@@ -116,7 +116,9 @@ message CasoJudicialData {
     string createdDate = 39;
     string updatedDate = 40;
     string deletedDate = 41;
-    repeated TituloJudicialData tituloJudicials = 42;
+    string deUnNegocio = 42;
+    string deCodDevedor = 43;
+    repeated TituloJudicialData tituloJudicials = 44;
 }
 
 message CasoJudicialUpdateRequest{
