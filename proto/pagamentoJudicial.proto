@@ -70,6 +70,7 @@ service PagamentoJudicialService {
     rpc removeTituloPagamentoJudicial (IdRequest) returns (ServiceResponseTituloPagamentoJudicial) {}
     rpc findTotalPayments (idTitulos) returns (ServiceResponseFindTotalPayments) {}
     rpc getDetailsVoucherAcordo (IdVoucherAcordoRequest) returns (ServiceResponseDetailsVoucherAcordo) {}
+    rpc updateByIdPagtoTituloPagamentoJudicial (TituloPagamentoJudicialUpdateByIdPagtoRequest) returns (ServiceResponseTituloPagamentoJudicial) {}
 
 
     rpc listTituloPagamentoJudicialBalancete (ListCriteriaRequestTituloPagamentoJudicialBalancete) returns (ServiceResponseListTituloPagamentoJudicialBalancete) {}
@@ -783,6 +784,23 @@ message FindTotalPaymentsData {
     double nuCustas = 15;
     double nuCustasPago = 16;
     bool cdQuitado = 17;
+}
+
+
+message TituloPagamentoJudicialPrestContaData {
+    int32 cdPrestconta = 1;
+    int32 idPrestconta = 2;
+    int32 idUsuaOper = 3;
+    string dtRegistro = 4;
+    string nmDevedor = 5;
+    string cdCnpjCpfDevedor = 6;
+    string deCodDevedor = 7;
+
+}
+
+message TituloPagamentoJudicialUpdateByIdPagtoRequest{
+    int32 idPagtoJudicial = 1;
+    TituloPagamentoJudicialPrestContaData tituloPagamentoJudicial = 2;
 }
 
 
