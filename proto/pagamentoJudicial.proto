@@ -660,10 +660,14 @@ message ListCriteriaRequestPrestContaListaCliente {
 
 
 message IdPagtoPCsRequest{
-    repeated int32 idPagtoJudicial = 1;
+    repeated IdPagtoCasoPCsRequest PagtoCasoJudicial = 1;
     int32 idAnyCasoPc = 2;
     int32 idUsuaOper = 3;
     string dtRegistro = 4;
+}
+message IdPagtoCasoPCsRequest{
+    int32 idPagtoJudicial = 1;
+    int32 idCaso = 2;
 }
 
 
