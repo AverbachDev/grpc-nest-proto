@@ -61,6 +61,7 @@ service PagamentoJudicialService {
     rpc listPrestContaJudicialClientes (ListCriteriaRequestPrestContaListaCliente) returns (ServiceResponseListPrestContaJudicial) {}
     rpc listPrestContaJudicialClientesEmissao (ListCriteriaRequestPrestContaListaCliente) returns (ServiceResponseListPrestContaJudicial) {}
     rpc listPrestContaJudicialEmissao (IdRequest) returns (ServiceResponsePrestContaJudicialEmissao) {}
+    rpc emitirPrestContaJudicial (IdPagtoPCsRequest) returns (ServiceResponsePrestContaJudicial) {}
 
     rpc listTituloPagamentoJudicial (ListCriteriaRequestTituloPagamentoJudicial) returns (ServiceResponseListTituloPagamentoJudicial) {}
     rpc findOneTituloPagamentoJudicial (IdRequest) returns (ServiceResponseTituloPagamentoJudicial) {}
@@ -656,6 +657,12 @@ message ListCriteriaRequestPrestContaListaCliente {
     int32 items = 4;
     int32 page = 5;
 }
+
+
+message IdPagtoPCsRequest{
+    repeated int32 idPagtoJudicial = 1;
+}
+
 
 //TituloPagamentoJudicial
 message ListCriteriaRequestTituloPagamentoJudicial {
