@@ -727,7 +727,8 @@ message TituloPagamentoJudicialData {
     string nmDevedor = 40;
     string cdCnpjCpfDevedor = 41;
     string deCodDevedor = 42;
-    repeated TituloPagamentoJudicialBalanceteData tituloPagamentoJudicialBalancetes = 43;
+    string deDoc = 43;
+    repeated TituloPagamentoJudicialBalanceteData tituloPagamentoJudicialBalancetes = 44;
 }
 
 message TituloPagamentoJudicialUpdateRequest{
