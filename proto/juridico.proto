@@ -185,9 +185,10 @@ message ListCriteriaRequestTituloJudicial {
     int32 idTituloJudicial=1; 
     int32 idCasoJudicial=2; 
     string deDoc=3;
-    int32 items = 4;
-    int32 page = 5;
-    map<string, string> order =6;
+    string idTitulo=4;
+    int32 items = 5;
+    int32 page = 6;
+    map<string, string> order =7;
 }
 
 message TituloJudicialData {
