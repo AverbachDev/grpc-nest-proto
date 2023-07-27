@@ -796,7 +796,6 @@ message TituloPagamentoJudicialPrestContaData {
     string nmDevedor = 5;
     string cdCnpjCpfDevedor = 6;
     string deCodDevedor = 7;
-    string deDoc = 8;
 
 }
 
