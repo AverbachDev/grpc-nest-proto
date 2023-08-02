@@ -76,6 +76,7 @@ message DevedorData {
     string createdDate = 34;
     string updatedDate = 35;
     string deletedDate = 36;
+    string id = 37;
 }
 
 message DevedorUpdateRequest{
