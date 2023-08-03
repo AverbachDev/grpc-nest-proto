@@ -10,7 +10,8 @@ service DevedorService {
   rpc createDevedor (DevedorData) returns (ServiceResponseDevedor) {}
   rpc updateDevedor (DevedorUpdateRequest) returns (ServiceResponseDevedor) {}
   rpc removeDevedor (IdRequest) returns (ServiceResponseDevedor) {}
-
+  rpc updateDevedorWithMonolito (DevedorUpdateRequest) returns (ServiceResponseDevedor) {}
+  
   //Contato
   rpc listContato (ListCriteriaRequestContato) returns (ServiceResponseListContato) {}
   rpc findOneContato (IdRequest) returns (ServiceResponseContato) {}
