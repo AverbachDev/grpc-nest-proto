@@ -13,6 +13,7 @@ service ClienteService {
   rpc loginCliente (CredentialsRequestCliente) returns (ServiceResponseLoginCliente) {}
   rpc refreshTokens (CredentialsRefreshRequestCliente) returns (ServiceResponseLoginCliente) {}
   rpc createWithIdCliente (ClienteData) returns (ServiceResponseCliente) {}
+  rpc listClienteNested (ListCriteriaRequestClienteNested) returns (ServiceResponseListCliente) {}
 
 
   //Contato
@@ -21,8 +22,6 @@ service ClienteService {
   rpc createContato (ContatoData) returns (ServiceResponseContato) {}
   rpc updateContato (ContatoUpdateRequest) returns (ServiceResponseContato) {} 
   rpc removeContato (IdRequest) returns (ServiceResponseContato) {}
-
-
   
   //UnNegocio
   rpc listUnNegocio (ListCriteriaRequestUnNegocio) returns (ServiceResponseListUnNegocio) {}
@@ -30,8 +29,29 @@ service ClienteService {
   rpc createUnNegocio (UnNegocioData) returns (ServiceResponseListUnNegocio) {}
   rpc updateUnNegocio (UnNegocioUpdateRequest) returns (ServiceResponseListUnNegocio) {} 
   rpc removeUnNegocio (IdRequest) returns (ServiceResponseListUnNegocio) {}
-}
 
+  //GrupoCliente
+  rpc listGrupoCliente (ListCriteriaRequestGrupoCliente) returns (ServiceResponseListGrupoCliente) {}
+  rpc findOneGrupoCliente (IdRequest) returns (ServiceResponseListGrupoCliente) {}
+  rpc createGrupoCliente (GrupoClienteData) returns (ServiceResponseListGrupoCliente) {}
+  rpc updateGrupoCliente (GrupoClienteUpdateRequest) returns (ServiceResponseListGrupoCliente) {} 
+  rpc removeGrupoCliente (IdRequest) returns (ServiceResponseListGrupoCliente) {}
+
+  //DadosBancarios
+  rpc listDadosBancarios (ListCriteriaRequestDadosBancarios) returns (ServiceResponseListDadosBancarios) {}
+  rpc findOneDadosBancarios (IdRequest) returns (ServiceResponseListDadosBancarios) {}
+  rpc createDadosBancarios (DadosBancariosData) returns (ServiceResponseListDadosBancarios) {}
+  rpc updateDadosBancarios (DadosBancariosUpdateRequest) returns (ServiceResponseListDadosBancarios) {} 
+  rpc removeDadosBancarios (IdRequest) returns (ServiceResponseListDadosBancarios) {}
+
+  //ContatoPrestConta
+  rpc listContatoPrestConta (ListCriteriaRequestContatoPrestConta) returns (ServiceResponseListContatoPrestConta) {}
+  rpc findOneContatoPrestConta (IdRequest) returns (ServiceResponseListContatoPrestConta) {}
+  rpc createContatoPrestConta (ContatoPrestContaData) returns (ServiceResponseListContatoPrestConta) {}
+  rpc updateContatoPrestConta (ContatoPrestContaUpdateRequest) returns (ServiceResponseListContatoPrestConta) {} 
+  rpc removeContatoPrestConta (IdRequest) returns (ServiceResponseListContatoPrestConta) {}
+  
+}
 
 message IdRequest{
     int32 id = 1;
@@ -117,6 +137,8 @@ message ClienteData {
     string updatedDate = 61;
     string deletedDate = 62;
     string deTokenapp = 63;
+
+
 }
 
 message ClienteUpdateRequest{
@@ -180,6 +202,24 @@ message ServiceResponseGetClientes{
     string error = 4;
 }
 
+
+message ListCriteriaRequestClienteNested {
+    int32 idCliente = 1;
+    string nmCliente = 2; 
+    string deDdd = 3;
+    string cdCnpjCpf = 4;
+    bool cdBloqueado = 5;
+    string cdClassificacao = 6;
+    int32 idMunicipio = 7;
+    int32 idClientePai = 8;
+    int32 idGrupo= 9;
+    string nmGrupo = 10; 
+    int32 items = 11;
+    int32 page = 12;
+    map<string, string> order =13;
+}
+
+
 //Contato
 
 message ListCriteriaRequestContato {
@@ -239,7 +279,6 @@ message ListResultContato {
 
 
 // UN Negocio
-
 message ListCriteriaRequestUnNegocio {
     int32 idCliente = 1;
     string deUnNegocio = 2;
@@ -307,3 +346,152 @@ message ServiceResponseGetUnNegocio{
     string error = 4;
 }
 
+
+//GrupoCliente
+message ListCriteriaRequestGrupoCliente {
+    int32 idGrupo = 1;
+    string nmGrupo = 2;
+    int32 items = 3;
+    int32 page = 4;
+    map<string, string> order =5;
+}
+
+message GrupoClienteData {
+    int32 idGrupo = 1;
+    string nmGrupo = 2;
+    double nuRepasse = 3;
+    double nuHonorarios = 4;
+    int32 idMunicipio = 5;
+    string deDdd = 6;
+    string deTelefone = 7;
+    string cdClassificacao =8 ;
+    bool cdAtivo = 9;
+    string deCep = 10;
+    double nuRemessa = 11;
+    int32 idUsuaOper = 12;
+    string dtRegistro = 13;
+    string createdDate = 14;
+    string updatedDate = 15;
+    string deletedDate = 16;
+}
+
+message GrupoClienteUpdateRequest{
+    int32 id = 1;
+    GrupoClienteData GrupoCliente = 2;
+}
+
+message ServiceResponseGrupoCliente {
+    int32 status = 1;
+    string message = 2;
+    repeated GrupoClienteData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListGrupoCliente {
+    int32 status = 1;
+    string message = 2;
+    ListResultGrupoCliente data = 3;
+    string error = 4;
+}
+
+message ListResultGrupoCliente {
+    repeated GrupoClienteData result = 1;
+    int32 total = 2;
+}
+
+//DadosBancarios
+message ListCriteriaRequestDadosBancarios {
+    int32 idCliente = 1;
+    int32 idDadosBancarios = 2; 
+    int32 items = 3;
+    int32 page = 4;
+    map<string, string> order =5;
+}
+
+message DadosBancariosData {
+    int32 idDadosBancarios = 1;
+    int32 idCliente = 2;
+    int32 idBanco = 3;
+    string desCodDeposito = 4;
+    string desConta = 5;
+    string codAgencia = 6;
+    string deDigitoAgencia = 7;
+    string deDigitoConta = 8;
+    bool cdContaDefault = 9;
+    int32 idUsuaOper = 10;
+    string dtRegistro = 11;
+    string createdDate = 12;
+    string updatedDate = 13;
+    string deletedDate = 14;
+}
+
+message DadosBancariosUpdateRequest{
+    int32 id = 1;
+    DadosBancariosData DadosBancarios = 2;
+}
+
+message ServiceResponseDadosBancarios {
+    int32 status = 1;
+    string message = 2;
+    repeated DadosBancariosData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListDadosBancarios {
+    int32 status = 1;
+    string message = 2;
+    ListResultDadosBancarios data = 3;
+    string error = 4;
+}
+
+message ListResultDadosBancarios {
+    repeated DadosBancariosData result = 1;
+    int32 total = 2;
+}
+
+
+//ContatoPrestConta
+message ListCriteriaRequestContatoPrestConta {
+    int32 idCliente = 1;
+    int32 idContatoPrestConta = 2; 
+    int32 items = 3;
+    int32 page = 4;
+    map<string, string> order =5;
+}
+
+message ContatoPrestContaData {
+    int32 idContatoPrestConta = 1;
+    int32 idCliente = 2;
+    string nmContato = 3;
+    string deEmail = 4;
+    bool cdAtivo = 5;
+    int32 idUsuaOper = 6;
+    string dtRegistro = 7;
+    string createdDate = 8;
+    string updatedDate = 9;
+    string deletedDate = 10;
+}
+
+message ContatoPrestContaUpdateRequest{
+    int32 id = 1;
+    ContatoPrestContaData ContatoPrestConta = 2;
+}
+
+message ServiceResponseContatoPrestConta {
+    int32 status = 1;
+    string message = 2;
+    repeated ContatoPrestContaData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListContatoPrestConta {
+    int32 status = 1;
+    string message = 2;
+    ListResultContatoPrestConta data = 3;
+    string error = 4;
+}
+
+message ListResultContatoPrestConta {
+    repeated ContatoPrestContaData result = 1;
+    int32 total = 2;
+}
