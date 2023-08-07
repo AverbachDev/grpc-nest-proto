@@ -137,8 +137,12 @@ message ClienteData {
     string updatedDate = 61;
     string deletedDate = 62;
     string deTokenapp = 63;
-
-
+    ClienteData idClientePai2 = 64;
+    repeated ContatoData contatos=65;
+    repeated ContatoPrestContaData contatoPrestContas = 66;
+    repeated DadosBancariosData dadosBancarios = 67;
+    repeated UnNegocioData unNegocios = 68;
+    GrupoClienteData idGrupo2 = 69;
 }
 
 message ClienteUpdateRequest{
