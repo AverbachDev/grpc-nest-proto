@@ -25,31 +25,31 @@ service ClienteService {
   
   //UnNegocio
   rpc listUnNegocio (ListCriteriaRequestUnNegocio) returns (ServiceResponseListUnNegocio) {}
-  rpc findOneUnNegocio (IdRequest) returns (ServiceResponseListUnNegocio) {}
-  rpc createUnNegocio (UnNegocioData) returns (ServiceResponseListUnNegocio) {}
-  rpc updateUnNegocio (UnNegocioUpdateRequest) returns (ServiceResponseListUnNegocio) {} 
-  rpc removeUnNegocio (IdRequest) returns (ServiceResponseListUnNegocio) {}
+  rpc findOneUnNegocio (IdRequest) returns (ServiceResponseUnNegocio) {}
+  rpc createUnNegocio (UnNegocioData) returns (ServiceResponseUnNegocio) {}
+  rpc updateUnNegocio (UnNegocioUpdateRequest) returns (ServiceResponseUnNegocio) {} 
+  rpc removeUnNegocio (IdRequest) returns (ServiceResponseUnNegocio) {}
 
   //GrupoCliente
   rpc listGrupoCliente (ListCriteriaRequestGrupoCliente) returns (ServiceResponseListGrupoCliente) {}
-  rpc findOneGrupoCliente (IdRequest) returns (ServiceResponseListGrupoCliente) {}
-  rpc createGrupoCliente (GrupoClienteData) returns (ServiceResponseListGrupoCliente) {}
-  rpc updateGrupoCliente (GrupoClienteUpdateRequest) returns (ServiceResponseListGrupoCliente) {} 
-  rpc removeGrupoCliente (IdRequest) returns (ServiceResponseListGrupoCliente) {}
+  rpc findOneGrupoCliente (IdRequest) returns (ServiceResponseGrupoCliente) {}
+  rpc createGrupoCliente (GrupoClienteData) returns (ServiceResponseGrupoCliente) {}
+  rpc updateGrupoCliente (GrupoClienteUpdateRequest) returns (ServiceResponseGrupoCliente) {} 
+  rpc removeGrupoCliente (IdRequest) returns (ServiceResponseGrupoCliente) {}
 
   //DadosBancarios
   rpc listDadosBancarios (ListCriteriaRequestDadosBancarios) returns (ServiceResponseListDadosBancarios) {}
-  rpc findOneDadosBancarios (IdRequest) returns (ServiceResponseListDadosBancarios) {}
-  rpc createDadosBancarios (DadosBancariosData) returns (ServiceResponseListDadosBancarios) {}
-  rpc updateDadosBancarios (DadosBancariosUpdateRequest) returns (ServiceResponseListDadosBancarios) {} 
-  rpc removeDadosBancarios (IdRequest) returns (ServiceResponseListDadosBancarios) {}
+  rpc findOneDadosBancarios (IdRequest) returns (ServiceResponseDadosBancarios) {}
+  rpc createDadosBancarios (DadosBancariosData) returns (ServiceResponseDadosBancarios) {}
+  rpc updateDadosBancarios (DadosBancariosUpdateRequest) returns (ServiceResponseDadosBancarios) {} 
+  rpc removeDadosBancarios (IdRequest) returns (ServiceResponseDadosBancarios) {}
 
   //ContatoPrestConta
   rpc listContatoPrestConta (ListCriteriaRequestContatoPrestConta) returns (ServiceResponseListContatoPrestConta) {}
-  rpc findOneContatoPrestConta (IdRequest) returns (ServiceResponseListContatoPrestConta) {}
-  rpc createContatoPrestConta (ContatoPrestContaData) returns (ServiceResponseListContatoPrestConta) {}
-  rpc updateContatoPrestConta (ContatoPrestContaUpdateRequest) returns (ServiceResponseListContatoPrestConta) {} 
-  rpc removeContatoPrestConta (IdRequest) returns (ServiceResponseListContatoPrestConta) {}
+  rpc findOneContatoPrestConta (IdRequest) returns (ServiceResponseContatoPrestConta) {}
+  rpc createContatoPrestConta (ContatoPrestContaData) returns (ServiceResponseContatoPrestConta) {}
+  rpc updateContatoPrestConta (ContatoPrestContaUpdateRequest) returns (ServiceResponseContatoPrestConta) {} 
+  rpc removeContatoPrestConta (IdRequest) returns (ServiceResponseContatoPrestConta) {}
   
 }
 
