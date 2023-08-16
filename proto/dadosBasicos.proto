@@ -794,11 +794,13 @@ message PromoterData {
     int32 idMunicipio = 7;
     string desEmail = 8;
     double perComissao = 9;
-    int32 idUsuaOper = 10;
-    string dtRegistro = 11;    
-    string createdDate = 12;
-    string updatedDate = 13;
-    string deletedDate = 14;
+    int32 idUsuario = 10;
+    int32 idUsuaOper = 11;
+    string dtRegistro = 12;    
+    string createdDate = 13;
+    string updatedDate = 14;
+    string deletedDate = 15;
+
 }
 
 message PromoterUpdateRequest {
