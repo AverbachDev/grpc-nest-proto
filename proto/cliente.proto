@@ -309,9 +309,10 @@ message UnNegocioData {
     string desConta = 14;
     string deDigitoConta = 15;
     string deEmail = 16;
-    string createdDate = 17;
-    string updatedDate = 18;
-    string deletedDate = 19;
+    string desBanco = 17;
+    string createdDate = 18;
+    string updatedDate = 19;
+    string deletedDate = 20;
 }
 
 message UnNegocioUpdateRequest{
