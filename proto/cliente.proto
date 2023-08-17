@@ -422,11 +422,13 @@ message DadosBancariosData {
     string deDigitoAgencia = 7;
     string deDigitoConta = 8;
     bool cdContaDefault = 9;
-    int32 idUsuaOper = 10;
-    string dtRegistro = 11;
-    string createdDate = 12;
-    string updatedDate = 13;
-    string deletedDate = 14;
+    string desBanco = 10;
+    int32 idUsuaOper = 11;
+    string dtRegistro = 12;
+    string createdDate = 13;
+    string updatedDate = 14;
+    string deletedDate = 15;
+
 }
 
 message DadosBancariosUpdateRequest{
