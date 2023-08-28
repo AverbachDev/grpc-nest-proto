@@ -530,7 +530,7 @@ message FindDetailsVoucherHonorarioData {
 message ListCriteriaRequestHonorarioJudicialIdentify{
     double nuValorInicial=1; 
     double nuValorFinal=2; 
-    string nmDevedor = 3;
+    string nmCliente = 3;
     int32 idCaso = 4;
     int32 items = 5;
 }
