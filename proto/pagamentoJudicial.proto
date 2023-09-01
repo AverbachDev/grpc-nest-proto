@@ -508,6 +508,7 @@ message HonorarioJudicialVoucherData {
     string dtPagto =5;
     double nuValor = 6;
     double nuValorPago = 7;
+    string cdHonorario = 8;
 }
 
 
