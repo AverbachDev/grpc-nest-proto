@@ -30,7 +30,7 @@ message IdRequest{
 //ChatWhatsDevedor
 
 message ListCriteriaRequestChatWhatsDevedor {
-    string idDevedor = 1;
+    int32 idDevedor = 1;
     string deDddCelular = 2; 
     string deCelular = 3;
     string deChatId = 4;
@@ -65,6 +65,7 @@ message ChatWhatsDevedorData {
     string createdDate = 18;
     string updatedDate = 19;
     string deletedDate = 20;
+    int32 idDevedor = 21;
 }
 
 message ChatWhatsDevedorUpdateRequest{
