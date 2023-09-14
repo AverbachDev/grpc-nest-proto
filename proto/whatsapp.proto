@@ -1,0 +1,152 @@
+syntax = "proto3";
+
+package whatsapp;
+
+
+service WhatsappService {
+
+    //ChatWhatsDevedor
+    rpc listChatWhatsDevedor (ListCriteriaRequestChatWhatsDevedor) returns (ServiceResponseListChatWhatsDevedor) {}
+    rpc findOneChatWhatsDevedor (IdRequest) returns (ServiceResponseChatWhatsDevedor) {}
+    rpc createChatWhatsDevedor (ChatWhatsDevedorData) returns (ServiceResponseChatWhatsDevedor) {}
+    rpc updateChatWhatsDevedor (ChatWhatsDevedorUpdateRequest) returns (ServiceResponseChatWhatsDevedor) {}
+    rpc removeChatWhatsDevedor (IdRequest) returns (ServiceResponseChatWhatsDevedor) {}
+
+    //MensagemChatWhats
+    rpc listMensagemChatWhats (ListCriteriaRequestMensagemChatWhats) returns (ServiceResponseListMensagemChatWhats) {}
+    rpc findOneMensagemChatWhats (IdRequest) returns (ServiceResponseMensagemChatWhats) {}
+    rpc createMensagemChatWhats (MensagemChatWhatsData) returns (ServiceResponseMensagemChatWhats) {}
+    rpc updateMensagemChatWhats (MensagemChatWhatsUpdateRequest) returns (ServiceResponseMensagemChatWhats) {}
+    rpc removeMensagemChatWhats (IdRequest) returns (ServiceResponseMensagemChatWhats) {}
+
+}
+
+message IdRequest{
+    int32 id = 1;
+}
+
+
+
+//ChatWhatsDevedor
+
+message ListCriteriaRequestChatWhatsDevedor {
+    string idDevedor = 1;
+    string deDddCelular = 2; 
+    string deCelular = 3;
+    string deChatId = 4;
+    string nmUsuarioChat = 5;
+    string deInstanceId = 6;
+    string dtAtividade = 7;
+    string dtAtividadeParceiro = 8;
+    int32 cdEmpresa = 9;
+    int32 items = 10;
+    int32 page = 11;
+    map<string, string> order =12;
+}
+
+message ChatWhatsDevedorData {
+    int32 idChatDevedor = 1;
+    string deDddCelular = 2;
+    string deCelular = 3;
+    string deChatId = 4;
+    string nmUsuarioChat = 5;
+    string deInstanceId = 6;
+    string dtAtividade = 7;
+    bool cdNovaMensagem = 8;
+    bool cdNovoAck = 9;
+    bool cdNaoLida = 10;
+    bool cdNaoLidaCobrador = 11;
+    int32 cdEmpresa = 12;
+    bool cdNaoLidaParceiro = 13;
+    string dtAtividadeParceiro = 14;
+    bool cdNovaMensagemParceiro = 15;
+    int32 idUsuaOper = 16;
+    string dtRegistro = 17;
+    string createdDate = 18;
+    string updatedDate = 19;
+    string deletedDate = 20;
+}
+
+message ChatWhatsDevedorUpdateRequest{
+    int32 id = 1;
+    ChatWhatsDevedorData chatWhatsDevedor = 2;
+}
+
+message ServiceResponseChatWhatsDevedor {
+    int32 status = 1;
+    string message = 2;
+    repeated ChatWhatsDevedorData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListChatWhatsDevedor {
+    int32 status = 1;
+    string message = 2;
+    ListResultChatWhatsDevedor data = 3;
+    string error = 4;
+}
+
+message ListResultChatWhatsDevedor {
+    repeated ChatWhatsDevedorData result = 1;
+    int32 total = 2;
+}
+
+
+//MensagemChatWhats
+
+message ListCriteriaRequestMensagemChatWhats {
+    string idChatDevedor = 1;
+    string deChatId = 2; 
+    string nmArquivo = 3;
+    string deMensagem = 4;
+    string deMessageId = 5;
+    int32 cdEmpresa = 6;    
+    int32 items = 7;
+    int32 page = 8;
+    map<string, string> order =9;
+}
+
+message MensagemChatWhatsData {
+
+    int32 idChatMensagem = 1;
+    int32 idChatDevedor = 2;
+    string deChatId = 3;
+    string dtMensagem = 4;
+    bool cdEnvioMensagem = 5;
+    string deMensagem = 6;
+    string cdStatusMensagem = 7;
+    string cdTipo = 8;
+    string deMessageId = 9;
+    string nmArquivo = 10;
+    int32 cdEmpresa = 11;
+    bool cdAnexoRecebido = 12;
+    int32 idUsuaOper = 13;
+    string dtRegistro = 14;
+    string createdDate = 15;
+    string updatedDate = 16;
+    string deletedDate = 17;
+}
+
+message MensagemChatWhatsUpdateRequest{
+    int32 id = 1;
+    MensagemChatWhatsData nensagemChatWhats = 2;
+}
+
+message ServiceResponseMensagemChatWhats {
+    int32 status = 1;
+    string message = 2;
+    repeated MensagemChatWhatsData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListMensagemChatWhats {
+    int32 status = 1;
+    string message = 2;
+    ListResultMensagemChatWhats data = 3;
+    string error = 4;
+}
+
+message ListResultMensagemChatWhats {
+    repeated MensagemChatWhatsData result = 1;
+    int32 total = 2;
+}
