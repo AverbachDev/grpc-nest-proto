@@ -36,7 +36,7 @@ message IdRequest{
 
 message Contact {
     string formattedName = 1;
-    Wid id = 2;
+    string id = 2;
     bool isBusiness = 3;
     bool isEnterprise = 4;
     bool isMe = 5;
@@ -103,7 +103,6 @@ message Message{
     bool isMedia = 34;
     bool isNotification = 35;
     bool isPSA = 36;
-    Chat chat = 37;
     string chatId = 38;
     string quotedMsgObj = 39;
     string quotedMsgId = 40;
@@ -119,32 +118,6 @@ message MediaData{
     bool animatedAsNewMsg = 4;
     bool _swStreamingSupported = 5;
     bool _listeningToSwSupport = 6;
-}
-
-message Chat {
-    bool pendingMsgs = 1;
-    MessageId lastReceivedKey=2;
-    int64 t = 3;
-    int32 unreadCount = 4;
-    bool archive = 5;
-    int32 muteExpiration = 6;
-    string name = 7;
-    bool notSpam = 8;
-    int32 pin = 9;
-    string msgs = 10;
-    string kind = 11;
-    bool isAnnounceGrpRestrict = 12;
-    int32 ephemeralDuration = 13;
-    bool hasChatBeenOpened = 14;
-    int32 unreadMentionCount = 15;
-    bool hasUnreadMention = 16;
-    bool archiveAtMentionViewedInDrawer = 17;
-    bool isBroadcast = 18;
-    bool isGroup = 19;
-    bool isReadOnly = 20;
-    bool isUser = 21;
-    Contact contact = 22;
-    Wid id = 23;
 }
 
 message  Wid {
