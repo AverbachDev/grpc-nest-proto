@@ -5,6 +5,12 @@ package whatsapp;
 
 service WhatsappService {
 
+    //WhatsApp
+
+    rpc sendMessage (SendMessageRequestData) returns (ServiceResponseWhatsApp) {}
+    rpc sendFile (SendFileRequestData) returns (ServiceResponseWhatsApp) {}
+    rpc SendFilePath (SendFilePathRequestData) returns (ServiceResponseWhatsApp) {}
+
     //ChatWhatsDevedor
     rpc listChatWhatsDevedor (ListCriteriaRequestChatWhatsDevedor) returns (ServiceResponseListChatWhatsDevedor) {}
     rpc findOneChatWhatsDevedor (IdRequest) returns (ServiceResponseChatWhatsDevedor) {}
@@ -26,6 +32,164 @@ message IdRequest{
 }
 
 
+//WhatsApp
+
+message Contact {
+    string formattedName = 1;
+    Wid id = 2;
+    bool isBusiness = 3;
+    bool isEnterprise = 4;
+    bool isMe = 5;
+    bool isMyContact = 6;
+    bool isPSA = 7;
+    bool isUser = 8;
+    bool isVerified = 9;
+    bool isWAContact = 10;
+    repeated Message msgs = 11;
+    /**
+     * Name of concat in your agenda
+     */
+    string name = 13;
+    bool plaintextDisabled = 14;
+    string pushname = 15;
+    string sectionHeader = 16;
+    string shortName = 17;
+    bool statusMute = 18;
+    string type = 19;
+}
+
+
+message MessageId {
+    bool fromMe = 1;
+    string id = 2;
+    Wid remote =3;
+    string _serialized = 4;
+}
+
+message Message{
+    string id = 1;
+    string body = 2;
+    string type = 3;
+    string subtype = 4;
+    int64 t = 5;
+    string notifyName = 6;
+    string from = 7;
+    string to = 8;
+    string author = 9;
+    string self = 10;
+    int32 ack = 11;
+    bool invis = 12;
+    bool isNewMsg = 13;
+    bool star = 14;
+    bool recvFresh = 15;
+    string clientUrl = 16;
+    string deprecatedMms3Url = 17;
+    string directPath = 18;
+    string mimetype = 19;
+    string filehash = 20;
+    string uploadhash = 21;
+    int32 size = 22;
+    string mediaKey = 23;
+    int32 mediaKeyTimestamp = 24;
+    int32 width = 25;
+    int32 height = 26;
+    bool broadcast = 27;
+    bool isForwarded = 28;
+    Contact sender = 29;
+    int64 timestamp = 30;
+    string content = 31;
+    bool isGroupMsg = 32;
+    bool isMMS = 33;
+    bool isMedia = 34;
+    bool isNotification = 35;
+    bool isPSA = 36;
+    Chat chat = 37;
+    string chatId = 38;
+    string quotedMsgObj = 39;
+    string quotedMsgId = 40;
+    MediaData mediaData = 41;
+    repeated string recipients = 42;
+    bool fromMe = 43;
+}
+
+message MediaData{
+    string type = 1;
+    string mediaStage = 2;
+    int32 animationDuration = 3;
+    bool animatedAsNewMsg = 4;
+    bool _swStreamingSupported = 5;
+    bool _listeningToSwSupport = 6;
+}
+
+message Chat {
+    bool pendingMsgs = 1;
+    MessageId lastReceivedKey=2;
+    int64 t = 3;
+    int32 unreadCount = 4;
+    bool archive = 5;
+    int32 muteExpiration = 6;
+    string name = 7;
+    bool notSpam = 8;
+    int32 pin = 9;
+    string msgs = 10;
+    string kind = 11;
+    bool isAnnounceGrpRestrict = 12;
+    int32 ephemeralDuration = 13;
+    bool hasChatBeenOpened = 14;
+    int32 unreadMentionCount = 15;
+    bool hasUnreadMention = 16;
+    bool archiveAtMentionViewedInDrawer = 17;
+    bool isBroadcast = 18;
+    bool isGroup = 19;
+    bool isReadOnly = 20;
+    bool isUser = 21;
+    Contact contact = 22;
+    Wid id = 23;
+}
+
+message  Wid {
+    /**
+     * "c.us" for contacts
+     * "g.us" for groups
+     */
+    string server = 1;
+    /**
+     * number of contact or group
+     */
+    string user = 2;
+    /**
+     * user@server
+     */
+    string _serialized = 3;
+}
+
+message SendMessageRequestData {
+    string session = 1;
+    string phone = 2;
+    string body = 3;
+}
+
+message SendFileRequestData {
+    string session = 1;
+    string phone = 2;
+    string body = 3;
+    string filename = 4;
+}
+
+message SendFilePathRequestData {
+    string session = 1;
+    string phone = 2;
+    string body = 3;
+    string filename = 4;
+    string message = 5;
+}
+
+message ServiceResponseWhatsApp {
+    int32 status = 1;
+    string message = 2;
+    Message data = 3;
+    string error = 4;
+}
 
 //ChatWhatsDevedor
 
