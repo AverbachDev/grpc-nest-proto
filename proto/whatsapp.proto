@@ -264,6 +264,7 @@ message MensagemChatWhatsData {
     string createdDate = 15;
     string updatedDate = 16;
     string deletedDate = 17;
+    string mediaData = 18;
 }
 
 message MensagemChatWhatsUpdateRequest{
