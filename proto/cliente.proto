@@ -252,9 +252,13 @@ message ContatoData {
     bool cdPrincipal = 12;
     bool cdDadosAdicionais = 13;
     bool cdWhatsapp = 14;
-    string createdDate = 15;
-    string updatedDate = 16;
-    string deletedDate = 17;
+    bool cdPrestconta = 15;
+    bool cdNotaFiscal = 16;
+    bool cdNegociacao = 17;
+    bool cdDevolucao = 18;
+    string createdDate = 19;
+    string updatedDate = 20;
+    string deletedDate = 21;
 }
 
 message ContatoUpdateRequest{
