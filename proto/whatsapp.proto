@@ -17,6 +17,7 @@ service WhatsappService {
     rpc createChatWhatsDevedor (ChatWhatsDevedorData) returns (ServiceResponseChatWhatsDevedor) {}
     rpc updateChatWhatsDevedor (ChatWhatsDevedorUpdateRequest) returns (ServiceResponseChatWhatsDevedor) {}
     rpc removeChatWhatsDevedor (IdRequest) returns (ServiceResponseChatWhatsDevedor) {}
+    rpc listChatsToStoreReactWhatsDevedor (ListCriteriaRequestChatWhatsDevedor) returns (ServiceResponseListChatWhatsDevedor) {}
 
     //MensagemChatWhats
     rpc listMensagemChatWhats (ListCriteriaRequestMensagemChatWhats) returns (ServiceResponseListMensagemChatWhats) {}
