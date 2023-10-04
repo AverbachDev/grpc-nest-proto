@@ -151,8 +151,7 @@ message SendMessageRequestData {
 message SendFileRequestData {
     string session = 1;
     string phone = 2;
-    string body = 3;
-    string filename = 4;
+    string pathOrBase64 = 3;
 }
 
 message SendFilePathRequestData {
