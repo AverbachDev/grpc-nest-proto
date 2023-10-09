@@ -182,7 +182,6 @@ message UpdateDetailsRequestData {
 
 message UpdateChatReadRequestData {
     int32 idChatDevedor = 1;
-    bool isParceiro = 2;
     bool cdNaoLida = 3;
     string socketSession = 4;
 }
@@ -201,11 +200,10 @@ message ListCriteriaRequestChatWhatsDevedor {
     string nmUsuarioChat = 5;
     string deInstanceId = 6;
     string dtAtividade = 7;
-    string dtAtividadeParceiro = 8;
-    int32 cdEmpresa = 9;
-    int32 items = 10;
-    int32 page = 11;
-    map<string, string> order =12;
+    int32 cdEmpresa = 8;
+    int32 items = 9;
+    int32 page = 10;
+    map<string, string> order =11;
 }
 
 message ChatWhatsDevedorData {
@@ -221,17 +219,16 @@ message ChatWhatsDevedorData {
     bool cdNaoLida = 10;
     bool cdNaoLidaCobrador = 11;
     int32 cdEmpresa = 12;
-    bool cdNaoLidaParceiro = 13;
-    string dtAtividadeParceiro = 14;
-    bool cdNovaMensagemParceiro = 15;
+    string deMensagem = 13;
+    string cdCnpjCpf = 14;
+    string nmInstanciaWhats = 15;
     int32 idUsuaOper = 16;
     string dtRegistro = 17;
     string createdDate = 18;
     string updatedDate = 19;
     string deletedDate = 20;
     int32 idDevedor = 21;
-    string deMensagem = 22;
-    string deMensagemParceiro = 23;
+
     repeated MensagemChatWhatsData mensagemChatWhats =24;
 }
 
