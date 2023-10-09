@@ -176,7 +176,8 @@ message UpdateDetailsRequestData {
     int32 idDevedor = 2;
     string nmUsuarioChat = 3;
     string deInstanceId = 4;
-    string socketSession = 5;
+    string nmInstanciaWhats = 5;
+    string socketSession = 6;
 }
 
 
