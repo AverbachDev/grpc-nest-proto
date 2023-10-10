@@ -11,6 +11,7 @@ service DevedorService {
   rpc updateDevedor (DevedorUpdateRequest) returns (ServiceResponseDevedor) {}
   rpc removeDevedor (IdRequest) returns (ServiceResponseDevedor) {}
   rpc updateDevedorWithMonolito (DevedorUpdateRequest) returns (ServiceResponseDevedor) {}
+  rpc getDataCredilink (CriteriaRequestCredilink) returns (ServiceResponseCredilink) {}
   
   //Contato
   rpc listContato (ListCriteriaRequestContato) returns (ServiceResponseListContato) {}
@@ -104,6 +105,19 @@ message ListResultDevedor {
     int32 total = 2;
 }
 
+
+message CriteriaRequestCredilink {
+    string nmDevedor = 1; 
+    string cdCnpjCpf = 2;
+    string deTelefone = 3;
+}
+
+message ServiceResponseCredilink {
+    int32 status = 1;
+    string message = 2;
+    string data = 3;
+    string error = 4;
+}
 
 //Contato
 
