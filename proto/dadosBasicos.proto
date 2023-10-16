@@ -1078,8 +1078,8 @@ message ListResultInstanciaUsuario {
 
 //InstanciaWhatsappSetor
 message ListCriteriaRequestInstanciaWhatsappSetor {
-    int32 idUsuario = 1;
-    int32 idInstanciaWhats = 2;
+    int32 idInstanciaSetor = 1;
+    string nmSetor = 2;
     int32 items = 3;
     int32 page = 4;
     map<string, string> order = 5;    
