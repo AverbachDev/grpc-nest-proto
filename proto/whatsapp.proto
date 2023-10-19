@@ -10,6 +10,10 @@ service WhatsappService {
     rpc sendMessage (SendMessageRequestData) returns (ServiceResponseWhatsApp) {}
     rpc sendFile (SendFileRequestData) returns (ServiceResponseWhatsApp) {}
     rpc SendFilePath (SendFilePathRequestData) returns (ServiceResponseWhatsApp) {}
+    rpc startInstance (HandleInstanceRequestData) returns (ServiceResponseWhatsApp) {}
+    rpc closeInstance (HandleInstanceRequestData) returns (ServiceResponseWhatsApp) {}
+    rpc getStartedInstances (EmptyRequest) returns ( getStartedInstancesResponse ) {}
+    rpc restartService (EmptyRequest) returns ( EmptyRequest ) {}
 
 
     //ChatWhatsDevedor
@@ -32,6 +36,8 @@ service WhatsappService {
     rpc removeMensagemChatWhats (IdRequest) returns (ServiceResponseMensagemChatWhats) {}
 
 }
+
+message EmptyRequest{}
 
 message IdRequest{
     int32 id = 1;
@@ -167,6 +173,17 @@ message ServiceResponseWhatsApp {
     string message = 2;
     Message data = 3;
     string error = 4;
+}
+message InstanceData {
+    string session =  1;
+    string statusClient = 2; 
+}
+
+message getStartedInstancesResponse {
+    repeated InstanceData instances = 1;
+}
+message HandleInstanceRequestData{
+    string session = 1;
 }
 
 //ChatWhatsDevedor
