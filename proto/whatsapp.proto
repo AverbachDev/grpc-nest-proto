@@ -12,6 +12,7 @@ service WhatsappService {
     rpc SendFilePath (SendFilePathRequestData) returns (ServiceResponseWhatsApp) {}
     rpc startInstance (HandleInstanceRequestData) returns (ServiceResponseWhatsApp) {}
     rpc closeInstance (HandleInstanceRequestData) returns (ServiceResponseWhatsApp) {}
+    rpc disconnectInstance (HandleInstanceRequestData) returns (ServiceResponseWhatsApp) {}
     rpc getStartedInstances (EmptyRequest) returns ( getStartedInstancesResponse ) {}
     rpc restartService (EmptyRequest) returns ( EmptyRequest ) {}
 
@@ -180,8 +181,12 @@ message InstanceData {
 }
 
 message getStartedInstancesResponse {
-    repeated InstanceData instances = 1;
+    int32 status = 1;
+    string message = 2;
+    repeated InstanceData data = 3;
+    string error = 4;    
 }
+
 message HandleInstanceRequestData{
     string session = 1;
 }
