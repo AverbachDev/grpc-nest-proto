@@ -178,6 +178,7 @@ message ServiceResponseWhatsApp {
 message InstanceData {
     string session =  1;
     string statusClient = 2; 
+    string qrCode = 3;
 }
 
 message getStartedInstancesResponse {
