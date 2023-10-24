@@ -36,6 +36,28 @@ service WhatsappService {
     rpc updateMensagemChatWhats (MensagemChatWhatsUpdateRequest) returns (ServiceResponseMensagemChatWhats) {}
     rpc removeMensagemChatWhats (IdRequest) returns (ServiceResponseMensagemChatWhats) {}
 
+
+
+    rpc listInstanciaWhatsapp (ListCriteriaRequestInstanciaWhatsapp) returns (ServiceResponseListInstanciaWhatsapp) {}
+    rpc findOneInstanciaWhatsapp (IdRequest) returns (ServiceResponseInstanciaWhatsapp) {}
+    rpc createInstanciaWhatsapp (InstanciaWhatsappData) returns (ServiceResponseInstanciaWhatsapp) {}
+    rpc updateInstanciaWhatsapp (InstanciaWhatsappUpdateRequest) returns (ServiceResponseInstanciaWhatsapp) {}
+    rpc removeInstanciaWhatsapp (IdRequest) returns (ServiceResponseInstanciaWhatsapp) {}
+
+
+    rpc listInstanciaUsuario (ListCriteriaRequestInstanciaUsuario) returns (ServiceResponseListInstanciaUsuario) {}
+    rpc findOneInstanciaUsuario (IdRequest) returns (ServiceResponseInstanciaUsuario) {}
+    rpc createInstanciaUsuario (InstanciaUsuarioData) returns (ServiceResponseInstanciaUsuario) {}
+    rpc updateInstanciaUsuario (InstanciaUsuarioUpdateRequest) returns (ServiceResponseInstanciaUsuario) {}
+    rpc removeInstanciaUsuario (IdRequest) returns (ServiceResponseInstanciaUsuario) {}
+
+
+    rpc listInstanciaWhatsappSetor (ListCriteriaRequestInstanciaWhatsappSetor) returns (ServiceResponseListInstanciaWhatsappSetor) {}
+    rpc findOneInstanciaWhatsappSetor (IdRequest) returns (ServiceResponseInstanciaWhatsappSetor) {}
+    rpc createInstanciaWhatsappSetor (InstanciaWhatsappSetorData) returns (ServiceResponseInstanciaWhatsappSetor) {}
+    rpc updateInstanciaWhatsappSetor (InstanciaWhatsappSetorUpdateRequest) returns (ServiceResponseInstanciaWhatsappSetor) {}
+    rpc removeInstanciaWhatsappSetor (IdRequest) returns (ServiceResponseInstanciaWhatsappSetor) {}    
+
 }
 
 message EmptyRequest{}
@@ -339,5 +361,150 @@ message ServiceResponseListMensagemChatWhats {
 
 message ListResultMensagemChatWhats {
     repeated MensagemChatWhatsData result = 1;
+    int32 total = 2;
+}
+
+
+
+
+//InstanciaWhatsapp
+message ListCriteriaRequestInstanciaWhatsapp {
+    string deUrlwhats = 1;
+    string deInstanciaWhats = 2;
+    string nmInstanciaWhats = 3;
+    int32 items = 4;
+    int32 page = 5;
+    map<string, string> order = 6;    
+}
+
+message InstanciaWhatsappData {
+    int32 idInstanciaWhats = 1;
+    string deUrlwhats = 2;
+    string deInstanciaWhats = 3;
+    string deTokenWhats = 4;
+    string nmInstanciaWhats = 5;
+    int32 cdEmpresa = 6;
+    int32 idInstanciaSetor = 7;
+    bool cdAtivo = 8;
+    int32 idUsuaOper = 9;
+    string dtRegistro = 10;
+    string createdDate = 11;
+    string updatedDate = 12;
+    string deletedDate = 13;
+    optional InstanciaWhatsappSetorData idInstanciaSetor2 = 14;
+}
+
+message InstanciaWhatsappUpdateRequest{
+    int32 idInstanciaWhats = 1;
+    InstanciaWhatsappData instanciaWhatsapp = 2;
+}
+
+message ServiceResponseInstanciaWhatsapp {
+    int32 status = 1;
+    string message = 2;
+    repeated InstanciaWhatsappData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListInstanciaWhatsapp {
+    int32 status = 1;
+    string message = 2;
+    ListResultInstanciaWhatsapp data = 3;
+    string error = 4;
+}
+
+message ListResultInstanciaWhatsapp {
+    repeated InstanciaWhatsappData result = 1;
+    int32 total = 2;
+}
+
+
+//InstanciaUsuario
+message ListCriteriaRequestInstanciaUsuario {
+    int32 idUsuario = 1;
+    int32 idInstanciaWhats = 2;
+    int32 items = 3;
+    int32 page = 4;
+    map<string, string> order = 5;    
+}
+
+message InstanciaUsuarioData {
+    int32 idInstanciaUsuario = 1;
+    int32 idUsuario = 2;
+    int32 idInstanciaWhats = 3;
+    int32 idUsuaOper = 4;
+    string dtRegistro = 5;
+    string createdDate =6;
+    string updatedDate = 7;
+    string deletedDate = 8;
+}
+
+message InstanciaUsuarioUpdateRequest{
+    int32 idInstanciaUsuario = 1;
+    InstanciaUsuarioData instanciaUsuario = 2;
+}
+
+message ServiceResponseInstanciaUsuario {
+    int32 status = 1;
+    string message = 2;
+    repeated InstanciaUsuarioData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListInstanciaUsuario {
+    int32 status = 1;
+    string message = 2;
+    ListResultInstanciaUsuario data = 3;
+    string error = 4;
+}
+
+message ListResultInstanciaUsuario {
+    repeated InstanciaUsuarioData result = 1;
+    int32 total = 2;
+}
+
+
+
+//InstanciaWhatsappSetor
+message ListCriteriaRequestInstanciaWhatsappSetor {
+    int32 idInstanciaSetor = 1;
+    string nmSetor = 2;
+    int32 items = 3;
+    int32 page = 4;
+    map<string, string> order = 5;    
+}
+
+message InstanciaWhatsappSetorData {
+    int32 idInstanciaSetor = 1;
+    string nmSetor = 2;
+    int32 idUsuaOper = 3;
+    string dtRegistro = 4;
+    string createdDate =5;
+    string updatedDate = 6;
+    string deletedDate = 7;
+    repeated InstanciaWhatsappData instanciaWhatsapps = 8;
+}
+
+message InstanciaWhatsappSetorUpdateRequest{
+    int32 idInstanciaWhatsappSetor = 1;
+    InstanciaWhatsappSetorData InstanciaWhatsappSetor = 2;
+}
+
+message ServiceResponseInstanciaWhatsappSetor {
+    int32 status = 1;
+    string message = 2;
+    repeated InstanciaWhatsappSetorData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListInstanciaWhatsappSetor {
+    int32 status = 1;
+    string message = 2;
+    ListResultInstanciaWhatsappSetor data = 3;
+    string error = 4;
+}
+
+message ListResultInstanciaWhatsappSetor {
+    repeated InstanciaWhatsappSetorData result = 1;
     int32 total = 2;
 }
