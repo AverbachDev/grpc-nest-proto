@@ -268,14 +268,14 @@ message ChatWhatsDevedorData {
     string deMensagem = 13;
     string cdCnpjCpf = 14;
     string nmInstanciaWhats = 15;
-    int32 idUsuaOper = 16;
-    string dtRegistro = 17;
-    string createdDate = 18;
-    string updatedDate = 19;
-    string deletedDate = 20;
-    int32 idDevedor = 21;
-
-    repeated MensagemChatWhatsData mensagemChatWhats =24;
+    int32 idInstanciaSetor = 16;
+    int32 idUsuaOper = 17;
+    string dtRegistro = 18;
+    string createdDate = 19;
+    string updatedDate = 20;
+    string deletedDate = 21;
+    int32 idDevedor = 22;
+    repeated MensagemChatWhatsData mensagemChatWhats =23;
 }
 
 message ChatWhatsDevedorUpdateRequest{
@@ -469,9 +469,10 @@ message ListResultInstanciaUsuario {
 message ListCriteriaRequestInstanciaWhatsappSetor {
     int32 idInstanciaSetor = 1;
     string nmSetor = 2;
-    int32 items = 3;
-    int32 page = 4;
-    map<string, string> order = 5;    
+    int32 idGrupo = 3;
+    int32 items = 4;
+    int32 page = 5;
+    map<string, string> order = 6;
 }
 
 message InstanciaWhatsappSetorData {
@@ -479,10 +480,12 @@ message InstanciaWhatsappSetorData {
     string nmSetor = 2;
     int32 idUsuaOper = 3;
     string dtRegistro = 4;
-    string createdDate =5;
-    string updatedDate = 6;
-    string deletedDate = 7;
-    repeated InstanciaWhatsappData instanciaWhatsapps = 8;
+    bool cdVinculoDevedor = 5;
+    int32 idGrupo = 6;
+    string createdDate =7;
+    string updatedDate = 8;
+    string deletedDate = 9;
+    repeated InstanciaWhatsappData instanciaWhatsapps = 10;
 }
 
 message InstanciaWhatsappSetorUpdateRequest{
