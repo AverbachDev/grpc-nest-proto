@@ -246,10 +246,11 @@ message ListCriteriaRequestChatWhatsDevedor {
     string nmUsuarioChat = 5;
     string deInstanceId = 6;
     string dtAtividade = 7;
-    int32 cdEmpresa = 8;
-    int32 items = 9;
-    int32 page = 10;
-    map<string, string> order =11;
+    int32 idInstanciaSetor = 8;
+    bool loadMensagemChatRelation = 9;
+    int32 items = 10;
+    int32 page = 11;
+    map<string, string> order =12;
 }
 
 message ChatWhatsDevedorData {
