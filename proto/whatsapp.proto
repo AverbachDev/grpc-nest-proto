@@ -373,9 +373,10 @@ message ListCriteriaRequestInstanciaWhatsapp {
     string deUrlwhats = 1;
     string deInstanciaWhats = 2;
     string nmInstanciaWhats = 3;
-    int32 items = 4;
-    int32 page = 5;
-    map<string, string> order = 6;    
+    int32 idInstanciaSetor = 4;
+    int32 items = 5;
+    int32 page = 6;
+    map<string, string> order = 7;
 }
 
 message InstanciaWhatsappData {
