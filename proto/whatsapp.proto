@@ -222,7 +222,8 @@ message UpdateDetailsRequestData {
     string nmUsuarioChat = 3;
     string deInstanceId = 4;
     string nmInstanciaWhats = 5;
-    string socketSession = 6;
+    string cdCnpjCpf = 6;
+    string socketSession = 7;
 }
 
 
