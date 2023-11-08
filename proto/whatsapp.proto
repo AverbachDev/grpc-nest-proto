@@ -15,6 +15,7 @@ service WhatsappService {
     rpc disconnectInstance (HandleInstanceRequestData) returns (ServiceResponseWhatsApp) {}
     rpc getStartedInstances (EmptyRequest) returns ( getStartedInstancesResponse ) {}
     rpc restartService (EmptyRequest) returns ( EmptyRequest ) {}
+    rpc getallChats (EmptyRequest) returns ( EmptyRequest ) {}
 
 
     //ChatWhatsDevedor
