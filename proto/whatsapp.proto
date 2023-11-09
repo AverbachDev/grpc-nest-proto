@@ -278,7 +278,8 @@ message ChatWhatsDevedorData {
     string updatedDate = 20;
     string deletedDate = 21;
     int32 idDevedor = 22;
-    repeated MensagemChatWhatsData mensagemChatWhats =23;
+    bool isGroup = 23;
+    repeated MensagemChatWhatsData mensagemChatWhats =24;
 }
 
 message ChatWhatsDevedorUpdateRequest{
