@@ -337,11 +337,13 @@ message MensagemChatWhatsData {
     string nmArquivo = 10;
     int32 cdEmpresa = 11;
     bool cdAnexoRecebido = 12;
-    int32 idUsuaOper = 13;
-    string dtRegistro = 14;
-    string createdDate = 15;
-    string updatedDate = 16;
-    string deletedDate = 17;
+    string senderName = 13;
+    int32 idUsuaOper = 14;
+    string dtRegistro = 15;
+    string createdDate = 16;
+    string updatedDate = 17;
+    string deletedDate = 18;
+
 }
 
 message MensagemChatWhatsUpdateRequest{
