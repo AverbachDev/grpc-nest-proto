@@ -486,10 +486,11 @@ message InstanciaWhatsappSetorData {
     string dtRegistro = 4;
     bool cdVinculoDevedor = 5;
     int32 idGrupo = 6;
-    string createdDate =7;
-    string updatedDate = 8;
-    string deletedDate = 9;
-    repeated InstanciaWhatsappData instanciaWhatsapps = 10;
+    bool cdPermissaoChatGrupo = 7;
+    string createdDate =8;
+    string updatedDate = 9;
+    string deletedDate = 10;
+    repeated InstanciaWhatsappData instanciaWhatsapps = 11;
 }
 
 message InstanciaWhatsappSetorUpdateRequest{
