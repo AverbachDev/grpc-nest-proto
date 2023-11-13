@@ -30,15 +30,16 @@ message ListCriteriaRequestRemessa {
 }
 
 message RemessaData {
-    int32 idGrupo = 1;
-    int32 idCliente = 2;
-    int32 nuMes = 3;
-    int32 nuAno = 4;
-    string nmCliente = 5;
-    string nmGrupo = 6;
-    int32 nuCasos = 7;
-    string nmMes = 8;
-    string dtCadastro = 9;
+    int32 idRemessa = 1;
+    int32 idGrupo = 2;
+    int32 idCliente = 3;
+    int32 nuMes = 4;
+    int32 nuAno = 5;
+    string nmCliente = 6;
+    string nmGrupo = 7;
+    int32 nuCasos = 8;
+    string nmMes = 9;
+    string dtCadastro = 10;
 }
 
 
