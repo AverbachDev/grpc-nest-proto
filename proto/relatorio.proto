@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+package relatorio;
+
+
+service RelatorioService {
+
+  //Remessa
+  rpc listRemessa (ListCriteriaRequestRemessa) returns (ServiceResponseRemessa) {}
+
+}
+
+
+message IdRequest{
+    int32 id = 1;
+}
+
+//Remessa
+
+message ListCriteriaRequestRemessa {
+    int32 cdGrupo = 1;
+    string nmCliente = 2; 
+    string nmGrupo = 3;
+    string cdCnpjCpf = 4;
+    string dtCadastroInicio = 5;
+    string dtCadastroFim = 6;
+    int32 items = 7;
+    int32 page = 8;
+    map<string, string> order = 9;
+}
+
+message RemessaData {
+    int32 idGrupo = 1;
+    int32 idCliente = 2;
+    int32 nuMes = 3;
+    int32 nuAno = 4;
+    string nmCliente = 5;
+    string nmGrupo = 6;
+    int32 nuCasos = 7;
+    string nmMes = 8;
+    string dtCadastro = 9;
+}
+
+
+message ServiceResponseRemessa {
+    int32 status = 1;
+    string message = 2;
+    repeated RemessaData data = 3;
+    string error = 4;
+}
+
