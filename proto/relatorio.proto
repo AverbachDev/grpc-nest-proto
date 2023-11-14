@@ -6,8 +6,11 @@ package relatorio;
 service RelatorioService {
 
   //Remessa
-  rpc listRemessa (ListCriteriaRequestRemessa) returns (ServiceResponseRemessa) {}
-
+  rpc listRemessa (ListCriteriaRequestRemessa) returns (ServiceResponseListRemessa) {}
+  rpc findOneRemessa (IdRequest) returns (ServiceResponseRemessa) {}
+  rpc createRemessa (RemessaData) returns (ServiceResponseRemessa) {}
+  rpc updateRemessa (RemessaUpdateRequest) returns (ServiceResponseRemessa) {}
+  rpc removeRemessa (IdRequest) returns (ServiceResponseRemessa) {}
 }
 
 
@@ -42,6 +45,22 @@ message RemessaData {
     string dtCadastro = 10;
 }
 
+message RemessaUpdateRequest{
+    int32 idRemessa = 1;
+    RemessaData remessa = 2;
+}
+
+message ListResultDevedor {
+    repeated RemessaData result = 1;
+    int32 total = 2;
+}
+
+message ServiceResponseListRemessa {
+    int32 status = 1;
+    string message = 2;
+    ListResultDevedor data = 3;
+    string error = 4;
+}
 
 message ServiceResponseRemessa {
     int32 status = 1;
