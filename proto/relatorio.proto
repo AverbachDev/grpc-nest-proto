@@ -21,14 +21,13 @@ message IdRequest{
 //Remessa
 
 message ListCriteriaRequestRemessa {
-    int32 cdGrupo = 1;
-    string nmCliente = 2; 
-    string nmGrupo = 3;
-    string dtCadastroInicio = 5;
-    string dtCadastroFim = 6;
-    int32 items = 7;
-    int32 page = 8;
-    map<string, string> order = 9;
+    string nmCliente = 1; 
+    string nmGrupo = 2;
+    string dtCadastroInicio = 3;
+    string dtCadastroFim = 4;
+    int32 items = 5;
+    int32 page = 6;
+    map<string, string> order = 7;
 }
 
 message RemessaData {
