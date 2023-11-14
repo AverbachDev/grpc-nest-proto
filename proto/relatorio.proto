@@ -42,6 +42,9 @@ message RemessaData {
     int32 nuCasos = 8;
     string nmMes = 9;
     string dtCadastro = 10;
+    string createdDate = 11;
+    string updatedDate = 12;
+    string deletedDate = 13;    
 }
 
 message RemessaUpdateRequest{
