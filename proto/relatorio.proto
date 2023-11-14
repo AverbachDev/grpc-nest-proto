@@ -24,7 +24,6 @@ message ListCriteriaRequestRemessa {
     int32 cdGrupo = 1;
     string nmCliente = 2; 
     string nmGrupo = 3;
-    string cdCnpjCpf = 4;
     string dtCadastroInicio = 5;
     string dtCadastroFim = 6;
     int32 items = 7;
