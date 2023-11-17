@@ -10,6 +10,8 @@ service WhatsappService {
     rpc sendMessage (SendMessageRequestData) returns (ServiceResponseWhatsApp) {}
     rpc sendFile (SendFileRequestData) returns (ServiceResponseWhatsApp) {}
     rpc SendFilePath (SendFilePathRequestData) returns (ServiceResponseWhatsApp) {}
+    rpc sendPttFromBase64 (SendFilePathRequestData) returns (ServiceResponseWhatsApp) {}
+    rpc sendReactionToMessage (SendReactionRequestData) returns (ServiceResponseWhatsApp) {}
     rpc startInstance (HandleInstanceRequestData) returns (ServiceResponseWhatsApp) {}
     rpc closeInstance (HandleInstanceRequestData) returns (ServiceResponseWhatsApp) {}
     rpc disconnectInstance (HandleInstanceRequestData) returns (ServiceResponseWhatsApp) {}
@@ -190,6 +192,12 @@ message SendFilePathRequestData {
     string body = 3;
     string filename = 4;
     string message = 5;
+}
+
+message SendReactionRequestData {
+    string session = 1;
+    string msgId = 2;
+    string reaction = 3;
 }
 
 message ServiceResponseWhatsApp {
