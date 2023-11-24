@@ -346,11 +346,12 @@ message MensagemChatWhatsData {
     int32 cdEmpresa = 11;
     bool cdAnexoRecebido = 12;
     string senderName = 13;
-    int32 idUsuaOper = 14;
-    string dtRegistro = 15;
-    string createdDate = 16;
-    string updatedDate = 17;
-    string deletedDate = 18;
+    string quotedMessage = 14;
+    int32 idUsuaOper = 15;
+    string dtRegistro = 16;
+    string createdDate = 17;
+    string updatedDate = 18;
+    string deletedDate = 19;
 
 }
 
