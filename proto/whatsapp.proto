@@ -347,11 +347,12 @@ message MensagemChatWhatsData {
     bool cdAnexoRecebido = 12;
     string senderName = 13;
     string quotedMessage = 14;
-    int32 idUsuaOper = 15;
-    string dtRegistro = 16;
-    string createdDate = 17;
-    string updatedDate = 18;
-    string deletedDate = 19;
+    string reactionText = 15;
+    int32 idUsuaOper = 16;
+    string dtRegistro = 17;
+    string createdDate = 18;
+    string updatedDate = 19;
+    string deletedDate = 20;
 
 }
 
