@@ -8,6 +8,7 @@ service WhatsappService {
     //WhatsApp
 
     rpc sendMessage (SendMessageRequestData) returns (ServiceResponseWhatsApp) {}
+    rpc sendReply (SendReplyRequestData) returns (ServiceResponseWhatsApp) {}
     rpc sendFile (SendFileRequestData) returns (ServiceResponseWhatsApp) {}
     rpc SendFilePath (SendFilePathRequestData) returns (ServiceResponseWhatsApp) {}
     rpc sendPttFromBase64 (SendFilePathRequestData) returns (ServiceResponseWhatsApp) {}
@@ -179,6 +180,14 @@ message SendMessageRequestData {
     string phone = 2;
     string body = 3;
 }
+
+message SendReplyRequestData {
+    string session = 1;
+    string phone = 2;
+    string body = 3;
+    string deMessageId = 4;
+}
+
 
 message SendFileRequestData {
     string session = 1;
