@@ -1,0 +1,78 @@
+syntax = "proto3";
+
+package receita;
+
+
+service DadosReceitaService {
+
+  //CnpjEmpresa
+  rpc listCnpjEmpresa (ListCriteriaRequestCnpjEmpresa) returns (ServiceResponseListCnpjEmpresa) {}
+}
+
+
+message IdRequest{
+    int32 id = 1;
+}
+
+//CnpjEmpresa
+
+message ListCriteriaRequestCnpjEmpresa {
+    string cdCnpjCpf = 1; 
+    int32 items = 2;
+    int32 page = 3;
+    map<string, string> order = 4;
+}
+
+message CnpjEmpresaData {
+    string razaoSocial = 1;
+    string idEmpresa = 2;
+    string subsidiaria = 3;
+    string codigoVerificador = 4;
+    string cnpj = 5;
+    string matrizFilial = 6;
+    string fantasia = 7;
+    string situacaoCadastral = 8;
+    string dataSituacaoCadastral = 9;
+    string motivoSituacaoCadastral = 10;
+    string dataAbertura  = 11;
+    string cnaePrincipal = 12;
+    string cnaeSecundaria = 13;
+    string enderecoTipoLogradouro = 14;
+    string enderecoLogradouro = 15;
+    string enderecoNumero = 16;
+    string enderecoComplemento = 17;
+    string enderecoBairro = 18;
+    string enderecoCep = 19;
+    string enderecoUf = 20;
+    string enderecoCodigoMunicipio = 21;
+    string telefone1Ddd = 22;
+    string telefone1Numero = 23;
+    string telefone2Ddd = 24;
+    string telefone2Numero = 25;
+    string faxDdd = 26;
+    string faxNumero = 27;
+    string email = 28;
+    string id = 29;
+    string nomeMunicipio = 30;
+}
+
+
+message ListResultCnpjEmpresaData {
+    repeated CnpjEmpresaData result = 1;
+    int32 total = 2;
+}
+
+message ServiceResponseListCnpjEmpresa {
+    int32 status = 1;
+    string message = 2;
+    ListResultCnpjEmpresaData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseCnpjEmpresa {
+    int32 status = 1;
+    string message = 2;
+    repeated CnpjEmpresaData data = 3;
+    string error = 4;
+}
+
