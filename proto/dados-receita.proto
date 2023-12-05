@@ -126,16 +126,16 @@ message ServiceResponseCnpjEmpresa {
 
 //Cnae
 message ListCriteriaRequestCnae {
-    string cnae = 2;
-    string descricao = 3;
-    int32 items = 4;
-    int32 page = 5;
-    map<string, string> order = 6;    
+    string cnae = 1;
+    string descricao = 2;
+    int32 items = 3;
+    int32 page = 4;
+    map<string, string> order = 5;    
 }
 
 message CnaeData {
+    string cnae = 1;
     string descricao = 2;
-    string cnae = 3;
 }
 
 message ServiceResponseCnae {
@@ -161,25 +161,20 @@ message ListResultCnae {
 
 //Empresa
 message ListCriteriaRequestEmpresa {
-    string desEmpresa = 1;
-    string codEmpresa = 2;
+    string id = 1;
+    string razaoSocial = 2;
     int32 items = 3;
     int32 page = 4;
     map<string, string> order = 5;    
 }
 
 message EmpresaData {
-    int32 idEmpresa = 1;
-    string desEmpresa = 2;
-    int32 idUsuaOper = 3;
-    string dtRegistro = 4;
-    string codEmpresa = 5;
-    int32 idIndiceCorrecao = 6;
-    double nuLatitude = 7;
-    double nuLongitude = 8;
-    string createdDate = 9;
-    string updatedDate = 10;
-    string deletedDate = 11;
+    string id = 1;
+    string razaoSocial = 2;
+    string codigoNaturezaJuridica = 3;
+    string qualificacaoResponsavel = 4;
+    string capitalSocial = 5;
+    int32 porte = 6;
 }
 
 
@@ -206,25 +201,42 @@ message ListResultEmpresa {
 
 //Estabelecimento
 message ListCriteriaRequestEstabelecimento {
-    string desEstabelecimento = 1;
-    string codEstabelecimento = 2;
+    string cnpj = 1;
+    string fantasia = 2;
     int32 items = 3;
     int32 page = 4;
     map<string, string> order = 5;    
 }
 
 message EstabelecimentoData {
-    int32 idEstabelecimento = 1;
-    string desEstabelecimento = 2;
-    int32 idUsuaOper = 3;
-    string dtRegistro = 4;
-    string codEstabelecimento = 5;
-    int32 idIndiceCorrecao = 6;
-    double nuLatitude = 7;
-    double nuLongitude = 8;
-    string createdDate = 9;
-    string updatedDate = 10;
-    string deletedDate = 11;
+    string idEmpresa = 1;
+    string subsidiaria = 2;
+    string codigoVerificador = 3;
+    string cnpj = 4;
+    bool matrizFilial = 5;
+    string fantasia = 6;
+    string situacaoCadastral = 7;
+    string dataSituacaoCadastral = 8;
+    string motivoSituacaoCadastral = 9;
+    string dataAbertura = 10;
+    string cnaePrincipal = 11;
+    string cnaeSecundaria = 12;
+    string enderecoTipoLogradouro = 13;
+    string enderecoLogradouro = 14;
+    string enderecoNumero = 15;
+    string enderecoComplemento = 16;
+    string enderecoBairro = 17;
+    string enderecoCep = 18;
+    string enderecoUf = 19;
+    string enderecoCodigoMunicipio = 20;
+    string telefone1Ddd = 21;
+    string telefone1Numero = 22;
+    string telefone2Ddd = 23;
+    string telefone2Numero = 24;
+    string faxDdd = 25;
+    string faxNumero = 26;
+    string email = 27;
+    int32 id = 28;
 }
 
 message ServiceResponseEstabelecimento {
@@ -250,25 +262,16 @@ message ListResultEstabelecimento {
 
 //MotivoSituacaoCadastral
 message ListCriteriaRequestMotivoSituacaoCadastral {
-    string desMotivoSituacaoCadastral = 1;
-    string codMotivoSituacaoCadastral = 2;
+    string codigo = 1;
+    string descricao = 2;
     int32 items = 3;
     int32 page = 4;
     map<string, string> order = 5;    
 }
 
 message MotivoSituacaoCadastralData {
-    int32 idMotivoSituacaoCadastral = 1;
-    string desMotivoSituacaoCadastral = 2;
-    int32 idUsuaOper = 3;
-    string dtRegistro = 4;
-    string codMotivoSituacaoCadastral = 5;
-    int32 idIndiceCorrecao = 6;
-    double nuLatitude = 7;
-    double nuLongitude = 8;
-    string createdDate = 9;
-    string updatedDate = 10;
-    string deletedDate = 11;
+    string codigo = 1;
+    string descricao = 2;
 }
 
 message ServiceResponseMotivoSituacaoCadastral {
@@ -294,25 +297,16 @@ message ListResultMotivoSituacaoCadastral {
 
 //Municipio
 message ListCriteriaRequestMunicipio {
-    string desMunicipio = 1;
-    string codMunicipio = 2;
+    string codigo = 1;
+    string nome = 2;
     int32 items = 3;
     int32 page = 4;
     map<string, string> order = 5;    
 }
 
 message MunicipioData {
-    int32 idMunicipio = 1;
-    string desMunicipio = 2;
-    int32 idUsuaOper = 3;
-    string dtRegistro = 4;
-    string codMunicipio = 5;
-    int32 idIndiceCorrecao = 6;
-    double nuLatitude = 7;
-    double nuLongitude = 8;
-    string createdDate = 9;
-    string updatedDate = 10;
-    string deletedDate = 11;
+    string codigo = 1;
+    string nome = 2;
 }
 
 message ServiceResponseMunicipio {
@@ -338,25 +332,16 @@ message ListResultMunicipio {
 
 //NaturezaJuridica
 message ListCriteriaRequestNaturezaJuridica {
-    string desNaturezaJuridica = 1;
-    string codNaturezaJuridica = 2;
+    string codigo = 1;
+    string descricao = 2;
     int32 items = 3;
     int32 page = 4;
     map<string, string> order = 5;    
 }
 
 message NaturezaJuridicaData {
-    int32 idNaturezaJuridica = 1;
-    string desNaturezaJuridica = 2;
-    int32 idUsuaOper = 3;
-    string dtRegistro = 4;
-    string codNaturezaJuridica = 5;
-    int32 idIndiceCorrecao = 6;
-    double nuLatitude = 7;
-    double nuLongitude = 8;
-    string createdDate = 9;
-    string updatedDate = 10;
-    string deletedDate = 11;
+    string codigo = 1;
+    string descricao = 2;
 }
 
 message ServiceResponseNaturezaJuridica {
@@ -382,25 +367,21 @@ message ListResultNaturezaJuridica {
 
 //OptanteSimples
 message ListCriteriaRequestOptanteSimples {
-    string desOptanteSimples = 1;
-    string codOptanteSimples = 2;
+    string idEmpresa = 1;
+    string simples = 2;
     int32 items = 3;
     int32 page = 4;
     map<string, string> order = 5;    
 }
 
 message OptanteSimplesData {
-    int32 idOptanteSimples = 1;
-    string desOptanteSimples = 2;
-    int32 idUsuaOper = 3;
-    string dtRegistro = 4;
-    string codOptanteSimples = 5;
-    int32 idIndiceCorrecao = 6;
-    double nuLatitude = 7;
-    double nuLongitude = 8;
-    string createdDate = 9;
-    string updatedDate = 10;
-    string deletedDate = 11;
+    string idEmpresa = 1;
+    string simples = 2;
+    string simplesInicio = 3;
+    string simplesFim = 4;
+    string simei = 5;
+    string simeiInicio = 6;
+    string simeiFim = 7;
 }
 
 message ServiceResponseOptanteSimples {
@@ -426,25 +407,16 @@ message ListResultOptanteSimples {
 
 //Pais
 message ListCriteriaRequestPais {
-    string desPais = 1;
-    string codPais = 2;
+    string codigo = 1;
+    string descricao = 2;
     int32 items = 3;
     int32 page = 4;
     map<string, string> order = 5;    
 }
 
 message PaisData {
-    int32 idPais = 1;
-    string desPais = 2;
-    int32 idUsuaOper = 3;
-    string dtRegistro = 4;
-    string codPais = 5;
-    int32 idIndiceCorrecao = 6;
-    double nuLatitude = 7;
-    double nuLongitude = 8;
-    string createdDate = 9;
-    string updatedDate = 10;
-    string deletedDate = 11;
+    string codigo = 1;
+    string descricao = 2;
 }
 
 message ServiceResponsePais {
@@ -470,25 +442,16 @@ message ListResultPais {
 
 //QualificacaoSocio
 message ListCriteriaRequestQualificacaoSocio {
-    string desQualificacaoSocio = 1;
-    string codQualificacaoSocio = 2;
+    string codigo = 1;
+    string descricao = 2;
     int32 items = 3;
     int32 page = 4;
     map<string, string> order = 5;    
 }
 
 message QualificacaoSocioData {
-    int32 idQualificacaoSocio = 1;
-    string desQualificacaoSocio = 2;
-    int32 idUsuaOper = 3;
-    string dtRegistro = 4;
-    string codQualificacaoSocio = 5;
-    int32 idIndiceCorrecao = 6;
-    double nuLatitude = 7;
-    double nuLongitude = 8;
-    string createdDate = 9;
-    string updatedDate = 10;
-    string deletedDate = 11;
+    string codigo = 1;
+    string descricao = 2;
 }
 
 message ServiceResponseQualificacaoSocio {
@@ -514,25 +477,24 @@ message ListResultQualificacaoSocio {
 
 //Socio
 message ListCriteriaRequestSocio {
-    string desSocio = 1;
-    string codSocio = 2;
+    string idEmpresa = 1;
+    string cpfCnpj = 2;
     int32 items = 3;
     int32 page = 4;
     map<string, string> order = 5;    
 }
 
 message SocioData {
-    int32 idSocio = 1;
-    string desSocio = 2;
-    int32 idUsuaOper = 3;
-    string dtRegistro = 4;
-    string codSocio = 5;
-    int32 idIndiceCorrecao = 6;
-    double nuLatitude = 7;
-    double nuLongitude = 8;
-    string createdDate = 9;
-    string updatedDate = 10;
-    string deletedDate = 11;
+    string idEmpresa = 1;
+    bool tipoPessoa = 2;
+    string nome = 3;
+    string cpfCnpj = 4;
+    string codigoQualificacao = 5;
+    string data = 6;
+    string cpfRepresentanteLegal = 7;
+    string nomeRepresentanteLegal = 8;
+    string codigoQualificacaoRepresentanteLegal = 9;
+    int32 id = 10;
 }
 
 message ServiceResponseSocio {
