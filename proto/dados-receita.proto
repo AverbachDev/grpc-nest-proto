@@ -7,11 +7,55 @@ service DadosReceitaService {
 
   //CnpjEmpresa
   rpc listCnpjEmpresa (ListCriteriaRequestCnpjEmpresa) returns (ServiceResponseListCnpjEmpresa) {}
-}
 
 
-message IdRequest{
-    int32 id = 1;
+  //Cnae
+  rpc listCnae (ListCriteriaRequestCnae) returns (ServiceResponseListCnae) {}
+  rpc createCnae (CnaeData) returns (ServiceResponseCnae) {}
+
+
+  //Empresa
+  rpc listEmpresa (ListCriteriaRequestEmpresa) returns (ServiceResponseListEmpresa) {}
+  rpc createEmpresa (EmpresaData) returns (ServiceResponseEmpresa) {}
+
+
+  //Estabelecimento
+  rpc listEstabelecimento (ListCriteriaRequestEstabelecimento) returns (ServiceResponseListEstabelecimento) {}
+  rpc createEstabelecimento (EstabelecimentoData) returns (ServiceResponseEstabelecimento) {}
+
+
+  //MotivoSituacaoCadastral
+  rpc listMotivoSituacaoCadastral (ListCriteriaRequestMotivoSituacaoCadastral) returns (ServiceResponseListMotivoSituacaoCadastral) {}
+  rpc createMotivoSituacaoCadastral (MotivoSituacaoCadastralData) returns (ServiceResponseMotivoSituacaoCadastral) {}
+
+
+  //Municipio
+  rpc listMunicipio (ListCriteriaRequestMunicipio) returns (ServiceResponseListMunicipio) {}
+  rpc createMunicipio (MunicipioData) returns (ServiceResponseMunicipio) {}
+
+
+  //NaturezaJuridica
+  rpc listNaturezaJuridica (ListCriteriaRequestNaturezaJuridica) returns (ServiceResponseListNaturezaJuridica) {}
+  rpc createNaturezaJuridica (NaturezaJuridicaData) returns (ServiceResponseNaturezaJuridica) {}
+
+  //OptanteSimples
+  rpc listOptanteSimples (ListCriteriaRequestOptanteSimples) returns (ServiceResponseListOptanteSimples) {}
+  rpc createOptanteSimples (OptanteSimplesData) returns (ServiceResponseOptanteSimples) {}
+
+
+  //Pais
+  rpc listPais (ListCriteriaRequestPais) returns (ServiceResponseListPais) {}
+  rpc createPais (PaisData) returns (ServiceResponsePais) {}
+
+
+  //QualificacaoSocio
+  rpc listQualificacaoSocio (ListCriteriaRequestQualificacaoSocio) returns (ServiceResponseListQualificacaoSocio) {}
+  rpc createQualificacaoSocio (QualificacaoSocioData) returns (ServiceResponseQualificacaoSocio) {}
+
+
+  //Socio
+  rpc listSocio (ListCriteriaRequestSocio) returns (ServiceResponseListSocio) {}
+  rpc createSocio (SocioData) returns (ServiceResponseSocio) {}
 }
 
 //CnpjEmpresa
@@ -75,4 +119,440 @@ message ServiceResponseCnpjEmpresa {
     repeated CnpjEmpresaData data = 3;
     string error = 4;
 }
+
+
+
+
+
+//Cnae
+message ListCriteriaRequestCnae {
+    string cnae = 2;
+    string descricao = 3;
+    int32 items = 4;
+    int32 page = 5;
+    map<string, string> order = 6;    
+}
+
+message CnaeData {
+    string descricao = 2;
+    string cnae = 3;
+}
+
+message ServiceResponseCnae {
+    int32 status = 1;
+    string message = 2;
+    repeated CnaeData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListCnae {
+    int32 status = 1;
+    string message = 2;
+    ListResultCnae data = 3;
+    string error = 4;
+}
+
+message ListResultCnae {
+    repeated CnaeData result = 1;
+    int32 total = 2;
+}
+
+
+
+//Empresa
+message ListCriteriaRequestEmpresa {
+    string desEmpresa = 1;
+    string codEmpresa = 2;
+    int32 items = 3;
+    int32 page = 4;
+    map<string, string> order = 5;    
+}
+
+message EmpresaData {
+    int32 idEmpresa = 1;
+    string desEmpresa = 2;
+    int32 idUsuaOper = 3;
+    string dtRegistro = 4;
+    string codEmpresa = 5;
+    int32 idIndiceCorrecao = 6;
+    double nuLatitude = 7;
+    double nuLongitude = 8;
+    string createdDate = 9;
+    string updatedDate = 10;
+    string deletedDate = 11;
+}
+
+
+message ServiceResponseEmpresa {
+    int32 status = 1;
+    string message = 2;
+    repeated EmpresaData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListEmpresa {
+    int32 status = 1;
+    string message = 2;
+    ListResultEmpresa data = 3;
+    string error = 4;
+}
+
+message ListResultEmpresa {
+    repeated EmpresaData result = 1;
+    int32 total = 2;
+}
+
+
+
+//Estabelecimento
+message ListCriteriaRequestEstabelecimento {
+    string desEstabelecimento = 1;
+    string codEstabelecimento = 2;
+    int32 items = 3;
+    int32 page = 4;
+    map<string, string> order = 5;    
+}
+
+message EstabelecimentoData {
+    int32 idEstabelecimento = 1;
+    string desEstabelecimento = 2;
+    int32 idUsuaOper = 3;
+    string dtRegistro = 4;
+    string codEstabelecimento = 5;
+    int32 idIndiceCorrecao = 6;
+    double nuLatitude = 7;
+    double nuLongitude = 8;
+    string createdDate = 9;
+    string updatedDate = 10;
+    string deletedDate = 11;
+}
+
+message ServiceResponseEstabelecimento {
+    int32 status = 1;
+    string message = 2;
+    repeated EstabelecimentoData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListEstabelecimento {
+    int32 status = 1;
+    string message = 2;
+    ListResultEstabelecimento data = 3;
+    string error = 4;
+}
+
+message ListResultEstabelecimento {
+    repeated EstabelecimentoData result = 1;
+    int32 total = 2;
+}
+
+
+
+//MotivoSituacaoCadastral
+message ListCriteriaRequestMotivoSituacaoCadastral {
+    string desMotivoSituacaoCadastral = 1;
+    string codMotivoSituacaoCadastral = 2;
+    int32 items = 3;
+    int32 page = 4;
+    map<string, string> order = 5;    
+}
+
+message MotivoSituacaoCadastralData {
+    int32 idMotivoSituacaoCadastral = 1;
+    string desMotivoSituacaoCadastral = 2;
+    int32 idUsuaOper = 3;
+    string dtRegistro = 4;
+    string codMotivoSituacaoCadastral = 5;
+    int32 idIndiceCorrecao = 6;
+    double nuLatitude = 7;
+    double nuLongitude = 8;
+    string createdDate = 9;
+    string updatedDate = 10;
+    string deletedDate = 11;
+}
+
+message ServiceResponseMotivoSituacaoCadastral {
+    int32 status = 1;
+    string message = 2;
+    repeated MotivoSituacaoCadastralData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListMotivoSituacaoCadastral {
+    int32 status = 1;
+    string message = 2;
+    ListResultMotivoSituacaoCadastral data = 3;
+    string error = 4;
+}
+
+message ListResultMotivoSituacaoCadastral {
+    repeated MotivoSituacaoCadastralData result = 1;
+    int32 total = 2;
+}
+
+
+
+//Municipio
+message ListCriteriaRequestMunicipio {
+    string desMunicipio = 1;
+    string codMunicipio = 2;
+    int32 items = 3;
+    int32 page = 4;
+    map<string, string> order = 5;    
+}
+
+message MunicipioData {
+    int32 idMunicipio = 1;
+    string desMunicipio = 2;
+    int32 idUsuaOper = 3;
+    string dtRegistro = 4;
+    string codMunicipio = 5;
+    int32 idIndiceCorrecao = 6;
+    double nuLatitude = 7;
+    double nuLongitude = 8;
+    string createdDate = 9;
+    string updatedDate = 10;
+    string deletedDate = 11;
+}
+
+message ServiceResponseMunicipio {
+    int32 status = 1;
+    string message = 2;
+    repeated MunicipioData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListMunicipio {
+    int32 status = 1;
+    string message = 2;
+    ListResultMunicipio data = 3;
+    string error = 4;
+}
+
+message ListResultMunicipio {
+    repeated MunicipioData result = 1;
+    int32 total = 2;
+}
+
+
+
+//NaturezaJuridica
+message ListCriteriaRequestNaturezaJuridica {
+    string desNaturezaJuridica = 1;
+    string codNaturezaJuridica = 2;
+    int32 items = 3;
+    int32 page = 4;
+    map<string, string> order = 5;    
+}
+
+message NaturezaJuridicaData {
+    int32 idNaturezaJuridica = 1;
+    string desNaturezaJuridica = 2;
+    int32 idUsuaOper = 3;
+    string dtRegistro = 4;
+    string codNaturezaJuridica = 5;
+    int32 idIndiceCorrecao = 6;
+    double nuLatitude = 7;
+    double nuLongitude = 8;
+    string createdDate = 9;
+    string updatedDate = 10;
+    string deletedDate = 11;
+}
+
+message ServiceResponseNaturezaJuridica {
+    int32 status = 1;
+    string message = 2;
+    repeated NaturezaJuridicaData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListNaturezaJuridica {
+    int32 status = 1;
+    string message = 2;
+    ListResultNaturezaJuridica data = 3;
+    string error = 4;
+}
+
+message ListResultNaturezaJuridica {
+    repeated NaturezaJuridicaData result = 1;
+    int32 total = 2;
+}
+
+
+
+//OptanteSimples
+message ListCriteriaRequestOptanteSimples {
+    string desOptanteSimples = 1;
+    string codOptanteSimples = 2;
+    int32 items = 3;
+    int32 page = 4;
+    map<string, string> order = 5;    
+}
+
+message OptanteSimplesData {
+    int32 idOptanteSimples = 1;
+    string desOptanteSimples = 2;
+    int32 idUsuaOper = 3;
+    string dtRegistro = 4;
+    string codOptanteSimples = 5;
+    int32 idIndiceCorrecao = 6;
+    double nuLatitude = 7;
+    double nuLongitude = 8;
+    string createdDate = 9;
+    string updatedDate = 10;
+    string deletedDate = 11;
+}
+
+message ServiceResponseOptanteSimples {
+    int32 status = 1;
+    string message = 2;
+    repeated OptanteSimplesData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListOptanteSimples {
+    int32 status = 1;
+    string message = 2;
+    ListResultOptanteSimples data = 3;
+    string error = 4;
+}
+
+message ListResultOptanteSimples {
+    repeated OptanteSimplesData result = 1;
+    int32 total = 2;
+}
+
+
+
+//Pais
+message ListCriteriaRequestPais {
+    string desPais = 1;
+    string codPais = 2;
+    int32 items = 3;
+    int32 page = 4;
+    map<string, string> order = 5;    
+}
+
+message PaisData {
+    int32 idPais = 1;
+    string desPais = 2;
+    int32 idUsuaOper = 3;
+    string dtRegistro = 4;
+    string codPais = 5;
+    int32 idIndiceCorrecao = 6;
+    double nuLatitude = 7;
+    double nuLongitude = 8;
+    string createdDate = 9;
+    string updatedDate = 10;
+    string deletedDate = 11;
+}
+
+message ServiceResponsePais {
+    int32 status = 1;
+    string message = 2;
+    repeated PaisData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListPais {
+    int32 status = 1;
+    string message = 2;
+    ListResultPais data = 3;
+    string error = 4;
+}
+
+message ListResultPais {
+    repeated PaisData result = 1;
+    int32 total = 2;
+}
+
+
+
+//QualificacaoSocio
+message ListCriteriaRequestQualificacaoSocio {
+    string desQualificacaoSocio = 1;
+    string codQualificacaoSocio = 2;
+    int32 items = 3;
+    int32 page = 4;
+    map<string, string> order = 5;    
+}
+
+message QualificacaoSocioData {
+    int32 idQualificacaoSocio = 1;
+    string desQualificacaoSocio = 2;
+    int32 idUsuaOper = 3;
+    string dtRegistro = 4;
+    string codQualificacaoSocio = 5;
+    int32 idIndiceCorrecao = 6;
+    double nuLatitude = 7;
+    double nuLongitude = 8;
+    string createdDate = 9;
+    string updatedDate = 10;
+    string deletedDate = 11;
+}
+
+message ServiceResponseQualificacaoSocio {
+    int32 status = 1;
+    string message = 2;
+    repeated QualificacaoSocioData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListQualificacaoSocio {
+    int32 status = 1;
+    string message = 2;
+    ListResultQualificacaoSocio data = 3;
+    string error = 4;
+}
+
+message ListResultQualificacaoSocio {
+    repeated QualificacaoSocioData result = 1;
+    int32 total = 2;
+}
+
+
+
+//Socio
+message ListCriteriaRequestSocio {
+    string desSocio = 1;
+    string codSocio = 2;
+    int32 items = 3;
+    int32 page = 4;
+    map<string, string> order = 5;    
+}
+
+message SocioData {
+    int32 idSocio = 1;
+    string desSocio = 2;
+    int32 idUsuaOper = 3;
+    string dtRegistro = 4;
+    string codSocio = 5;
+    int32 idIndiceCorrecao = 6;
+    double nuLatitude = 7;
+    double nuLongitude = 8;
+    string createdDate = 9;
+    string updatedDate = 10;
+    string deletedDate = 11;
+}
+
+message ServiceResponseSocio {
+    int32 status = 1;
+    string message = 2;
+    repeated SocioData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListSocio {
+    int32 status = 1;
+    string message = 2;
+    ListResultSocio data = 3;
+    string error = 4;
+}
+
+message ListResultSocio {
+    repeated SocioData result = 1;
+    int32 total = 2;
+}
+
+
 
