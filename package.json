@@ -5,12 +5,14 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "proto-go:dados-receita": "protoc --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative proto/dados-receita.proto",
     "proto:devedor": "protoc --plugin=node_modules/.bin/protoc-gen-ts_proto.cmd -I=./proto --ts_proto_out=proto-example/ proto/devedor.proto --ts_proto_opt=nestJs=true --ts_proto_opt=fileSuffix=.pb",
     "proto:dadosBasicos": "protoc --plugin=node_modules/.bin/protoc-gen-ts_proto.cmd -I=./proto --ts_proto_out=proto-example/ proto/dadosBasicos.proto --ts_proto_opt=nestJs=true --ts_proto_opt=fileSuffix=.pb",
     "proto:juridico": "protoc --plugin=node_modules/.bin/protoc-gen-ts_proto.cmd -I=./proto --ts_proto_out=proto-example/ proto/juridico.proto --ts_proto_opt=nestJs=true --ts_proto_opt=fileSuffix=.pb",
     "proto:cliente": "protoc --plugin=node_modules/.bin/protoc-gen-ts_proto.cmd -I=./proto --ts_proto_out=proto-example/ proto/cliente.proto --ts_proto_opt=nestJs=true --ts_proto_opt=fileSuffix=.pb",
     "proto:contrato": "protoc --plugin=node_modules/.bin/protoc-gen-ts_proto.cmd -I=./proto --ts_proto_out=proto-example/ proto/contrato.proto --ts_proto_opt=nestJs=true --ts_proto_opt=fileSuffix=.pb",
-    "proto:historico": "protoc --plugin=node_modules/.bin/protoc-gen-ts_proto.cmd -I=./proto --ts_proto_out=proto-example/ proto/historico.proto --ts_proto_opt=nestJs=true --ts_proto_opt=fileSuffix=.pb"    
+    "proto:historico": "protoc --plugin=node_modules/.bin/protoc-gen-ts_proto.cmd -I=./proto --ts_proto_out=proto-example/ proto/historico.proto --ts_proto_opt=nestJs=true --ts_proto_opt=fileSuffix=.pb"
+
   },
   "keywords": [],
   "author": "Fabio Toscano",
