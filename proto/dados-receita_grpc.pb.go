@@ -19,6 +19,7 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
+	DadosReceitaService_ProcessImport_FullMethodName                 = "/proto.receita.DadosReceitaService/processImport"
 	DadosReceitaService_ListCnpjEmpresa_FullMethodName               = "/proto.receita.DadosReceitaService/listCnpjEmpresa"
 	DadosReceitaService_ListCnae_FullMethodName                      = "/proto.receita.DadosReceitaService/listCnae"
 	DadosReceitaService_CreateCnae_FullMethodName                    = "/proto.receita.DadosReceitaService/createCnae"
@@ -46,6 +47,7 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type DadosReceitaServiceClient interface {
+	ProcessImport(ctx context.Context, in *WithoutParams, opts ...grpc.CallOption) (*ServiceResponseListCnpjEmpresa, error)
 	// CnpjEmpresa
 	ListCnpjEmpresa(ctx context.Context, in *ListCriteriaRequestCnpjEmpresa, opts ...grpc.CallOption) (*ServiceResponseListCnpjEmpresa, error)
 	// Cnae
@@ -86,6 +88,15 @@ type dadosReceitaServiceClient struct {
 
 func NewDadosReceitaServiceClient(cc grpc.ClientConnInterface) DadosReceitaServiceClient {
 	return &dadosReceitaServiceClient{cc}
+}
+
+func (c *dadosReceitaServiceClient) ProcessImport(ctx context.Context, in *WithoutParams, opts ...grpc.CallOption) (*ServiceResponseListCnpjEmpresa, error) {
+	out := new(ServiceResponseListCnpjEmpresa)
+	err := c.cc.Invoke(ctx, DadosReceitaService_ProcessImport_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
 }
 
 func (c *dadosReceitaServiceClient) ListCnpjEmpresa(ctx context.Context, in *ListCriteriaRequestCnpjEmpresa, opts ...grpc.CallOption) (*ServiceResponseListCnpjEmpresa, error) {
@@ -281,6 +292,7 @@ func (c *dadosReceitaServiceClient) CreateSocio(ctx context.Context, in *SocioDa
 // All implementations must embed UnimplementedDadosReceitaServiceServer
 // for forward compatibility
 type DadosReceitaServiceServer interface {
+	ProcessImport(context.Context, *WithoutParams) (*ServiceResponseListCnpjEmpresa, error)
 	// CnpjEmpresa
 	ListCnpjEmpresa(context.Context, *ListCriteriaRequestCnpjEmpresa) (*ServiceResponseListCnpjEmpresa, error)
 	// Cnae
@@ -320,6 +332,9 @@ type DadosReceitaServiceServer interface {
 type UnimplementedDadosReceitaServiceServer struct {
 }
 
+func (UnimplementedDadosReceitaServiceServer) ProcessImport(context.Context, *WithoutParams) (*ServiceResponseListCnpjEmpresa, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ProcessImport not implemented")
+}
 func (UnimplementedDadosReceitaServiceServer) ListCnpjEmpresa(context.Context, *ListCriteriaRequestCnpjEmpresa) (*ServiceResponseListCnpjEmpresa, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListCnpjEmpresa not implemented")
 }
@@ -394,6 +409,24 @@ type UnsafeDadosReceitaServiceServer interface {
 
 func RegisterDadosReceitaServiceServer(s grpc.ServiceRegistrar, srv DadosReceitaServiceServer) {
 	s.RegisterService(&DadosReceitaService_ServiceDesc, srv)
+}
+
+func _DadosReceitaService_ProcessImport_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(WithoutParams)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DadosReceitaServiceServer).ProcessImport(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DadosReceitaService_ProcessImport_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DadosReceitaServiceServer).ProcessImport(ctx, req.(*WithoutParams))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 func _DadosReceitaService_ListCnpjEmpresa_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -781,6 +814,10 @@ var DadosReceitaService_ServiceDesc = grpc.ServiceDesc{
 	ServiceName: "proto.receita.DadosReceitaService",
 	HandlerType: (*DadosReceitaServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "processImport",
+			Handler:    _DadosReceitaService_ProcessImport_Handler,
+		},
 		{
 			MethodName: "listCnpjEmpresa",
 			Handler:    _DadosReceitaService_ListCnpjEmpresa_Handler,
