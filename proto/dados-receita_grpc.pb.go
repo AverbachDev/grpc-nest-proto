@@ -47,7 +47,7 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type DadosReceitaServiceClient interface {
-	ProcessImport(ctx context.Context, in *WithoutParams, opts ...grpc.CallOption) (*ServiceResponseListCnpjEmpresa, error)
+	ProcessImport(ctx context.Context, in *WithoutParams, opts ...grpc.CallOption) (*ServiceResponseProcessImport, error)
 	// CnpjEmpresa
 	ListCnpjEmpresa(ctx context.Context, in *ListCriteriaRequestCnpjEmpresa, opts ...grpc.CallOption) (*ServiceResponseListCnpjEmpresa, error)
 	// Cnae
@@ -90,8 +90,8 @@ func NewDadosReceitaServiceClient(cc grpc.ClientConnInterface) DadosReceitaServi
 	return &dadosReceitaServiceClient{cc}
 }
 
-func (c *dadosReceitaServiceClient) ProcessImport(ctx context.Context, in *WithoutParams, opts ...grpc.CallOption) (*ServiceResponseListCnpjEmpresa, error) {
-	out := new(ServiceResponseListCnpjEmpresa)
+func (c *dadosReceitaServiceClient) ProcessImport(ctx context.Context, in *WithoutParams, opts ...grpc.CallOption) (*ServiceResponseProcessImport, error) {
+	out := new(ServiceResponseProcessImport)
 	err := c.cc.Invoke(ctx, DadosReceitaService_ProcessImport_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -292,7 +292,7 @@ func (c *dadosReceitaServiceClient) CreateSocio(ctx context.Context, in *SocioDa
 // All implementations must embed UnimplementedDadosReceitaServiceServer
 // for forward compatibility
 type DadosReceitaServiceServer interface {
-	ProcessImport(context.Context, *WithoutParams) (*ServiceResponseListCnpjEmpresa, error)
+	ProcessImport(context.Context, *WithoutParams) (*ServiceResponseProcessImport, error)
 	// CnpjEmpresa
 	ListCnpjEmpresa(context.Context, *ListCriteriaRequestCnpjEmpresa) (*ServiceResponseListCnpjEmpresa, error)
 	// Cnae
@@ -332,7 +332,7 @@ type DadosReceitaServiceServer interface {
 type UnimplementedDadosReceitaServiceServer struct {
 }
 
-func (UnimplementedDadosReceitaServiceServer) ProcessImport(context.Context, *WithoutParams) (*ServiceResponseListCnpjEmpresa, error) {
+func (UnimplementedDadosReceitaServiceServer) ProcessImport(context.Context, *WithoutParams) (*ServiceResponseProcessImport, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ProcessImport not implemented")
 }
 func (UnimplementedDadosReceitaServiceServer) ListCnpjEmpresa(context.Context, *ListCriteriaRequestCnpjEmpresa) (*ServiceResponseListCnpjEmpresa, error) {

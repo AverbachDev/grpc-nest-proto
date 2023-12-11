@@ -7,7 +7,7 @@ option go_package = "https://github.com/AverbachDev/grpc-nest-proto/proto";
 
 service DadosReceitaService {
 
-  rpc processImport (WithoutParams) returns (ServiceResponseListCnpjEmpresa) {}
+  rpc processImport (WithoutParams) returns (ServiceResponseProcessImport) {}
   //CnpjEmpresa
   rpc listCnpjEmpresa (ListCriteriaRequestCnpjEmpresa) returns (ServiceResponseListCnpjEmpresa) {}
 
