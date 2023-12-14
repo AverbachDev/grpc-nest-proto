@@ -10,6 +10,7 @@ service DadosReceitaService {
   rpc processImport (WithoutParams) returns (ServiceResponseProcessImport) {}
   //CnpjEmpresa
   rpc listCnpjEmpresa (ListCriteriaRequestCnpjEmpresa) returns (ServiceResponseListCnpjEmpresa) {}
+  rpc listSocioEmpresa (ListCriteriaRequestSocioEmpresa) returns (ServiceResponseListSocioEmpresa) {}
 
 
   //Cnae
@@ -133,8 +134,42 @@ message ServiceResponseCnpjEmpresa {
 }
 
 
+// SocioEmpresa
+message ListCriteriaRequestSocioEmpresa {
+    string idEmpresa = 1; 
+    int32 items = 2;
+    int32 page = 3;
+    map<string, string> order = 4;
+}
+
+message ServiceResponseListSocioEmpresa {
+    int32 status = 1;
+    string message = 2;
+    ListResultSocioEmpresaData data = 3;
+    string error = 4;
+}
 
 
+message ListResultSocioEmpresaData {
+    repeated SocioEmpresaData result = 1;
+    int32 total = 2;
+}
+
+
+message SocioEmpresaData {
+    string idEmpresa = 1;
+    int32 tipoPessoa = 2;
+    string nome = 3;
+    string cpfCnpj = 4;
+    string codigoQualificacao = 5;
+    string data = 6;
+    string cpfRepresentanteLegal = 7;
+    string nomeRepresentanteLegal = 8;
+    string codigoRepresentanteLegal = 9;
+    int32 id = 10;
+    string codigo  = 11;
+    string descricao = 12;
+}
 
 //Cnae
 message ListCriteriaRequestCnae {

@@ -21,6 +21,7 @@ const _ = grpc.SupportPackageIsVersion7
 const (
 	DadosReceitaService_ProcessImport_FullMethodName                 = "/proto.receita.DadosReceitaService/processImport"
 	DadosReceitaService_ListCnpjEmpresa_FullMethodName               = "/proto.receita.DadosReceitaService/listCnpjEmpresa"
+	DadosReceitaService_ListSocioEmpresa_FullMethodName              = "/proto.receita.DadosReceitaService/listSocioEmpresa"
 	DadosReceitaService_ListCnae_FullMethodName                      = "/proto.receita.DadosReceitaService/listCnae"
 	DadosReceitaService_CreateCnae_FullMethodName                    = "/proto.receita.DadosReceitaService/createCnae"
 	DadosReceitaService_ListEmpresa_FullMethodName                   = "/proto.receita.DadosReceitaService/listEmpresa"
@@ -50,6 +51,7 @@ type DadosReceitaServiceClient interface {
 	ProcessImport(ctx context.Context, in *WithoutParams, opts ...grpc.CallOption) (*ServiceResponseProcessImport, error)
 	// CnpjEmpresa
 	ListCnpjEmpresa(ctx context.Context, in *ListCriteriaRequestCnpjEmpresa, opts ...grpc.CallOption) (*ServiceResponseListCnpjEmpresa, error)
+	ListSocioEmpresa(ctx context.Context, in *ListCriteriaRequestSocioEmpresa, opts ...grpc.CallOption) (*ServiceResponseListSocioEmpresa, error)
 	// Cnae
 	ListCnae(ctx context.Context, in *ListCriteriaRequestCnae, opts ...grpc.CallOption) (*ServiceResponseListCnae, error)
 	CreateCnae(ctx context.Context, in *CnaeData, opts ...grpc.CallOption) (*ServiceResponseCnae, error)
@@ -102,6 +104,15 @@ func (c *dadosReceitaServiceClient) ProcessImport(ctx context.Context, in *Witho
 func (c *dadosReceitaServiceClient) ListCnpjEmpresa(ctx context.Context, in *ListCriteriaRequestCnpjEmpresa, opts ...grpc.CallOption) (*ServiceResponseListCnpjEmpresa, error) {
 	out := new(ServiceResponseListCnpjEmpresa)
 	err := c.cc.Invoke(ctx, DadosReceitaService_ListCnpjEmpresa_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dadosReceitaServiceClient) ListSocioEmpresa(ctx context.Context, in *ListCriteriaRequestSocioEmpresa, opts ...grpc.CallOption) (*ServiceResponseListSocioEmpresa, error) {
+	out := new(ServiceResponseListSocioEmpresa)
+	err := c.cc.Invoke(ctx, DadosReceitaService_ListSocioEmpresa_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -295,6 +306,7 @@ type DadosReceitaServiceServer interface {
 	ProcessImport(context.Context, *WithoutParams) (*ServiceResponseProcessImport, error)
 	// CnpjEmpresa
 	ListCnpjEmpresa(context.Context, *ListCriteriaRequestCnpjEmpresa) (*ServiceResponseListCnpjEmpresa, error)
+	ListSocioEmpresa(context.Context, *ListCriteriaRequestSocioEmpresa) (*ServiceResponseListSocioEmpresa, error)
 	// Cnae
 	ListCnae(context.Context, *ListCriteriaRequestCnae) (*ServiceResponseListCnae, error)
 	CreateCnae(context.Context, *CnaeData) (*ServiceResponseCnae, error)
@@ -337,6 +349,9 @@ func (UnimplementedDadosReceitaServiceServer) ProcessImport(context.Context, *Wi
 }
 func (UnimplementedDadosReceitaServiceServer) ListCnpjEmpresa(context.Context, *ListCriteriaRequestCnpjEmpresa) (*ServiceResponseListCnpjEmpresa, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListCnpjEmpresa not implemented")
+}
+func (UnimplementedDadosReceitaServiceServer) ListSocioEmpresa(context.Context, *ListCriteriaRequestSocioEmpresa) (*ServiceResponseListSocioEmpresa, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListSocioEmpresa not implemented")
 }
 func (UnimplementedDadosReceitaServiceServer) ListCnae(context.Context, *ListCriteriaRequestCnae) (*ServiceResponseListCnae, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListCnae not implemented")
@@ -443,6 +458,24 @@ func _DadosReceitaService_ListCnpjEmpresa_Handler(srv interface{}, ctx context.C
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(DadosReceitaServiceServer).ListCnpjEmpresa(ctx, req.(*ListCriteriaRequestCnpjEmpresa))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DadosReceitaService_ListSocioEmpresa_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListCriteriaRequestSocioEmpresa)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DadosReceitaServiceServer).ListSocioEmpresa(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DadosReceitaService_ListSocioEmpresa_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DadosReceitaServiceServer).ListSocioEmpresa(ctx, req.(*ListCriteriaRequestSocioEmpresa))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -821,6 +854,10 @@ var DadosReceitaService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "listCnpjEmpresa",
 			Handler:    _DadosReceitaService_ListCnpjEmpresa_Handler,
+		},
+		{
+			MethodName: "listSocioEmpresa",
+			Handler:    _DadosReceitaService_ListSocioEmpresa_Handler,
 		},
 		{
 			MethodName: "listCnae",
