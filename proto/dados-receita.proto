@@ -85,7 +85,7 @@ message CnpjEmpresaData {
     string subsidiaria = 3;
     string codigoVerificador = 4;
     string cnpj = 5;
-    string matrizFilial = 6;
+    bool matrizFilial = 6;
     string fantasia = 7;
     string situacaoCadastral = 8;
     string dataSituacaoCadastral = 9;
