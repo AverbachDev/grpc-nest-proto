@@ -77,7 +77,6 @@ message ListCriteriaRequestCnpjEmpresa {
     string cdCnpjCpf = 1; 
     int32 items = 2;
     int32 page = 3;
-    map<string, string> order = 4;
 }
 
 message CnpjEmpresaData {
@@ -176,6 +175,7 @@ message ListCriteriaRequestCnae {
     string descricao = 2;
     int32 items = 3;
     int32 page = 4;
+    map<string, string> order = 5;    
 }
 
 message CnaeData {
