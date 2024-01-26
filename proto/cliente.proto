@@ -15,6 +15,7 @@ service ClienteService {
   rpc createWithIdCliente (ClienteData) returns (ServiceResponseCliente) {}
   rpc listClienteNested (ListCriteriaRequestClienteNested) returns (ServiceResponseListCliente) {}
   rpc listClientesByIdGrupo (IdRequest) returns (ServiceResponseListCliente) {}
+  rpc listClienteChangedByCreatedorUpdatedDate (listCriteriaClienteChangedByCreatedorUpdatedDate) returns (ServiceResponseListCliente) {}
 
 
   //Contato
@@ -224,6 +225,13 @@ message ListCriteriaRequestClienteNested {
     map<string, string> order =13;
 }
 
+message listCriteriaClienteChangedByCreatedorUpdatedDate {
+    string createdDate = 1; 
+    string updatedDate = 2;
+    int32 items = 3;
+    int32 page = 4;
+    map<string, string> order =5;
+}
 
 //Contato
 
