@@ -4,36 +4,179 @@ package contrato;
 
 
 service ContratoService {
-  //Contrato
-  rpc listContrato (ListCriteriaRequestContrato) returns (ServiceResponseListContrato) {}
-  rpc findOneContrato (IdRequest) returns (ServiceResponseContrato) {}
-  rpc createContrato (ContratoData) returns (ServiceResponseContrato) {}
-  rpc updateContrato (ContratoUpdateRequest) returns (ServiceResponseContrato) {}
-  rpc removeContrato (IdRequest) returns (ServiceResponseContrato) {}
-  rpc getHonorariosClienteJudicial (GetHonorariosClienteJudicialRequest) returns (ServiceResponseGetHonorariosClienteJudicial) {}
+    //Contrato
+    rpc listContrato (ListCriteriaRequestContrato) returns (ServiceResponseListContrato) {}
+    rpc findOneContrato (IdRequest) returns (ServiceResponseContrato) {}
+    rpc createContrato (ContratoData) returns (ServiceResponseContrato) {}
+    rpc updateContrato (ContratoUpdateRequest) returns (ServiceResponseContrato) {}
+    rpc removeContrato (IdRequest) returns (ServiceResponseContrato) {}
+    rpc removeAllContrato (WithoutParams) returns (ServiceResponseContrato) {}
+    rpc getHonorariosClienteJudicial (GetHonorariosClienteJudicialRequest) returns (ServiceResponseGetHonorariosClienteJudicial) {}
+
+    //ContratoPermanencia
+    rpc listContratoPermanencia (ListCriteriaRequestContratoPermanencia) returns (ServiceResponseListContratoPermanencia) {}
+    rpc findOneContratoPermanencia (IdRequest) returns (ServiceResponseContratoPermanencia) {}
+    rpc createContratoPermanencia (ContratoPermanenciaData) returns (ServiceResponseContratoPermanencia) {}
+    rpc updateContratoPermanencia (ContratoPermanenciaUpdateRequest) returns (ServiceResponseContratoPermanencia) {}
+    rpc removeContratoPermanencia (IdRequest) returns (ServiceResponseContratoPermanencia) {}
+    rpc removeAllContratoPermanencia (WithoutParams) returns (ServiceResponseContratoPermanencia) {}
+
+    //EmissaoNF
+    rpc listEmissaoNF (ListCriteriaRequestEmissaoNF) returns (ServiceResponseListEmissaoNF) {}
+    rpc findOneEmissaoNF (IdRequest) returns (ServiceResponseEmissaoNF) {}
+    rpc createEmissaoNF (EmissaoNFData) returns (ServiceResponseEmissaoNF) {}
+    rpc updateEmissaoNF (EmissaoNFUpdateRequest) returns (ServiceResponseEmissaoNF) {}
+    rpc removeEmissaoNF (IdRequest) returns (ServiceResponseEmissaoNF) {}
+    rpc removeAllEmissaoNF (WithoutParams) returns (ServiceResponseEmissaoNF) {}
 
 
-  //HonorJudicialDiasVenc
-  rpc listHonorJudicialDiasVenc (ListCriteriaRequestHonorJudicialDiasVenc) returns (ServiceResponseListHonorJudicialDiasVenc) {}
-  rpc findOneHonorJudicialDiasVenc (IdRequest) returns (ServiceResponseHonorJudicialDiasVenc) {}
-  rpc createHonorJudicialDiasVenc (HonorJudicialDiasVencData) returns (ServiceResponseHonorJudicialDiasVenc) {}
-  rpc updateHonorJudicialDiasVenc (HonorJudicialDiasVencUpdateRequest) returns (ServiceResponseHonorJudicialDiasVenc) {}
-  rpc removeHonorJudicialDiasVenc (IdRequest) returns (ServiceResponseHonorJudicialDiasVenc) {}
-  
-  
-  //HonorJudicialValTitulos
-  rpc listHonorJudicialValTitulos (ListCriteriaRequestHonorJudicialValTitulos) returns (ServiceResponseListHonorJudicialValTitulos) {}
-  rpc findOneHonorJudicialValTitulos (IdRequest) returns (ServiceResponseHonorJudicialValTitulos) {}
-  rpc createHonorJudicialValTitulos (HonorJudicialValTitulosData) returns (ServiceResponseHonorJudicialValTitulos) {}
-  rpc updateHonorJudicialValTitulos (HonorJudicialValTitulosUpdateRequest) returns (ServiceResponseHonorJudicialValTitulos) {}
-  rpc removeHonorJudicialValTitulos (IdRequest) returns (ServiceResponseHonorJudicialValTitulos) {}
+    //HonorDevAnoVencTitulos
+    rpc listHonorDevAnoVencTitulos (ListCriteriaRequestHonorDevAnoVencTitulos) returns (ServiceResponseListHonorDevAnoVencTitulos) {}
+    rpc findOneHonorDevAnoVencTitulos (IdRequest) returns (ServiceResponseHonorDevAnoVencTitulos) {}
+    rpc createHonorDevAnoVencTitulos (HonorDevAnoVencTitulosData) returns (ServiceResponseHonorDevAnoVencTitulos) {}
+    rpc updateHonorDevAnoVencTitulos (HonorDevAnoVencTitulosUpdateRequest) returns (ServiceResponseHonorDevAnoVencTitulos) {}
+    rpc removeHonorDevAnoVencTitulos (IdRequest) returns (ServiceResponseHonorDevAnoVencTitulos) {}
+    rpc removeAllHonorDevAnoVencTitulos (WithoutParams) returns (ServiceResponseHonorDevAnoVencTitulos) {}
 
+
+    //HonorDevCaso
+    rpc listHonorDevCaso (ListCriteriaRequestHonorDevCaso) returns (ServiceResponseListHonorDevCaso) {}
+    rpc findOneHonorDevCaso (IdRequest) returns (ServiceResponseHonorDevCaso) {}
+    rpc createHonorDevCaso (HonorDevCasoData) returns (ServiceResponseHonorDevCaso) {}
+    rpc updateHonorDevCaso (HonorDevCasoUpdateRequest) returns (ServiceResponseHonorDevCaso) {}
+    rpc removeHonorDevCaso (IdRequest) returns (ServiceResponseHonorDevCaso) {}
+    rpc removeAllHonorDevCaso (WithoutParams) returns (ServiceResponseHonorDevCaso) {}
+
+    //HonorDevDiasVenc
+    rpc listHonorDevDiasVenc (ListCriteriaRequestHonorDevDiasVenc) returns (ServiceResponseListHonorDevDiasVenc) {}
+    rpc findOneHonorDevDiasVenc (IdRequest) returns (ServiceResponseHonorDevDiasVenc) {}
+    rpc createHonorDevDiasVenc (HonorDevDiasVencData) returns (ServiceResponseHonorDevDiasVenc) {}
+    rpc updateHonorDevDiasVenc (HonorDevDiasVencUpdateRequest) returns (ServiceResponseHonorDevDiasVenc) {}
+    rpc removeHonorDevDiasVenc (IdRequest) returns (ServiceResponseHonorDevDiasVenc) {}
+    rpc removeAllHonorDevDiasVenc (WithoutParams) returns (ServiceResponseHonorDevDiasVenc) {}
+
+
+    //HonorDiasCad
+    rpc listHonorDiasCad (ListCriteriaRequestHonorDiasCad) returns (ServiceResponseListHonorDiasCad) {}
+    rpc findOneHonorDiasCad (IdRequest) returns (ServiceResponseHonorDiasCad) {}
+    rpc createHonorDiasCad (HonorDiasCadData) returns (ServiceResponseHonorDiasCad) {}
+    rpc updateHonorDiasCad (HonorDiasCadUpdateRequest) returns (ServiceResponseHonorDiasCad) {}
+    rpc removeHonorDiasCad (IdRequest) returns (ServiceResponseHonorDiasCad) {}
+    rpc removeAllHonorDiasCad (WithoutParams) returns (ServiceResponseHonorDiasCad) {}
+
+
+    //HonorDiasCob
+    rpc listHonorDiasCob (ListCriteriaRequestHonorDiasCob) returns (ServiceResponseListHonorDiasCob) {}
+    rpc findOneHonorDiasCob (IdRequest) returns (ServiceResponseHonorDiasCob) {}
+    rpc createHonorDiasCob (HonorDiasCobData) returns (ServiceResponseHonorDiasCob) {}
+    rpc updateHonorDiasCob (HonorDiasCobUpdateRequest) returns (ServiceResponseHonorDiasCob) {}
+    rpc removeHonorDiasCob (IdRequest) returns (ServiceResponseHonorDiasCob) {}
+    rpc removeAllHonorDiasCob (WithoutParams) returns (ServiceResponseHonorDiasCob) {}
+
+
+    //HonorDiasVenc
+    rpc listHonorDiasVenc (ListCriteriaRequestHonorDiasVenc) returns (ServiceResponseListHonorDiasVenc) {}
+    rpc findOneHonorDiasVenc (IdRequest) returns (ServiceResponseHonorDiasVenc) {}
+    rpc createHonorDiasVenc (HonorDiasVencData) returns (ServiceResponseHonorDiasVenc) {}
+    rpc updateHonorDiasVenc (HonorDiasVencUpdateRequest) returns (ServiceResponseHonorDiasVenc) {}
+    rpc removeHonorDiasVenc (IdRequest) returns (ServiceResponseHonorDiasVenc) {}
+    rpc removeAllHonorDiasVenc (WithoutParams) returns (ServiceResponseHonorDiasVenc) {}
+
+
+    //HonorJudicialDiasVenc
+    rpc listHonorJudicialDiasVenc (ListCriteriaRequestHonorJudicialDiasVenc) returns (ServiceResponseListHonorJudicialDiasVenc) {}
+    rpc findOneHonorJudicialDiasVenc (IdRequest) returns (ServiceResponseHonorJudicialDiasVenc) {}
+    rpc createHonorJudicialDiasVenc (HonorJudicialDiasVencData) returns (ServiceResponseHonorJudicialDiasVenc) {}
+    rpc updateHonorJudicialDiasVenc (HonorJudicialDiasVencUpdateRequest) returns (ServiceResponseHonorJudicialDiasVenc) {}
+    rpc removeHonorJudicialDiasVenc (IdRequest) returns (ServiceResponseHonorJudicialDiasVenc) {}
+    rpc removeAllHonorJudicialDiasVenc (WithoutParams) returns (ServiceResponseHonorJudicialDiasVenc) {}
+
+    //HonorJudicialValTitulos
+    rpc listHonorJudicialValTitulos (ListCriteriaRequestHonorJudicialValTitulos) returns (ServiceResponseListHonorJudicialValTitulos) {}
+    rpc findOneHonorJudicialValTitulos (IdRequest) returns (ServiceResponseHonorJudicialValTitulos) {}
+    rpc createHonorJudicialValTitulos (HonorJudicialValTitulosData) returns (ServiceResponseHonorJudicialValTitulos) {}
+    rpc updateHonorJudicialValTitulos (HonorJudicialValTitulosUpdateRequest) returns (ServiceResponseHonorJudicialValTitulos) {}
+    rpc removeHonorJudicialValTitulos (IdRequest) returns (ServiceResponseHonorJudicialValTitulos) {}
+    rpc removeAllHonorJudicialValTitulos (WithoutParams) returns (ServiceResponseHonorJudicialValTitulos) {}
+
+
+    //HonorSalMin
+    rpc listHonorSalMin (ListCriteriaRequestHonorSalMin) returns (ServiceResponseListHonorSalMin) {}
+    rpc findOneHonorSalMin (IdRequest) returns (ServiceResponseHonorSalMin) {}
+    rpc createHonorSalMin (HonorSalMinData) returns (ServiceResponseHonorSalMin) {}
+    rpc updateHonorSalMin (HonorSalMinUpdateRequest) returns (ServiceResponseHonorSalMin) {}
+    rpc removeHonorSalMin (IdRequest) returns (ServiceResponseHonorSalMin) {}
+    rpc removeAllHonorSalMin (WithoutParams) returns (ServiceResponseHonorSalMin) {}
+
+
+    //HonorValTitulos
+    rpc listHonorValTitulos (ListCriteriaRequestHonorValTitulos) returns (ServiceResponseListHonorValTitulos) {}
+    rpc findOneHonorValTitulos (IdRequest) returns (ServiceResponseHonorValTitulos) {}
+    rpc createHonorValTitulos (HonorValTitulosData) returns (ServiceResponseHonorValTitulos) {}
+    rpc updateHonorValTitulos (HonorValTitulosUpdateRequest) returns (ServiceResponseHonorValTitulos) {}
+    rpc removeHonorValTitulos (IdRequest) returns (ServiceResponseHonorValTitulos) {}
+    rpc removeAllHonorValTitulos (WithoutParams) returns (ServiceResponseHonorValTitulos) {}
+
+    
+    //HonorVencTitulos
+    rpc listHonorVencTitulos (ListCriteriaRequestHonorVencTitulos) returns (ServiceResponseListHonorVencTitulos) {}
+    rpc findOneHonorVencTitulos (IdRequest) returns (ServiceResponseHonorVencTitulos) {}
+    rpc createHonorVencTitulos (HonorVencTitulosData) returns (ServiceResponseHonorVencTitulos) {}
+    rpc updateHonorVencTitulos (HonorVencTitulosUpdateRequest) returns (ServiceResponseHonorVencTitulos) {}
+    rpc removeHonorVencTitulos (IdRequest) returns (ServiceResponseHonorVencTitulos) {}
+    rpc removeAllHonorVencTitulos (WithoutParams) returns (ServiceResponseHonorVencTitulos) {}
+
+
+    //JurosAnoRef
+    rpc listJurosAnoRef (ListCriteriaRequestJurosAnoRef) returns (ServiceResponseListJurosAnoRef) {}
+    rpc findOneJurosAnoRef (IdRequest) returns (ServiceResponseJurosAnoRef) {}
+    rpc createJurosAnoRef (JurosAnoRefData) returns (ServiceResponseJurosAnoRef) {}
+    rpc updateJurosAnoRef (JurosAnoRefUpdateRequest) returns (ServiceResponseJurosAnoRef) {}
+    rpc removeJurosAnoRef (IdRequest) returns (ServiceResponseJurosAnoRef) {}
+    rpc removeAllJurosAnoRef (WithoutParams) returns (ServiceResponseJurosAnoRef) {}
+
+
+    //JurosDiasVenc
+    rpc listJurosDiasVenc (ListCriteriaRequestJurosDiasVenc) returns (ServiceResponseListJurosDiasVenc) {}
+    rpc findOneJurosDiasVenc (IdRequest) returns (ServiceResponseJurosDiasVenc) {}
+    rpc createJurosDiasVenc (JurosDiasVencData) returns (ServiceResponseJurosDiasVenc) {}
+    rpc updateJurosDiasVenc (JurosDiasVencUpdateRequest) returns (ServiceResponseJurosDiasVenc) {}
+    rpc removeJurosDiasVenc (IdRequest) returns (ServiceResponseJurosDiasVenc) {}
+    rpc removeAllJurosDiasVenc (WithoutParams) returns (ServiceResponseJurosDiasVenc) {}
+
+
+    //JurosPrincipal
+    rpc listJurosPrincipal (ListCriteriaRequestJurosPrincipal) returns (ServiceResponseListJurosPrincipal) {}
+    rpc findOneJurosPrincipal (IdRequest) returns (ServiceResponseJurosPrincipal) {}
+    rpc createJurosPrincipal (JurosPrincipalData) returns (ServiceResponseJurosPrincipal) {}
+    rpc updateJurosPrincipal (JurosPrincipalUpdateRequest) returns (ServiceResponseJurosPrincipal) {}
+    rpc removeJurosPrincipal (IdRequest) returns (ServiceResponseJurosPrincipal) {}
+    rpc removeAllJurosPrincipal (WithoutParams) returns (ServiceResponseJurosPrincipal) {}
+
+
+    //PrestContaHonorDevedor
+    rpc listPrestContaHonorDevedor (ListCriteriaRequestPrestContaHonorDevedor) returns (ServiceResponseListPrestContaHonorDevedor) {}
+    rpc findOnePrestContaHonorDevedor (IdRequest) returns (ServiceResponsePrestContaHonorDevedor) {}
+    rpc createPrestContaHonorDevedor (PrestContaHonorDevedorData) returns (ServiceResponsePrestContaHonorDevedor) {}
+    rpc updatePrestContaHonorDevedor (PrestContaHonorDevedorUpdateRequest) returns (ServiceResponsePrestContaHonorDevedor) {}
+    rpc removePrestContaHonorDevedor (IdRequest) returns (ServiceResponsePrestContaHonorDevedor) {}
+    rpc removeAllPrestContaHonorDevedor (WithoutParams) returns (ServiceResponsePrestContaHonorDevedor) {}
+
+
+    //ValorNegativacao
+    rpc listValorNegativacao (ListCriteriaRequestValorNegativacao) returns (ServiceResponseListValorNegativacao) {}
+    rpc findOneValorNegativacao (IdRequest) returns (ServiceResponseValorNegativacao) {}
+    rpc createValorNegativacao (ValorNegativacaoData) returns (ServiceResponseValorNegativacao) {}
+    rpc updateValorNegativacao (ValorNegativacaoUpdateRequest) returns (ServiceResponseValorNegativacao) {}
+    rpc removeValorNegativacao (IdRequest) returns (ServiceResponseValorNegativacao) {}
+    rpc removeAllValorNegativacao (WithoutParams) returns (ServiceResponseValorNegativacao) {}
 }
 
 message IdRequest{
     int32 id = 1;
 }
 
+message WithoutParams {}
 
 //Contrato
 
@@ -190,6 +333,437 @@ message ListResultContrato {
 }
 
 
+//ContratoPermanencia
+
+message ListCriteriaRequestContratoPermanencia {
+    int32 idContrato = 1;
+    int32 nuAno = 2;
+    int32 nuDiasPemanencia = 3;
+    int32 items = 4;
+    int32 page = 5;
+    map<string, string> order =6;
+}
+
+message ContratoPermanenciaData {
+
+    int32 idContratoPermanencia = 1;
+    int32 idContrato = 2;
+    int32 nuAno = 3;
+    int32 nuDiasPemanencia = 4;
+    int32 idUsuaOper = 5;
+    string dtRegistro = 6;
+    string createdDate = 7;
+    string updatedDate = 8;
+    string deletedDate = 9;
+
+}
+
+message ContratoPermanenciaUpdateRequest{
+    int32 idContratoPermanencia = 1;
+    ContratoPermanenciaData honorJudicialDiasVenc = 2;
+}
+
+message ServiceResponseContratoPermanencia {
+    int32 status = 1;
+    string message = 2;
+    repeated ContratoPermanenciaData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListContratoPermanencia {
+    int32 status = 1;
+    string message = 2;
+    ListResultContratoPermanencia data = 3;
+    string error = 4;
+}
+
+message ListResultContratoPermanencia {
+    repeated ContratoPermanenciaData result = 1;
+    int32 total = 2;
+}
+
+
+//EmissaoNF
+
+message ListCriteriaRequestEmissaoNF {
+    int32 idContrato = 1;
+    string cdPeriodicidadeEmissao = 2;
+    int32 items = 3;
+    int32 page = 4;
+    map<string, string> order =5;
+}
+
+message EmissaoNFData {
+    int32 idEmissaoNF = 1;
+    int32 idContrato = 2;
+    string cdPeriodicidadeEmissao = 3;
+    string cdLocalEmissao = 4;
+    string tpPagamento = 5;
+    string deInstrucao = 6;
+    bool cdNfHonorDevedor = 7;
+    int32 diaVencBoleto = 8;
+    int32 nuDiasVencBoleto = 9;
+    bool cdCobrarBoleto = 10;
+    bool cdConciliarRd = 11;
+    string cdCnpjAverbachNf = 12;
+    int32 idUsuaOper = 13;
+    string dtRegistro = 14;
+    string createdDate = 15;
+    string updatedDate = 16;
+    string deletedDate = 17;
+
+}
+
+message EmissaoNFUpdateRequest{
+    int32 idEmissaoNF = 1;
+    EmissaoNFData honorJudicialDiasVenc = 2;
+}
+
+message ServiceResponseEmissaoNF {
+    int32 status = 1;
+    string message = 2;
+    repeated EmissaoNFData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListEmissaoNF {
+    int32 status = 1;
+    string message = 2;
+    ListResultEmissaoNF data = 3;
+    string error = 4;
+}
+
+message ListResultEmissaoNF {
+    repeated EmissaoNFData result = 1;
+    int32 total = 2;
+}
+
+
+
+//HonorDevAnoVencTitulos
+
+message ListCriteriaRequestHonorDevAnoVencTitulos {
+    int32 idHonorDevAnoVencTitulos = 1;
+    int32 idContrato = 2;
+    int32 nuAno = 3;
+    double nuTxMin = 4;
+    double nuTxMax = 5;
+    int32 items = 6;
+    int32 page = 7;
+    map<string, string> order =8;
+}
+
+message HonorDevAnoVencTitulosData {
+    int32 idHonorDevAnoVencTitulos = 1;
+    int32 idContrato = 2;
+    int32 nuAno = 3;
+    double nuTxMin = 4;
+    double nuTxMax = 5;
+    int32 idUsuaOper = 6;
+    string dtRegistro = 7;
+    string createdDate = 8;
+    string updatedDate = 9;
+    string deletedDate = 10;
+
+}
+
+message HonorDevAnoVencTitulosUpdateRequest{
+    int32 idHonorDevAnoVencTitulos = 1;
+    HonorDevAnoVencTitulosData honorJudicialDiasVenc = 2;
+}
+
+message ServiceResponseHonorDevAnoVencTitulos {
+    int32 status = 1;
+    string message = 2;
+    repeated HonorDevAnoVencTitulosData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListHonorDevAnoVencTitulos {
+    int32 status = 1;
+    string message = 2;
+    ListResultHonorDevAnoVencTitulos data = 3;
+    string error = 4;
+}
+
+message ListResultHonorDevAnoVencTitulos {
+    repeated HonorDevAnoVencTitulosData result = 1;
+    int32 total = 2;
+}
+
+
+
+
+//HonorDevCaso
+
+message ListCriteriaRequestHonorDevCaso {
+    int32 idHonorDevCaso = 1;
+    int32 idContrato = 2;
+    double nuValIni = 3;
+    double nuValFim = 4;
+    double nuTxMin = 5;
+    double nuTxMax = 6;
+    int32 items = 7;
+    int32 page = 8;
+    map<string, string> order =9;
+}
+
+message HonorDevCasoData {
+    int32 idHonorDevCaso = 1;
+    int32 idContrato = 2;
+    double nuValIni = 3;
+    double nuValFim = 4;
+    double nuTxMin = 5;
+    double nuTxMax = 6;
+    int32 idUsuaOper = 7;
+    string dtRegistro = 8;
+    string createdDate = 9;
+    string updatedDate = 10;
+    string deletedDate = 11;
+
+}
+
+message HonorDevCasoUpdateRequest{
+    int32 idHonorDevCaso = 1;
+    HonorDevCasoData honorJudicialDiasVenc = 2;
+}
+
+message ServiceResponseHonorDevCaso {
+    int32 status = 1;
+    string message = 2;
+    repeated HonorDevCasoData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListHonorDevCaso {
+    int32 status = 1;
+    string message = 2;
+    ListResultHonorDevCaso data = 3;
+    string error = 4;
+}
+
+message ListResultHonorDevCaso {
+    repeated HonorDevCasoData result = 1;
+    int32 total = 2;
+}
+
+
+
+//HonorDevDiasVenc
+
+message ListCriteriaRequestHonorDevDiasVenc {
+    int32 idHonorDevDiasVenc = 1;
+    int32 idContrato = 2;
+    int32 nuDiaIni = 3;
+    int32 nuDiaFim = 4;
+    double nuTxMin = 5;
+    double nuTxMax = 6;    
+    int32 items = 7;
+    int32 page = 8;
+    map<string, string> order =9;
+}
+
+message HonorDevDiasVencData {
+    int32 idHonorDevDiasVenc = 1;
+    int32 idContrato = 2;
+    double nuDiaIni = 3;
+    double nuDiaFim = 4;
+    double nuTxMin = 5;
+    double nuTxMax = 6;
+    int32 idUsuaOper = 7;
+    string dtRegistro = 8;
+    string createdDate = 9;
+    string updatedDate = 10;
+    string deletedDate = 11;
+
+}
+
+message HonorDevDiasVencUpdateRequest{
+    int32 idHonorDevDiasVenc = 1;
+    HonorDevDiasVencData honorJudicialDiasVenc = 2;
+}
+
+message ServiceResponseHonorDevDiasVenc {
+    int32 status = 1;
+    string message = 2;
+    repeated HonorDevDiasVencData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListHonorDevDiasVenc {
+    int32 status = 1;
+    string message = 2;
+    ListResultHonorDevDiasVenc data = 3;
+    string error = 4;
+}
+
+message ListResultHonorDevDiasVenc {
+    repeated HonorDevDiasVencData result = 1;
+    int32 total = 2;
+}
+
+
+//HonorDiasCad
+
+message ListCriteriaRequestHonorDiasCad {
+    int32 idHonorDiasCad = 1;
+    int32 idContrato = 2;
+    int32 nuDiaIni = 3;
+    int32 nuDiaFim = 4;
+    int32 items = 5;
+    int32 page = 6;
+    map<string, string> order =7;
+}
+
+message HonorDiasCadData {
+    int32 idHonorDiasCad = 1;
+    int32 idContrato = 2;
+    double nuDiaIni = 3;
+    double nuDiaFim = 4;
+    double nuAmig = 5;
+    int32 idUsuaOper = 6;
+    string dtRegistro = 7;
+    string createdDate = 8;
+    string updatedDate = 9;
+    string deletedDate = 10;
+
+}
+
+message HonorDiasCadUpdateRequest{
+    int32 idHonorDiasCad = 1;
+    HonorDiasCadData honorJudicialDiasVenc = 2;
+}
+
+message ServiceResponseHonorDiasCad {
+    int32 status = 1;
+    string message = 2;
+    repeated HonorDiasCadData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListHonorDiasCad {
+    int32 status = 1;
+    string message = 2;
+    ListResultHonorDiasCad data = 3;
+    string error = 4;
+}
+
+message ListResultHonorDiasCad {
+    repeated HonorDiasCadData result = 1;
+    int32 total = 2;
+}
+
+
+//HonorDiasCob
+
+message ListCriteriaRequestHonorDiasCob {
+    int32 idHonorDiasCob = 1;
+    int32 idContrato = 2;
+    int32 nuDiaIni = 3;
+    int32 nuDiaFim = 4;
+    int32 items = 5;
+    int32 page = 6;
+    map<string, string> order =7;
+}
+
+message HonorDiasCobData {
+    int32 idHonorDiasCob = 1;
+    int32 idContrato = 2;
+    double nuDiaIni = 3;
+    double nuDiaFim = 4;
+    double nuAmig = 5;
+    double perDiaIni = 6;
+    double perDiaFim = 7;
+    int32 idUsuaOper = 8;
+    string dtRegistro = 9;
+    string createdDate = 10;
+    string updatedDate = 11;
+    string deletedDate = 12;
+
+}
+
+message HonorDiasCobUpdateRequest{
+    int32 idHonorDiasCob = 1;
+    HonorDiasCobData honorJudicialDiasVenc = 2;
+}
+
+message ServiceResponseHonorDiasCob {
+    int32 status = 1;
+    string message = 2;
+    repeated HonorDiasCobData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListHonorDiasCob {
+    int32 status = 1;
+    string message = 2;
+    ListResultHonorDiasCob data = 3;
+    string error = 4;
+}
+
+message ListResultHonorDiasCob {
+    repeated HonorDiasCobData result = 1;
+    int32 total = 2;
+}
+
+
+
+
+//HonorDiasVenc
+
+message ListCriteriaRequestHonorDiasVenc {
+    int32 idHonorDiasVenc = 1;
+    int32 idContrato = 2;
+    int32 nuDiaIni = 3;
+    int32 nuDiaFim = 4;
+    int32 items = 5;
+    int32 page = 6;
+    map<string, string> order =7;
+}
+
+message HonorDiasVencData {
+    int32 idHonorDiasVenc = 1;
+    int32 idContrato = 2;
+    double nuDiaIni = 3;
+    double nuDiaFim = 4;
+    double nuAmig = 5;
+    double nuJudic = 6;
+    int32 idUsuaOper = 7;
+    string dtRegistro = 8;
+    string createdDate = 9;
+    string updatedDate = 10;
+    string deletedDate = 11;
+
+}
+
+message HonorDiasVencUpdateRequest{
+    int32 idHonorDiasVenc = 1;
+    HonorDiasVencData honorJudicialDiasVenc = 2;
+}
+
+message ServiceResponseHonorDiasVenc {
+    int32 status = 1;
+    string message = 2;
+    repeated HonorDiasVencData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListHonorDiasVenc {
+    int32 status = 1;
+    string message = 2;
+    ListResultHonorDiasVenc data = 3;
+    string error = 4;
+}
+
+message ListResultHonorDiasVenc {
+    repeated HonorDiasVencData result = 1;
+    int32 total = 2;
+}
+
+
+
+
+
 //HonorJudicialDiasVenc
 
 message ListCriteriaRequestHonorJudicialDiasVenc {
@@ -294,3 +868,428 @@ message ListResultHonorJudicialValTitulos {
     int32 total = 2;
 }
 
+
+
+
+//HonorSalMin
+
+message ListCriteriaRequestHonorSalMin {
+    int32 idHonorSalMin = 1;
+    int32 idContrato = 2;
+    double nuVlIni = 3;
+    double nuVlFim = 4;
+    int32 items = 5;
+    int32 page = 6;
+    map<string, string> order =7;
+}
+
+message HonorSalMinData {
+    int32 idHonorSalMin = 1;
+    int32 idContrato = 2;
+    double nuVlFim = 3;
+    double nuSalAtual = 4;
+    double nuQtdIni = 5;
+    double nuVlIni= 6;
+    double nuQtdFim= 7;
+    double nuAmig= 8;
+    int32 idUsuaOper = 9;
+    string dtRegistro = 10;
+    string createdDate = 11;
+    string updatedDate = 12;
+    string deletedDate = 13;
+
+}
+
+message HonorSalMinUpdateRequest{
+    int32 idHonorSalMin = 1;
+    HonorSalMinData honorJudicialValTitulos = 2;
+}
+
+message ServiceResponseHonorSalMin {
+    int32 status = 1;
+    string message = 2;
+    repeated HonorSalMinData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListHonorSalMin {
+    int32 status = 1;
+    string message = 2;
+    ListResultHonorSalMin data = 3;
+    string error = 4;
+}
+
+message ListResultHonorSalMin {
+    repeated HonorSalMinData result = 1;
+    int32 total = 2;
+}
+
+
+
+
+
+//HonorValTitulos
+
+message ListCriteriaRequestHonorValTitulos {
+    int32 idHonorValTitulos = 1;
+    int32 idContrato = 2;
+    double nuValIni = 3;
+    double nuValFim = 4;
+    int32 items = 5;
+    int32 page = 6;
+    map<string, string> order =7;
+}
+
+message HonorValTitulosData {
+    int32 idHonorValTitulos = 1;
+    int32 idContrato = 2;
+    double nuValIni = 3;
+    double nuValFim = 4;
+    double nuAmig = 5;
+    int32 idUsuaOper = 6;
+    string dtRegistro = 7;
+    string createdDate = 8;
+    string updatedDate = 9;
+    string deletedDate = 10;
+
+}
+
+message HonorValTitulosUpdateRequest{
+    int32 idHonorValTitulos = 1;
+    HonorValTitulosData honorJudicialValTitulos = 2;
+}
+
+message ServiceResponseHonorValTitulos {
+    int32 status = 1;
+    string message = 2;
+    repeated HonorValTitulosData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListHonorValTitulos {
+    int32 status = 1;
+    string message = 2;
+    ListResultHonorValTitulos data = 3;
+    string error = 4;
+}
+
+message ListResultHonorValTitulos {
+    repeated HonorValTitulosData result = 1;
+    int32 total = 2;
+}
+
+
+
+//HonorVencTitulos
+
+message ListCriteriaRequestHonorVencTitulos {
+    int32 idHonorVencTitulos = 1;
+    int32 idContrato = 2;
+    double nuAno = 3;
+    int32 items = 4;
+    int32 page = 5;
+    map<string, string> order =6;
+}
+
+message HonorVencTitulosData {
+    int32 idHonorVencTitulos = 1;
+    int32 idContrato = 2;
+    double nuAno = 3;
+    double nuAmig = 4;
+    int32 idUsuaOper = 5;
+    string dtRegistro = 6;
+    string createdDate = 7;
+    string updatedDate = 8;
+    string deletedDate = 9;
+
+}
+
+message HonorVencTitulosUpdateRequest{
+    int32 idHonorVencTitulos = 1;
+    HonorVencTitulosData honorJudicialValTitulos = 2;
+}
+
+message ServiceResponseHonorVencTitulos {
+    int32 status = 1;
+    string message = 2;
+    repeated HonorVencTitulosData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListHonorVencTitulos {
+    int32 status = 1;
+    string message = 2;
+    ListResultHonorVencTitulos data = 3;
+    string error = 4;
+}
+
+message ListResultHonorVencTitulos {
+    repeated HonorVencTitulosData result = 1;
+    int32 total = 2;
+}
+
+
+
+
+//JurosAnoRef
+
+message ListCriteriaRequestJurosAnoRef {
+    int32 idJurAnoRef = 1;
+    int32 idContrato = 2;
+    int32 nuAno = 3;
+    int32 items = 4;
+    int32 page = 5;
+    map<string, string> order =6;
+}
+
+message JurosAnoRefData {
+    int32 idJurAnoRef = 1;
+    int32 idContrato = 2;
+    double nuTxMin = 3;
+    double nuTxMax = 4;
+    int32 nuAno = 5;
+    int32 idUsuaOper = 6;
+    string dtRegistro = 7;
+    string createdDate = 8;
+    string updatedDate = 9;
+    string deletedDate = 10;
+
+}
+
+message JurosAnoRefUpdateRequest{
+    int32 idJurAnoRef = 1;
+    JurosAnoRefData honorJudicialValTitulos = 2;
+}
+
+message ServiceResponseJurosAnoRef {
+    int32 status = 1;
+    string message = 2;
+    repeated JurosAnoRefData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListJurosAnoRef {
+    int32 status = 1;
+    string message = 2;
+    ListResultJurosAnoRef data = 3;
+    string error = 4;
+}
+
+message ListResultJurosAnoRef {
+    repeated JurosAnoRefData result = 1;
+    int32 total = 2;
+}
+
+
+
+
+//JurosDiasVenc
+
+message ListCriteriaRequestJurosDiasVenc {
+    int32 idJurDiasVenc = 1;
+    int32 idContrato = 2;
+    double nuDiaIni = 3;
+    double nuDiaFim = 4;
+    int32 items = 5;
+    int32 page = 6;
+    map<string, string> order =7;
+}
+
+message JurosDiasVencData {
+    int32 idJurDiasVenc = 1;
+    int32 idContrato = 2;
+    double nuDiaIni = 3;
+    double nuDiaFim = 4;
+    double nuTx = 5;
+    int32 idUsuaOper = 6;
+    string dtRegistro = 7;
+    string createdDate = 8;
+    string updatedDate = 9;
+    string deletedDate = 10;
+
+}
+
+message JurosDiasVencUpdateRequest{
+    int32 idJurDiasVenc = 1;
+    JurosDiasVencData honorJudicialValTitulos = 2;
+}
+
+message ServiceResponseJurosDiasVenc {
+    int32 status = 1;
+    string message = 2;
+    repeated JurosDiasVencData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListJurosDiasVenc {
+    int32 status = 1;
+    string message = 2;
+    ListResultJurosDiasVenc data = 3;
+    string error = 4;
+}
+
+message ListResultJurosDiasVenc {
+    repeated JurosDiasVencData result = 1;
+    int32 total = 2;
+}
+
+
+
+
+//JurosPrincipal
+
+message ListCriteriaRequestJurosPrincipal {
+    int32 idJurPrinc = 1;
+    int32 idContrato = 2;
+    double nuValIni = 3;
+    double nuValFim = 4;
+    int32 items = 5;
+    int32 page = 6;
+    map<string, string> order =7;
+}
+
+message JurosPrincipalData {
+    int32 idJurPrinc = 1;
+    int32 idContrato = 2;
+    double nuValIni = 3;
+    double nuValFim = 4;
+    double nuTxMin = 5;
+    double nuTxMax= 6;
+    int32 idUsuaOper = 7;
+    string dtRegistro = 8;
+    string createdDate = 9;
+    string updatedDate = 10;
+    string deletedDate = 11;
+
+}
+
+message JurosPrincipalUpdateRequest{
+    int32 idJurPrinc = 1;
+    JurosPrincipalData honorJudicialValTitulos = 2;
+}
+
+message ServiceResponseJurosPrincipal {
+    int32 status = 1;
+    string message = 2;
+    repeated JurosPrincipalData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListJurosPrincipal {
+    int32 status = 1;
+    string message = 2;
+    ListResultJurosPrincipal data = 3;
+    string error = 4;
+}
+
+message ListResultJurosPrincipal {
+    repeated JurosPrincipalData result = 1;
+    int32 total = 2;
+}
+
+
+
+
+//PrestContaHonorDevedor
+
+message ListCriteriaRequestPrestContaHonorDevedor {
+    int32 idPrestContaHonorDev = 1;
+    int32 idContrato = 2;
+    string dtInicio = 3;
+    string dtFim = 4;
+    int32 items = 5;
+    int32 page = 6;
+    map<string, string> order =7;
+}
+
+message PrestContaHonorDevedorData {
+    int32 idPrestContaHonorDev = 1;
+    int32 idContrato = 2;
+    bool cdPrestContaHonorDev = 3;
+    string dtInicio = 4;
+    string dtFim = 5;
+    int32 idUsuaOper = 6;
+    string dtRegistro = 7;
+    string createdDate = 8;
+    string updatedDate = 9;
+    string deletedDate = 10;
+
+}
+
+message PrestContaHonorDevedorUpdateRequest{
+    int32 idPrestContaHonorDev = 1;
+    PrestContaHonorDevedorData honorJudicialValTitulos = 2;
+}
+
+message ServiceResponsePrestContaHonorDevedor {
+    int32 status = 1;
+    string message = 2;
+    repeated PrestContaHonorDevedorData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListPrestContaHonorDevedor {
+    int32 status = 1;
+    string message = 2;
+    ListResultPrestContaHonorDevedor data = 3;
+    string error = 4;
+}
+
+message ListResultPrestContaHonorDevedor {
+    repeated PrestContaHonorDevedorData result = 1;
+    int32 total = 2;
+}
+
+
+
+
+
+//ValorNegativacao
+
+message ListCriteriaRequestValorNegativacao {
+    int32 idValorNegativacao = 1;
+    int32 idContrato = 2;
+    double nuQtdIni = 3;
+    double nuQtdFim = 4;
+    int32 items = 5;
+    int32 page = 6;
+    map<string, string> order =7;
+}
+
+message ValorNegativacaoData {
+    int32 idValorNegativacao = 1;
+    int32 idContrato = 2;
+    double nuQtdIni = 3;
+    double nuQtdFim = 4;
+    double nuValor = 5;
+    int32 idUsuaOper = 6;
+    string dtRegistro = 7;
+    string createdDate = 8;
+    string updatedDate = 9;
+    string deletedDate = 10;
+
+}
+
+message ValorNegativacaoUpdateRequest{
+    int32 idValorNegativacao = 1;
+    ValorNegativacaoData honorJudicialValTitulos = 2;
+}
+
+message ServiceResponseValorNegativacao {
+    int32 status = 1;
+    string message = 2;
+    repeated ValorNegativacaoData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListValorNegativacao {
+    int32 status = 1;
+    string message = 2;
+    ListResultValorNegativacao data = 3;
+    string error = 4;
+}
+
+message ListResultValorNegativacao {
+    repeated ValorNegativacaoData result = 1;
+    int32 total = 2;
+}
