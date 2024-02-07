@@ -360,7 +360,7 @@ message ContratoPermanenciaData {
 
 message ContratoPermanenciaUpdateRequest{
     int32 idContratoPermanencia = 1;
-    ContratoPermanenciaData honorJudicialDiasVenc = 2;
+    ContratoPermanenciaData contratoPermanencia = 2;
 }
 
 message ServiceResponseContratoPermanencia {
@@ -416,7 +416,7 @@ message EmissaoNFData {
 
 message EmissaoNFUpdateRequest{
     int32 idEmissaoNF = 1;
-    EmissaoNFData honorJudicialDiasVenc = 2;
+    EmissaoNFData emissaoNF = 2;
 }
 
 message ServiceResponseEmissaoNF {
@@ -469,7 +469,7 @@ message HonorDevAnoVencTitulosData {
 
 message HonorDevAnoVencTitulosUpdateRequest{
     int32 idHonorDevAnoVencTitulos = 1;
-    HonorDevAnoVencTitulosData honorJudicialDiasVenc = 2;
+    HonorDevAnoVencTitulosData honorDevAnoVencTitulos = 2;
 }
 
 message ServiceResponseHonorDevAnoVencTitulos {
@@ -525,7 +525,7 @@ message HonorDevCasoData {
 
 message HonorDevCasoUpdateRequest{
     int32 idHonorDevCaso = 1;
-    HonorDevCasoData honorJudicialDiasVenc = 2;
+    HonorDevCasoData honorDevCaso = 2;
 }
 
 message ServiceResponseHonorDevCaso {
@@ -580,7 +580,7 @@ message HonorDevDiasVencData {
 
 message HonorDevDiasVencUpdateRequest{
     int32 idHonorDevDiasVenc = 1;
-    HonorDevDiasVencData honorJudicialDiasVenc = 2;
+    HonorDevDiasVencData honorDevDiasVenc = 2;
 }
 
 message ServiceResponseHonorDevDiasVenc {
@@ -631,7 +631,7 @@ message HonorDiasCadData {
 
 message HonorDiasCadUpdateRequest{
     int32 idHonorDiasCad = 1;
-    HonorDiasCadData honorJudicialDiasVenc = 2;
+    HonorDiasCadData honorDiasCad = 2;
 }
 
 message ServiceResponseHonorDiasCad {
@@ -684,7 +684,7 @@ message HonorDiasCobData {
 
 message HonorDiasCobUpdateRequest{
     int32 idHonorDiasCob = 1;
-    HonorDiasCobData honorJudicialDiasVenc = 2;
+    HonorDiasCobData honorDiasCob = 2;
 }
 
 message ServiceResponseHonorDiasCob {
@@ -738,7 +738,7 @@ message HonorDiasVencData {
 
 message HonorDiasVencUpdateRequest{
     int32 idHonorDiasVenc = 1;
-    HonorDiasVencData honorJudicialDiasVenc = 2;
+    HonorDiasVencData honorDiasVenc = 2;
 }
 
 message ServiceResponseHonorDiasVenc {
@@ -902,7 +902,7 @@ message HonorSalMinData {
 
 message HonorSalMinUpdateRequest{
     int32 idHonorSalMin = 1;
-    HonorSalMinData honorJudicialValTitulos = 2;
+    HonorSalMinData honorSalMin = 2;
 }
 
 message ServiceResponseHonorSalMin {
@@ -956,7 +956,7 @@ message HonorValTitulosData {
 
 message HonorValTitulosUpdateRequest{
     int32 idHonorValTitulos = 1;
-    HonorValTitulosData honorJudicialValTitulos = 2;
+    HonorValTitulosData honorValTitulos = 2;
 }
 
 message ServiceResponseHonorValTitulos {
@@ -1006,7 +1006,7 @@ message HonorVencTitulosData {
 
 message HonorVencTitulosUpdateRequest{
     int32 idHonorVencTitulos = 1;
-    HonorVencTitulosData honorJudicialValTitulos = 2;
+    HonorVencTitulosData honorVencTitulos = 2;
 }
 
 message ServiceResponseHonorVencTitulos {
@@ -1058,7 +1058,7 @@ message JurosAnoRefData {
 
 message JurosAnoRefUpdateRequest{
     int32 idJurAnoRef = 1;
-    JurosAnoRefData honorJudicialValTitulos = 2;
+    JurosAnoRefData jurosAnoRef = 2;
 }
 
 message ServiceResponseJurosAnoRef {
@@ -1111,7 +1111,7 @@ message JurosDiasVencData {
 
 message JurosDiasVencUpdateRequest{
     int32 idJurDiasVenc = 1;
-    JurosDiasVencData honorJudicialValTitulos = 2;
+    JurosDiasVencData jurosDiasVenc = 2;
 }
 
 message ServiceResponseJurosDiasVenc {
@@ -1165,7 +1165,7 @@ message JurosPrincipalData {
 
 message JurosPrincipalUpdateRequest{
     int32 idJurPrinc = 1;
-    JurosPrincipalData honorJudicialValTitulos = 2;
+    JurosPrincipalData jurosPrincipal = 2;
 }
 
 message ServiceResponseJurosPrincipal {
@@ -1218,7 +1218,7 @@ message PrestContaHonorDevedorData {
 
 message PrestContaHonorDevedorUpdateRequest{
     int32 idPrestContaHonorDev = 1;
-    PrestContaHonorDevedorData honorJudicialValTitulos = 2;
+    PrestContaHonorDevedorData prestContaHonorDevedor = 2;
 }
 
 message ServiceResponsePrestContaHonorDevedor {
@@ -1272,7 +1272,7 @@ message ValorNegativacaoData {
 
 message ValorNegativacaoUpdateRequest{
     int32 idValorNegativacao = 1;
-    ValorNegativacaoData honorJudicialValTitulos = 2;
+    ValorNegativacaoData valorNegativacao = 2;
 }
 
 message ServiceResponseValorNegativacao {
