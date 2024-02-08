@@ -24,6 +24,7 @@ service ClienteService {
   rpc createContato (ContatoData) returns (ServiceResponseContato) {}
   rpc updateContato (ContatoUpdateRequest) returns (ServiceResponseContato) {} 
   rpc removeContato (IdRequest) returns (ServiceResponseContato) {}
+  rpc findByKeyWithClienteDetais (ContatoByKeyRequest) returns (ServiceResponseContato) {}
   
   //UnNegocio
   rpc listUnNegocio (ListCriteriaRequestUnNegocio) returns (ServiceResponseListUnNegocio) {}
@@ -298,6 +299,9 @@ message ListResultContato {
     int32 total = 2;
 }
 
+message ContatoByKeyRequest{
+    string deKeyMicroservice = 1;
+}
 
 // UN Negocio
 message ListCriteriaRequestUnNegocio {
