@@ -11,6 +11,7 @@ service ContratoService {
     rpc updateContrato (ContratoUpdateRequest) returns (ServiceResponseContrato) {}
     rpc removeContrato (IdRequest) returns (ServiceResponseContrato) {}
     rpc removeAllContrato (WithoutParams) returns (ServiceResponseContrato) {}
+    rpc createManyContrato (ContratoManyData) returns (ServiceResponseContrato) {}
     rpc getHonorariosClienteJudicial (GetHonorariosClienteJudicialRequest) returns (ServiceResponseGetHonorariosClienteJudicial) {}
 
     //ContratoPermanencia
@@ -39,6 +40,7 @@ service ContratoService {
     rpc updateHonorDevAnoVencTitulos (HonorDevAnoVencTitulosUpdateRequest) returns (ServiceResponseHonorDevAnoVencTitulos) {}
     rpc removeHonorDevAnoVencTitulos (IdRequest) returns (ServiceResponseHonorDevAnoVencTitulos) {}
     rpc removeAllHonorDevAnoVencTitulos (WithoutParams) returns (ServiceResponseHonorDevAnoVencTitulos) {}
+    rpc createManyHonorDevAnoVencTitulos (HonorDevAnoVencTitulosManyData) returns (ServiceResponseHonorDevAnoVencTitulos) {}
 
 
     //HonorDevCaso
@@ -48,6 +50,7 @@ service ContratoService {
     rpc updateHonorDevCaso (HonorDevCasoUpdateRequest) returns (ServiceResponseHonorDevCaso) {}
     rpc removeHonorDevCaso (IdRequest) returns (ServiceResponseHonorDevCaso) {}
     rpc removeAllHonorDevCaso (WithoutParams) returns (ServiceResponseHonorDevCaso) {}
+    rpc createManyHonorDevCaso (HonorDevCasoManyData) returns (ServiceResponseHonorDevCaso) {}
 
     //HonorDevDiasVenc
     rpc listHonorDevDiasVenc (ListCriteriaRequestHonorDevDiasVenc) returns (ServiceResponseListHonorDevDiasVenc) {}
@@ -56,7 +59,7 @@ service ContratoService {
     rpc updateHonorDevDiasVenc (HonorDevDiasVencUpdateRequest) returns (ServiceResponseHonorDevDiasVenc) {}
     rpc removeHonorDevDiasVenc (IdRequest) returns (ServiceResponseHonorDevDiasVenc) {}
     rpc removeAllHonorDevDiasVenc (WithoutParams) returns (ServiceResponseHonorDevDiasVenc) {}
-
+    rpc createManyHonorDevDiasVenc (HonorDevDiasVencManyData) returns (ServiceResponseHonorDevCaso) {}
 
     //HonorDiasCad
     rpc listHonorDiasCad (ListCriteriaRequestHonorDiasCad) returns (ServiceResponseListHonorDiasCad) {}
@@ -65,6 +68,7 @@ service ContratoService {
     rpc updateHonorDiasCad (HonorDiasCadUpdateRequest) returns (ServiceResponseHonorDiasCad) {}
     rpc removeHonorDiasCad (IdRequest) returns (ServiceResponseHonorDiasCad) {}
     rpc removeAllHonorDiasCad (WithoutParams) returns (ServiceResponseHonorDiasCad) {}
+    rpc createManyHonorDiasCad (HonorDiasCadManyData) returns (ServiceResponseHonorDevCaso) {}
 
 
     //HonorDiasCob
@@ -74,6 +78,7 @@ service ContratoService {
     rpc updateHonorDiasCob (HonorDiasCobUpdateRequest) returns (ServiceResponseHonorDiasCob) {}
     rpc removeHonorDiasCob (IdRequest) returns (ServiceResponseHonorDiasCob) {}
     rpc removeAllHonorDiasCob (WithoutParams) returns (ServiceResponseHonorDiasCob) {}
+    rpc createManyHonorDiasCob (HonorDiasCobManyData) returns (ServiceResponseHonorDevCaso) {}
 
 
     //HonorDiasVenc
@@ -83,6 +88,7 @@ service ContratoService {
     rpc updateHonorDiasVenc (HonorDiasVencUpdateRequest) returns (ServiceResponseHonorDiasVenc) {}
     rpc removeHonorDiasVenc (IdRequest) returns (ServiceResponseHonorDiasVenc) {}
     rpc removeAllHonorDiasVenc (WithoutParams) returns (ServiceResponseHonorDiasVenc) {}
+    rpc createManyHonorDiasVenc (HonorDiasVencManyData) returns (ServiceResponseHonorDevCaso) {}
 
 
     //HonorJudicialDiasVenc
@@ -92,6 +98,7 @@ service ContratoService {
     rpc updateHonorJudicialDiasVenc (HonorJudicialDiasVencUpdateRequest) returns (ServiceResponseHonorJudicialDiasVenc) {}
     rpc removeHonorJudicialDiasVenc (IdRequest) returns (ServiceResponseHonorJudicialDiasVenc) {}
     rpc removeAllHonorJudicialDiasVenc (WithoutParams) returns (ServiceResponseHonorJudicialDiasVenc) {}
+    rpc createManyHonorJudicialDiasVenc (HonorJudicialDiasVencManyData) returns (ServiceResponseHonorDevCaso) {}
 
     //HonorJudicialValTitulos
     rpc listHonorJudicialValTitulos (ListCriteriaRequestHonorJudicialValTitulos) returns (ServiceResponseListHonorJudicialValTitulos) {}
@@ -100,6 +107,7 @@ service ContratoService {
     rpc updateHonorJudicialValTitulos (HonorJudicialValTitulosUpdateRequest) returns (ServiceResponseHonorJudicialValTitulos) {}
     rpc removeHonorJudicialValTitulos (IdRequest) returns (ServiceResponseHonorJudicialValTitulos) {}
     rpc removeAllHonorJudicialValTitulos (WithoutParams) returns (ServiceResponseHonorJudicialValTitulos) {}
+    rpc createManyHonorJudicialValTitulos (HonorJudicialValTitulosManyData) returns (ServiceResponseHonorDevCaso) {}
 
 
     //HonorSalMin
@@ -109,6 +117,7 @@ service ContratoService {
     rpc updateHonorSalMin (HonorSalMinUpdateRequest) returns (ServiceResponseHonorSalMin) {}
     rpc removeHonorSalMin (IdRequest) returns (ServiceResponseHonorSalMin) {}
     rpc removeAllHonorSalMin (WithoutParams) returns (ServiceResponseHonorSalMin) {}
+    rpc createManyHonorSalMin (HonorSalMinManyData) returns (ServiceResponseHonorDevCaso) {}
 
 
     //HonorValTitulos
@@ -118,6 +127,7 @@ service ContratoService {
     rpc updateHonorValTitulos (HonorValTitulosUpdateRequest) returns (ServiceResponseHonorValTitulos) {}
     rpc removeHonorValTitulos (IdRequest) returns (ServiceResponseHonorValTitulos) {}
     rpc removeAllHonorValTitulos (WithoutParams) returns (ServiceResponseHonorValTitulos) {}
+    rpc createManyHonorValTitulos (HonorValTitulosManyData) returns (ServiceResponseHonorDevCaso) {}
 
     
     //HonorVencTitulos
@@ -127,6 +137,7 @@ service ContratoService {
     rpc updateHonorVencTitulos (HonorVencTitulosUpdateRequest) returns (ServiceResponseHonorVencTitulos) {}
     rpc removeHonorVencTitulos (IdRequest) returns (ServiceResponseHonorVencTitulos) {}
     rpc removeAllHonorVencTitulos (WithoutParams) returns (ServiceResponseHonorVencTitulos) {}
+    rpc createManyHonorVencTitulos (HonorVencTitulosManyData) returns (ServiceResponseHonorDevCaso) {}
 
 
     //JurosAnoRef
@@ -136,6 +147,7 @@ service ContratoService {
     rpc updateJurosAnoRef (JurosAnoRefUpdateRequest) returns (ServiceResponseJurosAnoRef) {}
     rpc removeJurosAnoRef (IdRequest) returns (ServiceResponseJurosAnoRef) {}
     rpc removeAllJurosAnoRef (WithoutParams) returns (ServiceResponseJurosAnoRef) {}
+    rpc createManyJurosAnoRef (JurosAnoRefManyData) returns (ServiceResponseHonorDevCaso) {}
 
 
     //JurosDiasVenc
@@ -145,6 +157,7 @@ service ContratoService {
     rpc updateJurosDiasVenc (JurosDiasVencUpdateRequest) returns (ServiceResponseJurosDiasVenc) {}
     rpc removeJurosDiasVenc (IdRequest) returns (ServiceResponseJurosDiasVenc) {}
     rpc removeAllJurosDiasVenc (WithoutParams) returns (ServiceResponseJurosDiasVenc) {}
+    rpc createManyJurosDiasVenc (JurosDiasVencManyData) returns (ServiceResponseHonorDevCaso) {}
 
 
     //JurosPrincipal
@@ -154,6 +167,7 @@ service ContratoService {
     rpc updateJurosPrincipal (JurosPrincipalUpdateRequest) returns (ServiceResponseJurosPrincipal) {}
     rpc removeJurosPrincipal (IdRequest) returns (ServiceResponseJurosPrincipal) {}
     rpc removeAllJurosPrincipal (WithoutParams) returns (ServiceResponseJurosPrincipal) {}
+    rpc createManyJurosPrincipal (JurosPrincipalManyData) returns (ServiceResponseHonorDevCaso) {}
 
 
     //PrestContaHonorDevedor
@@ -163,6 +177,7 @@ service ContratoService {
     rpc updatePrestContaHonorDevedor (PrestContaHonorDevedorUpdateRequest) returns (ServiceResponsePrestContaHonorDevedor) {}
     rpc removePrestContaHonorDevedor (IdRequest) returns (ServiceResponsePrestContaHonorDevedor) {}
     rpc removeAllPrestContaHonorDevedor (WithoutParams) returns (ServiceResponsePrestContaHonorDevedor) {}
+    rpc createManyPrestContaHonorDevedor (PrestContaHonorDevedorManyData) returns (ServiceResponseHonorDevCaso) {}
 
 
     //ValorNegativacao
@@ -172,6 +187,7 @@ service ContratoService {
     rpc updateValorNegativacao (ValorNegativacaoUpdateRequest) returns (ServiceResponseValorNegativacao) {}
     rpc removeValorNegativacao (IdRequest) returns (ServiceResponseValorNegativacao) {}
     rpc removeAllValorNegativacao (WithoutParams) returns (ServiceResponseValorNegativacao) {}
+    rpc createManyValorNegativacao (ValorNegativacaoManyData) returns (ServiceResponseHonorDevCaso) {}
 }
 
 message IdRequest{
@@ -291,6 +307,9 @@ message ContratoData {
 
 }
 
+message ContratoManyData {
+    repeated ContratoData data = 1;
+}
 message GetHonorariosClienteJudicialData{
     double nuFixoJudicAnte = 1;
     double nuFixoJudicFinal = 2;
@@ -475,6 +494,10 @@ message HonorDevAnoVencTitulosData {
 
 }
 
+message HonorDevAnoVencTitulosManyData {
+    repeated HonorDevAnoVencTitulosData data = 1;
+}
+
 message HonorDevAnoVencTitulosUpdateRequest{
     int32 idHonorDevAnoVencTitulos = 1;
     HonorDevAnoVencTitulosData honorDevAnoVencTitulos = 2;
@@ -529,6 +552,10 @@ message HonorDevCasoData {
     string updatedDate = 10;
     string deletedDate = 11;
 
+}
+
+message HonorDevCasoManyData {
+    repeated HonorDevCasoData data = 1;
 }
 
 message HonorDevCasoUpdateRequest{
@@ -586,6 +613,10 @@ message HonorDevDiasVencData {
 
 }
 
+message HonorDevDiasVencManyData {
+    repeated HonorDevDiasVencData data = 1;
+}
+
 message HonorDevDiasVencUpdateRequest{
     int32 idHonorDevDiasVenc = 1;
     HonorDevDiasVencData honorDevDiasVenc = 2;
@@ -635,6 +666,10 @@ message HonorDiasCadData {
     string updatedDate = 9;
     string deletedDate = 10;
 
+}
+
+message HonorDiasCadManyData {
+    repeated HonorDiasCadData data = 1;
 }
 
 message HonorDiasCadUpdateRequest{
@@ -690,6 +725,10 @@ message HonorDiasCobData {
 
 }
 
+message HonorDiasCobManyData{
+    repeated HonorDiasCobData data = 1;
+}
+
 message HonorDiasCobUpdateRequest{
     int32 idHonorDiasCob = 1;
     HonorDiasCobData honorDiasCob = 2;
@@ -742,6 +781,10 @@ message HonorDiasVencData {
     string updatedDate = 10;
     string deletedDate = 11;
 
+}
+
+message HonorDiasVencManyData {
+    repeated HonorDiasVencData data = 1;
 }
 
 message HonorDiasVencUpdateRequest{
@@ -799,6 +842,9 @@ message HonorJudicialDiasVencData {
 
 }
 
+message HonorJudicialDiasVencManyData {
+    repeated HonorJudicialDiasVencData data = 1;
+}
 message HonorJudicialDiasVencUpdateRequest{
     int32 idHonorJudicialDiasVenc = 1;
     HonorJudicialDiasVencData honorJudicialDiasVenc = 2;
@@ -850,6 +896,10 @@ message HonorJudicialValTitulosData {
     string updatedDate = 10;
     string deletedDate = 11;
 
+}
+
+message HonorJudicialValTitulosManyData {
+    repeated HonorJudicialValTitulosData data = 1;
 }
 
 message HonorJudicialValTitulosUpdateRequest{
@@ -908,6 +958,10 @@ message HonorSalMinData {
 
 }
 
+message HonorSalMinManyData {
+    repeated HonorSalMinData data = 1;
+}
+
 message HonorSalMinUpdateRequest{
     int32 idHonorSalMin = 1;
     HonorSalMinData honorSalMin = 2;
@@ -962,6 +1016,10 @@ message HonorValTitulosData {
 
 }
 
+message HonorValTitulosManyData {
+    repeated HonorValTitulosData data = 1;
+}
+
 message HonorValTitulosUpdateRequest{
     int32 idHonorValTitulos = 1;
     HonorValTitulosData honorValTitulos = 2;
@@ -1010,6 +1068,10 @@ message HonorVencTitulosData {
     string updatedDate = 8;
     string deletedDate = 9;
 
+}
+
+message HonorVencTitulosManyData{
+    repeated HonorVencTitulosData data = 1;
 }
 
 message HonorVencTitulosUpdateRequest{
@@ -1064,6 +1126,10 @@ message JurosAnoRefData {
 
 }
 
+message JurosAnoRefManyData {
+    repeated JurosAnoRefData data = 1;
+}
+
 message JurosAnoRefUpdateRequest{
     int32 idJurAnoRef = 1;
     JurosAnoRefData jurosAnoRef = 2;
@@ -1115,6 +1181,10 @@ message JurosDiasVencData {
     string updatedDate = 9;
     string deletedDate = 10;
 
+}
+
+message JurosDiasVencManyData {
+    repeated JurosDiasVencData data = 1;
 }
 
 message JurosDiasVencUpdateRequest{
@@ -1171,6 +1241,10 @@ message JurosPrincipalData {
 
 }
 
+message JurosPrincipalManyData {
+    repeated JurosPrincipalData data = 1;
+}
+
 message JurosPrincipalUpdateRequest{
     int32 idJurPrinc = 1;
     JurosPrincipalData jurosPrincipal = 2;
@@ -1222,6 +1296,10 @@ message PrestContaHonorDevedorData {
     string updatedDate = 9;
     string deletedDate = 10;
 
+}
+
+message PrestContaHonorDevedorManyData {
+    repeated PrestContaHonorDevedorData data = 1;
 }
 
 message PrestContaHonorDevedorUpdateRequest{
@@ -1276,6 +1354,10 @@ message ValorNegativacaoData {
     string updatedDate = 9;
     string deletedDate = 10;
 
+}
+
+message ValorNegativacaoManyData {
+    repeated ValorNegativacaoData data = 1;
 }
 
 message ValorNegativacaoUpdateRequest{
