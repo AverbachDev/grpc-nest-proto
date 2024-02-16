@@ -20,6 +20,7 @@ service ContratoService {
     rpc updateContratoPermanencia (ContratoPermanenciaUpdateRequest) returns (ServiceResponseContratoPermanencia) {}
     rpc removeContratoPermanencia (IdRequest) returns (ServiceResponseContratoPermanencia) {}
     rpc removeAllContratoPermanencia (WithoutParams) returns (ServiceResponseContratoPermanencia) {}
+    rpc createManyContratoPermanencia (ContratoPermanenciaManyData) returns (ServiceResponseContratoPermanencia) {}
 
     //EmissaoNF
     rpc listEmissaoNF (ListCriteriaRequestEmissaoNF) returns (ServiceResponseListEmissaoNF) {}
@@ -28,6 +29,7 @@ service ContratoService {
     rpc updateEmissaoNF (EmissaoNFUpdateRequest) returns (ServiceResponseEmissaoNF) {}
     rpc removeEmissaoNF (IdRequest) returns (ServiceResponseEmissaoNF) {}
     rpc removeAllEmissaoNF (WithoutParams) returns (ServiceResponseEmissaoNF) {}
+    rpc createManyEmissaoNF (EmissaoNFManyData) returns (ServiceResponseEmissaoNF) {}
 
 
     //HonorDevAnoVencTitulos
@@ -358,6 +360,9 @@ message ContratoPermanenciaData {
 
 }
 
+message ContratoPermanenciaManyData {
+    repeated ContratoPermanenciaData data = 1;
+}
 message ContratoPermanenciaUpdateRequest{
     int32 idContratoPermanencia = 1;
     ContratoPermanenciaData contratoPermanencia = 2;
@@ -412,6 +417,9 @@ message EmissaoNFData {
     string updatedDate = 16;
     string deletedDate = 17;
 
+}
+message EmissaoNFManyData {
+    repeated EmissaoNFData data =1;
 }
 
 message EmissaoNFUpdateRequest{
