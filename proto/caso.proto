@@ -1,0 +1,68 @@
+syntax = "proto3";
+
+package caso;
+
+
+service CasoService {
+    rpc listAcordo (ListCriteriaRequestAcordo) returns (ServiceResponseListAcordo) {}
+    rpc findOneAcordo (IdRequest) returns (ServiceResponseAcordo) {}
+    rpc createAcordo (AcordoData) returns (ServiceResponseAcordo) {}
+    rpc updateAcordo (AcordoUpdateRequest) returns (ServiceResponseAcordo) {}
+    rpc removeAcordo (IdRequest) returns (ServiceResponseAcordo) {}
+}
+
+message IdRequest{
+    int32 id = 1;
+}
+
+
+message ListCriteriaRequestAcordo {
+    int32 idCaso = 1;
+    string dtAcordo = 2; 
+    int32 items = 3;
+    int32 page = 4;
+    map<string, string> order = 5;
+}
+
+message AcordoData {
+    int32 id = 1;
+    double nuReajuste = 2;
+    string dtAcordo = 3;
+    string cdAcordo = 4;
+    bool cdReajuste = 5;
+    int32 idCaso = 6;
+    bool cdAcordoFormal = 7;
+    bool cdConfissaoDivida = 8;
+    bool cdNotaPromis = 9;
+    bool cdBoleto = 10;
+    int32 idUsuaOper = 11;
+    string dtRegistro = 12;
+    string createdDate = 13;
+    string updatedDate = 14;
+    string deletedDate = 15;
+
+}
+
+message AcordoUpdateRequest{
+    int32 id = 1;
+    AcordoData acordo = 2;
+}
+
+message ServiceResponseAcordo {
+    int32 status = 1;
+    string message = 2;
+    repeated AcordoData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListAcordo {
+    int32 status = 1;
+    string message = 2;
+    ListResultAcordo data = 3;
+    string error = 4;
+}
+
+message ListResultAcordo {
+    repeated AcordoData result = 1;
+    int32 total = 2;
+}
