@@ -11,12 +11,16 @@ service RelatorioService {
   rpc createRemessa (RemessaData) returns (ServiceResponseRemessa) {}
   rpc updateRemessa (RemessaUpdateRequest) returns (ServiceResponseRemessa) {}
   rpc removeRemessa (IdRequest) returns (ServiceResponseRemessa) {}
+  rpc removeAllRemessa (WithoutParams) returns (ServiceResponseRemessa) {}
+  rpc createManyRemessa (RemessaManyData) returns (ServiceResponseRemessa) {}
 }
 
 
 message IdRequest{
     int32 id = 1;
 }
+
+message WithoutParams {}
 
 //Remessa
 
@@ -47,6 +51,9 @@ message RemessaData {
     string deletedDate = 14;    
 }
 
+message RemessaManyData {
+    repeated RemessaData data = 1;
+}
 message RemessaUpdateRequest{
     int32 idRemessa = 1;
     RemessaData remessa = 2;
