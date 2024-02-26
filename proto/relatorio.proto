@@ -39,11 +39,12 @@ message RemessaData {
     string nmCliente = 6;
     string nmGrupo = 7;
     int32 nuCasos = 8;
-    string nmMes = 9;
-    string dtCadastro = 10;
-    string createdDate = 11;
-    string updatedDate = 12;
-    string deletedDate = 13;    
+    int32 nuTitulos = 9;
+    string nmMes = 10;
+    string dtCadastro = 11;
+    string createdDate = 12;
+    string updatedDate = 13;
+    string deletedDate = 14;    
 }
 
 message RemessaUpdateRequest{
