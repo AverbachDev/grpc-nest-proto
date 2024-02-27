@@ -42,7 +42,7 @@ message RemessaData {
     int32 nuAno = 5;
     string nmCliente = 6;
     string nmGrupo = 7;
-    int32 nuCasos = 8;
+    int32 idCaso = 8;
     int32 nuTitulos = 9;
     string nmMes = 10;
     string dtCadastro = 11;
