@@ -5,14 +5,24 @@ package relatorio;
 
 service RelatorioService {
 
-  //Remessa
-  rpc listRemessa (ListCriteriaRequestRemessa) returns (ServiceResponseListRemessa) {}
-  rpc findOneRemessa (IdRequest) returns (ServiceResponseRemessa) {}
-  rpc createRemessa (RemessaData) returns (ServiceResponseRemessa) {}
-  rpc updateRemessa (RemessaUpdateRequest) returns (ServiceResponseRemessa) {}
-  rpc removeRemessa (IdRequest) returns (ServiceResponseRemessa) {}
-  rpc removeAllRemessa (WithoutParams) returns (ServiceResponseRemessa) {}
-  rpc createManyRemessa (RemessaManyData) returns (ServiceResponseRemessa) {}
+    //Remessa
+    rpc listRemessa (ListCriteriaRequestRemessa) returns (ServiceResponseListRemessa) {}
+    rpc findOneRemessa (IdRequest) returns (ServiceResponseRemessa) {}
+    rpc createRemessa (RemessaData) returns (ServiceResponseRemessa) {}
+    rpc updateRemessa (RemessaUpdateRequest) returns (ServiceResponseRemessa) {}
+    rpc removeRemessa (IdRequest) returns (ServiceResponseRemessa) {}
+    rpc removeAllRemessa (WithoutParams) returns (ServiceResponseRemessa) {}
+    rpc createManyRemessa (RemessaManyData) returns (ServiceResponseRemessa) {}
+
+    //Repasse
+    rpc listRepasse (ListCriteriaRequestRepasse) returns (ServiceResponseListRepasse) {}
+    rpc findOneRepasse (IdRequest) returns (ServiceResponseRepasse) {}
+    rpc createRepasse (RepasseData) returns (ServiceResponseRepasse) {}
+    rpc updateRepasse (RepasseUpdateRequest) returns (ServiceResponseRepasse) {}
+    rpc removeRepasse (IdRequest) returns (ServiceResponseRepasse) {}
+    rpc removeAllRepasse (WithoutParams) returns (ServiceResponseRepasse) {}
+    rpc createManyRepasse (RepasseManyData) returns (ServiceResponseRepasse) {}
+
 }
 
 
@@ -46,9 +56,11 @@ message RemessaData {
     int32 nuTitulos = 9;
     string nmMes = 10;
     string dtCadastro = 11;
-    string createdDate = 12;
-    string updatedDate = 13;
-    string deletedDate = 14;    
+    double nuValor = 12;
+    double nuProtesto = 13;
+    string createdDate = 14;
+    string updatedDate = 15;
+    string deletedDate = 16;    
 }
 
 message RemessaManyData {
@@ -78,3 +90,73 @@ message ServiceResponseRemessa {
     string error = 4;
 }
 
+
+
+
+//Repasse
+
+message ListCriteriaRequestRepasse {
+    string nmCliente = 1; 
+    string nmGrupo = 2;
+    string dtCadastroInicio = 3;
+    string dtCadastroFim = 4;
+    int32 items = 5;
+    int32 page = 6;
+    map<string, string> order = 7;
+}
+
+message RepasseData {
+    int32 idRepasse = 1;
+    int32 idGrupo = 2;
+    int32 idCliente = 3;
+    int32 nuMes = 4;
+    int32 nuAno = 5;
+    string nmCliente = 6;
+    string nmGrupo = 7;
+    int32 idCaso = 8;
+    int32 idTitulo = 9;//
+    string dtRepasse = 10;
+    double nuPrincipal = 11;
+    double nuProtesto = 12;
+    double nuJuros = 13;
+    double nuMulta = 14;
+    double nuHonorCliente = 15;
+    double nuHonorDevedor = 16;
+    double nuReajuste = 17;
+    double nuJurosDivididos = 18;
+    double nuMultaDividida = 19;
+    string cdPrestContaVl = 20;
+    bool cdPrestContaHonorDev =21;
+    bool cdJurosHonorarios =22;
+    double nuRepasse = 23;
+    string createdDate = 24;
+    string updatedDate = 25;
+    string deletedDate = 26;    
+}
+
+message RepasseManyData {
+    repeated RepasseData data = 1;
+}
+message RepasseUpdateRequest{
+    int32 idRepasse = 1;
+    RepasseData repasse = 2;
+}
+
+message ListResultRepasse {
+    repeated RepasseData result = 1;
+    int32 total = 2;
+}
+
+message ServiceResponseListRepasse {
+    int32 status = 1;
+    string message = 2;
+    ListResultRepasse data = 3;
+    string error = 4;
+}
+
+message ServiceResponseRepasse {
+    int32 status = 1;
+    string message = 2;
+    repeated RepasseData data = 3;
+    string error = 4;
+}
