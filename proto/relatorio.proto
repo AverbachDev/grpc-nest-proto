@@ -23,6 +23,16 @@ service RelatorioService {
     rpc removeAllRepasse (WithoutParams) returns (ServiceResponseRepasse) {}
     rpc createManyRepasse (RepasseManyData) returns (ServiceResponseRepasse) {}
 
+
+    //RD
+    rpc listRD (ListCriteriaRequestRD) returns (ServiceResponseListRD) {}
+    rpc findOneRD (IdRequest) returns (ServiceResponseRD) {}
+    rpc createRD (RDData) returns (ServiceResponseRD) {}
+    rpc updateRD (RDUpdateRequest) returns (ServiceResponseRD) {}
+    rpc removeRD (IdRequest) returns (ServiceResponseRD) {}
+    rpc removeAllRD (WithoutParams) returns (ServiceResponseRD) {}
+    rpc createManyRD (RDManyData) returns (ServiceResponseRD) {}
+
 }
 
 
@@ -158,5 +168,70 @@ message ServiceResponseRepasse {
     int32 status = 1;
     string message = 2;
     repeated RepasseData data = 3;
+    string error = 4;
+}
+
+
+//RD
+
+message ListCriteriaRequestRD {
+    string nmCliente = 1; 
+    string nmGrupo = 2;
+    string dtCadastroInicio = 3;
+    string dtCadastroFim = 4;
+    int32 items = 5;
+    int32 page = 6;
+    map<string, string> order = 7;
+}
+
+message RDData {
+    int32 idRD = 1;
+    int32 idGrupo = 2;
+    int32 idCliente = 3;
+    int32 nuMes = 4;
+    int32 nuAno = 5;
+    string nmCliente = 6;
+    string nmGrupo = 7;
+    int32 idCaso = 8;
+    int32 idTitulo = 9;//
+    string dtVenc = 10;
+    double nuPrincipal = 11;
+    double nuProtesto = 12;
+    double nuJuros = 13;
+    double nuMulta = 14;
+    double nuHonorCliente = 15;
+    double nuHonorDevedor = 16;
+    double nuReajuste = 17;
+    double nuJurosDivididos = 18;
+    double nuMultaDividida = 19;
+    string createdDate = 20;
+    string updatedDate = 21;
+    string deletedDate = 22;    
+}
+
+message RDManyData {
+    repeated RDData data = 1;
+}
+message RDUpdateRequest{
+    int32 idRD = 1;
+    RDData repasse = 2;
+}
+
+message ListResultRD {
+    repeated RDData result = 1;
+    int32 total = 2;
+}
+
+message ServiceResponseListRD {
+    int32 status = 1;
+    string message = 2;
+    ListResultRD data = 3;
+    string error = 4;
+}
+
+message ServiceResponseRD {
+    int32 status = 1;
+    string message = 2;
+    repeated RDData data = 3;
     string error = 4;
 }
