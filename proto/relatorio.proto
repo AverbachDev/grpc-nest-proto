@@ -33,6 +33,15 @@ service RelatorioService {
     rpc removeAllRD (WithoutParams) returns (ServiceResponseRD) {}
     rpc createManyRD (RDManyData) returns (ServiceResponseRD) {}
 
+    //Devolucao
+    rpc listDevolucao (ListCriteriaRequestDevolucao) returns (ServiceResponseListDevolucao) {}
+    rpc findOneDevolucao (IdRequest) returns (ServiceResponseDevolucao) {}
+    rpc createDevolucao (DevolucaoData) returns (ServiceResponseDevolucao) {}
+    rpc updateDevolucao (DevolucaoUpdateRequest) returns (ServiceResponseDevolucao) {}
+    rpc removeDevolucao (IdRequest) returns (ServiceResponseDevolucao) {}
+    rpc removeAllDevolucao (WithoutParams) returns (ServiceResponseDevolucao) {}
+    rpc createManyDevolucao (DevolucaoManyData) returns (ServiceResponseDevolucao) {}
+
 }
 
 
@@ -286,7 +295,7 @@ message DevolucaoManyData {
 }
 message DevolucaoUpdateRequest{
     int32 idDevolucao = 1;
-    DevolucaoData repasse = 2;
+    DevolucaoData devolucao = 2;
 }
 
 message ListResultDevolucao {
