@@ -235,3 +235,75 @@ message ServiceResponseRD {
     repeated RDData data = 3;
     string error = 4;
 }
+
+
+
+
+
+//Devolucao
+
+message ListCriteriaRequestDevolucao {
+    string nmCliente = 1; 
+    string nmGrupo = 2;
+    string dtCadastroInicio = 3;
+    string dtCadastroFim = 4;
+    int32 items = 5;
+    int32 page = 6;
+    map<string, string> order = 7;
+}
+
+message DevolucaoData {
+    int32 idDevolucao = 1;
+    int32 idGrupo = 2;
+    int32 idCliente = 3;
+    int32 nuMes = 4;
+    int32 nuAno = 5;
+    string nmCliente = 6;
+    string nmGrupo = 7;
+    int32 idCaso = 8;
+    int32 idTitulo = 9;//
+    string dtDevolucao = 10;
+    double nuValor = 11;
+    double nuProtesto = 12;
+    double nuJuros = 13;
+    double nuMulta = 14;
+    double nuHonorCliente = 15;
+    double nuHonorDevedor = 16;
+    double nuReajuste = 17;
+    double nuJurosDivididos = 18;
+    double nuMultaDividida = 19;
+    string cdPrestContaVl = 20;
+    bool cdPrestContaHonorDev =21;
+    bool cdJurosHonorarios =22;
+    double nuValorDevolvido = 23;
+    string createdDate = 24;
+    string updatedDate = 25;
+    string deletedDate = 26;    
+}
+
+message DevolucaoManyData {
+    repeated DevolucaoData data = 1;
+}
+message DevolucaoUpdateRequest{
+    int32 idDevolucao = 1;
+    DevolucaoData repasse = 2;
+}
+
+message ListResultDevolucao {
+    repeated DevolucaoData result = 1;
+    int32 total = 2;
+}
+
+message ServiceResponseListDevolucao {
+    int32 status = 1;
+    string message = 2;
+    ListResultDevolucao data = 3;
+    string error = 4;
+}
+
+message ServiceResponseDevolucao {
+    int32 status = 1;
+    string message = 2;
+    repeated DevolucaoData data = 3;
+    string error = 4;
+}
