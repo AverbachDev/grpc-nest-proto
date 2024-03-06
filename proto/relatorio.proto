@@ -77,9 +77,12 @@ message RemessaData {
     string dtCadastro = 11;
     double nuValor = 12;
     double nuProtesto = 13;
-    string createdDate = 14;
-    string updatedDate = 15;
-    string deletedDate = 16;    
+    int32 nuAging = 14;
+    int32 idStatusCobranca = 15;
+    string desStatuscobranca = 16;
+    string createdDate = 17;
+    string updatedDate = 18;
+    string deletedDate = 19;    
 }
 
 message RemessaManyData {
@@ -290,9 +293,11 @@ message DevolucaoData {
     double nuReajustePago = 26;
     double nuJurosDivididosPago = 27;
     double nuMultaDivididaPago = 28;
-    string createdDate = 29;
-    string updatedDate = 30;
-    string deletedDate = 31;    
+    int32 idMotivoDevolucao = 29;
+    string deMotivoDevolucao = 30;
+    string createdDate = 31;
+    string updatedDate = 32;
+    string deletedDate = 33;    
 }
 
 message DevolucaoManyData {
