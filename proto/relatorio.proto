@@ -281,13 +281,18 @@ message DevolucaoData {
     double nuReajuste = 17;
     double nuJurosDivididos = 18;
     double nuMultaDividida = 19;
-    string cdPrestContaVl = 20;
-    bool cdPrestContaHonorDev =21;
-    bool cdJurosHonorarios =22;
-    double nuValorDevolvido = 23;
-    string createdDate = 24;
-    string updatedDate = 25;
-    string deletedDate = 26;    
+    double nuValorPago = 20;
+    double nuProtestoPago = 21;
+    double nuJurosPago = 22;
+    double nuMultaPago = 23;
+    double nuHonorClientePago = 24;
+    double nuHonorDevedorPago = 25;
+    double nuReajustePago = 26;
+    double nuJurosDivididosPago = 27;
+    double nuMultaDivididaPago = 28;
+    string createdDate = 29;
+    string updatedDate = 30;
+    string deletedDate = 31;    
 }
 
 message DevolucaoManyData {
