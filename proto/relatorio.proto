@@ -5,6 +5,11 @@ package relatorio;
 
 service RelatorioService {
 
+    
+    //Relatorios
+    rpc reportExtratoCarteira (ReportCriteriaExtratoCarteira) returns (WithoutParams) {}// TODO:Modificar o return
+
+
     //Remessa
     rpc listRemessa (ListCriteriaRequestRemessa) returns (ServiceResponseListRemessa) {}
     rpc findOneRemessa (IdRequest) returns (ServiceResponseRemessa) {}
@@ -42,6 +47,7 @@ service RelatorioService {
     rpc removeAllDevolucao (WithoutParams) returns (ServiceResponseDevolucao) {}
     rpc createManyDevolucao (DevolucaoManyData) returns (ServiceResponseDevolucao) {}
 
+
 }
 
 
@@ -50,6 +56,15 @@ message IdRequest{
 }
 
 message WithoutParams {}
+
+
+//Relatorios
+message ReportCriteriaExtratoCarteira {
+    int32 idCliente = 1; 
+    int32 idGrupo = 2;
+    string dtCadastroInicio = 3;
+    string dtCadastroFim = 4;
+}
 
 //Remessa
 
