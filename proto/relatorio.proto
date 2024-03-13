@@ -7,7 +7,7 @@ service RelatorioService {
 
     
     //Relatorios
-    rpc reportExtratoCarteira (ReportCriteriaExtratoCarteira) returns (WithoutParams) {}// TODO:Modificar o return
+    rpc reportExtratoCarteira (ReportCriteriaExtratoCarteira) returns (ServiceResponseListExtratoCarteira) {}// TODO:Modificar o return
 
 
     //Remessa
@@ -62,8 +62,55 @@ message WithoutParams {}
 message ReportCriteriaExtratoCarteira {
     int32 idCliente = 1; 
     int32 idGrupo = 2;
-    string dtCadastroInicio = 3;
-    string dtCadastroFim = 4;
+    string dtInicio = 3;
+    string dtFim = 4;
+}
+
+
+message PeriodoData {
+    string nmMes = 1;
+    double nuSaldo = 2;
+    double nuRemessa = 3;
+    double nuRepasse = 4;
+    double nuRD = 5;
+    double nuDevolucao = 6;
+    double nuSaldoFinal = 7;
+    double nuPerformance = 8;
+}
+
+message RemessaPeriodoData {
+    double totalRemessa = 1;
+    double percentualTotalCarteira = 2;
+    double nuCasos = 3;
+    double nuTitulos = 4;
+}
+
+message AgingData {
+    string nmAging = 1;
+    double nuTitulos = 2;
+    double nuPrincipal = 3;
+    double percentualPrinicipal = 4;
+}
+
+message DevolucaoPeriodoData {
+    string nmDevolucao = 1;
+    double nuCasos = 2;
+    double nuPrincipal = 3;
+    double percentualPrinicipal = 4;
+}
+
+message ListResultExtratoCarteira {
+    repeated PeriodoData periodo = 1;
+    RemessaPeriodoData remessa = 2;
+    repeated AgingData aging = 3;
+    repeated DevolucaoPeriodoData devolucao = 4;
+}
+
+message ServiceResponseListExtratoCarteira {
+    int32 status = 1;
+    string message = 2;
+    ListResultExtratoCarteira data = 3;
+    string error = 4;
 }
 
 //Remessa
