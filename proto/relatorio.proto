@@ -104,6 +104,7 @@ message ListResultExtratoCarteira {
     RemessaPeriodoData remessa = 2;
     repeated AgingData aging = 3;
     repeated DevolucaoPeriodoData devolucao = 4;
+    string nmExcelFile =5;
 }
 
 message ServiceResponseListExtratoCarteira {
