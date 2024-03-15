@@ -7,8 +7,8 @@ service RelatorioService {
 
     
     //Relatorios
-    rpc reportExtratoCarteira (ReportCriteriaExtratoCarteira) returns (ServiceResponseListExtratoCarteira) {}// TODO:Modificar o return
-
+    rpc reportExtratoCarteira (ReportCriteriaExtratoCarteira) returns (ServiceResponseListExtratoCarteira) {}
+    rpc reportExtratoCarteiraEssilor (ReportCriteriaExtratoCarteira) returns (ServiceResponseListExtratoCarteiraEssilor) {}
 
     //Remessa
     rpc listRemessa (ListCriteriaRequestRemessa) returns (ServiceResponseListRemessa) {}
@@ -76,6 +76,17 @@ message PeriodoData {
     double nuDevolucao = 6;
     double nuSaldoFinal = 7;
     double nuPerformance = 8;
+}
+
+message PeriodoDataEssilor {
+    string nmMes = 1;
+    double nuSaldo = 2;
+    double nuRemessa = 3;
+    double nuRepasse = 4;
+    double nuRD = 5;
+    double nuDevolucao = 6;
+    double nuSaldoFinal = 7;
+    double nuPerformance = 8;
     double nuRepasseMes = 9;
     double nuDevolucaoIncobravel = 10;
 }
@@ -114,10 +125,26 @@ message ListResultExtratoCarteira {
     string nmExcelFile =6;
 }
 
+message ListResultExtratoCarteiraEssilor {
+    repeated PeriodoDataEssilor periodo = 1;
+    RemessaPeriodoData remessa = 2;
+    repeated AgingData aging = 3;
+    repeated DevolucaoPeriodoData devolucao = 4;
+    repeated DevolucaoMesData devolucaoDetalhadaMes =5;
+    string nmExcelFile =6;
+}
+
 message ServiceResponseListExtratoCarteira {
     int32 status = 1;
     string message = 2;
     ListResultExtratoCarteira data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListExtratoCarteiraEssilor {
+    int32 status = 1;
+    string message = 2;
+    ListResultExtratoCarteiraEssilor data = 3;
     string error = 4;
 }
 
