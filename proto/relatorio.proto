@@ -225,7 +225,7 @@ message RepasseData {
     string updatedDate = 25;
     string deletedDate = 26;  
     string dtCadastro = 27;
-    string dtVencimento = 35;
+    string dtVencimento = 28;
 }
 
 message RepasseManyData {
