@@ -222,7 +222,8 @@ message RepasseData {
     double nuRepasse = 23;
     string createdDate = 24;
     string updatedDate = 25;
-    string deletedDate = 26;    
+    string deletedDate = 26;  
+    string dtCadastro = 27;  
 }
 
 message RepasseManyData {
@@ -288,6 +289,7 @@ message RDData {
     string createdDate = 20;
     string updatedDate = 21;
     string deletedDate = 22;    
+    string dtCadastro = 23;
 }
 
 message RDManyData {
@@ -366,7 +368,8 @@ message DevolucaoData {
     string deMotivoDevolucao = 30;
     string createdDate = 31;
     string updatedDate = 32;
-    string deletedDate = 33;    
+    string deletedDate = 33;
+    string dtCadastro = 34;
 }
 
 message DevolucaoManyData {
