@@ -223,7 +223,8 @@ message RepasseData {
     string createdDate = 24;
     string updatedDate = 25;
     string deletedDate = 26;  
-    string dtCadastro = 27;  
+    string dtCadastro = 27;
+    string dtVencimento = 35;
 }
 
 message RepasseManyData {
@@ -276,7 +277,7 @@ message RDData {
     string nmGrupo = 7;
     int32 idCaso = 8;
     int32 idTitulo = 9;//
-    string dtVenc = 10;
+    string dtBaixa = 10;
     double nuPrincipal = 11;
     double nuProtesto = 12;
     double nuJuros = 13;
@@ -290,6 +291,7 @@ message RDData {
     string updatedDate = 21;
     string deletedDate = 22;    
     string dtCadastro = 23;
+    string dtVencimento = 24;
 }
 
 message RDManyData {
@@ -370,6 +372,7 @@ message DevolucaoData {
     string updatedDate = 32;
     string deletedDate = 33;
     string dtCadastro = 34;
+    string dtVencimento = 35;
 }
 
 message DevolucaoManyData {
