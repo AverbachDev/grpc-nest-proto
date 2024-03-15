@@ -76,13 +76,13 @@ message PeriodoData {
     double nuDevolucao = 6;
     double nuSaldoFinal = 7;
     double nuPerformance = 8;
+    double nuRepasseMes = 9;
 }
 
 message RemessaPeriodoData {
     double totalRemessa = 1;
     double percentualTotalCarteira = 2;
-    double nuCasos = 3;
-    double nuTitulos = 4;
+    double nuTitulos = 3;
 }
 
 message AgingData {
@@ -94,9 +94,14 @@ message AgingData {
 
 message DevolucaoPeriodoData {
     string nmDevolucao = 1;
-    double nuCasos = 2;
+    double nuTitulos = 2;
     double nuPrincipal = 3;
     double percentualPrinicipal = 4;
+}
+
+message DevolucaoMesData {
+    string nmMes = 1;
+    repeated DevolucaoPeriodoData detalhe = 2;
 }
 
 message ListResultExtratoCarteira {
@@ -104,7 +109,8 @@ message ListResultExtratoCarteira {
     RemessaPeriodoData remessa = 2;
     repeated AgingData aging = 3;
     repeated DevolucaoPeriodoData devolucao = 4;
-    string nmExcelFile =5;
+    repeated DevolucaoMesData devolucaoDetalhadaMes =5;
+    string nmExcelFile =6;
 }
 
 message ServiceResponseListExtratoCarteira {
