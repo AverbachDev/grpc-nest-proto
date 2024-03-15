@@ -151,7 +151,8 @@ message RemessaData {
     string desStatuscobranca = 16;
     string createdDate = 17;
     string updatedDate = 18;
-    string deletedDate = 19;    
+    string deletedDate = 19;
+    string dtVencimento = 20;
 }
 
 message RemessaManyData {
