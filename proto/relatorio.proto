@@ -77,6 +77,7 @@ message PeriodoData {
     double nuSaldoFinal = 7;
     double nuPerformance = 8;
     double nuRepasseMes = 9;
+    double nuDevolucaoIncobravel = 10;
 }
 
 message RemessaPeriodoData {
