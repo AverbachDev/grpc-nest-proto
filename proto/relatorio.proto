@@ -104,6 +104,14 @@ message AgingData {
     double percentualPrinicipal = 4;
 }
 
+
+message tipoPagamentoData {
+    string nmTipoPagamento = 1;
+    double nuTitulos = 2;
+    double nuPrincipal = 3;
+    double percentualPrinicipal = 4;
+}
+
 message DevolucaoPeriodoData {
     string nmDevolucao = 1;
     double nuTitulos = 2;
@@ -120,18 +128,20 @@ message ListResultExtratoCarteira {
     repeated PeriodoData periodo = 1;
     RemessaPeriodoData remessa = 2;
     repeated AgingData aging = 3;
-    repeated DevolucaoPeriodoData devolucao = 4;
-    repeated DevolucaoMesData devolucaoDetalhadaMes =5;
-    string nmExcelFile =6;
+    repeated tipoPagamentoData tipoPagamento = 4;
+    repeated DevolucaoPeriodoData devolucao = 5;
+    repeated DevolucaoMesData devolucaoDetalhadaMes =6;
+    string nmExcelFile =7;
 }
 
 message ListResultExtratoCarteiraEssilor {
     repeated PeriodoDataEssilor periodo = 1;
     RemessaPeriodoData remessa = 2;
     repeated AgingData aging = 3;
-    repeated DevolucaoPeriodoData devolucao = 4;
-    repeated DevolucaoMesData devolucaoDetalhadaMes =5;
-    string nmExcelFile =6;
+    repeated tipoPagamentoData tipoPagamento = 4;
+    repeated DevolucaoPeriodoData devolucao = 5;
+    repeated DevolucaoMesData devolucaoDetalhadaMes =6;
+    string nmExcelFile =7;
 }
 
 message ServiceResponseListExtratoCarteira {
