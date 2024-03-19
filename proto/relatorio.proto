@@ -82,13 +82,12 @@ message PeriodoDataEssilor {
     string nmMes = 1;
     double nuSaldo = 2;
     double nuRemessa = 3;
-    double nuRepasse = 4;
-    double nuRD = 5;
-    double nuDevolucao = 6;
-    double nuSaldoFinal = 7;
-    double nuPerformance = 8;
-    double nuRepasseMes = 9;
-    double nuDevolucaoIncobravel = 10;
+    double nuRepasseMes = 4;
+    double nuRepasse = 5;
+    double nuDevolucaoIncobravel = 6;
+    double nuDevolucao = 7;
+    double nuSaldoFinal = 8;
+    double nuPerformance = 9;
 }
 
 message RemessaPeriodoData {
