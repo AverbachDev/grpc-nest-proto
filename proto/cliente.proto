@@ -65,9 +65,10 @@ message ListCriteriaRequestCliente {
     string cdClassificacao = 6;
     int32 idMunicipio = 7;
     int32 idClientePai = 8;
-    int32 items = 9;
-    int32 page = 10;
-    map<string, string> order =11;
+    int32 idGrupo = 9;
+    int32 items = 10;
+    int32 page = 11;
+    map<string, string> order =12;
 }
 
 message ClienteData {
