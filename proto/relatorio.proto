@@ -129,7 +129,8 @@ message ListResultExtratoCarteira {
     repeated AgingData aging = 3;
     repeated tipoPagamentoData tipoPagamento = 4;
     repeated DevolucaoPeriodoData devolucao = 5;
-    string nmExcelFile =6;
+    string nmExcelFile = 6;
+    double totalCarteira = 7;
 }
 
 message ListResultExtratoCarteiraEssilor {
@@ -140,6 +141,7 @@ message ListResultExtratoCarteiraEssilor {
     repeated DevolucaoPeriodoData devolucao = 5;
     repeated DevolucaoMesData devolucaoDetalhadaMes =6;
     string nmExcelFile =7;
+    double totalCarteira = 8;
 }
 
 message ServiceResponseListExtratoCarteira {
