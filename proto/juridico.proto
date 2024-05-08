@@ -26,7 +26,8 @@ service JuridicoService {
   rpc removeTituloJudicial (IdRequest) returns (ServiceResponseTituloJudicial) {} 
   rpc calculateTituloJudicial (CalculoTituloJudicialRequest) returns (ServiceResponseTituloJudicial) {}
   rpc updateHonDevTituloJudicial (CalculoTituloJudicialRequest) returns (ServiceResponseTituloJudicial) {}
-
+  rpc getTotalCausa (IdRequest) returns (ServiceResponseTituloJudicialTotalCausa) {}
+  rpc getMinVencimento (IdRequest) returns (ServiceResponseTituloJudicialMinVencimento) {}
 
   //Acordo Judicial
   rpc listAcordoJudicial (ListCriteriaRequestAcordoJudicial) returns (ServiceResponseListAcordoJudicial) {}
@@ -256,6 +257,20 @@ message ServiceResponseListTituloJudicial {
 message ListResultTituloJudicial {
     repeated TituloJudicialData result = 1;
     int32 total = 2;
+}
+
+message ServiceResponseTituloJudicialTotalCausa {
+    int32 status = 1;
+    string message = 2;
+    float data = 3;
+    string error = 4;
+}
+
+message ServiceResponseTituloJudicialMinVencimento {
+    int32 status = 1;
+    string message = 2;
+    string data = 3;
+    string error = 4;
 }
 
 
