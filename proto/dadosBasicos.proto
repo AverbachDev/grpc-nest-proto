@@ -94,8 +94,8 @@ service DadosBasicosService {
     rpc createPromoter (PromoterData) returns (ServiceResponsePromoter) {}
     rpc updatePromoter (PromoterUpdateRequest) returns (ServiceResponsePromoter) {}
     rpc removePromoter (IdRequest) returns (ServiceResponsePromoter) {}
-    rpc removeAllRemessa (WithoutParams) returns (ServiceResponsePromoter) {}
-    rpc createManyRemessa (PromoterManyData) returns (ServiceResponsePromoter) {}
+    rpc removeAllPromoter (WithoutParams) returns (ServiceResponsePromoter) {}
+    rpc createManyPromoter (PromoterManyData) returns (ServiceResponsePromoter) {}
     
     rpc listOcorrenciaLigacao (ListCriteriaRequestOcorrenciaLigacao) returns (ServiceResponseListOcorrenciaLigacao) {}
     rpc findOneOcorrenciaLigacao (IdRequest) returns (ServiceResponseOcorrenciaLigacao) {}
