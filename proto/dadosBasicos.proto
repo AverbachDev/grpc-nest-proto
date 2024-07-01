@@ -94,6 +94,8 @@ service DadosBasicosService {
     rpc createPromoter (PromoterData) returns (ServiceResponsePromoter) {}
     rpc updatePromoter (PromoterUpdateRequest) returns (ServiceResponsePromoter) {}
     rpc removePromoter (IdRequest) returns (ServiceResponsePromoter) {}
+    rpc removeAllRemessa (WithoutParams) returns (ServiceResponsePromoter) {}
+    rpc createManyRemessa (PromoterManyData) returns (ServiceResponsePromoter) {}
     
     rpc listOcorrenciaLigacao (ListCriteriaRequestOcorrenciaLigacao) returns (ServiceResponseListOcorrenciaLigacao) {}
     rpc findOneOcorrenciaLigacao (IdRequest) returns (ServiceResponseOcorrenciaLigacao) {}
@@ -118,6 +120,8 @@ service DadosBasicosService {
   message IdRequest{
     int32 id = 1;
 }
+
+message WithoutParams {}
 
 
 
@@ -801,6 +805,10 @@ message PromoterData {
     string updatedDate = 14;
     string deletedDate = 15;
 
+}
+
+message PromoterManyData {
+    repeated PromoterData data = 1;
 }
 
 message PromoterUpdateRequest {
