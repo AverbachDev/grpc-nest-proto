@@ -39,6 +39,7 @@ service ClienteService {
   rpc createGrupoCliente (GrupoClienteData) returns (ServiceResponseGrupoCliente) {}
   rpc updateGrupoCliente (GrupoClienteUpdateRequest) returns (ServiceResponseGrupoCliente) {} 
   rpc removeGrupoCliente (IdRequest) returns (ServiceResponseGrupoCliente) {}
+  rpc updateGrupoClienteWithoutKafka (GrupoClienteUpdateRequest) returns (ServiceResponseGrupoCliente) {}
 
   //DadosBancarios
   rpc listDadosBancarios (ListCriteriaRequestDadosBancarios) returns (ServiceResponseListDadosBancarios) {}
