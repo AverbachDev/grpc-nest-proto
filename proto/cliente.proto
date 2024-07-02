@@ -16,7 +16,7 @@ service ClienteService {
   rpc listClienteNested (ListCriteriaRequestClienteNested) returns (ServiceResponseListCliente) {}
   rpc listClientesByIdGrupo (IdRequest) returns (ServiceResponseListCliente) {}
   rpc listClienteChangedByCreatedorUpdatedDate (listCriteriaClienteChangedByCreatedorUpdatedDate) returns (ServiceResponseListCliente) {}
-
+  rpc updateClienteWithoutKafka (ClienteUpdateRequest) returns (ServiceResponseCliente) {}
 
   //Contato
   rpc listContato (ListCriteriaRequestContato) returns (ServiceResponseListContato) {}
