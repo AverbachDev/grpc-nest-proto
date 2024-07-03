@@ -4,18 +4,104 @@ package caso;
 
 
 service CasoService {
+
+    rpc listCaso (ListCriteriaRequestCaso) returns (ServiceResponseListCaso) {}
+    rpc findOneCaso (IdRequest) returns (ServiceResponseCaso) {}
+    rpc createCaso (CasoData) returns (ServiceResponseCaso) {}
+    rpc updateCaso (CasoUpdateRequest) returns (ServiceResponseCaso) {}
+    rpc removeCaso (IdRequest) returns (ServiceResponseCaso) {}
+
     rpc listAcordo (ListCriteriaRequestAcordo) returns (ServiceResponseListAcordo) {}
     rpc findOneAcordo (IdRequest) returns (ServiceResponseAcordo) {}
     rpc createAcordo (AcordoData) returns (ServiceResponseAcordo) {}
     rpc updateAcordo (AcordoUpdateRequest) returns (ServiceResponseAcordo) {}
     rpc removeAcordo (IdRequest) returns (ServiceResponseAcordo) {}
+
+    rpc listParcela (ListCriteriaRequestParcela) returns (ServiceResponseListParcela) {}
+    rpc findOneParcela (IdRequest) returns (ServiceResponseParcela) {}
+    rpc createParcela (ParcelaData) returns (ServiceResponseParcela) {}
+    rpc updateParcela (ParcelaUpdateRequest) returns (ServiceResponseParcela) {}
+    rpc removeParcela (IdRequest) returns (ServiceResponseParcela) {}
 }
 
 message IdRequest{
     int32 id = 1;
 }
 
+//CASO
 
+message ListCriteriaRequestCaso {
+    int32 idCaso = 1;
+    string dtCadastro = 2;
+    int32 idStatusCobranca = 3;
+    int32 items = 4;
+    int32 page = 5;
+    map<string, string> order = 6;
+}
+
+message CasoData {
+    int32 id = 1;
+    int32 idDevedor = 2;
+    int32 idMoeda = 3;
+    int32 idStatusCobranca = 4;
+    int32 idBorderaux = 5;
+    string dtCadastro = 6;
+    bool cdBranda = 7;
+    string dtAgendCont = 8;
+    string deCodDevedor = 9;
+    int32 idCliente = 10;
+    string deVara = 11;
+    string deProcesso = 12;
+    string deAcao = 13;
+    string nmEscrevente = 14;
+    int32 nuDias = 15;
+    string cdImportacao = 16;
+    int32 idUsuaOper = 17;
+    string dtRegistro = 18;
+    string deMotCancel = 19;
+    int32 idUsuaCobrador = 20;
+    string dtUsuaCobrador = 21;
+    string cdAvaliacao = 22;
+    string dtAvaliacao = 23;
+    bool cdLiberado = 24;
+    string dtVisitaLocal = 25;
+    int32 cdVisitaLocal = 26;
+    int32 idPossibilidadeExito = 27;
+    bool cdPesquisa = 28;
+    string dtPesquisa = 29;
+    bool cdDeslocalizado = 30;
+    int32 cdTituloInseridoComPagamento = 31;
+    int32 idMotivoInadimplencia = 32;
+    string createdDate = 33;
+    string updatedDate = 34;
+    string deletedDate = 35;
+}
+
+message CasoUpdateRequest{
+    int32 id = 1;
+    CasoData caso = 2;
+}
+
+message ServiceResponseCaso {
+    int32 status = 1;
+    string message = 2;
+    repeated CasoData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListCaso {
+    int32 status = 1;
+    string message = 2;
+    ListResultCaso data = 3;
+    string error = 4;
+}
+
+message ListResultCaso {
+    repeated CasoData result = 1;
+    int32 total = 2;
+}
+
+//ACORDO
 message ListCriteriaRequestAcordo {
     int32 idCaso = 1;
     string dtAcordo = 2; 
@@ -35,11 +121,12 @@ message AcordoData {
     bool cdConfissaoDivida = 8;
     bool cdNotaPromis = 9;
     bool cdBoleto = 10;
-    int32 idUsuaOper = 11;
-    string dtRegistro = 12;
-    string createdDate = 13;
-    string updatedDate = 14;
-    string deletedDate = 15;
+    bool cdAcordoNegocie = 11;
+    int32 idUsuaOper = 12;
+    string dtRegistro = 13;
+    string createdDate = 14;
+    string updatedDate = 15;
+    string deletedDate = 16;
 
 }
 
@@ -64,5 +151,61 @@ message ServiceResponseListAcordo {
 
 message ListResultAcordo {
     repeated AcordoData result = 1;
+    int32 total = 2;
+}
+
+
+//PARCELA
+message ListCriteriaRequestParcela {
+    int32 idCaso = 1;
+    int32 idAcordo = 2;
+    int32 idParcela = 3;
+    int32 items = 4;
+    int32 page = 5;
+    map<string, string> order = 6;
+}
+
+message ParcelaData {
+    int32 id = 1;
+    string dtVenc = 2;
+    int32 idAcordo = 3;
+    int32 idTitulo = 4;
+    int32 idNatureza = 5;
+    string deParcela = 6;
+    double nuValor = 7;
+    int32 idCaso = 8;
+    double nuJuros = 9;
+    double perJuros = 10;
+    int32 idUsuaOper = 11;
+    string dtRegistro = 12;
+    double nuJurosVincendo = 13;
+    double nuBoleto = 14;
+    double nuReajuste = 15;
+    string createdDate = 16;
+    string updatedDate = 17;
+    string deletedDate = 18;
+}
+
+message ParcelaUpdateRequest{
+    int32 id = 1;
+    ParcelaData acordo = 2;
+}
+
+message ServiceResponseParcela {
+    int32 status = 1;
+    string message = 2;
+    repeated ParcelaData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListParcela {
+    int32 status = 1;
+    string message = 2;
+    ListResultParcela data = 3;
+    string error = 4;
+}
+
+message ListResultParcela {
+    repeated ParcelaData result = 1;
     int32 total = 2;
 }
