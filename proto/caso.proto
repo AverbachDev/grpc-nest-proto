@@ -58,23 +58,25 @@ message CasoData {
     string cdImportacao = 16;
     int32 idUsuaOper = 17;
     string dtRegistro = 18;
-    string deMotCancel = 19;
-    int32 idUsuaCobrador = 20;
-    string dtUsuaCobrador = 21;
-    string cdAvaliacao = 22;
-    string dtAvaliacao = 23;
-    bool cdLiberado = 24;
-    string dtVisitaLocal = 25;
-    int32 cdVisitaLocal = 26;
-    int32 idPossibilidadeExito = 27;
-    bool cdPesquisa = 28;
-    string dtPesquisa = 29;
-    bool cdDeslocalizado = 30;
-    int32 cdTituloInseridoComPagamento = 31;
-    int32 idMotivoInadimplencia = 32;
-    string createdDate = 33;
-    string updatedDate = 34;
-    string deletedDate = 35;
+    int32 idUnnegocio = 19;
+    string deMotCancel = 20;
+    int32 idUsuaCobrador = 21;
+    string dtUsuaCobrador = 22;
+    string cdAvaliacao = 23;
+    string dtAvaliacao = 24;
+    int32 idMotivoDevolucao = 25;
+    bool cdLiberado = 26;
+    string dtVisitaLocal = 27;
+    int32 cdVisitaLocal = 28;
+    int32 idPossibilidadeExito = 29;
+    bool cdPesquisa = 30;
+    string dtPesquisa = 31;
+    bool cdDeslocalizado = 32;
+    int32 cdTituloInseridoComPagamento = 33;
+    int32 idMotivoInadimplencia = 34;
+    string createdDate = 35;
+    string updatedDate = 36;
+    string deletedDate = 37;
 }
 
 message CasoUpdateRequest{
