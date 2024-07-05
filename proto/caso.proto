@@ -190,7 +190,7 @@ message ParcelaData {
 
 message ParcelaUpdateRequest{
     int32 id = 1;
-    ParcelaData acordo = 2;
+    ParcelaData parcela = 2;
 }
 
 message ServiceResponseParcela {
