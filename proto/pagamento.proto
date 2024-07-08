@@ -39,9 +39,11 @@ message PagamentoData {
     string deCheque = 8;
     int32 idUsuaOper = 9;
     string dtRegistro = 10;
-    string createdDate = 11;
-    string updatedDate = 12;
-    string deletedDate = 13;
+    double nuBoleto = 11;
+    double nuJurosVincendo = 12;
+    string createdDate = 13;
+    string updatedDate = 14;
+    string deletedDate = 15;
 }
 
 message PagamentoUpdateRequest{
