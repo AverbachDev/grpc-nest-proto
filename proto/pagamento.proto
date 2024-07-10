@@ -10,6 +10,30 @@ service PagamentoService {
     rpc createPagamento (PagamentoData) returns (ServiceResponsePagamento) {}
     rpc updatePagamento (PagamentoUpdateRequest) returns (ServiceResponsePagamento) {}
     rpc removePagamento (IdRequest) returns (ServiceResponsePagamento) {}
+
+    rpc listDepositosEfetuados (ListCriteriaRequestDepositosEfetuados) returns (ServiceResponseListDepositosEfetuados) {}
+    rpc findOneDepositosEfetuados (IdRequest) returns (ServiceResponseDepositosEfetuados) {}
+    rpc createDepositosEfetuados (DepositosEfetuadosData) returns (ServiceResponseDepositosEfetuados) {}
+    rpc updateDepositosEfetuados (DepositosEfetuadosUpdateRequest) returns (ServiceResponseDepositosEfetuados) {}
+    rpc removeDepositosEfetuados (IdRequest) returns (ServiceResponseDepositosEfetuados) {}
+
+    rpc listParcelaPagamento (ListCriteriaRequestParcelaPagamento) returns (ServiceResponseListParcelaPagamento) {}
+    rpc findOneParcelaPagamento (IdRequest) returns (ServiceResponseParcelaPagamento) {}
+    rpc createParcelaPagamento (ParcelaPagamentoData) returns (ServiceResponseParcelaPagamento) {}
+    rpc updateParcelaPagamento (ParcelaPagamentoUpdateRequest) returns (ServiceResponseParcelaPagamento) {}
+    rpc removeParcelaPagamento (IdRequest) returns (ServiceResponseParcelaPagamento) {}
+
+    rpc listTituloPagamento (ListCriteriaRequestTituloPagamento) returns (ServiceResponseListTituloPagamento) {}
+    rpc findOneTituloPagamento (IdRequest) returns (ServiceResponseTituloPagamento) {}
+    rpc createTituloPagamento (TituloPagamentoData) returns (ServiceResponseTituloPagamento) {}
+    rpc updateTituloPagamento (TituloPagamentoUpdateRequest) returns (ServiceResponseTituloPagamento) {}
+    rpc removeTituloPagamento (IdRequest) returns (ServiceResponseTituloPagamento) {}
+
+    rpc listTituloPagamentoBalancete (ListCriteriaRequestTituloPagamentoBalancete) returns (ServiceResponseListTituloPagamentoBalancete) {}
+    rpc findOneTituloPagamentoBalancete (IdRequest) returns (ServiceResponseTituloPagamentoBalancete) {}
+    rpc createTituloPagamentoBalancete (TituloPagamentoBalanceteData) returns (ServiceResponseTituloPagamentoBalancete) {}
+    rpc updateTituloPagamentoBalancete (TituloPagamentoBalanceteUpdateRequest) returns (ServiceResponseTituloPagamentoBalancete) {}
+    rpc removeTituloPagamentoBalancete (IdRequest) returns (ServiceResponseTituloPagamentoBalancete) {}
 }
 
 
@@ -69,3 +93,243 @@ message ListResultPagamento {
     repeated PagamentoData result = 1;
     int32 total = 2;
 }
+
+
+
+
+//DEPOSITOSEFETUADOS
+
+message ListCriteriaRequestDepositosEfetuados {
+    int32 idDeposito = 1;
+    int32 idPagto = 2;
+    string cdStatus = 3;
+    double nuValor = 4;
+    string deDepositante = 5;
+    string dtDeposito = 6;
+    string dtExtrato = 7;
+    string cdCnpjCpf = 8;
+    int32 items = 9;
+    int32 page = 10;
+    map<string, string> order = 11;
+}
+
+message DepositosEfetuadosData {
+    int32 id = 1;
+    int32 idAgencia = 2;
+    int32 idPagto = 3;
+    string dtExtrato = 4;
+    string nuConta = 5;
+    string dtDeposito = 6;
+    string deDepositante = 7;
+    string deTipo = 8;
+    double nuValor = 9;
+    bool cdImportado = 10;
+    bool cdPrestconta = 11;
+    string cdCnpjCpf = 12;
+    string cdStatus = 13;
+    bool cdTipoEscrituracao = 14;
+    int32 idUsuaOper = 15;
+    string dtRegistro = 16;
+    string createdDate = 17;
+    string updatedDate = 18;
+    string deletedDate = 19;
+}
+
+message DepositosEfetuadosUpdateRequest{
+    int32 id = 1;
+    DepositosEfetuadosData depositosEfetuados = 2;
+}
+
+message ServiceResponseDepositosEfetuados {
+    int32 status = 1;
+    string message = 2;
+    repeated DepositosEfetuadosData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListDepositosEfetuados {
+    int32 status = 1;
+    string message = 2;
+    ListResultDepositosEfetuados data = 3;
+    string error = 4;
+}
+
+message ListResultDepositosEfetuados {
+    repeated DepositosEfetuadosData result = 1;
+    int32 total = 2;
+}
+
+
+//PARCELAPAGAMENTO
+
+message ListCriteriaRequestParcelaPagamento {
+    int32 idParcPagto = 1;
+    int32 idPagto = 2;
+    int32 idParcela = 3;
+    double nuValorPago = 4;
+    string dtPagto = 5;
+    int32 items = 6;
+    int32 page = 7;
+    map<string, string> order = 8;
+}
+
+message ParcelaPagamentoData {
+    int32 id = 1;
+    int32 idParcela = 2;
+    int32 idPagto = 3;
+    double nuValorPago = 4;
+    string dtPagto = 5;
+    int32 idUsuaOper = 6;
+    string dtRegistro = 7;
+    string createdDate = 8;
+    string updatedDate = 9;
+    string deletedDate = 10;
+}
+
+message ParcelaPagamentoUpdateRequest{
+    int32 id = 1;
+    ParcelaPagamentoData parcelaPagamento = 2;
+}
+
+message ServiceResponseParcelaPagamento {
+    int32 status = 1;
+    string message = 2;
+    repeated ParcelaPagamentoData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListParcelaPagamento {
+    int32 status = 1;
+    string message = 2;
+    ListResultParcelaPagamento data = 3;
+    string error = 4;
+}
+
+message ListResultParcelaPagamento {
+    repeated ParcelaPagamentoData result = 1;
+    int32 total = 2;
+}
+
+
+//TITULOPAGAMENTO
+
+message ListCriteriaRequestTituloPagamento {
+    int32 idTitPagto = 1;
+    int32 idPagto = 2;
+    int32 idTitulo = 3;
+    int32 idPrestconta = 4;
+    int32 items = 5;
+    int32 page = 6;
+    map<string, string> order = 7;
+}
+
+message TituloPagamentoData {
+    int32 id = 1;
+    int32 idTitulo = 2;
+    int32 idPagto = 3;
+    int32 idTipoVoucher = 4;
+    string deVoucher = 5;
+    double nuProtesto = 6;
+    string cdProtestoParte = 7;
+    double nuMulta = 8;
+    string cdMultaParte = 9;
+    double nuJuros = 10;
+    string cdJurosParte = 11;
+    double nuHonorCliente = 12;
+    string cdHonorClienteParte = 13;
+    double nuPrincipal = 14;
+    string cdPrincipalParte = 15;
+    double nuPromoter = 16;
+    double nuHonorDevedor = 17;
+    string cdHonorDevedorParte = 18;
+    string cdQuitado = 19;
+    int32 cdPrestconta = 20;
+    string dtRepasse = 21;
+    bool cdRetorno = 22;
+    double nuJurosVincendo = 23;
+    int32 idPrestconta = 24;
+    int32 idUsuaCobrador = 25;
+    double nuReajuste = 26;
+    double nuJurosDivididos = 27;
+    double nuMultaDividida = 28;
+    int32 idUsuaOper = 29;
+    string dtRegistro = 30;
+    string createdDate = 31;
+    string updatedDate = 32;
+    string deletedDate = 33;
+}
+
+message TituloPagamentoUpdateRequest{
+    int32 id = 1;
+    TituloPagamentoData tituloPagamento = 2;
+}
+
+message ServiceResponseTituloPagamento {
+    int32 status = 1;
+    string message = 2;
+    repeated TituloPagamentoData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListTituloPagamento {
+    int32 status = 1;
+    string message = 2;
+    ListResultTituloPagamento data = 3;
+    string error = 4;
+}
+
+message ListResultTituloPagamento {
+    repeated TituloPagamentoData result = 1;
+    int32 total = 2;
+}
+
+
+//TITULOPAGAMENTOBALANCETE
+
+message ListCriteriaRequestTituloPagamentoBalancete {
+    int32 idTitPagtoBal = 1;
+    int32 idTitPagto = 2;
+    int32 nuOrdem = 3;
+    int32 items = 4;
+    int32 page = 5;
+    map<string, string> order = 6;
+}
+
+message TituloPagamentoBalanceteData {
+    int32 id = 1;
+    int32 idTitPagto = 2;
+    double nuValor = 3;
+    string cdParte = 4;
+    int32 nuOrdem = 5;
+    double nuSaldo = 6;
+    int32 idUsuaOper = 7;
+    string dtRegistro = 8;
+    string createdDate = 9;
+    string updatedDate = 10;
+    string deletedDate = 11;
+}
+
+message TituloPagamentoBalanceteUpdateRequest{
+    int32 id = 1;
+    TituloPagamentoBalanceteData tituloPagamentoBalancete = 2;
+}
+
+message ServiceResponseTituloPagamentoBalancete {
+    int32 status = 1;
+    string message = 2;
+    repeated TituloPagamentoBalanceteData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListTituloPagamentoBalancete {
+    int32 status = 1;
+    string message = 2;
+    ListResultTituloPagamentoBalancete data = 3;
+    string error = 4;
+}
+
+message ListResultTituloPagamentoBalancete {
+    repeated TituloPagamentoBalanceteData result = 1;
+    int32 total = 2;
+}
+
