@@ -127,51 +127,48 @@ message ListResultCaso {
 
 message ListCriteriaRequestTitulo {
     int32 idTitulo = 1;
-    string dtCadastro = 2;
-    int32 idStatusCobranca = 3;
-    int32 items = 4;
-    int32 page = 5;
-    map<string, string> order = 6;
+    int32 idCaso = 2;
+    string dtVencimento = 3;
+    int32 idContrato = 4;
+    int32 items = 5;
+    int32 page = 6;
+    map<string, string> order = 7;
 }
 
 message TituloData {
     int32 id = 1;
-    int32 idDevedor = 2;
-    int32 idMoeda = 3;
-    int32 idStatusCobranca = 4;
-    int32 idBorderaux = 5;
-    string dtCadastro = 6;
-    bool cdBranda = 7;
-    string dtAgendCont = 8;
-    string deCodDevedor = 9;
-    int32 idCliente = 10;
-    string deVara = 11;
-    string deProcesso = 12;
-    string deAcao = 13;
-    string nmEscrevente = 14;
-    int32 nuDias = 15;
-    string cdImportacao = 16;
-    int32 idUsuaOper = 17;
-    string dtRegistro = 18;
-    int32 idUnnegocio = 19;
-    string deMotCancel = 20;
-    int32 idUsuaCobrador = 21;
-    string dtUsuaCobrador = 22;
-    string cdAvaliacao = 23;
-    string dtAvaliacao = 24;
-    int32 idMotivoDevolucao = 25;
-    bool cdLiberado = 26;
-    string dtVisitaLocal = 27;
-    int32 cdVisitaLocal = 28;
-    int32 idPossibilidadeExito = 29;
-    bool cdPesquisa = 30;
-    string dtPesquisa = 31;
-    bool cdDeslocalizado = 32;
-    int32 cdTituloInseridoComPagamento = 33;
-    int32 idMotivoInadimplencia = 34;
-    string createdDate = 35;
-    string updatedDate = 36;
-    string deletedDate = 37;
+    double perJuros = 2;
+    int32 idContrato = 3;
+    int32 idNatureza = 4;
+    string deDoc = 5;
+    double nuValor = 6;
+    string cdValor = 7;
+    double nuProtesto = 8;
+    double nuProtestoOrig = 9;
+    string dtVencimento = 10;
+    int32 idCaso = 11;
+    double nuJuros = 12;
+    double perMulta = 13;
+    double nuMulta = 14;
+    double perHonorDevedor = 15;
+    double nuHonorDevedor = 16;
+    double perHonorCliente = 17;
+    double nuHonorCliente = 18;
+    string dtCalculo = 19;
+    bool cdExcluido = 20;
+    double nuReajuste = 21;
+    double nuIndiceMonetario = 22;
+    double nuImposto = 23;
+    double perJurosDivididos = 24;
+    double nuJurosDivididos = 25;
+    double perMultaDividida = 26;
+    double nuMultaDividida = 27;
+    bool cdImportadoAtivo = 28;
+    int32 idUsuaOper = 29;
+    string dtRegistro = 30;
+    string createdDate = 31;
+    string updatedDate = 32;
+    string deletedDate = 33;
 }
 
 message TituloUpdateRequest{
@@ -312,51 +309,27 @@ message ListResultParcela {
 
 message ListCriteriaRequestCasoCarta {
     int32 idCasoCarta = 1;
-    string dtCadastro = 2;
-    int32 idStatusCobranca = 3;
-    int32 items = 4;
-    int32 page = 5;
-    map<string, string> order = 6;
+    string dtGeracao = 2;
+    int32 idCaso = 3;
+    int32 idCarta = 4;
+    int32 items = 5;
+    int32 page = 6;
+    map<string, string> order = 7;
 }
 
 message CasoCartaData {
     int32 id = 1;
-    int32 idDevedor = 2;
-    int32 idMoeda = 3;
-    int32 idStatusCobranca = 4;
-    int32 idBorderaux = 5;
-    string dtCadastro = 6;
-    bool cdBranda = 7;
-    string dtAgendCont = 8;
-    string deCodDevedor = 9;
-    int32 idCliente = 10;
-    string deVara = 11;
-    string deProcesso = 12;
-    string deAcao = 13;
-    string nmEscrevente = 14;
-    int32 nuDias = 15;
-    string cdImportacao = 16;
-    int32 idUsuaOper = 17;
-    string dtRegistro = 18;
-    int32 idUnnegocio = 19;
-    string deMotCancel = 20;
-    int32 idUsuaCobrador = 21;
-    string dtUsuaCobrador = 22;
-    string cdAvaliacao = 23;
-    string dtAvaliacao = 24;
-    int32 idMotivoDevolucao = 25;
-    bool cdLiberado = 26;
-    string dtVisitaLocal = 27;
-    int32 cdVisitaLocal = 28;
-    int32 idPossibilidadeExito = 29;
-    bool cdPesquisa = 30;
-    string dtPesquisa = 31;
-    bool cdDeslocalizado = 32;
-    int32 cdTituloInseridoComPagamento = 33;
-    int32 idMotivoInadimplencia = 34;
-    string createdDate = 35;
-    string updatedDate = 36;
-    string deletedDate = 37;
+    int32 idCaso = 2;
+    int32 idCarta = 3;
+    string dtGeracao = 4;
+    string deArquivo = 5;
+    string cdImpresso = 6;
+    int32 idUnidadeOrigem = 7;
+    int32 idUsuaOper = 8;
+    string dtRegistro = 9;
+    string createdDate = 10;
+    string updatedDate = 11;
+    string deletedDate = 12;
 }
 
 message CasoCartaUpdateRequest{
@@ -389,7 +362,7 @@ message ListResultCasoCarta {
 message ListCriteriaRequestTituloCadastro {
     int32 idTituloCadastro = 1;
     string dtCadastro = 2;
-    int32 idStatusCobranca = 3;
+    int32 idTitulo = 3;
     int32 items = 4;
     int32 page = 5;
     map<string, string> order = 6;
@@ -397,42 +370,14 @@ message ListCriteriaRequestTituloCadastro {
 
 message TituloCadastroData {
     int32 id = 1;
-    int32 idDevedor = 2;
-    int32 idMoeda = 3;
-    int32 idStatusCobranca = 4;
-    int32 idBorderaux = 5;
-    string dtCadastro = 6;
-    bool cdBranda = 7;
-    string dtAgendCont = 8;
-    string deCodDevedor = 9;
-    int32 idCliente = 10;
-    string deVara = 11;
-    string deProcesso = 12;
-    string deAcao = 13;
-    string nmEscrevente = 14;
-    int32 nuDias = 15;
-    string cdImportacao = 16;
-    int32 idUsuaOper = 17;
-    string dtRegistro = 18;
-    int32 idUnnegocio = 19;
-    string deMotCancel = 20;
-    int32 idUsuaCobrador = 21;
-    string dtUsuaCobrador = 22;
-    string cdAvaliacao = 23;
-    string dtAvaliacao = 24;
-    int32 idMotivoDevolucao = 25;
-    bool cdLiberado = 26;
-    string dtVisitaLocal = 27;
-    int32 cdVisitaLocal = 28;
-    int32 idPossibilidadeExito = 29;
-    bool cdPesquisa = 30;
-    string dtPesquisa = 31;
-    bool cdDeslocalizado = 32;
-    int32 cdTituloInseridoComPagamento = 33;
-    int32 idMotivoInadimplencia = 34;
-    string createdDate = 35;
-    string updatedDate = 36;
-    string deletedDate = 37;
+    int32 idTitulo = 2;
+    string dtCadastro =3;
+    int32 cdCalculo = 4;    
+    int32 idUsuaOper = 5;
+    string dtRegistro = 6;
+    string createdDate = 7;
+    string updatedDate = 8;
+    string deletedDate = 9;
 }
 
 message TituloCadastroUpdateRequest{
