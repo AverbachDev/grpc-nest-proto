@@ -164,11 +164,12 @@ message TituloData {
     double perMultaDividida = 26;
     double nuMultaDividida = 27;
     bool cdImportadoAtivo = 28;
-    int32 idUsuaOper = 29;
-    string dtRegistro = 30;
-    string createdDate = 31;
-    string updatedDate = 32;
-    string deletedDate = 33;
+    int32 idCasoCarta = 29;
+    int32 idUsuaOper = 30;
+    string dtRegistro = 31;
+    string createdDate = 32;
+    string updatedDate = 33;
+    string deletedDate = 34;
 }
 
 message TituloUpdateRequest{
