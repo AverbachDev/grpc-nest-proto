@@ -11,6 +11,12 @@ service CasoService {
     rpc updateCaso (CasoUpdateRequest) returns (ServiceResponseCaso) {}
     rpc removeCaso (IdRequest) returns (ServiceResponseCaso) {}
 
+    rpc listTitulo (ListCriteriaRequestTitulo) returns (ServiceResponseListTitulo) {}
+    rpc findOneTitulo (IdRequest) returns (ServiceResponseTitulo) {}
+    rpc createTitulo (TituloData) returns (ServiceResponseTitulo) {}
+    rpc updateTitulo (TituloUpdateRequest) returns (ServiceResponseTitulo) {}
+    rpc removeTitulo (IdRequest) returns (ServiceResponseTitulo) {}
+
     rpc listAcordo (ListCriteriaRequestAcordo) returns (ServiceResponseListAcordo) {}
     rpc findOneAcordo (IdRequest) returns (ServiceResponseAcordo) {}
     rpc createAcordo (AcordoData) returns (ServiceResponseAcordo) {}
@@ -22,6 +28,19 @@ service CasoService {
     rpc createParcela (ParcelaData) returns (ServiceResponseParcela) {}
     rpc updateParcela (ParcelaUpdateRequest) returns (ServiceResponseParcela) {}
     rpc removeParcela (IdRequest) returns (ServiceResponseParcela) {}
+
+    rpc listCasoCarta (ListCriteriaRequestCasoCarta) returns (ServiceResponseListCasoCarta) {}
+    rpc findOneCasoCarta (IdRequest) returns (ServiceResponseCasoCarta) {}
+    rpc createCasoCarta (CasoCartaData) returns (ServiceResponseCasoCarta) {}
+    rpc updateCasoCarta (CasoCartaUpdateRequest) returns (ServiceResponseCasoCarta) {}
+    rpc removeCasoCarta (IdRequest) returns (ServiceResponseCasoCarta) {}
+
+    rpc listTituloCadastro (ListCriteriaRequestTituloCadastro) returns (ServiceResponseListTituloCadastro) {}
+    rpc findOneTituloCadastro (IdRequest) returns (ServiceResponseTituloCadastro) {}
+    rpc createTituloCadastro (TituloCadastroData) returns (ServiceResponseTituloCadastro) {}
+    rpc updateTituloCadastro (TituloCadastroUpdateRequest) returns (ServiceResponseTituloCadastro) {}
+    rpc removeTituloCadastro (IdRequest) returns (ServiceResponseTituloCadastro) {}
+
 }
 
 message IdRequest{
@@ -102,6 +121,83 @@ message ListResultCaso {
     repeated CasoData result = 1;
     int32 total = 2;
 }
+
+
+//TITULO
+
+message ListCriteriaRequestTitulo {
+    int32 idTitulo = 1;
+    string dtCadastro = 2;
+    int32 idStatusCobranca = 3;
+    int32 items = 4;
+    int32 page = 5;
+    map<string, string> order = 6;
+}
+
+message TituloData {
+    int32 id = 1;
+    int32 idDevedor = 2;
+    int32 idMoeda = 3;
+    int32 idStatusCobranca = 4;
+    int32 idBorderaux = 5;
+    string dtCadastro = 6;
+    bool cdBranda = 7;
+    string dtAgendCont = 8;
+    string deCodDevedor = 9;
+    int32 idCliente = 10;
+    string deVara = 11;
+    string deProcesso = 12;
+    string deAcao = 13;
+    string nmEscrevente = 14;
+    int32 nuDias = 15;
+    string cdImportacao = 16;
+    int32 idUsuaOper = 17;
+    string dtRegistro = 18;
+    int32 idUnnegocio = 19;
+    string deMotCancel = 20;
+    int32 idUsuaCobrador = 21;
+    string dtUsuaCobrador = 22;
+    string cdAvaliacao = 23;
+    string dtAvaliacao = 24;
+    int32 idMotivoDevolucao = 25;
+    bool cdLiberado = 26;
+    string dtVisitaLocal = 27;
+    int32 cdVisitaLocal = 28;
+    int32 idPossibilidadeExito = 29;
+    bool cdPesquisa = 30;
+    string dtPesquisa = 31;
+    bool cdDeslocalizado = 32;
+    int32 cdTituloInseridoComPagamento = 33;
+    int32 idMotivoInadimplencia = 34;
+    string createdDate = 35;
+    string updatedDate = 36;
+    string deletedDate = 37;
+}
+
+message TituloUpdateRequest{
+    int32 id = 1;
+    TituloData titulo = 2;
+}
+
+message ServiceResponseTitulo {
+    int32 status = 1;
+    string message = 2;
+    repeated TituloData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListTitulo {
+    int32 status = 1;
+    string message = 2;
+    ListResultTitulo data = 3;
+    string error = 4;
+}
+
+message ListResultTitulo {
+    repeated TituloData result = 1;
+    int32 total = 2;
+}
+
 
 //ACORDO
 message ListCriteriaRequestAcordo {
@@ -209,5 +305,156 @@ message ServiceResponseListParcela {
 
 message ListResultParcela {
     repeated ParcelaData result = 1;
+    int32 total = 2;
+}
+
+//CASOCARTA
+
+message ListCriteriaRequestCasoCarta {
+    int32 idCasoCarta = 1;
+    string dtCadastro = 2;
+    int32 idStatusCobranca = 3;
+    int32 items = 4;
+    int32 page = 5;
+    map<string, string> order = 6;
+}
+
+message CasoCartaData {
+    int32 id = 1;
+    int32 idDevedor = 2;
+    int32 idMoeda = 3;
+    int32 idStatusCobranca = 4;
+    int32 idBorderaux = 5;
+    string dtCadastro = 6;
+    bool cdBranda = 7;
+    string dtAgendCont = 8;
+    string deCodDevedor = 9;
+    int32 idCliente = 10;
+    string deVara = 11;
+    string deProcesso = 12;
+    string deAcao = 13;
+    string nmEscrevente = 14;
+    int32 nuDias = 15;
+    string cdImportacao = 16;
+    int32 idUsuaOper = 17;
+    string dtRegistro = 18;
+    int32 idUnnegocio = 19;
+    string deMotCancel = 20;
+    int32 idUsuaCobrador = 21;
+    string dtUsuaCobrador = 22;
+    string cdAvaliacao = 23;
+    string dtAvaliacao = 24;
+    int32 idMotivoDevolucao = 25;
+    bool cdLiberado = 26;
+    string dtVisitaLocal = 27;
+    int32 cdVisitaLocal = 28;
+    int32 idPossibilidadeExito = 29;
+    bool cdPesquisa = 30;
+    string dtPesquisa = 31;
+    bool cdDeslocalizado = 32;
+    int32 cdTituloInseridoComPagamento = 33;
+    int32 idMotivoInadimplencia = 34;
+    string createdDate = 35;
+    string updatedDate = 36;
+    string deletedDate = 37;
+}
+
+message CasoCartaUpdateRequest{
+    int32 id = 1;
+    CasoCartaData casoCarta = 2;
+}
+
+message ServiceResponseCasoCarta {
+    int32 status = 1;
+    string message = 2;
+    repeated CasoCartaData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListCasoCarta {
+    int32 status = 1;
+    string message = 2;
+    ListResultCasoCarta data = 3;
+    string error = 4;
+}
+
+message ListResultCasoCarta {
+    repeated CasoCartaData result = 1;
+    int32 total = 2;
+}
+
+
+//TITULOCADASTRO
+
+message ListCriteriaRequestTituloCadastro {
+    int32 idTituloCadastro = 1;
+    string dtCadastro = 2;
+    int32 idStatusCobranca = 3;
+    int32 items = 4;
+    int32 page = 5;
+    map<string, string> order = 6;
+}
+
+message TituloCadastroData {
+    int32 id = 1;
+    int32 idDevedor = 2;
+    int32 idMoeda = 3;
+    int32 idStatusCobranca = 4;
+    int32 idBorderaux = 5;
+    string dtCadastro = 6;
+    bool cdBranda = 7;
+    string dtAgendCont = 8;
+    string deCodDevedor = 9;
+    int32 idCliente = 10;
+    string deVara = 11;
+    string deProcesso = 12;
+    string deAcao = 13;
+    string nmEscrevente = 14;
+    int32 nuDias = 15;
+    string cdImportacao = 16;
+    int32 idUsuaOper = 17;
+    string dtRegistro = 18;
+    int32 idUnnegocio = 19;
+    string deMotCancel = 20;
+    int32 idUsuaCobrador = 21;
+    string dtUsuaCobrador = 22;
+    string cdAvaliacao = 23;
+    string dtAvaliacao = 24;
+    int32 idMotivoDevolucao = 25;
+    bool cdLiberado = 26;
+    string dtVisitaLocal = 27;
+    int32 cdVisitaLocal = 28;
+    int32 idPossibilidadeExito = 29;
+    bool cdPesquisa = 30;
+    string dtPesquisa = 31;
+    bool cdDeslocalizado = 32;
+    int32 cdTituloInseridoComPagamento = 33;
+    int32 idMotivoInadimplencia = 34;
+    string createdDate = 35;
+    string updatedDate = 36;
+    string deletedDate = 37;
+}
+
+message TituloCadastroUpdateRequest{
+    int32 id = 1;
+    TituloCadastroData tituloCadastro = 2;
+}
+
+message ServiceResponseTituloCadastro {
+    int32 status = 1;
+    string message = 2;
+    repeated TituloCadastroData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListTituloCadastro {
+    int32 status = 1;
+    string message = 2;
+    ListResultTituloCadastro data = 3;
+    string error = 4;
+}
+
+message ListResultTituloCadastro {
+    repeated TituloCadastroData result = 1;
     int32 total = 2;
 }
