@@ -28,6 +28,7 @@ service PagamentoService {
     rpc createTituloPagamento (TituloPagamentoData) returns (ServiceResponseTituloPagamento) {}
     rpc updateTituloPagamento (TituloPagamentoUpdateRequest) returns (ServiceResponseTituloPagamento) {}
     rpc removeTituloPagamento (IdRequest) returns (ServiceResponseTituloPagamento) {}
+    rpc findTotalPaymentTituloPagamento (IdRequest) returns (ServiceResponseTotalPaymentTituloPagamento) {}
 
     rpc listTituloPagamentoBalancete (ListCriteriaRequestTituloPagamentoBalancete) returns (ServiceResponseListTituloPagamentoBalancete) {}
     rpc findOneTituloPagamentoBalancete (IdRequest) returns (ServiceResponseTituloPagamentoBalancete) {}
@@ -281,6 +282,29 @@ message ServiceResponseListTituloPagamento {
 message ListResultTituloPagamento {
     repeated TituloPagamentoData result = 1;
     int32 total = 2;
+}
+
+message ServiceResponseTotalPaymentTituloPagamento {
+    int32 status = 1;
+    string message = 2;
+    repeated TituloPagamentoTotalPaymentData data = 3;
+    string error = 4;
+}
+
+message TituloPagamentoTotalPaymentData {
+    int32 idTitulo = 1;
+    double nuProtesto = 2;
+    double nuMulta = 3;
+    double nuJuros = 4;
+    double nuHonorCliente = 5;
+    double nuPrincipal = 6;
+    double nuPromoter = 7;
+    double nuHonorDevedor = 8;
+    string cdQuitado = 9;
+    double nuJurosVincendo = 10;
+    double nuReajuste = 11;
+    double nuJurosDivididos = 12;
+    double nuMultaDividida = 13;
 }
 
 
