@@ -142,15 +142,16 @@ message CasoWithExternalFieldsData {
     int32 idCliente = 10;
     string nmCliente = 11;
     double nuPrincipal = 12;
-    int32 idUsuaOper = 13;
-    string dtRegistro = 14;
-    int32 idUnnegocio = 15;
-    string deUnNegocio = 16;
-    int32 idUsuaCobrador = 17;
-    string nmUsuaCobrador = 18;
-    string dtUsuaCobrador = 19;
-    string cdAvaliacao = 20;
-    string dtAvaliacao = 21;
+    double nuSaldo = 13;
+    int32 idUsuaOper = 14;
+    string dtRegistro = 15;
+    int32 idUnnegocio = 16;
+    string deUnNegocio = 17;
+    int32 idUsuaCobrador = 18;
+    string nmUsuaCobrador = 19;
+    string dtUsuaCobrador = 20;
+    string cdAvaliacao = 21;
+    string dtAvaliacao = 22;
 }
 
 message ListResultCasoWithExternalFields {
