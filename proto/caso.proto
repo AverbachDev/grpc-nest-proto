@@ -11,7 +11,7 @@ service CasoService {
     rpc updateCaso (CasoUpdateRequest) returns (ServiceResponseCaso) {}
     rpc removeCaso (IdRequest) returns (ServiceResponseCaso) {}
     rpc listCasoCasoWithExternalFields (ListCriteriaRequestCaso) returns (ServiceResponseListCasoWithExternalFields) {}
-    rpc listCasoCasoRD (ListCriteriaRequestCaso) returns (ServiceResponseListCasoWithExternalFields) {}
+    rpc listCasosRD (ListCriteriaRequestCaso) returns (ServiceResponseListCasoWithExternalFields) {}
 
     rpc listTitulo (ListCriteriaRequestTitulo) returns (ServiceResponseListTitulo) {}
     rpc findOneTitulo (IdRequest) returns (ServiceResponseTitulo) {}
