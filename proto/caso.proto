@@ -100,6 +100,9 @@ message CasoData {
     string createdDate = 35;
     string updatedDate = 36;
     string deletedDate = 37;
+    repeated TituloData titulos = 38;
+    repeated AcordoData acordos = 39;
+    repeated ParcelaData parcelas = 40;
 }
 
 message CasoUpdateRequest{
@@ -263,7 +266,7 @@ message AcordoData {
     string createdDate = 14;
     string updatedDate = 15;
     string deletedDate = 16;
-
+    repeated ParcelaData parcelas = 17;
 }
 
 message AcordoUpdateRequest{
