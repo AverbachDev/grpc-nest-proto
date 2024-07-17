@@ -10,6 +10,7 @@ service CasoService {
     rpc createCaso (CasoData) returns (ServiceResponseCaso) {}
     rpc updateCaso (CasoUpdateRequest) returns (ServiceResponseCaso) {}
     rpc removeCaso (IdRequest) returns (ServiceResponseCaso) {}
+    rpc listCasoCasoWithExternalFields (ListCriteriaRequestCaso) returns (ServiceResponseListCasoWithExternalFields) {}
 
     rpc listTitulo (ListCriteriaRequestTitulo) returns (ServiceResponseListTitulo) {}
     rpc findOneTitulo (IdRequest) returns (ServiceResponseTitulo) {}
@@ -53,9 +54,11 @@ message ListCriteriaRequestCaso {
     int32 idCaso = 1;
     string dtCadastro = 2;
     int32 idStatusCobranca = 3;
-    int32 items = 4;
-    int32 page = 5;
-    map<string, string> order = 6;
+    int32 idCliente = 4;
+    int32 idDevedor = 5;
+    int32 items = 6;
+    int32 page = 7;
+    map<string, string> order = 8;
 }
 
 message CasoData {
@@ -120,6 +123,42 @@ message ServiceResponseListCaso {
 message ListResultCaso {
     repeated CasoData result = 1;
     int32 total = 2;
+}
+
+
+message CasoWithExternalFieldsData {
+    int32 id = 1;
+    int32 idDevedor = 2;
+    string nmDevedor=3;
+    int32 idMoeda = 4;
+    int32 idStatusCobranca = 5;
+    string dtCadastro = 6;
+    bool cdBranda = 7;
+    string deCodDevedor = 9;
+    int32 idCliente = 10;
+    string nmCliente = 11;
+    double nuPrincipal = 12;
+    int32 idUsuaOper = 13;
+    string dtRegistro = 14;
+    int32 idUnnegocio = 15;
+    string deUnNegocio = 16;
+    int32 idUsuaCobrador = 17;
+    string nmUsuaCobrador = 18;
+    string dtUsuaCobrador = 19;
+    string cdAvaliacao = 20;
+    string dtAvaliacao = 21;
+}
+
+message ListResultCasoWithExternalFields {
+    repeated CasoWithExternalFieldsData result = 1;
+    int32 total = 2;
+}
+
+message ServiceResponseListCasoWithExternalFields {
+    int32 status = 1;
+    string message = 2;
+    ListResultCasoWithExternalFields data = 3;
+    string error = 4;
 }
 
 
