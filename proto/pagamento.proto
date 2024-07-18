@@ -29,6 +29,7 @@ service PagamentoService {
     rpc updateTituloPagamento (TituloPagamentoUpdateRequest) returns (ServiceResponseTituloPagamento) {}
     rpc removeTituloPagamento (IdRequest) returns (ServiceResponseTituloPagamento) {}
     rpc findTotalPaymentTituloPagamento (IdRequest) returns (ServiceResponseTotalPaymentTituloPagamento) {}
+    rpc isPaidUpTituloPagamento (IdRequest) returns (ServiceResponseIsPaidUpTituloPagamento) {}
 
     rpc listTituloPagamentoBalancete (ListCriteriaRequestTituloPagamentoBalancete) returns (ServiceResponseListTituloPagamentoBalancete) {}
     rpc findOneTituloPagamentoBalancete (IdRequest) returns (ServiceResponseTituloPagamentoBalancete) {}
@@ -290,6 +291,14 @@ message ServiceResponseTotalPaymentTituloPagamento {
     repeated TituloPagamentoTotalPaymentData data = 3;
     string error = 4;
 }
+
+message ServiceResponseIsPaidUpTituloPagamento {
+    int32 status = 1;
+    string message = 2;
+    bool data = 3;
+    string error = 4;
+}
+
 
 message TituloPagamentoTotalPaymentData {
     int32 idTitulo = 1;

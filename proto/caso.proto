@@ -18,6 +18,7 @@ service CasoService {
     rpc createTitulo (TituloData) returns (ServiceResponseTitulo) {}
     rpc updateTitulo (TituloUpdateRequest) returns (ServiceResponseTitulo) {}
     rpc removeTitulo (IdRequest) returns (ServiceResponseTitulo) {}
+    rpc findBalanceTitulosCaso (IdRequest) returns (ServiceResponseTitulo) {}
 
     rpc listAcordo (ListCriteriaRequestAcordo) returns (ServiceResponseListAcordo) {}
     rpc findOneAcordo (IdRequest) returns (ServiceResponseAcordo) {}
