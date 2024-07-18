@@ -151,8 +151,11 @@ message CasoWithExternalFieldsData {
     int32 idUsuaCobrador = 18;
     string nmUsuaCobrador = 19;
     string dtUsuaCobrador = 20;
-    string cdAvaliacao = 21;
-    string dtAvaliacao = 22;
+    string desStatusCobranca =21;
+    string cdCnpjCpfDevedor = 22;
+    string desMunicipio = 23;
+    string cdAvaliacao = 24;
+    string dtAvaliacao = 25;
 }
 
 message ListResultCasoWithExternalFields {
