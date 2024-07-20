@@ -13,6 +13,7 @@ service ContratoService {
     rpc removeAllContrato (WithoutParams) returns (ServiceResponseContrato) {}
     rpc createManyContrato (ContratoManyData) returns (ServiceResponseContrato) {}
     rpc getHonorariosClienteJudicial (GetHonorariosClienteJudicialRequest) returns (ServiceResponseGetHonorariosClienteJudicial) {}
+    rpc getHonorariosClienteRD (GetHonorariosClienteRDRequest) returns (ServiceResponseGetHonorariosClienteRD) {}
 
     //ContratoPermanencia
     rpc listContratoPermanencia (ListCriteriaRequestContratoPermanencia) returns (ServiceResponseListContratoPermanencia) {}
@@ -315,11 +316,18 @@ message GetHonorariosClienteJudicialData{
     double nuFixoJudicFinal = 2;
 }
 
+message GetHonorariosClienteRDData{
+    double nuFixoReceb = 1;
+}
 
 message GetHonorariosClienteJudicialRequest{
     int32 idCliente = 1;
     optional double totalCausa = 2;
     optional string dtVencimentoMaisAntigo = 3;
+}
+
+message GetHonorariosClienteRDRequest{
+    int32 idCliente = 1;
 }
 
 message ContratoUpdateRequest{
@@ -338,6 +346,13 @@ message ServiceResponseGetHonorariosClienteJudicial {
     int32 status = 1;
     string message = 2;
     repeated GetHonorariosClienteJudicialData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseGetHonorariosClienteRD {
+    int32 status = 1;
+    string message = 2;
+    repeated GetHonorariosClienteRDData data = 3;
     string error = 4;
 }
 
