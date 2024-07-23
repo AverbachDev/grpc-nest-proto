@@ -103,7 +103,8 @@ message createPaymentRdRequest{
     string dtEscrituracao = 3;
     bool cdQuitado = 4;
     bool cdPagtoJuros = 5;
-    repeated TituloPagamentoPaymentData titulos = 6;
+    string nmCliente = 6;
+    repeated TituloPagamentoPaymentData titulos = 7;
 }
 
 
