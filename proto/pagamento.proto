@@ -319,6 +319,8 @@ message TituloPagamentoPaymentData {
     double nuJurosDivididos = 12;
     double nuMultaDividida = 13;
     int32 idCaso = 14;
+    int32 idUsuaOper = 15;
+    string dtRegistro = 16;
 }
 
 
