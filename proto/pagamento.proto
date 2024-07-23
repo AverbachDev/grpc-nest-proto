@@ -99,7 +99,9 @@ message ListResultPagamento {
 
 message createPaymentRdRequest{
     double perHonorario = 1;
-    repeated TituloPagamentoPaymentData titulos = 2;
+    int32 idUsuaOper = 2;
+    string dtEscrituracao = 3;
+    repeated TituloPagamentoPaymentData titulos = 4;
 }
 
 
