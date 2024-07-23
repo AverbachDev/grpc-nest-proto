@@ -10,6 +10,7 @@ service PagamentoService {
     rpc createPagamento (PagamentoData) returns (ServiceResponsePagamento) {}
     rpc updatePagamento (PagamentoUpdateRequest) returns (ServiceResponsePagamento) {}
     rpc removePagamento (IdRequest) returns (ServiceResponsePagamento) {}
+    rpc createPaymentRd (createPaymentRdRequest) returns (ServiceResponsePagamento) {}
 
     rpc listDepositosEfetuados (ListCriteriaRequestDepositosEfetuados) returns (ServiceResponseListDepositosEfetuados) {}
     rpc findOneDepositosEfetuados (IdRequest) returns (ServiceResponseDepositosEfetuados) {}
@@ -96,6 +97,10 @@ message ListResultPagamento {
     int32 total = 2;
 }
 
+message createPaymentRdRequest{
+    double perHonorario = 1;
+    repeated TituloPagamentoPaymentData titulos = 2;
+}
 
 
 
@@ -288,7 +293,7 @@ message ListResultTituloPagamento {
 message ServiceResponseTotalPaymentTituloPagamento {
     int32 status = 1;
     string message = 2;
-    repeated TituloPagamentoTotalPaymentData data = 3;
+    repeated TituloPagamentoPaymentData data = 3;
     string error = 4;
 }
 
@@ -299,8 +304,7 @@ message ServiceResponseIsPaidUpTituloPagamento {
     string error = 4;
 }
 
-
-message TituloPagamentoTotalPaymentData {
+message TituloPagamentoPaymentData {
     int32 idTitulo = 1;
     double nuProtesto = 2;
     double nuMulta = 3;
@@ -314,6 +318,7 @@ message TituloPagamentoTotalPaymentData {
     double nuReajuste = 11;
     double nuJurosDivididos = 12;
     double nuMultaDividida = 13;
+    int32 idCaso = 14;
 }
 
 
