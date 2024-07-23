@@ -101,7 +101,8 @@ message createPaymentRdRequest{
     double perHonorario = 1;
     int32 idUsuaOper = 2;
     string dtEscrituracao = 3;
-    repeated TituloPagamentoPaymentData titulos = 4;
+    bool cdQuitado = 4;
+    repeated TituloPagamentoPaymentData titulos = 5;
 }
 
 
