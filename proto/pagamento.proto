@@ -23,6 +23,7 @@ service PagamentoService {
     rpc createParcelaPagamento (ParcelaPagamentoData) returns (ServiceResponseParcelaPagamento) {}
     rpc updateParcelaPagamento (ParcelaPagamentoUpdateRequest) returns (ServiceResponseParcelaPagamento) {}
     rpc removeParcelaPagamento (IdRequest) returns (ServiceResponseParcelaPagamento) {}
+    rpc isPaidUpParcelaPagamento (IdRequest) returns (ServiceResponseBoolean) {}
 
     rpc listTituloPagamento (ListCriteriaRequestTituloPagamento) returns (ServiceResponseListTituloPagamento) {}
     rpc findOneTituloPagamento (IdRequest) returns (ServiceResponseTituloPagamento) {}
@@ -30,7 +31,7 @@ service PagamentoService {
     rpc updateTituloPagamento (TituloPagamentoUpdateRequest) returns (ServiceResponseTituloPagamento) {}
     rpc removeTituloPagamento (IdRequest) returns (ServiceResponseTituloPagamento) {}
     rpc findTotalPaymentTituloPagamento (IdRequest) returns (ServiceResponseTotalPaymentTituloPagamento) {}
-    rpc isPaidUpTituloPagamento (IdRequest) returns (ServiceResponseIsPaidUpTituloPagamento) {}
+    rpc isPaidUpTituloPagamento (IdRequest) returns (ServiceResponseBoolean) {}
 
     rpc listTituloPagamentoBalancete (ListCriteriaRequestTituloPagamentoBalancete) returns (ServiceResponseListTituloPagamentoBalancete) {}
     rpc findOneTituloPagamentoBalancete (IdRequest) returns (ServiceResponseTituloPagamentoBalancete) {}
@@ -302,7 +303,7 @@ message ServiceResponseTotalPaymentTituloPagamento {
     string error = 4;
 }
 
-message ServiceResponseIsPaidUpTituloPagamento {
+message ServiceResponseBoolean {
     int32 status = 1;
     string message = 2;
     bool data = 3;
