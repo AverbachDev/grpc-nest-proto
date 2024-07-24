@@ -31,6 +31,8 @@ service CasoService {
     rpc createParcela (ParcelaData) returns (ServiceResponseParcela) {}
     rpc updateParcela (ParcelaUpdateRequest) returns (ServiceResponseParcela) {}
     rpc removeParcela (IdRequest) returns (ServiceResponseParcela) {}
+    rpc deleteUnPaidParcela (IdRequest) returns (ServiceResponseParcela) {}
+    
 
     rpc listCasoCarta (ListCriteriaRequestCasoCarta) returns (ServiceResponseListCasoCarta) {}
     rpc findOneCasoCarta (IdRequest) returns (ServiceResponseCasoCarta) {}
