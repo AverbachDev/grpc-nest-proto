@@ -25,6 +25,7 @@ service CasoService {
     rpc createAcordo (AcordoData) returns (ServiceResponseAcordo) {}
     rpc updateAcordo (AcordoUpdateRequest) returns (ServiceResponseAcordo) {}
     rpc removeAcordo (IdRequest) returns (ServiceResponseAcordo) {}
+    rpc setAcordoRd (AcordoData) returns (ServiceResponseAcordo) {}
 
     rpc listParcela (ListCriteriaRequestParcela) returns (ServiceResponseListParcela) {}
     rpc findOneParcela (IdRequest) returns (ServiceResponseParcela) {}
@@ -275,6 +276,7 @@ message AcordoData {
     string deletedDate = 16;
     repeated ParcelaData parcelas = 17;
 }
+
 
 message AcordoUpdateRequest{
     int32 id = 1;
