@@ -106,7 +106,7 @@ message createPaymentRdRequest{
     bool cdPagtoJuros = 5;
     string nmCliente = 6;
     int32 idCaso = 7;
-    repeated TituloPagamentoPaymentData titulos = 8;
+    repeated TituloPaymentRdData titulos = 8;
 }
 
 
@@ -328,7 +328,27 @@ message TituloPagamentoPaymentData {
     int32 idCaso = 14;
     int32 idUsuaOper = 15;
     string dtRegistro = 16;
+}
+
+message TituloPaymentRdData {
+    int32 idTitulo = 1;
+    double nuProtesto = 2;
+    double nuMulta = 3;
+    double nuJuros = 4;
+    double nuHonorCliente = 5;
+    double nuPrincipal = 6;
+    double nuPromoter = 7;
+    double nuHonorDevedor = 8;
+    string cdQuitado = 9;
+    double nuJurosVincendo = 10;
+    double nuReajuste = 11;
+    double nuJurosDivididos = 12;
+    double nuMultaDividida = 13;
+    int32 idCaso = 14;
+    int32 idUsuaOper = 15;
+    string dtRegistro = 16;
     optional bool selected = 17;
+    optional bool cdPagtoJuros = 18;
 }
 
 
