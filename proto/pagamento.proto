@@ -329,6 +329,7 @@ message TituloPagamentoPaymentData {
     int32 idUsuaOper = 15;
     string dtRegistro = 16;
     optional bool selected = 17;
+    optional bool settleBalance = 18;
 }
 
 
