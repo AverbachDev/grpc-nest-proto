@@ -345,10 +345,12 @@ message TituloPaymentRdData {
     double nuJurosDivididos = 12;
     double nuMultaDividida = 13;
     int32 idCaso = 14;
-    int32 idUsuaOper = 15;
-    string dtRegistro = 16;
-    optional bool selected = 17;
-    optional bool cdPagtoJuros = 18;
+    string deDoc = 15;
+    string dtVencimento = 16;
+    int32 idUsuaOper = 17;
+    string dtRegistro = 18;
+    optional bool selected = 19;
+    optional bool cdPagtoJuros = 20;
 }
 
 
