@@ -75,7 +75,7 @@ message ListCriteriaRequestCaso {
 
 message ListCriteriaRequestCasoWithExternalFields {
     int32 idCaso = 1;
-    int32 idStatusCobranca = 2;
+    repeated int32 idStatusCobranca=2;
     int32 idCliente = 3;
     int32 idDevedor = 4;
     string cdCnpjCpfDevedor = 5;
@@ -83,9 +83,11 @@ message ListCriteriaRequestCasoWithExternalFields {
     string dtCadastroFim = 7;
     string dtDistribuicaoInicio = 8;
     string dtDistribuicaoFim = 9;
-    int32 items = 10;
-    int32 page = 11;
-    map<string, string> order = 12;
+    int32 idUsuaCobrador = 10;
+    bool onlyCasoWithidUsuaCobrador = 11;
+    int32 items = 12;
+    int32 page = 13;
+    map<string, string> order = 14;
 }
 
 message CasoData {
