@@ -10,7 +10,7 @@ service CasoService {
     rpc createCaso (CasoData) returns (ServiceResponseCaso) {}
     rpc updateCaso (CasoUpdateRequest) returns (ServiceResponseCaso) {}
     rpc removeCaso (IdRequest) returns (ServiceResponseCaso) {}
-    rpc listCasoWithExternalFields (ListCriteriaRequestCaso) returns (ServiceResponseListCasoWithExternalFields) {}
+    rpc listCasoWithExternalFields (ListCriteriaRequestCasoWithExternalFields) returns (ServiceResponseListCasoWithExternalFields) {}
     rpc listCasosRD (ListCriteriaRequestCaso) returns (ServiceResponseListCasoWithExternalFields) {}
 
     rpc listTitulo (ListCriteriaRequestTitulo) returns (ServiceResponseListTitulo) {}
@@ -71,6 +71,21 @@ message ListCriteriaRequestCaso {
     int32 items = 6;
     int32 page = 7;
     map<string, string> order = 8;
+}
+
+message ListCriteriaRequestCasoWithExternalFields {
+    int32 idCaso = 1;
+    int32 idStatusCobranca = 2;
+    int32 idCliente = 3;
+    int32 idDevedor = 4;
+    string cdCnpjCpfDevedor = 5;
+    string dtCadastroInicio = 6;
+    string dtCadastroFim = 7;
+    string dtDistribuicaoInicio = 8;
+    string dtDistribuicaoFim = 9;
+    int32 items = 10;
+    int32 page = 11;
+    map<string, string> order = 12;
 }
 
 message CasoData {
