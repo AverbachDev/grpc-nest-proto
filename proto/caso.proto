@@ -12,6 +12,7 @@ service CasoService {
     rpc removeCaso (IdRequest) returns (ServiceResponseCaso) {}
     rpc listCasoWithExternalFields (ListCriteriaRequestCasoWithExternalFields) returns (ServiceResponseListCasoWithExternalFields) {}
     rpc listCasosRD (ListCriteriaRequestCaso) returns (ServiceResponseListCasoWithExternalFields) {}
+    rpc getTotalCasosAgendadosByUser (IdRequest) returns (ServiceResponseInteger) {}
 
     rpc listTitulo (ListCriteriaRequestTitulo) returns (ServiceResponseListTitulo) {}
     rpc findOneTitulo (IdRequest) returns (ServiceResponseTitulo) {}
@@ -57,6 +58,13 @@ message ServiceResponseBoolean {
     int32 status = 1;
     string message = 2;
     bool data = 3;
+    string error = 4;
+}
+
+message ServiceResponseInteger {
+    int32 status = 1;
+    string message = 2;
+    int32 data = 3;
     string error = 4;
 }
 
