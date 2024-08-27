@@ -76,9 +76,10 @@ message ListCriteriaRequestCaso {
     int32 idStatusCobranca = 3;
     int32 idCliente = 4;
     int32 idDevedor = 5;
-    int32 items = 6;
-    int32 page = 7;
-    map<string, string> order = 8;
+    int32 idUsuaCobrador = 6;
+    int32 items = 7;
+    int32 page = 8;
+    map<string, string> order = 9;
 }
 
 message ListCriteriaRequestCasoWithExternalFields {
