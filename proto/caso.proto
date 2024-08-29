@@ -192,6 +192,7 @@ message CasoWithExternalFieldsData {
     string desMunicipio = 23;
     string cdAvaliacao = 24;
     string dtAvaliacao = 25;
+    string dtAgendCont = 26;
 }
 
 message ListResultCasoWithExternalFields {
