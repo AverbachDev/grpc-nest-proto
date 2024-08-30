@@ -13,6 +13,7 @@ service CasoService {
     rpc listCasoWithExternalFields (ListCriteriaRequestCasoWithExternalFields) returns (ServiceResponseListCasoWithExternalFields) {}
     rpc listCasosRD (ListCriteriaRequestCaso) returns (ServiceResponseListCasoWithExternalFields) {}
     rpc getTotalCasosAgendadosByUser (IdRequest) returns (ServiceResponseInteger) {}
+    rpc applyNewCobrador (ApplyNewCobradorRequest) returns (ServiceResponseCaso) {}
 
     rpc listTitulo (ListCriteriaRequestTitulo) returns (ServiceResponseListTitulo) {}
     rpc findOneTitulo (IdRequest) returns (ServiceResponseTitulo) {}
@@ -69,6 +70,13 @@ message ServiceResponseInteger {
 }
 
 //CASO
+
+message ApplyNewCobradorRequest {
+    CasoData caso = 1;
+    string nmUsuarioLogin = 2;
+    int32 idUsuaCobrador = 3;
+    int32 idUsuaOper = 4;
+}
 
 message ListCriteriaRequestCaso {
     int32 idCaso = 1;
