@@ -22,12 +22,14 @@ service DadosBasicosService {
     rpc createStatusCobranca (StatusCobrancaData) returns (ServiceResponseStatusCobranca) {}
     rpc updateStatusCobranca (StatusCobrancaUpdateRequest) returns (ServiceResponseStatusCobranca) {}
     rpc removeStatusCobranca (IdRequest) returns (ServiceResponseStatusCobranca) {}
+    rpc removeAllStatusCobranca (WithoutParams) returns (ServiceResponseStatusCobranca) {}
     
     rpc listMotivoDevolucao (ListCriteriaRequestMotivoDevolucao) returns (ServiceResponseListMotivoDevolucao) {}
     rpc findOneMotivoDevolucao (IdRequest) returns (ServiceResponseMotivoDevolucao) {}
     rpc createMotivoDevolucao (MotivoDevolucaoData) returns (ServiceResponseMotivoDevolucao) {}
     rpc updateMotivoDevolucao (MotivoDevolucaoUpdateRequest) returns (ServiceResponseMotivoDevolucao) {}
     rpc removeMotivoDevolucao (IdRequest) returns (ServiceResponseMotivoDevolucao) {}
+    rpc removeAllMotivoDevolucao (WithoutParams) returns (ServiceResponseMotivoDevolucao) {}
 
     rpc listMotivoInadimplencia (ListCriteriaRequestMotivoInadimplencia) returns (ServiceResponseListMotivoInadimplencia) {}
     rpc findOneMotivoInadimplencia (IdRequest) returns (ServiceResponseMotivoInadimplencia) {}
@@ -52,6 +54,7 @@ service DadosBasicosService {
     rpc createAgenciaBradesco (AgenciaBradescoData) returns (ServiceResponseAgenciaBradesco) {}
     rpc updateAgenciaBradesco (AgenciaBradescoUpdateRequest) returns (ServiceResponseAgenciaBradesco) {}
     rpc removeAgenciaBradesco (IdRequest) returns (ServiceResponseAgenciaBradesco) {}
+    rpc removeAllAgenciaBradesco (WithoutParams) returns (ServiceResponseAgenciaBradesco) {}
     
     rpc listNaturezaCusta (ListCriteriaRequestNaturezaCusta) returns (ServiceResponseListNaturezaCusta) {}
     rpc findOneNaturezaCusta (IdRequest) returns (ServiceResponseNaturezaCusta) {}
