@@ -23,6 +23,7 @@ service DadosBasicosService {
     rpc updateStatusCobranca (StatusCobrancaUpdateRequest) returns (ServiceResponseStatusCobranca) {}
     rpc removeStatusCobranca (IdRequest) returns (ServiceResponseStatusCobranca) {}
     rpc removeAllStatusCobranca (WithoutParams) returns (ServiceResponseStatusCobranca) {}
+    rpc createManyStatusCobranca (StatusCobrancaManyData) returns (ServiceResponseStatusCobranca) {}
     
     rpc listMotivoDevolucao (ListCriteriaRequestMotivoDevolucao) returns (ServiceResponseListMotivoDevolucao) {}
     rpc findOneMotivoDevolucao (IdRequest) returns (ServiceResponseMotivoDevolucao) {}
@@ -30,6 +31,7 @@ service DadosBasicosService {
     rpc updateMotivoDevolucao (MotivoDevolucaoUpdateRequest) returns (ServiceResponseMotivoDevolucao) {}
     rpc removeMotivoDevolucao (IdRequest) returns (ServiceResponseMotivoDevolucao) {}
     rpc removeAllMotivoDevolucao (WithoutParams) returns (ServiceResponseMotivoDevolucao) {}
+    rpc createManyMotivoDevolucao (MotivoDevolucaoManyData) returns (ServiceResponseMotivoDevolucao) {}
 
     rpc listMotivoInadimplencia (ListCriteriaRequestMotivoInadimplencia) returns (ServiceResponseListMotivoInadimplencia) {}
     rpc findOneMotivoInadimplencia (IdRequest) returns (ServiceResponseMotivoInadimplencia) {}
@@ -55,6 +57,7 @@ service DadosBasicosService {
     rpc updateAgenciaBradesco (AgenciaBradescoUpdateRequest) returns (ServiceResponseAgenciaBradesco) {}
     rpc removeAgenciaBradesco (IdRequest) returns (ServiceResponseAgenciaBradesco) {}
     rpc removeAllAgenciaBradesco (WithoutParams) returns (ServiceResponseAgenciaBradesco) {}
+    rpc createManyAgenciaBradesco (AgenciaBradescoManyData) returns (ServiceResponseAgenciaBradesco) {}
     
     rpc listNaturezaCusta (ListCriteriaRequestNaturezaCusta) returns (ServiceResponseListNaturezaCusta) {}
     rpc findOneNaturezaCusta (IdRequest) returns (ServiceResponseNaturezaCusta) {}
@@ -237,6 +240,10 @@ message StatusCobrancaData {
     string deletedDate = 7;
 }
 
+message StatusCobrancaManyData {
+    repeated StatusCobrancaData data = 1;
+}
+
 message StatusCobrancaUpdateRequest {
     int32 idStatusCobranca = 1;
     StatusCobrancaData statusCobranca = 2;
@@ -268,6 +275,11 @@ message ListCriteriaRequestMotivoDevolucao {
     int32 items = 3;
     int32 page = 4;
     map<string, string> order = 5;
+}
+
+
+message MotivoDevolucaoManyData {
+    repeated MotivoDevolucaoData data = 1;
 }
 
 message MotivoDevolucaoData {
@@ -448,6 +460,10 @@ message ListCriteriaRequestAgenciaBradesco {
     int32 items = 6;
     int32 page = 7;
     map<string, string> order = 8;
+}
+
+message AgenciaBradescoManyData {
+    repeated AgenciaBradescoData data = 1;
 }
 
 message AgenciaBradescoData {
