@@ -201,6 +201,22 @@ message CasoWithExternalFieldsData {
     string cdAvaliacao = 24;
     string dtAvaliacao = 25;
     string dtAgendCont = 26;
+    int32 idBorderaux = 27;
+    string deVara = 28;
+    string deProcesso = 29;
+    string deAcao = 30;
+    string nmEscrevente = 31;
+    int32 nuDias = 32;
+    string cdImportacao = 33;
+    string deMotCancel = 34;
+    int32 idMotivoDevolucao = 35;
+    bool cdLiberado = 36;
+    int32 idPossibilidadeExito = 37;
+    bool cdPesquisa = 38;
+    string dtPesquisa = 39;
+    bool cdDeslocalizado = 40;
+    int32 cdTituloInseridoComPagamento = 41;
+    int32 idMotivoInadimplencia = 42;
 }
 
 message ListResultCasoWithExternalFields {
