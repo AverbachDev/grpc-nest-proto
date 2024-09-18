@@ -121,6 +121,14 @@ service DadosBasicosService {
     rpc updatePossibilidadeExitoCaso (PossibilidadeExitoCasoUpdateRequest) returns (ServiceResponsePossibilidadeExitoCaso) {}
     rpc removePossibilidadeExitoCaso (IdRequest) returns (ServiceResponsePossibilidadeExitoCaso) {}
 
+    rpc listCarta (ListCriteriaRequestCarta) returns (ServiceResponseListCarta) {}
+    rpc findOneCarta (IdRequest) returns (ServiceResponseCarta) {}
+    rpc createCarta (CartaData) returns (ServiceResponseCarta) {}
+    rpc updateCarta (CartaUpdateRequest) returns (ServiceResponseCarta) {}
+    rpc removeCarta (IdRequest) returns (ServiceResponseCarta) {}
+    rpc removeAllCarta (WithoutParams) returns (ServiceResponseCarta) {}
+    rpc createManyCarta (CartaManyData) returns (ServiceResponseCarta) {}
+
 }
 
   message IdRequest{
@@ -983,3 +991,57 @@ message ListResultPossibilidadeExitoCaso {
     int32 total = 2;
 }
 
+
+//Carta
+message ListCriteriaRequestCarta {
+    string deCarta = 1;    
+    string deModelo = 2;
+    bool cdAtivo = 3;
+    int32 items = 4;
+    int32 page = 5;
+    map<string, string> order = 6;
+}
+
+message CartaManyData {
+    repeated CartaData data = 1;
+}
+
+message CartaData {
+    int32 idCarta = 1;
+    string deCarta = 2;
+    string deModelo = 3;
+    string cdCarta = 4;
+    int32 nuDias = 5;
+    int32 nuOrdem = 6;
+    bool cdMsgHistSite = 7;
+    int32 idUsuaOper = 8;
+    string dtRegistro = 9;
+    bool cdAtivo = 10;
+    string createdDate = 11;
+    string updatedDate = 12;
+    string deletedDate = 13;
+}
+
+message CartaUpdateRequest {
+    int32 idCarta = 1;
+    CartaData carta = 2;
+}
+
+message ServiceResponseCarta {
+    int32 status = 1;
+    string message = 2;
+    repeated CartaData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListCarta {
+    int32 status = 1;
+    string message = 2;
+    ListResultCarta data = 3;
+    string error = 4;
+}
+
+message ListResultCarta {
+    repeated CartaData result = 1;
+    int32 total = 2;
+}
