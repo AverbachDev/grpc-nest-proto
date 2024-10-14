@@ -305,6 +305,7 @@ message ContratoData {
     bool cdDesabilitaAcordoIntegral = 93;
     bool cdDesabilitaAcordoParcelado = 94;
     bool cdDesabilitaAcordoPorConta = 95;
+    bool cdClientePrioritario = 96;
 
 }
 
