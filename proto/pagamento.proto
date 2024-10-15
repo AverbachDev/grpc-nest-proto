@@ -38,6 +38,18 @@ service PagamentoService {
     rpc createTituloPagamentoBalancete (TituloPagamentoBalanceteData) returns (ServiceResponseTituloPagamentoBalancete) {}
     rpc updateTituloPagamentoBalancete (TituloPagamentoBalanceteUpdateRequest) returns (ServiceResponseTituloPagamentoBalancete) {}
     rpc removeTituloPagamentoBalancete (IdRequest) returns (ServiceResponseTituloPagamentoBalancete) {}
+
+    rpc listPrestContas (ListCriteriaRequestPrestContas) returns (ServiceResponseListPrestContas) {}
+    rpc findOnePrestContas (IdRequest) returns (ServiceResponsePrestContas) {}
+    rpc createPrestContas (PrestContasData) returns (ServiceResponsePrestContas) {}
+    rpc updatePrestContas (PrestContasUpdateRequest) returns (ServiceResponsePrestContas) {}
+    rpc removePrestContas (IdRequest) returns (ServiceResponsePrestContas) {}
+
+    rpc listPrestContaSeqOriginal (ListCriteriaRequestPrestContaSeqOriginal) returns (ServiceResponseListPrestContaSeqOriginal) {}
+    rpc findOnePrestContaSeqOriginal (IdRequest) returns (ServiceResponsePrestContaSeqOriginal) {}
+    rpc createPrestContaSeqOriginal (PrestContaSeqOriginalData) returns (ServiceResponsePrestContaSeqOriginal) {}
+    rpc updatePrestContaSeqOriginal (PrestContaSeqOriginalUpdateRequest) returns (ServiceResponsePrestContaSeqOriginal) {}
+    rpc removePrestContaSeqOriginal (IdRequest) returns (ServiceResponsePrestContaSeqOriginal) {}
 }
 
 
@@ -403,3 +415,107 @@ message ListResultTituloPagamentoBalancete {
     int32 total = 2;
 }
 
+
+//PRESTCONTAS
+
+message ListCriteriaRequestPrestContas {
+    int32 idCliente = 1;
+    string dtCadastro = 2;
+    string dtEmailPrestconta = 3;
+    int32 cdTipoEscrituracao = 4;
+    string dtRepasse = 5;
+    int32 nuSequencial = 6;
+    string cdCnpjCpf = 7;
+    int32 items = 8;
+    int32 page = 9;
+    map<string, string> order = 10;
+}
+
+message PrestContasData {
+    int32 id = 1;
+    int32 idCliente = 2;
+    string dtCadastro = 3;
+    string deArquivoResumida = 4;
+    string deArquivoCompleta = 5;
+    string cdTipo = 6;
+    bool cdCategoria = 7;
+    string deArquivoComprovante = 8;
+    int32 nuSequencial = 9;
+    string dtRepasse = 10;
+    string deNotaFiscal = 11;
+    string cdRepasse = 12;
+    bool cdEnviada = 13;
+    int32 cdTipoEscrituracao = 14;
+    string dtEmailPrestconta = 15;
+    int32 idUsuaOper = 16;
+    string dtRegistro = 17;
+    string createdDate = 18;
+    string updatedDate = 19;
+    string deletedDate = 20;
+}
+
+message PrestContasUpdateRequest{
+    int32 id = 1;
+    PrestContasData depositosEfetuados = 2;
+}
+
+message ServiceResponsePrestContas {
+    int32 status = 1;
+    string message = 2;
+    repeated PrestContasData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListPrestContas {
+    int32 status = 1;
+    string message = 2;
+    ListResultPrestContas data = 3;
+    string error = 4;
+}
+
+message ListResultPrestContas {
+    repeated PrestContasData result = 1;
+    int32 total = 2;
+}
+
+//PRESTCONTASEQORIGINAL
+
+message ListCriteriaRequestPrestContaSeqOriginal {
+    int32 idPrestconta = 1;
+    string dtCadastro = 2;
+    int32 items = 3;
+    int32 page = 4;
+    map<string, string> order = 5;
+}
+
+message PrestContaSeqOriginalData {
+    int32 id = 1;
+    int32 nuSequencial = 2;
+    string dtCadastro = 3;
+    int32 idUsuaOper = 4;
+    string dtRegistro = 5;
+}
+
+message PrestContaSeqOriginalUpdateRequest{
+    int32 id = 1;
+    PrestContaSeqOriginalData depositosEfetuados = 2;
+}
+
+message ServiceResponsePrestContaSeqOriginal {
+    int32 status = 1;
+    string message = 2;
+    repeated PrestContaSeqOriginalData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListPrestContaSeqOriginal {
+    int32 status = 1;
+    string message = 2;
+    ListResultPrestContaSeqOriginal data = 3;
+    string error = 4;
+}
+
+message ListResultPrestContaSeqOriginal {
+    repeated PrestContaSeqOriginalData result = 1;
+    int32 total = 2;
+}
