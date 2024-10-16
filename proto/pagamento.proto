@@ -456,7 +456,7 @@ message PrestContasData {
 
 message PrestContasUpdateRequest{
     int32 id = 1;
-    PrestContasData depositosEfetuados = 2;
+    PrestContasData prestContas = 2;
 }
 
 message ServiceResponsePrestContas {
@@ -498,7 +498,7 @@ message PrestContaSeqOriginalData {
 
 message PrestContaSeqOriginalUpdateRequest{
     int32 id = 1;
-    PrestContaSeqOriginalData depositosEfetuados = 2;
+    PrestContaSeqOriginalData prestContaSeqOriginal = 2;
 }
 
 message ServiceResponsePrestContaSeqOriginal {
