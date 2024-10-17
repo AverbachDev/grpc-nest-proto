@@ -428,9 +428,10 @@ message ListCriteriaRequestPrestContas {
     int32 nuSequencial = 6;
     string cdCnpjCpf = 7;
     repeated int32 idPrestContas = 8;
-    int32 items = 9;
-    int32 page = 10;
-    map<string, string> order = 11;
+    string createdDate = 9;
+    int32 items = 10;
+    int32 page = 11;
+    map<string, string> order = 12;
 }
 
 message PrestContasData {
