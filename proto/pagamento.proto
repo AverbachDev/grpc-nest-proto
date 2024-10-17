@@ -44,6 +44,7 @@ service PagamentoService {
     rpc createPrestContas (PrestContasData) returns (ServiceResponsePrestContas) {}
     rpc updatePrestContas (PrestContasUpdateRequest) returns (ServiceResponsePrestContas) {}
     rpc removePrestContas (IdRequest) returns (ServiceResponsePrestContas) {}
+    rpc listPrestContasProrrogadas (ListCriteriaRequestPrestContas) returns (ServiceResponseListPrestContas) {}
 
     rpc listPrestContaSeqOriginal (ListCriteriaRequestPrestContaSeqOriginal) returns (ServiceResponseListPrestContaSeqOriginal) {}
     rpc findOnePrestContaSeqOriginal (IdRequest) returns (ServiceResponsePrestContaSeqOriginal) {}
