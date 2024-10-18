@@ -44,7 +44,7 @@ service PagamentoService {
     rpc createPrestContas (PrestContasData) returns (ServiceResponsePrestContas) {}
     rpc updatePrestContas (PrestContasUpdateRequest) returns (ServiceResponsePrestContas) {}
     rpc removePrestContas (IdRequest) returns (ServiceResponsePrestContas) {}
-    rpc listPrestContasProrrogadas (ListCriteriaRequestPrestContas) returns (ServiceResponseListPrestContas) {}
+    rpc listPrestContasProrrogadas (ListCriteriaRequestPrestContasWithExternalFields) returns (ServiceResponseListPrestContasWithExternalFields) {}
 
     rpc listPrestContaSeqOriginal (ListCriteriaRequestPrestContaSeqOriginal) returns (ServiceResponseListPrestContaSeqOriginal) {}
     rpc findOnePrestContaSeqOriginal (IdRequest) returns (ServiceResponsePrestContaSeqOriginal) {}
@@ -419,6 +419,22 @@ message ListResultTituloPagamentoBalancete {
 
 //PRESTCONTAS
 
+message ListCriteriaRequestPrestContasWithExternalFields {
+    int32 idCliente = 1;
+    string dtCadastro = 2;
+    string dtEmailPrestconta = 3;
+    int32 cdTipoEscrituracao = 4;
+    string dtRepasse = 5;
+    int32 nuSequencial = 6;
+    string cdCnpjCpf = 7;
+    repeated int32 idPrestContas = 8;
+    string createdDate = 9;
+    bool onlyClientePrioritario = 10;
+    int32 items = 11;
+    int32 page = 12;
+    map<string, string> order = 13;
+}
+
 message ListCriteriaRequestPrestContas {
     int32 idCliente = 1;
     string dtCadastro = 2;
@@ -457,6 +473,31 @@ message PrestContasData {
     string deletedDate = 20;
 }
 
+message PrestContasWithExternalFieldsData {
+    int32 id = 1;
+    int32 idCliente = 2;
+    string dtCadastro = 3;
+    string deArquivoResumida = 4;
+    string deArquivoCompleta = 5;
+    string cdTipo = 6;
+    bool cdCategoria = 7;
+    string deArquivoComprovante = 8;
+    int32 nuSequencial = 9;
+    string dtRepasse = 10;
+    string deNotaFiscal = 11;
+    string cdRepasse = 12;
+    bool cdEnviada = 13;
+    int32 cdTipoEscrituracao = 14;
+    string dtEmailPrestconta = 15;
+    int32 idUsuaOper = 16;
+    string dtRegistro = 17;
+    string createdDate = 18;
+    string updatedDate = 19;
+    string deletedDate = 20;
+    string nmCliente = 21;
+    bool cdClientePrioritario = 22;
+}
+
 message PrestContasUpdateRequest{
     int32 id = 1;
     PrestContasData prestContas = 2;
@@ -476,8 +517,20 @@ message ServiceResponseListPrestContas {
     string error = 4;
 }
 
+message ServiceResponseListPrestContasWithExternalFields {
+    int32 status = 1;
+    string message = 2;
+    ListResultPrestContasWithExternalFields data = 3;
+    string error = 4;
+}
+
 message ListResultPrestContas {
     repeated PrestContasData result = 1;
+    int32 total = 2;
+}
+
+message ListResultPrestContasWithExternalFields {
+    repeated PrestContasWithExternalFieldsData result = 1;
     int32 total = 2;
 }
 
