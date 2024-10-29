@@ -191,6 +191,8 @@ message RemessaData {
     string updatedDate = 18;
     string deletedDate = 19;
     string dtVencimento = 20;
+    string nmDevedor = 21;
+    string deDoc = 22;
 }
 
 message RemessaManyData {
@@ -264,6 +266,8 @@ message RepasseData {
     string deletedDate = 26;  
     string dtCadastro = 27;
     string dtVencimento = 28;
+    string nmDevedor = 29;
+    string deDoc = 30;   
 }
 
 message RepasseManyData {
@@ -331,6 +335,8 @@ message RDData {
     string deletedDate = 22;    
     string dtCadastro = 23;
     string dtVencimento = 24;
+    string nmDevedor = 25;
+    string deDoc = 26;       
 }
 
 message RDManyData {
@@ -412,6 +418,8 @@ message DevolucaoData {
     string deletedDate = 33;
     string dtCadastro = 34;
     string dtVencimento = 35;
+    string nmDevedor = 36;
+    string deDoc = 37;   
 }
 
 message DevolucaoManyData {
