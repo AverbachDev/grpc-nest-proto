@@ -131,6 +131,7 @@ message ListResultExtratoCarteira {
     repeated DevolucaoPeriodoData devolucao = 5;
     string nmExcelFile = 6;
     double totalCarteira = 7;
+    string nmExcelFileDetails = 8;
 }
 
 message ListResultExtratoCarteiraEssilor {
