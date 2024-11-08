@@ -45,6 +45,7 @@ service PagamentoService {
     rpc updatePrestContas (PrestContasUpdateRequest) returns (ServiceResponsePrestContas) {}
     rpc removePrestContas (IdRequest) returns (ServiceResponsePrestContas) {}
     rpc listPrestContasProrrogadas (ListCriteriaRequestPrestContasWithExternalFields) returns (ServiceResponseListPrestContasWithExternalFields) {}
+    rpc updatePrestContasRepasse (PrestContasUpdateRepasseRequest) returns (ServiceResponsePrestContas) {}
 
     rpc listPrestContaSeqOriginal (ListCriteriaRequestPrestContaSeqOriginal) returns (ServiceResponseListPrestContaSeqOriginal) {}
     rpc findOnePrestContaSeqOriginal (IdRequest) returns (ServiceResponsePrestContaSeqOriginal) {}
@@ -501,6 +502,11 @@ message PrestContasWithExternalFieldsData {
 message PrestContasUpdateRequest{
     int32 id = 1;
     PrestContasData prestContas = 2;
+}
+
+message PrestContasUpdateRepasseRequest{
+    int32 idCaso = 1;
+    string dtEscrituracao = 2;
 }
 
 message ServiceResponsePrestContas {
