@@ -45,7 +45,7 @@ service PagamentoService {
     rpc updatePrestContas (PrestContasUpdateRequest) returns (ServiceResponsePrestContas) {}
     rpc removePrestContas (IdRequest) returns (ServiceResponsePrestContas) {}
     rpc listPrestContasProrrogadas (ListCriteriaRequestPrestContasWithExternalFields) returns (ServiceResponseListPrestContasWithExternalFields) {}
-    rpc updatePrestContasRepasse (PrestContasUpdateRepasseRequest) returns (ServiceResponsePrestContas) {}
+    rpc updatePrestContasRepasse (PrestContasUpdateRepasseRequest) returns (ServiceResponsePrestContasWithExternalFields) {}
 
     rpc listPrestContaSeqOriginal (ListCriteriaRequestPrestContaSeqOriginal) returns (ServiceResponseListPrestContaSeqOriginal) {}
     rpc findOnePrestContaSeqOriginal (IdRequest) returns (ServiceResponsePrestContaSeqOriginal) {}
@@ -516,6 +516,14 @@ message ServiceResponsePrestContas {
     repeated PrestContasData data = 3;
     string error = 4;
 }
+
+message ServiceResponsePrestContasWithExternalFields {
+    int32 status = 1;
+    string message = 2;
+    repeated PrestContasWithExternalFieldsData data = 3;
+    string error = 4;
+}
+
 
 message ServiceResponseListPrestContas {
     int32 status = 1;
