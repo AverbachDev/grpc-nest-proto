@@ -246,9 +246,10 @@ message ListCriteriaRequestTituloPagamento {
     int32 idPagto = 2;
     int32 idTitulo = 3;
     int32 idPrestconta = 4;
-    int32 items = 5;
-    int32 page = 6;
-    map<string, string> order = 7;
+    string createdDate = 5;
+    int32 items = 6;
+    int32 page = 7;
+    map<string, string> order = 8;
 }
 
 message TituloPagamentoData {
