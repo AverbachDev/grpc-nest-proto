@@ -498,6 +498,7 @@ message PrestContasWithExternalFieldsData {
     string deletedDate = 20;
     string nmCliente = 21;
     bool cdClientePrioritario = 22;
+    bool cdEmailPrestconta = 23;
 }
 
 message PrestContasUpdateRequest{
