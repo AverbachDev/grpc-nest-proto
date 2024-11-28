@@ -468,11 +468,12 @@ message PrestContasData {
     bool cdEnviada = 13;
     int32 cdTipoEscrituracao = 14;
     string dtEmailPrestconta = 15;
-    int32 idUsuaOper = 16;
-    string dtRegistro = 17;
-    string createdDate = 18;
-    string updatedDate = 19;
-    string deletedDate = 20;
+    bool cdEmailPrestcontaAntec = 16;
+    int32 idUsuaOper = 17;
+    string dtRegistro = 18;
+    string createdDate = 19;
+    string updatedDate = 20;
+    string deletedDate = 21;
 }
 
 message PrestContasWithExternalFieldsData {
@@ -492,14 +493,15 @@ message PrestContasWithExternalFieldsData {
     int32 cdTipoEscrituracao = 14;
     string dtEmailPrestconta = 15;
     int32 idUsuaOper = 16;
-    string dtRegistro = 17;
-    string createdDate = 18;
-    string updatedDate = 19;
-    string deletedDate = 20;
-    string nmCliente = 21;
-    bool cdClientePrioritario = 22;
-    bool cdEmailPrestconta = 23;
-    int32 nuSequencialOriginal = 24;
+    bool cdEmailPrestcontaAntec = 17;
+    string dtRegistro = 18;
+    string createdDate = 19;
+    string updatedDate = 20;
+    string deletedDate = 21;
+    string nmCliente = 22;
+    bool cdClientePrioritario = 23;
+    bool cdEmailPrestconta = 24;
+    int32 nuSequencialOriginal = 25;
 }
 
 message PrestContasUpdateRequest{
