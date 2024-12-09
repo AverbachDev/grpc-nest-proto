@@ -142,15 +142,16 @@ message ListCriteriaRequestItemMesConta {
 }
 
 message ItemMesContaData {
-    int32 idFontePagamento = 1;
-    int32 idMesConta = 2;
-    int32 nuDia = 3;
-    string deItemMesConta = 4;
-    int32 idUsuaOper = 5;
-    string dtRegistro = 6;
-    string createdDate = 7;
-    string updatedDate = 8;
-    string deletedDate = 9;
+    int32 id = 1;
+    int32 idFontePagamento = 2;
+    int32 idMesConta = 3;
+    int32 nuDia = 4;
+    string deItemMesConta = 5;
+    int32 idUsuaOper = 6;
+    string dtRegistro = 7;
+    string createdDate = 8;
+    string updatedDate = 9;
+    string deletedDate = 10;
 }
 
 message ItemMesContaUpdateRequest{
