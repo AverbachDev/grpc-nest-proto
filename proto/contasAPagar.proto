@@ -30,7 +30,7 @@ message ListCriteriaRequestFontePagamento {
 message FontePagamentoData {
     int32 id = 1;
     string deFontePagamento = 2;
-    double deFontePagamentoResumido = 3;
+    string deFontePagamentoResumido = 3;
     int32 idUsuaOper = 4;
     string dtRegistro = 5;
     string createdDate = 6;
