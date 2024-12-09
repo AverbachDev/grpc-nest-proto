@@ -204,7 +204,7 @@ message DataPagamentoItemData {
 
 message DataPagamentoItemUpdateRequest{
     int32 id = 1;
-    DataPagamentoItemData fontePagamento = 2;
+    DataPagamentoItemData dataPagamentoItem = 2;
 }
 
 message ServiceResponseDataPagamentoItem {
