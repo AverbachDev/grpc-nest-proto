@@ -1,0 +1,63 @@
+syntax = "proto3";
+
+package contasAPagar;
+
+
+service ContasAPagarService {
+
+    rpc listFontePagamento (ListCriteriaRequestFontePagamento) returns (ServiceResponseListFontePagamento) {}
+    rpc findOneFontePagamento (IdRequest) returns (ServiceResponseFontePagamento) {}
+    rpc createFontePagamento (FontePagamentoData) returns (ServiceResponseFontePagamento) {}
+    rpc updateFontePagamento (FontePagamentoUpdateRequest) returns (ServiceResponseFontePagamento) {}
+    rpc removeFontePagamento (IdRequest) returns (ServiceResponseFontePagamento) {}
+}
+
+message IdRequest{
+    int32 id = 1;
+}
+
+//FONTEPAGAMENTO
+
+message ListCriteriaRequestFontePagamento {
+    int32 idPagto = 1;
+    string dtPagto = 2;
+    double nuValorPago = 3;
+    int32 items = 4;
+    int32 page = 5;
+    map<string, string> order = 6;
+}
+
+message FontePagamentoData {
+    int32 id = 1;
+    string deFontePagamento = 2;
+    double deFontePagamentoResumido = 3;
+    int32 idUsuaOper = 4;
+    string dtRegistro = 5;
+    string createdDate = 6;
+    string updatedDate = 7;
+    string deletedDate = 8;
+}
+
+message FontePagamentoUpdateRequest{
+    int32 id = 1;
+    FontePagamentoData pagamento = 2;
+}
+
+message ServiceResponseFontePagamento {
+    int32 status = 1;
+    string message = 2;
+    repeated FontePagamentoData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListFontePagamento {
+    int32 status = 1;
+    string message = 2;
+    ListResultFontePagamento data = 3;
+    string error = 4;
+}
+
+message ListResultFontePagamento {
+    repeated FontePagamentoData result = 1;
+    int32 total = 2;
+}
