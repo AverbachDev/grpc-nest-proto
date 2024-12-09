@@ -10,6 +10,18 @@ service ContasAPagarService {
     rpc createFontePagamento (FontePagamentoData) returns (ServiceResponseFontePagamento) {}
     rpc updateFontePagamento (FontePagamentoUpdateRequest) returns (ServiceResponseFontePagamento) {}
     rpc removeFontePagamento (IdRequest) returns (ServiceResponseFontePagamento) {}
+
+    rpc listMesConta (ListCriteriaRequestMesConta) returns (ServiceResponseListMesConta) {}
+    rpc findOneMesConta (IdRequest) returns (ServiceResponseMesConta) {}
+    rpc createMesConta (MesContaData) returns (ServiceResponseMesConta) {}
+    rpc updateMesConta (MesContaUpdateRequest) returns (ServiceResponseMesConta) {}
+    rpc removeMesConta (IdRequest) returns (ServiceResponseMesConta) {}
+
+    rpc listItemMesConta (ListCriteriaRequestItemMesConta) returns (ServiceResponseListItemMesConta) {}
+    rpc findOneItemMesConta (IdRequest) returns (ServiceResponseItemMesConta) {}
+    rpc createItemMesConta (ItemMesContaData) returns (ServiceResponseItemMesConta) {}
+    rpc updateItemMesConta (ItemMesContaUpdateRequest) returns (ServiceResponseItemMesConta) {}
+    rpc removeItemMesConta (IdRequest) returns (ServiceResponseItemMesConta) {}
 }
 
 message IdRequest{
@@ -19,9 +31,8 @@ message IdRequest{
 //FONTEPAGAMENTO
 
 message ListCriteriaRequestFontePagamento {
-    int32 idPagto = 1;
-    string dtPagto = 2;
-    double nuValorPago = 3;
+    string deFontePagamentoResumido = 1;
+    string deFontePagamento = 2;
     int32 items = 4;
     int32 page = 5;
     map<string, string> order = 6;
@@ -59,5 +70,103 @@ message ServiceResponseListFontePagamento {
 
 message ListResultFontePagamento {
     repeated FontePagamentoData result = 1;
+    int32 total = 2;
+}
+
+
+
+
+//MESCONTA
+
+message ListCriteriaRequestMesConta {
+    int32 nuAno = 1;
+    int32 nuMes = 2;
+    int32 items = 3;
+    int32 page = 4;
+    map<string, string> order = 5;
+}
+
+message MesContaData {
+    int32 id = 1;
+    int32 nuAno = 2;
+    int32 nuMes = 3;
+    string deMesConta = 4;
+    int32 idUsuaOper = 5;
+    string dtRegistro = 6;
+    string createdDate = 7;
+    string updatedDate = 8;
+    string deletedDate = 9;
+}
+
+message MesContaUpdateRequest{
+    int32 id = 1;
+    MesContaData mesConta = 2;
+}
+
+message ServiceResponseMesConta {
+    int32 status = 1;
+    string message = 2;
+    repeated MesContaData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListMesConta {
+    int32 status = 1;
+    string message = 2;
+    ListResultMesConta data = 3;
+    string error = 4;
+}
+
+message ListResultMesConta {
+    repeated MesContaData result = 1;
+    int32 total = 2;
+}
+
+
+//ITEMMESCONTA
+
+message ListCriteriaRequestItemMesConta {
+    int32 idFontePagamento = 1;
+    int32 idMesConta = 2;
+    int32 nuDia = 3;
+    string deItemMesConta = 4;    
+    int32 items = 5;
+    int32 page = 6;
+    map<string, string> order = 7;
+}
+
+message ItemMesContaData {
+    int32 idFontePagamento = 1;
+    int32 idMesConta = 2;
+    int32 nuDia = 3;
+    string deItemMesConta = 4;
+    int32 idUsuaOper = 5;
+    string dtRegistro = 6;
+    string createdDate = 7;
+    string updatedDate = 8;
+    string deletedDate = 9;
+}
+
+message ItemMesContaUpdateRequest{
+    int32 id = 1;
+    ItemMesContaData itemMesConta = 2;
+}
+
+message ServiceResponseItemMesConta {
+    int32 status = 1;
+    string message = 2;
+    repeated ItemMesContaData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListItemMesConta {
+    int32 status = 1;
+    string message = 2;
+    ListResultItemMesConta data = 3;
+    string error = 4;
+}
+
+message ListResultItemMesConta {
+    repeated ItemMesContaData result = 1;
     int32 total = 2;
 }
