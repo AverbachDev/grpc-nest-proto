@@ -22,6 +22,12 @@ service ContasAPagarService {
     rpc createItemMesConta (ItemMesContaData) returns (ServiceResponseItemMesConta) {}
     rpc updateItemMesConta (ItemMesContaUpdateRequest) returns (ServiceResponseItemMesConta) {}
     rpc removeItemMesConta (IdRequest) returns (ServiceResponseItemMesConta) {}
+
+    rpc listDataPagamentoItem (ListCriteriaRequestDataPagamentoItem) returns (ServiceResponseListDataPagamentoItem) {}
+    rpc findOneDataPagamentoItem (IdRequest) returns (ServiceResponseDataPagamentoItem) {}
+    rpc createDataPagamentoItem (DataPagamentoItemData) returns (ServiceResponseDataPagamentoItem) {}
+    rpc updateDataPagamentoItem (DataPagamentoItemUpdateRequest) returns (ServiceResponseDataPagamentoItem) {}
+    rpc removeDataPagamentoItem (IdRequest) returns (ServiceResponseDataPagamentoItem) {}
 }
 
 message IdRequest{
@@ -170,3 +176,52 @@ message ListResultItemMesConta {
     repeated ItemMesContaData result = 1;
     int32 total = 2;
 }
+
+
+
+//DATAPAGAMENTOITEM
+
+message ListCriteriaRequestDataPagamentoItem {
+    int32 idItemMesConta = 2;
+    string deDataPagamentoItem = 3;
+    int32 items = 4;
+    int32 page = 5;
+    map<string, string> order = 6;
+}
+
+message DataPagamentoItemData {
+    int32 id = 1;
+    int32 idItemMesConta = 2;
+    string deDataPagamentoItem = 3;
+    int32 idUsuaOper = 4;
+    string dtRegistro = 5;
+    string createdDate = 6;
+    string updatedDate = 7;
+    string deletedDate = 8;
+}
+
+message DataPagamentoItemUpdateRequest{
+    int32 id = 1;
+    DataPagamentoItemData fontePagamento = 2;
+}
+
+message ServiceResponseDataPagamentoItem {
+    int32 status = 1;
+    string message = 2;
+    repeated DataPagamentoItemData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListDataPagamentoItem {
+    int32 status = 1;
+    string message = 2;
+    ListResultDataPagamentoItem data = 3;
+    string error = 4;
+}
+
+message ListResultDataPagamentoItem {
+    repeated DataPagamentoItemData result = 1;
+    int32 total = 2;
+}
+
+
