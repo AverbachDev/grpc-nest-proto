@@ -9,6 +9,7 @@ service RelatorioService {
     //Relatorios
     rpc reportExtratoCarteira (ReportCriteriaExtratoCarteira) returns (ServiceResponseListExtratoCarteira) {}
     rpc reportExtratoCarteiraEssilor (ReportCriteriaExtratoCarteira) returns (ServiceResponseListExtratoCarteiraEssilor) {}
+    rpc reportClientes (ReportCriteriaCliente) returns (ServiceResponseCliente) {}
 
     //Remessa
     rpc listRemessa (ListCriteriaRequestRemessa) returns (ServiceResponseListRemessa) {}
@@ -28,7 +29,6 @@ service RelatorioService {
     rpc removeAllRepasse (WithoutParams) returns (ServiceResponseRepasse) {}
     rpc createManyRepasse (RepasseManyData) returns (ServiceResponseRepasse) {}
 
-
     //RD
     rpc listRD (ListCriteriaRequestRD) returns (ServiceResponseListRD) {}
     rpc findOneRD (IdRequest) returns (ServiceResponseRD) {}
@@ -37,7 +37,7 @@ service RelatorioService {
     rpc removeRD (IdRequest) returns (ServiceResponseRD) {}
     rpc removeAllRD (WithoutParams) returns (ServiceResponseRD) {}
     rpc createManyRD (RDManyData) returns (ServiceResponseRD) {}
-
+    
     //Devolucao
     rpc listDevolucao (ListCriteriaRequestDevolucao) returns (ServiceResponseListDevolucao) {}
     rpc findOneDevolucao (IdRequest) returns (ServiceResponseDevolucao) {}
@@ -47,6 +47,14 @@ service RelatorioService {
     rpc removeAllDevolucao (WithoutParams) returns (ServiceResponseDevolucao) {}
     rpc createManyDevolucao (DevolucaoManyData) returns (ServiceResponseDevolucao) {}
 
+    //Cliente
+    rpc listCliente (ListCriteriaRequestCliente) returns (ServiceResponseListCliente) {}
+    rpc findOneCliente (IdRequest) returns (ServiceResponseCliente) {}
+    rpc createCliente (ClienteData) returns (ServiceResponseCliente) {}
+    rpc updateCliente (ClienteUpdateRequest) returns (ServiceResponseCliente) {}
+    rpc removeCliente (IdRequest) returns (ServiceResponseCliente) {}
+    rpc removeAllCliente (WithoutParams) returns (ServiceResponseCliente) {}
+    rpc createManyCliente (ClienteManyData) returns (ServiceResponseCliente) {}
 
 }
 
@@ -65,7 +73,6 @@ message ReportCriteriaExtratoCarteira {
     string dtInicio = 3;
     string dtFim = 4;
 }
-
 
 message PeriodoData {
     string nmMes = 1;
@@ -102,7 +109,6 @@ message AgingData {
     double nuPrincipal = 3;
     double percentualPrinicipal = 4;
 }
-
 
 message tipoPagamentoData {
     string nmTipoPagamento = 1;
@@ -159,6 +165,7 @@ message ServiceResponseListExtratoCarteiraEssilor {
     string error = 4;
 }
 
+
 //Remessa
 
 message ListCriteriaRequestRemessa {
@@ -199,6 +206,7 @@ message RemessaData {
 message RemessaManyData {
     repeated RemessaData data = 1;
 }
+
 message RemessaUpdateRequest{
     int32 idRemessa = 1;
     RemessaData remessa = 2;
@@ -222,8 +230,6 @@ message ServiceResponseRemessa {
     repeated RemessaData data = 3;
     string error = 4;
 }
-
-
 
 
 //Repasse
@@ -368,9 +374,6 @@ message ServiceResponseRD {
 }
 
 
-
-
-
 //Devolucao
 
 message ListCriteriaRequestDevolucao {
@@ -447,5 +450,74 @@ message ServiceResponseDevolucao {
     int32 status = 1;
     string message = 2;
     repeated DevolucaoData data = 3;
+    string error = 4;
+}
+
+
+//Cliente
+
+
+message ReportCriteriaCliente {
+    int32 idCliente = 1; 
+    int32 idGrupo = 2;
+    string dtCadastroInicio = 3;
+    string dtCadastroFim = 4;
+    int32 items = 5;
+    int32 page = 6;
+    map<string, string> order = 7;
+}
+
+message ListCriteriaRequestCliente {
+    string nmCliente = 1; 
+    string nmGrupo = 2;
+    string dtCadastroInicio = 3;
+    string dtCadastroFim = 4;
+    int32 items = 5;
+    int32 page = 6;
+    map<string, string> order = 7;
+}
+
+message ClienteData {
+    string dtCadastro = 1;
+    int32 idCliente = 2;    
+    string nmCliente = 3;
+    string cdClassificacao = 4;
+    bool cdAtivo = 5;
+    string deMunicipio = 6;
+    string cdFederacao = 7;
+    string deCep = 8;
+    string deDdd = 9;
+    int32 nuDiasSemContato = 10;
+    int32 nuDiasSemRemessa = 11;
+    string nmPromoter = 12;
+    int32 idGrupo = 13;    
+    string nmGrupo = 14;
+}
+
+message ClienteManyData {
+    repeated ClienteData data = 1;
+}
+
+message ClienteUpdateRequest{
+    int32 idCliente = 1;
+    ClienteData cliente = 2;
+}
+
+message ListResultCliente {
+    repeated ClienteData result = 1;
+    int32 total = 2;
+}
+
+message ServiceResponseListCliente {
+    int32 status = 1;
+    string message = 2;
+    ListResultCliente data = 3;
+    string error = 4;
+}
+
+message ServiceResponseCliente {
+    int32 status = 1;
+    string message = 2;
+    repeated ClienteData data = 3;
     string error = 4;
 }
