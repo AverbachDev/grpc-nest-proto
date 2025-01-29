@@ -462,9 +462,6 @@ message ReportCriteriaCliente {
     int32 idGrupo = 2;
     string dtCadastroInicio = 3;
     string dtCadastroFim = 4;
-    int32 items = 5;
-    int32 page = 6;
-    map<string, string> order = 7;
 }
 
 message ListCriteriaRequestCliente {
