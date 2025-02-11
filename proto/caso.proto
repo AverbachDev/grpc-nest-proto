@@ -544,14 +544,15 @@ message ListCriteriaRequestBoleto {
 message BoletoData {
     int32 id = 1;
     int32 idParcela = 2;
-    string dtBoleto = 3;
-    int64 nuSequencial =4;
-    string deInstrucoes = 5;
-    int32 idUsuaOper = 6;
-    string dtRegistro = 7;
-    string createdDate = 8;
-    string updatedDate = 9;
-    string deletedDate = 10;
+    int32 idAgencia = 3;
+    string dtBoleto = 4;
+    int64 nuSequencial =5;
+    string deInstrucoes = 6;
+    int32 idUsuaOper = 7;
+    string dtRegistro = 8;
+    string createdDate = 9;
+    string updatedDate = 10;
+    string deletedDate = 11;
 }
 
 message BoletoUpdateRequest{
