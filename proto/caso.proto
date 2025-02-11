@@ -49,6 +49,18 @@ service CasoService {
     rpc updateTituloCadastro (TituloCadastroUpdateRequest) returns (ServiceResponseTituloCadastro) {}
     rpc removeTituloCadastro (IdRequest) returns (ServiceResponseTituloCadastro) {}
 
+    rpc listBoleto (ListCriteriaRequestBoleto) returns (ServiceResponseListBoleto) {}
+    rpc findOneBoleto (IdRequest) returns (ServiceResponseBoleto) {}
+    rpc createBoleto (BoletoData) returns (ServiceResponseBoleto) {}
+    rpc updateBoleto (BoletoUpdateRequest) returns (ServiceResponseBoleto) {}
+    rpc removeBoleto (IdRequest) returns (ServiceResponseBoleto) {}
+
+    rpc listBoletoRemessa (ListCriteriaRequestBoletoRemessa) returns (ServiceResponseListBoletoRemessa) {}
+    rpc findOneBoletoRemessa (IdRequest) returns (ServiceResponseBoletoRemessa) {}
+    rpc createBoletoRemessa (BoletoRemessaData) returns (ServiceResponseBoletoRemessa) {}
+    rpc updateBoletoRemessa (BoletoRemessaUpdateRequest) returns (ServiceResponseBoletoRemessa) {}
+    rpc removeBoletoRemessa (IdRequest) returns (ServiceResponseBoletoRemessa) {}
+
 }
 
 message IdRequest{
@@ -514,5 +526,113 @@ message ServiceResponseListTituloCadastro {
 
 message ListResultTituloCadastro {
     repeated TituloCadastroData result = 1;
+    int32 total = 2;
+}
+
+
+//BOLETO
+message ListCriteriaRequestBoleto {
+    int32 idBoleto = 1;
+    int32 idParcela = 2;
+    int64 nuSequencial = 3;
+    int32 idTitulo = 4;
+    int32 items = 5;
+    int32 page = 6;
+    map<string, string> order = 7;
+}
+
+message BoletoData {
+    int32 id = 1;
+    int32 idParcela = 2;
+    string dtBoleto = 3;
+    int64 nuSequencial =4;
+    string deInstrucoes = 5;
+    int32 idUsuaOper = 6;
+    string dtRegistro = 7;
+    string createdDate = 8;
+    string updatedDate = 9;
+    string deletedDate = 10;
+}
+
+message BoletoUpdateRequest{
+    int32 id = 1;
+    BoletoData boleto = 2;
+}
+
+message ServiceResponseBoleto {
+    int32 status = 1;
+    string message = 2;
+    repeated BoletoData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListBoleto {
+    int32 status = 1;
+    string message = 2;
+    ListResultBoleto data = 3;
+    string error = 4;
+}
+
+message ListResultBoleto {
+    repeated BoletoData result = 1;
+    int32 total = 2;
+}
+
+
+
+//BOLETO REMESSA
+message ListCriteriaRequestBoletoRemessa {
+    int32 idBoletoRemessa = 1;
+    int32 idBoleto = 2;
+    int32 idParcela = 3;
+    int32 idCaso = 4;
+    string dtBoleto = 5;
+    string cdOcorrencia = 6;
+    int32 items = 7;
+    int32 page = 8;
+    map<string, string> order = 9;
+}
+
+message BoletoRemessaData {
+    int32 id = 1;
+    int32 idBoleto = 2;
+    int32 idParcela =3;
+    int32 idCaso = 4;    
+    string dtVencimento = 5;
+    double nuValor = 6;
+    double nuBoleto = 7;
+    string cdOcorrencia = 8;
+    string dtBoleto = 9;
+    int32 idAgencia = 10;
+    int32 idArquivoRemessa = 11;
+    string dtCadastro = 12;
+    int32 idUsuaOper = 13;
+    string dtRegistro = 14;
+    string createdDate = 15;
+    string updatedDate = 16;
+    string deletedDate = 17;
+}
+
+message BoletoRemessaUpdateRequest{
+    int32 id = 1;
+    BoletoRemessaData boletoRemessa = 2;
+}
+
+message ServiceResponseBoletoRemessa {
+    int32 status = 1;
+    string message = 2;
+    repeated BoletoRemessaData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListBoletoRemessa {
+    int32 status = 1;
+    string message = 2;
+    ListResultBoletoRemessa data = 3;
+    string error = 4;
+}
+
+message ListResultBoletoRemessa {
+    repeated BoletoRemessaData result = 1;
     int32 total = 2;
 }
