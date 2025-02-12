@@ -404,6 +404,7 @@ message ParcelaData {
     string createdDate = 16;
     string updatedDate = 17;
     string deletedDate = 18;
+    repeated BoletoData boletos = 19;
 }
 
 message ParcelaUpdateRequest{
@@ -553,6 +554,7 @@ message BoletoData {
     string createdDate = 9;
     string updatedDate = 10;
     string deletedDate = 11;
+    repeated BoletoRemessaData boletoRemessas = 12;
 }
 
 message BoletoUpdateRequest{
