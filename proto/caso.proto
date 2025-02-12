@@ -547,7 +547,7 @@ message BoletoData {
     int32 idParcela = 2;
     int32 idAgencia = 3;
     string dtBoleto = 4;
-    int64 nuSequencial =5;
+    int32 nuSequencial =5;
     string deInstrucoes = 6;
     int32 idUsuaOper = 7;
     string dtRegistro = 8;
