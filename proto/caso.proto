@@ -55,7 +55,7 @@ service CasoService {
     rpc updateBoleto (BoletoUpdateRequest) returns (ServiceResponseBoleto) {}
     rpc removeBoleto (IdRequest) returns (ServiceResponseBoleto) {}
     rpc sendBoletoToBradesco (IdRequest) returns (ServiceResponseBoolean) {}
-    rpc consultBoletoPaidInBradesco (EmptyRequest) returns (ServiceResponseBoolean) {}
+    rpc consultBoletoPaidInBradesco (EmptyRequest) returns (ServiceResponseBoletoPaidAPI) {}
 
     rpc listBoletoRemessa (ListCriteriaRequestBoletoRemessa) returns (ServiceResponseListBoletoRemessa) {}
     rpc findOneBoletoRemessa (IdRequest) returns (ServiceResponseBoletoRemessa) {}
