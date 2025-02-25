@@ -641,9 +641,11 @@ message ListCriteriaRequestBoletoRemessa {
     int32 idCaso = 4;
     string dtBoleto = 5;
     string cdOcorrencia = 6;
-    int32 items = 7;
-    int32 page = 8;
-    map<string, string> order = 9;
+    string dtVencimentoInicio = 7;
+    string dtVencimentoFim = 8;
+    int32 items = 9;
+    int32 page = 10;
+    map<string, string> order = 11;
 }
 
 message BoletoRemessaData {
