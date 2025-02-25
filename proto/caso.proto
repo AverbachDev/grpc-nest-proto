@@ -55,7 +55,8 @@ service CasoService {
     rpc updateBoleto (BoletoUpdateRequest) returns (ServiceResponseBoleto) {}
     rpc removeBoleto (IdRequest) returns (ServiceResponseBoleto) {}
     rpc sendBoletoToBradesco (IdRequest) returns (ServiceResponseBoolean) {}
-    rpc consultBoletoPaidInBradesco (EmptyRequest) returns (ServiceResponseBoletoPaidAPI) {}
+    rpc consultBoletoPaidInBradesco (ListCriteriaRequestBoletoPaid) returns (ServiceResponseListBoletoPaidAPI) {}
+    rpc sendRangeBoletoToBradesco (EmptyRequest) returns (ServiceResponseBoolean) {}
 
     rpc listBoletoRemessa (ListCriteriaRequestBoletoRemessa) returns (ServiceResponseListBoletoRemessa) {}
     rpc findOneBoletoRemessa (IdRequest) returns (ServiceResponseBoletoRemessa) {}
@@ -581,13 +582,26 @@ message ServiceResponseListBoleto {
 }
 
 
-message ServiceResponseBoletoPaidAPI {
+message ListCriteriaRequestBoletoPaid{
+    int32 idAgencia = 1;
+    string dataPagamentoDe = 2;
+    string dataPagamentoAte = 3;
+    int32 items = 5;
+    int32 page = 6;
+    map<string, string> order = 7; 
+}
+
+message ServiceResponseListBoletoPaidAPI {
     int32 status = 1;
     string message = 2;
-    repeated BoletoPaidData data = 3;
+    ListResultBoletoPaid data = 3;
     string error = 4;
 }
 
+message ListResultBoletoPaid {
+    repeated BoletoPaidData result = 1;
+    string indMaisPagina = 2;
+}
 
 message BoletoPaidData {
     int32 bancoRecebedor = 1;
