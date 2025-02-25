@@ -56,7 +56,7 @@ service CasoService {
     rpc removeBoleto (IdRequest) returns (ServiceResponseBoleto) {}
     rpc sendBoletoToBradesco (IdRequest) returns (ServiceResponseBoolean) {}
     rpc consultBoletoPaidInBradesco (ListCriteriaRequestBoletoPaid) returns (ServiceResponseListBoletoPaidAPI) {}
-    rpc sendRangeBoletoToBradesco (EmptyRequest) returns (ServiceResponseBoolean) {}
+    rpc sendRangeBoletoToBradesco (RequestSendRangeBoletoToBradesco) returns (ServiceResponseBoolean) {}
 
     rpc listBoletoRemessa (ListCriteriaRequestBoletoRemessa) returns (ServiceResponseListBoletoRemessa) {}
     rpc findOneBoletoRemessa (IdRequest) returns (ServiceResponseBoletoRemessa) {}
@@ -631,7 +631,10 @@ message ListResultBoleto {
     int32 total = 2;
 }
 
-
+message RequestSendRangeBoletoToBradesco{
+    string dtVencimentoInicio = 1;
+    string dtVencimentoFim = 2;
+}
 
 //BOLETO REMESSA
 message ListCriteriaRequestBoletoRemessa {
