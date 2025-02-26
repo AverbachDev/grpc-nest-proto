@@ -599,8 +599,24 @@ message ServiceResponseListBoletoPaidAPI {
 }
 
 message ListResultBoletoPaid {
-    repeated BoletoPaidData result = 1;
-    string indMaisPagina = 2;
+    int32 status = 1;
+    string transacao = 2;
+    string mensagem = 3;
+    string causa = 4;
+    double  vtotTitulos = 5;
+    double vtotPag = 6;
+    double vtotOscila = 7;
+    string vtotOscilaS = 8;
+    double vtotCheque = 9;
+    double vtotDinheiro = 10;
+    double difMaior = 11;
+    double difMenor = 12;
+    string difMenorS = 13;
+    int32 pagina = 14;
+    string indMaisPagina = 15;
+    int32 qtdeTitulos = 16;
+    int32 qtdeOcorr = 17;
+    repeated BoletoPaidData titulos = 18;
 }
 
 message BoletoPaidData {
