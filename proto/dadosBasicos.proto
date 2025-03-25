@@ -492,6 +492,7 @@ message AgenciaBradescoData {
     string createdDate = 15;
     string updatedDate = 16;
     string deletedDate = 17;
+    string deEmpresa = 18;
 }
 
 message AgenciaBradescoUpdateRequest {
