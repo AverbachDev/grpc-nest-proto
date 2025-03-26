@@ -54,9 +54,7 @@ service CasoService {
     rpc createBoleto (BoletoData) returns (ServiceResponseBoleto) {}
     rpc updateBoleto (BoletoUpdateRequest) returns (ServiceResponseBoleto) {}
     rpc removeBoleto (IdRequest) returns (ServiceResponseBoleto) {}
-    rpc sendBoletoToBradesco (IdRequest) returns (ServiceResponseBoolean) {}
-    rpc consultBoletoPaidInBradesco (ListCriteriaRequestBoletoPaid) returns (ServiceResponseListBoletoPaidAPI) {}
-    rpc sendRangeBoletoToBradesco (RequestSendRangeBoletoToBradesco) returns (ServiceResponseBoolean) {}
+
 
     rpc listBoletoRemessa (ListCriteriaRequestBoletoRemessa) returns (ServiceResponseListBoletoRemessa) {}
     rpc findOneBoletoRemessa (IdRequest) returns (ServiceResponseBoletoRemessa) {}
@@ -581,76 +579,12 @@ message ServiceResponseListBoleto {
     string error = 4;
 }
 
-
-message ListCriteriaRequestBoletoPaid{
-    int32 idAgencia = 1;
-    string dataPagamentoDe = 2;
-    string dataPagamentoAte = 3;
-    int32 items = 5;
-    int32 page = 6;
-    map<string, string> order = 7; 
-}
-
-message ServiceResponseListBoletoPaidAPI {
-    int32 status = 1;
-    string message = 2;
-    ListResultBoletoPaid data = 3;
-    string error = 4;
-}
-
-message ListResultBoletoPaid {
-    int32 status = 1;
-    string transacao = 2;
-    string mensagem = 3;
-    string causa = 4;
-    double  vtotTitulos = 5;
-    double vtotPag = 6;
-    double vtotOscila = 7;
-    string vtotOscilaS = 8;
-    double vtotCheque = 9;
-    double vtotDinheiro = 10;
-    double difMaior = 11;
-    double difMenor = 12;
-    string difMenorS = 13;
-    int32 pagina = 14;
-    string indMaisPagina = 15;
-    int32 qtdeTitulos = 16;
-    int32 qtdeOcorr = 17;
-    repeated BoletoPaidData titulos = 18;
-}
-
-message BoletoPaidData {
-    int32 bancoRecebedor = 1;
-    int32 agenciaRecebedora = 2;
-    int32 nossoNumero = 3;
-    string digitoNossoNumero = 4;
-    string tipoRegistro = 5;
-    string seuNumero = 6;
-    string dataVencimento = 7;
-    string dataPagamento = 8;
-    string dataMovimento = 9;
-    string nomePagador = 10;
-    string descricaoOrigemPagamento = 11;
-    double valorTitulo = 12;
-    double valorPagamento = 13;
-    double valorOscilacao = 14;
-    string sinalValorOscilacao = 15;
-    int32  numeroSequenciaTitulo = 16;
-    int32 numeroSequenciaPagamento = 17;
-    int32 codigoFormaCredito = 18;
-    string descricaoFormaCredito = 19;
-    string indicadorPagoCartorio = 20;
-}
-
 message ListResultBoleto {
     repeated BoletoData result = 1;
     int32 total = 2;
 }
 
-message RequestSendRangeBoletoToBradesco{
-    string dtVencimentoInicio = 1;
-    string dtVencimentoFim = 2;
-}
+
 
 //BOLETO REMESSA
 message ListCriteriaRequestBoletoRemessa {
