@@ -54,7 +54,7 @@ service CasoService {
     rpc createBoleto (BoletoData) returns (ServiceResponseBoleto) {}
     rpc updateBoleto (BoletoUpdateRequest) returns (ServiceResponseBoleto) {}
     rpc removeBoleto (IdRequest) returns (ServiceResponseBoleto) {}
-    rpc sendBoletoToBradesco (IdRequest) returns (ServiceResponseBoolean) {}
+    rpc sendBoletoToBradesco (IdRequest) returns (ServiceResponseRegistroBoletoAPI) {}
     rpc consultBoletoInBradesco (ListCriteriaRequestBoletoAPI) returns (ServiceResponseBoletodAPI) {}
     rpc consultBoletoPaidInBradesco (ListCriteriaRequestBoletoPaid) returns (ServiceResponseBoletoPaidAPI) {}
     rpc sendRangeBoletoToBradesco (RequestSendRangeBoletoToBradesco) returns (ServiceResponseBoolean) {}
@@ -678,6 +678,13 @@ message RequestSendRangeBoletoToBradesco{
 
 //RESPONSES
 //RESPONSE sendBoletoToBradesco
+
+message ServiceResponseRegistroBoletoAPI {
+    int32 status = 1;
+    string message = 2;
+    repeated ResultRegistroBoletoApiData data = 3;
+    string error = 4;
+}
 
 message ResultRegistroBoletoApiData{
     string codigoRetorno = 1;
