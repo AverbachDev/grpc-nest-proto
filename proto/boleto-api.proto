@@ -3,10 +3,12 @@ syntax = "proto3";
 package boleto;
 
 service BoletoAPIService {
+
     rpc sendBoletoToBradesco (IdRequest) returns (ServiceResponseBoolean) {}
     rpc consultBoletoInBradesco (ListCriteriaRequestBoletoAPI) returns (ServiceResponseBoletodAPI) {}
     rpc consultBoletoPaidInBradesco (ListCriteriaRequestBoletoPaid) returns (ServiceResponseBoletoPaidAPI) {}
     rpc sendRangeBoletoToBradesco (RequestSendRangeBoletoToBradesco) returns (ServiceResponseBoolean) {}
+    
 }
 
 //REQUESTS
