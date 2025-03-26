@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package boletoApi;
+package boleto;
 
 service BoletoAPIService {
     rpc sendBoletoToBradesco (IdRequest) returns (ServiceResponseBoolean) {}
