@@ -54,7 +54,10 @@ service CasoService {
     rpc createBoleto (BoletoData) returns (ServiceResponseBoleto) {}
     rpc updateBoleto (BoletoUpdateRequest) returns (ServiceResponseBoleto) {}
     rpc removeBoleto (IdRequest) returns (ServiceResponseBoleto) {}
-
+    rpc sendBoletoToBradesco (IdRequest) returns (ServiceResponseBoolean) {}
+    rpc consultBoletoInBradesco (ListCriteriaRequestBoletoAPI) returns (ServiceResponseBoletodAPI) {}
+    rpc consultBoletoPaidInBradesco (ListCriteriaRequestBoletoPaid) returns (ServiceResponseBoletoPaidAPI) {}
+    rpc sendRangeBoletoToBradesco (RequestSendRangeBoletoToBradesco) returns (ServiceResponseBoolean) {}
 
     rpc listBoletoRemessa (ListCriteriaRequestBoletoRemessa) returns (ServiceResponseListBoletoRemessa) {}
     rpc findOneBoletoRemessa (IdRequest) returns (ServiceResponseBoletoRemessa) {}
@@ -643,4 +646,341 @@ message ServiceResponseListBoletoRemessa {
 message ListResultBoletoRemessa {
     repeated BoletoRemessaData result = 1;
     int32 total = 2;
+}
+
+
+
+//BOLETO API
+//REQUESTS
+
+message ListCriteriaRequestBoletoAPI{
+    int32 idAgencia = 1;
+    string nossoNumero = 2;
+    int32 status = 3;
+    int32 items = 5;
+    int32 page = 6;
+    map<string, string> order = 7; 
+}
+
+message ListCriteriaRequestBoletoPaid{
+    int32 idAgencia = 1;
+    string dataPagamentoDe = 2;
+    string dataPagamentoAte = 3;
+    int32 items = 5;
+    int32 page = 6;
+    map<string, string> order = 7; 
+}
+
+message RequestSendRangeBoletoToBradesco{
+    string dtVencimentoInicio = 1;
+    string dtVencimentoFim = 2;
+}
+
+//RESPONSES
+//RESPONSE sendBoletoToBradesco
+
+message ResultRegistroBoletoApiData{
+    string codigoRetorno = 1;
+    string mensagemRetorno = 2;
+    int32 idProduto = 3;
+    string negociacao = 4;
+    int32 nuTituloGerado = 5;
+    string nomeBeneficiario = 6;
+    string logradouroBeneficiario = 7;
+    string nuLogradouroBeneficiario = 8;
+    string complementoLogradouroBeneficiario = 9;
+    string bairroBeneficiario = 10;
+    string cepBeneficiario = 11;
+    string cepComplementoBeneficiario = 12;
+    string municipioBeneficiario = 13;
+    string ufBeneficiario = 14;
+    string nomePagador = 15;
+    int32 cpfcnpjPagador = 16;
+    string enderecoPagador = 17;
+    string bairroPagador = 18;
+    string municipioPagador = 19;
+    string ufPagador = 20;
+    string cepPagador = 21;
+    string cepComplementoPagador = 22;
+    string endEletronicoPagador = 23;
+    string nomeSacadorAvalista = 24;
+    int32 cnpjCpfSacadorAvalista = 25;
+    string enderecoSacadorAvalista = 26;
+    string municipioSacadorAvalista = 27;
+    string ufSacadorAvalista = 28;
+    int32 cepSacadorAvalista = 29;
+    int32 cepComplementoSacadorAvalista = 30;
+    string seuNumeroTitulo = 31;
+    string dtRegistro = 32;
+    string especieDocumentoTitulo = 33;
+    string descEspecie = 34;
+    double vlIOF = 35;
+    string dtEmissao = 36;
+    string codigoMoedaTitulo = 37;
+    int32 quantidadeMoeda = 38;
+    int32 quantidadeCasas = 39;
+    string dtVencimento = 40;
+    string descricacaoMoeda = 41;
+    double vlTitulo = 42;
+    double vlAbatimento = 43;
+    string dtInstrucaoProtestoNegativacao = 44;
+    int32 diasInstrucaoProtestoNegativacao = 45;
+    string dataEnvioCartorio = 46;
+    string numeroCartorio = 47;
+    string numeroProtocoloCartorio = 48;
+    string dataPedidoSustacao = 49;
+    string dataSustacao = 50;
+    string dtMulta = 51;
+    double vlMulta = 52;
+    int32 qtdeCasasDecimaisMulta = 53;
+    int32 cdValorMulta = 54;
+    string descCdMulta = 55;
+    string dtJuros = 56;
+    int32 vlJurosAoDia = 57;
+    string dtDesconto1Bonificacao = 58;
+    double vlDesconto1Bonificacao = 59;
+    int32 qtdeCasasDecimaisDesconto1Bonificacao = 60;
+    int32 cdValorDesconto1Bonificacao = 61;
+    string descCdDesconto1Bonificacao = 62;
+    string dtDesconto2 = 63;
+    double vlDesconto2 = 64;
+    int32 qtdeCasasDecimaisDesconto2 = 65;
+    int32 cdValorDesconto2 = 66;
+    string descCdDesconto2 = 67;
+    string dtDesconto3 = 68;
+    double vlDesconto3 = 69;
+    int32 qtdeCasasDecimaisDesconto3 = 70;
+    int32 cdValorDesconto3 = 71;
+    string descCdDesconto3 = 72;
+    int32 diasDispensaMulta = 73;
+    int32 diasDispensaJuros = 74;
+    string cdBarras = 75;
+    string linhaDigitavel = 76;
+    double valorDespesas = 77;
+    string tipoEndosso = 78;
+    int32 codigoOrigemProtesto = 79;
+    string codigoOrigemTitulo = 80;
+    int32 tpVencimento = 81;
+    int32 indInstrucaoProtesto = 82;
+    int32 indicadorDecurso = 83;
+    int32 quantidadeDiasDecurso = 84;
+    int32 cdValorJuros = 85;
+    int32 tpDesconto1 = 86;
+    int32 tpDesconto2 = 87;
+    int32 tpDesconto3 = 88;
+    string nuControleParticipante = 89;
+    int32 diasJuros = 90;
+    int32 cdJuros = 91;
+    double vlJuros = 92;
+    string cpfcnpjBeneficiario = 93;
+    double vlTituloEmitidoBoleto = 94;
+    string dtVencimentoBoleto = 95;
+    string dtLimitePagamentoBoleto = 96;
+}
+
+//RESPONSE consultBoletoInBradesco
+message ServiceResponseBoletodAPI {
+    int32 status = 1;
+    string message = 2;
+    repeated ResultBoletoApiData data = 3;
+    string error = 4;
+}
+
+message ResultBoletoApiData {
+    int32 STATUS = 1;
+    string TRANSACAO = 2;
+    string MENSAGEM = 3;
+    string CAUSA = 4;
+    TitulosBoletoAPIData TITULO = 5;
+    int32 QUANTIDADEMENSAGENS = 6;
+}
+
+message TitulosBoletoAPIData{
+    int32 AGENCCRED = 1;
+    int32 CTACRED = 2;
+    string DIGCRED = 3;
+    int32 RAZCREDT = 4;
+    int32 CIP = 5;
+    int32 CODSTATUS = 6;
+    string STATUS = 7;
+    TitulosBoletoCedente CEDENTE = 8;
+    TitulosBoletoSacado Sacado = 9;
+    string ENDERECOEMA = 10;
+    string CEBP = 11;
+    string DEBITOAUTO = 12;
+    string ACEITE = 13;
+    TitulosBoletoSacador SACADOR = 14;
+    int32 CENSE = 15;
+    int32 AGENOPER = 16;
+    int32 BCODEPOS = 17;
+    int32 AGENDEPOS = 18;
+    string SNUMERO = 19;
+    string ESPECDOCTO = 20;
+    string DESCRESPEC = 21;
+    string DATAREG = 22;
+    string DATAEMIS = 23;
+    string DATAVENCTO = 24;
+    string ESPECMOEDA = 25;
+    int32 QTDEMOEDA = 26;
+    int32 QTDECAS = 27;
+    string DESCRMOEDA = 28;
+    double VALMOEDA = 29;
+    double VALORIOF = 30;
+    double VALABAT = 31;
+    string DATAMULTA = 32;
+    int32 DIASMULTA = 33;
+    double VALMULTA = 34;
+    int32 QTDECASMUL = 35;
+    int32 CODVALMUL = 36;
+    string DESCRMULTA = 37;
+    string DATAPERM = 38;
+    int32 DIASJUROS = 39;
+    double VALPERM = 40;
+    int32 CODCOMISPERM = 41;
+    string DATADESC1 = 42;
+    double VALDESC1 = 43;
+    int32 QTDECASDE1 = 44;
+    int32 CODVALDE1 = 45;
+    string DESCRDESC1 = 46;
+    string DATADESC2 = 47;
+    double VALDESC2 = 48;
+    int32 QTDECASDE2 = 49;
+    int32 CODVALDE2 = 50;
+    string DESCRDESC2 = 51;
+    string DATADESC3 = 52;
+    double VALDESC3 = 53;
+    int32 QTDECASDE3 = 54;
+    int32 CODVALDE3 = 55;
+    string DESCRDESC3 = 56;
+    string DATAINSTR = 57;
+    int32 DIASPROT = 58;
+    string DATACARTOR = 59;
+    string NUMCARTOR = 60;
+    string NUMPROTOC = 61;
+    string DATAPEDSUS = 62;
+    string DATASUST = 63;
+    double DESPCART = 64;
+    int32 BCOCENTR = 65;
+    int32 AGECENTR = 66;
+    int32 ACESSESC = 67;
+    string TIPENDO = 68;
+    int32 ORIPROT = 69;
+    string CORIGE35 = 70;
+    int32 CTPOVENCTO = 71;
+    int32 CODINSCRPROT = 72;
+    int32 QTDDIASDECURPRZ = 73;
+    string  CTRLPARTIC = 74;
+    int32 DIASCOMISPERM = 75;
+    double QMOEDACOMISPERM = 76;
+    string INDTITPARCELD = 77;
+    string INDPARCELAPRIN = 78;
+    string INDBOLETODDA = 79;
+    string CODBARRAS = 80;
+    string LINHADIG = 81;
+    double VALORMOEDABOL = 82;
+    string DATAVENCTOBOL = 83;
+    string DATALIMITEPGT = 84;
+    string DATAIMPRESSAO = 85;
+    int32 HORAIMPRESSAO = 86;
+    int32 IDENTTITDDA = 87;
+    string EXIBELINDIG = 88;
+    string PERMITEPGTOPARCIAL = 89;
+    int32 QTDEPGTOPARCIAL = 90;
+    int32 DTPAGTO = 91;
+    double VLRPAGTO = 92;
+    int32 QTDPAGTO = 93;
+    int32 BCOPROC = 94;
+    int32 AGEPROC = 95;
+    TitulosBoletoBaixa BAIXA = 96;
+}
+
+message TitulosBoletoCedente {
+    int32 CNPJ = 1;
+    string NOME = 2;
+    string ENDERECO = 3;
+    string NUMERO = 4;
+    string COMPLEMENTO = 5;
+    string BAIRRO = 6;
+    int32 CEP = 7;
+    string CEPC = 8;
+    string CIDADE = 9;
+    string UF = 10;
+}
+message TitulosBoletoSacado {
+    int32 CNPJ = 1;
+    string NOME = 2;
+    string ENDERECO = 3;
+    string BAIRRO = 4;
+    string CEP = 5;
+    string CEPC = 6;
+    string CIDADE = 7;
+    string UF = 8;
+}
+message TitulosBoletoSacador {
+    int32 CNPJ = 1;
+    string NOME = 2;
+    string ENDERECO = 3;
+    string BAIRRO = 4;
+    string CEP = 5;
+    string CEPC = 6;
+    string CIDADE = 7;
+    string UF = 8;
+}
+message TitulosBoletoBaixa {
+    int32 CODIGO = 1;
+    string DESCRICAO = 2;
+    int32 DATA = 3;
+}
+
+
+//RESPONSE consultBoletoPaidInBradesco
+message ServiceResponseBoletoPaidAPI {
+    int32 status = 1;
+    string message = 2;
+    repeated ResultBoletoPaidApiData data = 3;
+    string error = 4;
+}
+
+message ResultBoletoPaidApiData {
+    int32 status = 1;
+    string transacao = 2;
+    string mensagem = 3;
+    string causa = 4;
+    double  vtotTitulos = 5;
+    double vtotPag = 6;
+    double vtotOscila = 7;
+    string vtotOscilaS = 8;
+    double vtotCheque = 9;
+    double vtotDinheiro = 10;
+    double difMaior = 11;
+    double difMenor = 12;
+    string difMenorS = 13;
+    int32 pagina = 14;
+    string indMaisPagina = 15;
+    int32 qtdeTitulos = 16;
+    int32 qtdeOcorr = 17;
+    repeated TitulosBoletoPaidData titulos = 18;
+}
+
+message TitulosBoletoPaidData{
+    int32 bancoRecebedor = 1;
+    int32 agenciaRecebedora = 2;
+    int32 nossoNumero = 3;
+    string digitoNossoNumero = 4;
+    string tipoRegistro = 5;
+    string seuNumero = 6;
+    string dataVencimento = 7;
+    string dataPagamento = 8;
+    string dataMovimento = 9;
+    string nomePagador = 10;
+    string descricaoOrigemPagamento = 11;
+    double valorTitulo = 12;
+    double valorPagamento = 13;
+    double valorOscilacao = 14;
+    string sinalValorOscilacao = 15;
+    int32  numeroSequenciaTitulo = 16;
+    int32 numeroSequenciaPagamento = 17;
+    int32 codigoFormaCredito = 18;
+    string descricaoFormaCredito = 19;
+    string indicadorPagoCartorio = 20;
 }
