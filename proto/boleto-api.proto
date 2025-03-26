@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package boletoApi;
 
-service CasoService {
+service BoletoAPIService {
     rpc sendBoletoToBradesco (IdRequest) returns (ServiceResponseBoolean) {}
     rpc consultBoletoInBradesco (ListCriteriaRequestBoletoAPI) returns (ServiceResponseBoletodAPI) {}
     rpc consultBoletoPaidInBradesco (ListCriteriaRequestBoletoPaid) returns (ServiceResponseBoletoPaidAPI) {}
