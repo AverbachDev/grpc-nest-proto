@@ -599,9 +599,10 @@ message ListCriteriaRequestBoletoRemessa {
     string cdOcorrencia = 6;
     string dtVencimentoInicio = 7;
     string dtVencimentoFim = 8;
-    int32 items = 9;
-    int32 page = 10;
-    map<string, string> order = 11;
+    int32 idArquivoRemessa = 9;
+    int32 items = 10;
+    int32 page = 11;
+    map<string, string> order = 12;
 }
 
 message BoletoRemessaData {
@@ -702,7 +703,7 @@ message ResultRegistroBoletoApiData{
     string municipioBeneficiario = 13;
     string ufBeneficiario = 14;
     string nomePagador = 15;
-    int32 cpfcnpjPagador = 16;
+    string cpfcnpjPagador = 16;
     string enderecoPagador = 17;
     string bairroPagador = 18;
     string municipioPagador = 19;
