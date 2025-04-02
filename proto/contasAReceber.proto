@@ -1,0 +1,315 @@
+syntax = "proto3";
+
+package contasAReceber;
+
+
+service ContasAReceberService {
+
+    rpc listNotaFiscal (ListCriteriaRequestNotaFiscal) returns (ServiceResponseListNotaFiscal) {}
+    rpc findOneNotaFiscal (IdRequest) returns (ServiceResponseNotaFiscal) {}
+    rpc createNotaFiscal (NotaFiscalData) returns (ServiceResponseNotaFiscal) {}
+    rpc updateNotaFiscal (NotaFiscalUpdateRequest) returns (ServiceResponseNotaFiscal) {}
+    rpc removeNotaFiscal (IdRequest) returns (ServiceResponseNotaFiscal) {}
+
+    rpc listItemNotaFiscal (ListCriteriaRequestItemNotaFiscal) returns (ServiceResponseListItemNotaFiscal) {}
+    rpc findOneItemNotaFiscal (IdRequest) returns (ServiceResponseItemNotaFiscal) {}
+    rpc createItemNotaFiscal (ItemNotaFiscalData) returns (ServiceResponseItemNotaFiscal) {}
+    rpc updateItemNotaFiscal (ItemNotaFiscalUpdateRequest) returns (ServiceResponseItemNotaFiscal) {}
+    rpc removeItemNotaFiscal (IdRequest) returns (ServiceResponseItemNotaFiscal) {}
+
+    rpc listBoletoNotaFiscal (ListCriteriaRequestBoletoNotaFiscal) returns (ServiceResponseListBoletoNotaFiscal) {}
+    rpc findOneBoletoNotaFiscal (IdRequest) returns (ServiceResponseBoletoNotaFiscal) {}
+    rpc createBoletoNotaFiscal (BoletoNotaFiscalData) returns (ServiceResponseBoletoNotaFiscal) {}
+    rpc updateBoletoNotaFiscal (BoletoNotaFiscalUpdateRequest) returns (ServiceResponseBoletoNotaFiscal) {}
+    rpc removeBoletoNotaFiscal (IdRequest) returns (ServiceResponseBoletoNotaFiscal) {}
+
+    rpc listBoletoNotaFiscalRemessa (ListCriteriaRequestBoletoNotaFiscalRemessa) returns (ServiceResponseListBoletoNotaFiscalRemessa) {}
+    rpc findOneBoletoNotaFiscalRemessa (IdRequest) returns (ServiceResponseBoletoNotaFiscalRemessa) {}
+    rpc createBoletoNotaFiscalRemessa (BoletoNotaFiscalRemessaData) returns (ServiceResponseBoletoNotaFiscalRemessa) {}
+    rpc updateBoletoNotaFiscalRemessa (BoletoNotaFiscalRemessaUpdateRequest) returns (ServiceResponseBoletoNotaFiscalRemessa) {}
+    rpc removeBoletoNotaFiscalRemessa (IdRequest) returns (ServiceResponseBoletoNotaFiscalRemessa) {}
+
+    rpc listBoletoAVBRemessa (ListCriteriaRequestBoletoAVBRemessa) returns (ServiceResponseListBoletoAVBRemessa) {}
+    rpc findOneBoletoAVBRemessa (IdRequest) returns (ServiceResponseBoletoAVBRemessa) {}
+    rpc createBoletoAVBRemessa (BoletoAVBRemessaData) returns (ServiceResponseBoletoAVBRemessa) {}
+    rpc updateBoletoAVBRemessa (BoletoAVBRemessaUpdateRequest) returns (ServiceResponseBoletoAVBRemessa) {}
+    rpc removeBoletoAVBRemessa (IdRequest) returns (ServiceResponseBoletoAVBRemessa) {}
+}
+
+message IdRequest{
+    int32 id = 1;
+}
+
+//NOTAFISCAL
+
+message ListCriteriaRequestNotaFiscal {
+    string dtCadastro = 1;
+    string deNotafiscal = 2;
+    string dtVencimento = 3;
+    int32 items = 4;
+    int32 page = 5;
+    map<string, string> order = 6;
+}
+
+message NotaFiscalData {
+    int32 id = 1;
+    int32 idCliente = 2;
+    string dtCadastro = 3;
+    string deArquivo = 4;
+    string deLink = 5;
+    string deNotafiscal = 6;
+    string dtVencimento = 7;
+    bool cdCobrarVencido = 8;
+    string desRetornoVencido = 9;
+    int32 idUsuaOper = 10;
+    string dtRegistro = 11;
+    string createdDate = 12;
+    string updatedDate = 13;
+    string deletedDate = 14;
+}
+
+message NotaFiscalUpdateRequest{
+    int32 id = 1;
+    NotaFiscalData notaFiscal = 2;
+}
+
+message ServiceResponseNotaFiscal {
+    int32 status = 1;
+    string message = 2;
+    repeated NotaFiscalData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListNotaFiscal {
+    int32 status = 1;
+    string message = 2;
+    ListResultNotaFiscal data = 3;
+    string error = 4;
+}
+
+message ListResultNotaFiscal {
+    repeated NotaFiscalData result = 1;
+    int32 total = 2;
+}
+
+
+
+
+//ITEMNOTAFISCA
+
+message ListCriteriaRequestItemNotaFiscal {
+    int32 idNotafiscal = 1;
+    int32 idPrestconta = 2;
+    int32 items = 3;
+    int32 page = 4;
+    map<string, string> order = 5;
+}
+
+message ItemNotaFiscalData {
+    int32 id = 1;
+    int32 idNotafiscal = 2;
+    int32 idPrestconta = 3;
+    double nuRepasse = 5;
+    int32 cdRepasse = 6;
+    int32 idUsuaOper = 7;
+    string dtRegistro = 8;
+    string createdDate = 9;
+    string updatedDate = 10;
+    string deletedDate = 11;
+}
+
+message ItemNotaFiscalUpdateRequest{
+    int32 id = 1;
+    ItemNotaFiscalData itemNotaFiscal = 2;
+}
+
+message ServiceResponseItemNotaFiscal {
+    int32 status = 1;
+    string message = 2;
+    repeated ItemNotaFiscalData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListItemNotaFiscal {
+    int32 status = 1;
+    string message = 2;
+    ListResultItemNotaFiscal data = 3;
+    string error = 4;
+}
+
+message ListResultItemNotaFiscal {
+    repeated ItemNotaFiscalData result = 1;
+    int32 total = 2;
+}
+
+
+//BOLETONOTAFISCAL
+
+message ListCriteriaRequestBoletoNotaFiscal {
+    int32 idNotaFiscal = 1;
+    int32 idAgencia = 2;
+    string nuSequencial = 3;
+    int32 items = 4;
+    int32 page = 5;
+    map<string, string> order = 6;
+}
+
+message BoletoNotaFiscalData {
+    int32 id = 1;
+    int32 idNotaFiscal = 2;
+    string dtBoleto = 3;
+    int32 idAgencia = 4;
+    string nuSequencial = 5;
+    string deInstrucoes = 6;
+    double nuBoleto = 7;
+    double nuImposto = 8;
+    int32 idUsuaOper = 9;
+    string dtRegistro = 10;
+    string createdDate = 11;
+    string updatedDate = 12;
+    string deletedDate = 13;
+}
+
+message BoletoNotaFiscalUpdateRequest{
+    int32 id = 1;
+    BoletoNotaFiscalData boletoNotaFisca = 2;
+}
+
+message ServiceResponseBoletoNotaFiscal {
+    int32 status = 1;
+    string message = 2;
+    repeated BoletoNotaFiscalData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListBoletoNotaFiscal {
+    int32 status = 1;
+    string message = 2;
+    ListResultBoletoNotaFiscal data = 3;
+    string error = 4;
+}
+
+message ListResultBoletoNotaFiscal {
+    repeated BoletoNotaFiscalData result = 1;
+    int32 total = 2;
+}
+
+
+
+//BOLETONOTAFISCALREMESSA
+
+message ListCriteriaRequestBoletoNotaFiscalRemessa {
+    int32 idArquivoRemessa = 1;
+    int32 idBoleto = 2;
+    int32 idNotafiscal = 3;
+    int32 idAgencia = 4;
+    string cdOcorrencia = 5;
+    int32 items = 6;
+    int32 page = 7;
+    map<string, string> order = 8;
+}
+
+message BoletoNotaFiscalRemessaData {
+    int32 id = 1;
+    int32 idArquivoRemessa = 2;
+    int32 idBoleto = 3;
+    int32 idNotafiscal = 4;
+    string dtVencimento = 5;
+    double nuValor = 6;
+    double nuBoleto = 7;
+    string cdOcorrencia = 8;
+    string dtBoleto = 9;
+    int32 idAgencia = 10;
+    string dtCadastro = 11;
+    int32 idUsuaOper = 12;
+    string dtRegistro = 13;
+    string createdDate = 14;
+    string updatedDate = 15;
+    string deletedDate = 16;
+}
+
+message BoletoNotaFiscalRemessaUpdateRequest{
+    int32 id = 1;
+    BoletoNotaFiscalRemessaData dataPagamentoItem = 2;
+}
+
+message ServiceResponseBoletoNotaFiscalRemessa {
+    int32 status = 1;
+    string message = 2;
+    repeated BoletoNotaFiscalRemessaData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListBoletoNotaFiscalRemessa {
+    int32 status = 1;
+    string message = 2;
+    ListResultBoletoNotaFiscalRemessa data = 3;
+    string error = 4;
+}
+
+message ListResultBoletoNotaFiscalRemessa {
+    repeated BoletoNotaFiscalRemessaData result = 1;
+    int32 total = 2;
+}
+
+//BOLETOAVBEMESSA
+
+message ListCriteriaRequestBoletoAVBRemessa {
+    int32 idArquivoRemessa = 1;
+    int32 idAgencia = 2;
+    string cdOcorrencia = 3;
+    int32 items = 4;
+    int32 page = 5;
+    map<string, string> order = 6;
+}
+
+message BoletoAVBRemessaData {
+    int32 id = 1;
+    int32 idArquivoRemessa = 2;
+    string dtVencimento = 3;
+    double nuValor = 4;
+    string cdOcorrencia = 5;
+    string dtBoleto = 6;
+    int32 idAgencia = 7;
+    string dtCadastro = 8;
+    string nuSequencial = 9;
+    string deInstrucoes = 10;
+    string nmSacado = 11;
+    string cdCnpjCpfSacado = 12;
+    string deLogradouro = 13;
+    string deBairro = 14;
+    string deMunicipio = 15;
+    string deUf = 16;
+    string deCep = 17;
+    int32 idUsuaOper = 18;
+    string dtRegistro = 19;
+    string createdDate = 20;
+    string updatedDate = 21;
+    string deletedDate = 22;
+}
+
+message BoletoAVBRemessaUpdateRequest{
+    int32 id = 1;
+    BoletoAVBRemessaData dataPagamentoItem = 2;
+}
+
+message ServiceResponseBoletoAVBRemessa {
+    int32 status = 1;
+    string message = 2;
+    repeated BoletoAVBRemessaData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListBoletoAVBRemessa {
+    int32 status = 1;
+    string message = 2;
+    ListResultBoletoAVBRemessa data = 3;
+    string error = 4;
+}
+
+message ListResultBoletoAVBRemessa {
+    repeated BoletoAVBRemessaData result = 1;
+    int32 total = 2;
+}
+
+
