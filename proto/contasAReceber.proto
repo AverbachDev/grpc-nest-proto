@@ -230,7 +230,7 @@ message BoletoNotaFiscalRemessaData {
 
 message BoletoNotaFiscalRemessaUpdateRequest{
     int32 id = 1;
-    BoletoNotaFiscalRemessaData dataPagamentoItem = 2;
+    BoletoNotaFiscalRemessaData boletoNotaFiscalRemessa = 2;
 }
 
 message ServiceResponseBoletoNotaFiscalRemessa {
