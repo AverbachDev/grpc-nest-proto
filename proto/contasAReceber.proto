@@ -172,7 +172,7 @@ message BoletoNotaFiscalData {
 
 message BoletoNotaFiscalUpdateRequest{
     int32 id = 1;
-    BoletoNotaFiscalData boletoNotaFisca = 2;
+    BoletoNotaFiscalData boletoNotaFiscal = 2;
 }
 
 message ServiceResponseBoletoNotaFiscal {
@@ -290,7 +290,7 @@ message BoletoAVBRemessaData {
 
 message BoletoAVBRemessaUpdateRequest{
     int32 id = 1;
-    BoletoAVBRemessaData dataPagamentoItem = 2;
+    BoletoAVBRemessaData boletoAVBRemessa = 2;
 }
 
 message ServiceResponseBoletoAVBRemessa {
