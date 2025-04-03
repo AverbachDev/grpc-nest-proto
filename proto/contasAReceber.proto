@@ -28,16 +28,127 @@ service ContasAReceberService {
     rpc createBoletoNotaFiscalRemessa (BoletoNotaFiscalRemessaData) returns (ServiceResponseBoletoNotaFiscalRemessa) {}
     rpc updateBoletoNotaFiscalRemessa (BoletoNotaFiscalRemessaUpdateRequest) returns (ServiceResponseBoletoNotaFiscalRemessa) {}
     rpc removeBoletoNotaFiscalRemessa (IdRequest) returns (ServiceResponseBoletoNotaFiscalRemessa) {}
+    rpc SendBoletoNotaFiscalToBradesco (IdRequest) returns (ServiceResponseRegistroBoletoAPI) {}
 
     rpc listBoletoAVBRemessa (ListCriteriaRequestBoletoAVBRemessa) returns (ServiceResponseListBoletoAVBRemessa) {}
     rpc findOneBoletoAVBRemessa (IdRequest) returns (ServiceResponseBoletoAVBRemessa) {}
     rpc createBoletoAVBRemessa (BoletoAVBRemessaData) returns (ServiceResponseBoletoAVBRemessa) {}
     rpc updateBoletoAVBRemessa (BoletoAVBRemessaUpdateRequest) returns (ServiceResponseBoletoAVBRemessa) {}
     rpc removeBoletoAVBRemessa (IdRequest) returns (ServiceResponseBoletoAVBRemessa) {}
+    rpc SendBoletoAVBToBradescoUseCase (IdRequest) returns (ServiceResponseRegistroBoletoAPI) {}
 }
 
 message IdRequest{
     int32 id = 1;
+}
+
+
+//RESPONSE sendBoletoToBradesco
+
+message ServiceResponseRegistroBoletoAPI {
+    int32 status = 1;
+    string message = 2;
+    repeated ResultRegistroBoletoApiData data = 3;
+    string error = 4;
+}
+
+message ResultRegistroBoletoApiData{
+    string codigoRetorno = 1;
+    string mensagemRetorno = 2;
+    int32 idProduto = 3;
+    string negociacao = 4;
+    int32 nuTituloGerado = 5;
+    string nomeBeneficiario = 6;
+    string logradouroBeneficiario = 7;
+    string nuLogradouroBeneficiario = 8;
+    string complementoLogradouroBeneficiario = 9;
+    string bairroBeneficiario = 10;
+    string cepBeneficiario = 11;
+    string cepComplementoBeneficiario = 12;
+    string municipioBeneficiario = 13;
+    string ufBeneficiario = 14;
+    string nomePagador = 15;
+    string cpfcnpjPagador = 16;
+    string enderecoPagador = 17;
+    string bairroPagador = 18;
+    string municipioPagador = 19;
+    string ufPagador = 20;
+    string cepPagador = 21;
+    string cepComplementoPagador = 22;
+    string endEletronicoPagador = 23;
+    string nomeSacadorAvalista = 24;
+    int32 cnpjCpfSacadorAvalista = 25;
+    string enderecoSacadorAvalista = 26;
+    string municipioSacadorAvalista = 27;
+    string ufSacadorAvalista = 28;
+    int32 cepSacadorAvalista = 29;
+    int32 cepComplementoSacadorAvalista = 30;
+    string seuNumeroTitulo = 31;
+    string dtRegistro = 32;
+    string especieDocumentoTitulo = 33;
+    string descEspecie = 34;
+    double vlIOF = 35;
+    string dtEmissao = 36;
+    string codigoMoedaTitulo = 37;
+    int32 quantidadeMoeda = 38;
+    int32 quantidadeCasas = 39;
+    string dtVencimento = 40;
+    string descricacaoMoeda = 41;
+    double vlTitulo = 42;
+    double vlAbatimento = 43;
+    string dtInstrucaoProtestoNegativacao = 44;
+    int32 diasInstrucaoProtestoNegativacao = 45;
+    string dataEnvioCartorio = 46;
+    string numeroCartorio = 47;
+    string numeroProtocoloCartorio = 48;
+    string dataPedidoSustacao = 49;
+    string dataSustacao = 50;
+    string dtMulta = 51;
+    double vlMulta = 52;
+    int32 qtdeCasasDecimaisMulta = 53;
+    int32 cdValorMulta = 54;
+    string descCdMulta = 55;
+    string dtJuros = 56;
+    int32 vlJurosAoDia = 57;
+    string dtDesconto1Bonificacao = 58;
+    double vlDesconto1Bonificacao = 59;
+    int32 qtdeCasasDecimaisDesconto1Bonificacao = 60;
+    int32 cdValorDesconto1Bonificacao = 61;
+    string descCdDesconto1Bonificacao = 62;
+    string dtDesconto2 = 63;
+    double vlDesconto2 = 64;
+    int32 qtdeCasasDecimaisDesconto2 = 65;
+    int32 cdValorDesconto2 = 66;
+    string descCdDesconto2 = 67;
+    string dtDesconto3 = 68;
+    double vlDesconto3 = 69;
+    int32 qtdeCasasDecimaisDesconto3 = 70;
+    int32 cdValorDesconto3 = 71;
+    string descCdDesconto3 = 72;
+    int32 diasDispensaMulta = 73;
+    int32 diasDispensaJuros = 74;
+    string cdBarras = 75;
+    string linhaDigitavel = 76;
+    double valorDespesas = 77;
+    string tipoEndosso = 78;
+    int32 codigoOrigemProtesto = 79;
+    string codigoOrigemTitulo = 80;
+    int32 tpVencimento = 81;
+    int32 indInstrucaoProtesto = 82;
+    int32 indicadorDecurso = 83;
+    int32 quantidadeDiasDecurso = 84;
+    int32 cdValorJuros = 85;
+    int32 tpDesconto1 = 86;
+    int32 tpDesconto2 = 87;
+    int32 tpDesconto3 = 88;
+    string nuControleParticipante = 89;
+    int32 diasJuros = 90;
+    int32 cdJuros = 91;
+    double vlJuros = 92;
+    string cpfcnpjBeneficiario = 93;
+    double vlTituloEmitidoBoleto = 94;
+    string dtVencimentoBoleto = 95;
+    string dtLimitePagamentoBoleto = 96;
 }
 
 //NOTAFISCAL
@@ -95,7 +206,7 @@ message ListResultNotaFiscal {
 
 
 
-//ITEMNOTAFISCA
+//ITEMNOTAFISCAL
 
 message ListCriteriaRequestItemNotaFiscal {
     int32 idNotafiscal = 1;
