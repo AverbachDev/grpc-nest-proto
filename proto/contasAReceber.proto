@@ -35,7 +35,7 @@ service ContasAReceberService {
     rpc createBoletoAVBRemessa (BoletoAVBRemessaData) returns (ServiceResponseBoletoAVBRemessa) {}
     rpc updateBoletoAVBRemessa (BoletoAVBRemessaUpdateRequest) returns (ServiceResponseBoletoAVBRemessa) {}
     rpc removeBoletoAVBRemessa (IdRequest) returns (ServiceResponseBoletoAVBRemessa) {}
-    rpc SendBoletoAVBToBradescoUseCase (IdRequest) returns (ServiceResponseRegistroBoletoAPI) {}
+    rpc SendBoletoAVBToBradesco (IdRequest) returns (ServiceResponseRegistroBoletoAPI) {}
 }
 
 message IdRequest{
