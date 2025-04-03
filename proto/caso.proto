@@ -58,6 +58,7 @@ service CasoService {
     rpc consultBoletoInBradesco (ListCriteriaRequestBoletoAPI) returns (ServiceResponseBoletodAPI) {}
     rpc consultBoletoPaidInBradesco (ListCriteriaRequestBoletoPaid) returns (ServiceResponseBoletoPaidAPI) {}
     rpc sendRangeBoletoToBradesco (RequestSendRangeBoletoToBradesco) returns (ServiceResponseBoolean) {}
+    rpc GetTokenBradesco (RequestGetTokenBradesco) returns (ServiceResponseTokenAPI) {}
 
     rpc listBoletoRemessa (ListCriteriaRequestBoletoRemessa) returns (ServiceResponseListBoletoRemessa) {}
     rpc findOneBoletoRemessa (IdRequest) returns (ServiceResponseBoletoRemessa) {}
@@ -677,6 +678,11 @@ message RequestSendRangeBoletoToBradesco{
     string dtVencimentoFim = 2;
 }
 
+
+message RequestGetTokenBradesco{
+    string empresaLogin = 1;
+}
+
 //RESPONSES
 //RESPONSE sendBoletoToBradesco
 
@@ -990,4 +996,20 @@ message TitulosBoletoPaidData{
     int32 codigoFormaCredito = 18;
     string descricaoFormaCredito = 19;
     string indicadorPagoCartorio = 20;
+}
+
+
+//GetTokenBradesco
+message ServiceResponseTokenAPI{
+    int32 status = 1;
+    string message = 2;
+    repeated ResultTokenAPIData data = 3;
+    string error = 4;
+}
+
+message ResultTokenAPIData {
+    string access_token = 1;
+    string token_type = 2;
+    int32 expires_in = 3;
+    int32 jti = 4;
 }
