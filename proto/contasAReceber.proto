@@ -29,6 +29,7 @@ service ContasAReceberService {
     rpc updateBoletoNotaFiscalRemessa (BoletoNotaFiscalRemessaUpdateRequest) returns (ServiceResponseBoletoNotaFiscalRemessa) {}
     rpc removeBoletoNotaFiscalRemessa (IdRequest) returns (ServiceResponseBoletoNotaFiscalRemessa) {}
     rpc SendBoletoNotaFiscalToBradesco (IdRequest) returns (ServiceResponseRegistroBoletoAPI) {}
+    rpc SendRangeBoletoNotaFiscalToBradesco (RequestSendRangeBoletoToBradesco) returns (ServiceResponseBoolean) {}
 
     rpc listBoletoAVBRemessa (ListCriteriaRequestBoletoAVBRemessa) returns (ServiceResponseListBoletoAVBRemessa) {}
     rpc findOneBoletoAVBRemessa (IdRequest) returns (ServiceResponseBoletoAVBRemessa) {}
@@ -36,10 +37,25 @@ service ContasAReceberService {
     rpc updateBoletoAVBRemessa (BoletoAVBRemessaUpdateRequest) returns (ServiceResponseBoletoAVBRemessa) {}
     rpc removeBoletoAVBRemessa (IdRequest) returns (ServiceResponseBoletoAVBRemessa) {}
     rpc SendBoletoAVBToBradesco (IdRequest) returns (ServiceResponseRegistroBoletoAPI) {}
+    rpc SendRangeBoletoAVBToBradesco (RequestSendRangeBoletoToBradesco) returns (ServiceResponseBoolean) {}
 }
 
 message IdRequest{
     int32 id = 1;
+}
+
+message ServiceResponseBoolean {
+    int32 status = 1;
+    string message = 2;
+    bool data = 3;
+    string error = 4;
+}
+
+// REQUEST sendBoletoToBradesco
+message RequestSendRangeBoletoToBradesco{
+    int32 idAgencia = 1;
+    string dtVencimentoInicio = 2;
+    string dtVencimentoFim = 3;
 }
 
 
