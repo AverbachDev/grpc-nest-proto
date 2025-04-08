@@ -601,9 +601,10 @@ message ListCriteriaRequestBoletoRemessa {
     string dtVencimentoInicio = 7;
     string dtVencimentoFim = 8;
     int32 idArquivoRemessa = 9;
-    int32 items = 10;
-    int32 page = 11;
-    map<string, string> order = 12;
+    int32 idAgencia = 10;
+    int32 items = 11;
+    int32 page = 12;
+    map<string, string> order = 13;
 }
 
 message BoletoRemessaData {
