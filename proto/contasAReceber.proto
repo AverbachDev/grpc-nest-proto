@@ -331,9 +331,11 @@ message ListCriteriaRequestBoletoNotaFiscalRemessa {
     int32 idNotafiscal = 3;
     int32 idAgencia = 4;
     string cdOcorrencia = 5;
-    int32 items = 6;
-    int32 page = 7;
-    map<string, string> order = 8;
+    string dtVencimentoInicio = 6;
+    string dtVencimentoFim = 7;
+    int32 items = 8;
+    int32 page = 9;
+    map<string, string> order = 10;
 }
 
 message BoletoNotaFiscalRemessaData {
@@ -385,9 +387,11 @@ message ListCriteriaRequestBoletoAVBRemessa {
     int32 idArquivoRemessa = 1;
     int32 idAgencia = 2;
     string cdOcorrencia = 3;
-    int32 items = 4;
-    int32 page = 5;
-    map<string, string> order = 6;
+    string dtVencimentoInicio = 4;
+    string dtVencimentoFim = 5;
+    int32 items = 6;
+    int32 page = 7;
+    map<string, string> order = 8;
 }
 
 message BoletoAVBRemessaData {
