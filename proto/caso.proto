@@ -675,8 +675,9 @@ message ListCriteriaRequestBoletoPaid{
 }
 
 message RequestSendRangeBoletoToBradesco{
-    string dtVencimentoInicio = 1;
-    string dtVencimentoFim = 2;
+    int32 idAgencia = 1;
+    string dtVencimentoInicio = 2;
+    string dtVencimentoFim = 3;
 }
 
 
