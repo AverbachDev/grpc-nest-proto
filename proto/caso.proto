@@ -660,18 +660,12 @@ message ListCriteriaRequestBoletoAPI{
     int32 idAgencia = 1;
     string nossoNumero = 2;
     int32 status = 3;
-    int32 items = 5;
-    int32 page = 6;
-    map<string, string> order = 7; 
 }
 
 message ListCriteriaRequestBoletoPaid{
     int32 idAgencia = 1;
     string dataPagamentoDe = 2;
     string dataPagamentoAte = 3;
-    int32 items = 5;
-    int32 page = 6;
-    map<string, string> order = 7; 
 }
 
 message RequestSendRangeBoletoToBradesco{
