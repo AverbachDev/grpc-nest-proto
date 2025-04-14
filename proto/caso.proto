@@ -67,6 +67,12 @@ service CasoService {
     rpc updateBoletoRemessa (BoletoRemessaUpdateRequest) returns (ServiceResponseBoletoRemessa) {}
     rpc removeBoletoRemessa (IdRequest) returns (ServiceResponseBoletoRemessa) {}
 
+    rpc listBoletoRemessaBaixa (ListCriteriaRequestBoletoRemessaBaixa) returns (ServiceResponseListBoletoRemessaBaixa) {}
+    rpc findOneBoletoRemessaBaixa (IdRequest) returns (ServiceResponseBoletoRemessaBaixa) {}
+    rpc createBoletoRemessaBaixa (BoletoRemessaBaixaData) returns (ServiceResponseBoletoRemessaBaixa) {}
+    rpc updateBoletoRemessaBaixa (BoletoRemessaBaixaUpdateRequest) returns (ServiceResponseBoletoRemessaBaixa) {}
+    rpc removeBoletoRemessaBaixa (IdRequest) returns (ServiceResponseBoletoRemessaBaixa) {}    
+
 }
 
 message EmptyRequest{}
@@ -652,6 +658,63 @@ message ListResultBoletoRemessa {
     int32 total = 2;
 }
 
+
+
+//BOLETO REMESSA BAIXA
+message ListCriteriaRequestBoletoRemessaBaixa {
+    int32 nuSequencial = 1;
+    int32 idBoleto = 2;
+    int32 idParcela = 3;
+    int32 idCaso = 4;
+    string cdOcorrencia = 5;
+    string dtVencimentoInicio = 6;
+    string dtVencimentoFim = 7;
+    int32 idAgencia = 8;
+    int32 items = 9;
+    int32 page = 10;
+    map<string, string> order = 11;
+}
+
+message BoletoRemessaBaixaData {
+    int32 id = 1;
+    int32 idBoleto = 2;
+    int32 idParcela =3;
+    int32 idCaso = 4;    
+    string dtVencimento = 5;
+    string cdOcorrencia = 6;
+    int32 idAgencia = 7;
+    string dtCadastro = 8;
+    int32 nuSequencial =9;
+    int32 idUsuaOper = 10;
+    string dtRegistro = 11;
+    string createdDate = 12;
+    string updatedDate = 13;
+    string deletedDate = 14;
+}
+
+message BoletoRemessaBaixaUpdateRequest{
+    int32 id = 1;
+    BoletoRemessaBaixaData boletoRemessaBaixa = 2;
+}
+
+message ServiceResponseBoletoRemessaBaixa {
+    int32 status = 1;
+    string message = 2;
+    repeated BoletoRemessaData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListBoletoRemessaBaixa {
+    int32 status = 1;
+    string message = 2;
+    ListResultBoletoRemessaBaixa data = 3;
+    string error = 4;
+}
+
+message ListResultBoletoRemessaBaixa {
+    repeated BoletoRemessaBaixaData result = 1;
+    int32 total = 2;
+}
 
 
 //BOLETO API
