@@ -1,0 +1,181 @@
+syntax = "proto3";
+
+package servicesClientes;
+
+
+service servicesClientesService {
+    rpc consultarClienteLiquimoly (ListCriteriaRequestClienteLiquimolyAPI) returns (ServiceResponseClienteLiquimolyAPI) {}
+    rpc listarContasReceberLiquimoly (ListCriteriaRequestContasReceberLiquimolyAPI) returns (ServiceResponseContasReceberLiquimolyAPI) {}
+}
+
+message ListCriteriaRequestClienteLiquimolyAPI{
+    int32 codigo_cliente = 1;
+}
+
+message ServiceResponseClienteLiquimolyAPI{
+    int32 status = 1;
+    string message = 2;
+    repeated ClienteLiquimolyAPI data = 3;
+    string error = 4;        
+}
+
+message ListCriteriaRequestContasReceberLiquimolyAPI{
+    int32 idAgencia = 1;
+    string nossoNumero = 2;
+    int32 status = 3;
+}
+message ServiceResponseContasReceberLiquimolyAPI{
+    int32 status = 1;
+    string message = 2;
+    repeated ContasReceberLiquimolyAPI data = 3;
+    string error = 4;        
+}
+
+// ContasReceber message definition
+message ContasReceberLiquimolyAPI {
+  Boleto boleto = 1;
+  repeated Categoria categorias = 2;
+  string chave_nfe = 3;
+  string codigo_barras_ficha_compensacao = 4;
+  string codigo_categoria = 5;
+  int64 codigo_cliente_fornecedor = 6;
+  string codigo_lancamento_integracao = 7;
+  int64 codigo_lancamento_omie = 8;
+  string codigo_tipo_documento = 9;
+  int64 codigo_vendedor = 10;
+  string data_emissao = 11;
+  string data_previsao = 12;
+  string data_registro = 13;
+  string data_vencimento = 14;
+  repeated string distribuicao = 15; // 'any[]' mapped as repeated string, adjust as needed
+  int64 id_conta_corrente = 16;
+  string id_origem = 17;
+  Info info = 18;
+  int64 nCodPedido = 19;
+  string numero_documento_fiscal = 20;
+  string numero_parcela = 21;
+  string numero_pedido = 22;
+  string operacao = 23;
+  string retem_cofins = 24;
+  string retem_csll = 25;
+  string retem_inss = 26;
+  string retem_ir = 27;
+  string retem_iss = 28;
+  string retem_pis = 29;
+  string status_titulo = 30;
+  string tipo_agrupamento = 31;
+  double valor_documento = 32;
+}
+
+message Boleto {
+  string cGerado = 1;
+  string cNumBancario = 2;
+  string cNumBoleto = 3;
+  string dDtEmBol = 4;
+  double nPerJuros = 5;
+  double nPerMulta = 6;
+}
+
+message Categoria {
+  string codigo_categoria = 1;
+  double percentual = 2;
+  double valor = 3;
+}
+
+message Info {
+  string cImpAPI = 1;
+  string dAlt = 2;
+  string dInc = 3;
+  string hAlt = 4;
+  string hInc = 5;
+  string uAlt = 6;
+  string uInc = 7;
+}
+
+
+// Cliente message definition
+message ClienteLiquimolyAPI {
+  int64 codigo_cliente_omie = 1;
+  string codigo_cliente_integracao = 2;
+  string razao_social = 3;
+  string cnpj_cpf = 4;
+  string nome_fantasia = 5;
+  string telefone1_ddd = 6;
+  string telefone1_numero = 7;
+  string contato = 8;
+  string endereco = 9;
+  string endereco_numero = 10;
+  string bairro = 11;
+  string complemento = 12;
+  string estado = 13;
+  string cidade = 14;
+  string cep = 15;
+  string codigo_pais = 16;
+  string separar_endereco = 17;
+  string pesquisar_cep = 18;
+  string telefone2_ddd = 19;
+  string telefone2_numero = 20;
+  string fax_ddd = 21;
+  string fax_numero = 22;
+  string email = 23;
+  string homepage = 24;
+  string inscricao_estadual = 25;
+  string inscricao_municipal = 26;
+  string inscricao_suframa = 27;
+  string optante_simples_nacional = 28;
+  string tipo_atividade = 29;
+  string cnae = 30;
+  string produtor_rural = 31;
+  string contribuinte = 32;
+  string observacao = 33;
+  string obs_detalhadas = 34;
+  string recomendacao_atraso = 35;
+  repeated Tag tags = 36;
+  string pessoa_fisica = 37;
+  string exterior = 38;
+  string logradouro = 39;
+  string importado_api = 40;
+  string bloqueado = 41;
+  string cidade_ibge = 42;
+  double valor_limite_credito = 43;
+  string bloquear_faturamento = 44;
+  Recomendacoes recomendacoes = 45;
+  EnderecoEntrega enderecoEntrega = 46;
+  string nif = 47;
+  string documento_exterior = 48;
+  string inativo = 49;
+  DadosBancarios dadosBancarios = 50;
+  repeated string caracteristicas = 51;
+  string enviar_anexos = 52;
+  Info info = 53;
+  string bloquear_exclusao = 54;
+}
+
+message Tag {
+  string tag = 1;
+}
+
+message Recomendacoes {
+  int64 codigo_vendedor = 1;
+  string gerar_boletos = 2;
+}
+
+message EnderecoEntrega {
+  string entBairro = 1;
+  string entCEP = 2;
+  string entCidade = 3;
+  string entCnpjCpf = 4;
+  string entEndereco = 5;
+  string entEstado = 6;
+  string entNumero = 7;
+}
+
+message DadosBancarios {
+  string agencia = 1;
+  string cChavePix = 2;
+  string codigo_banco = 3;
+  string conta_corrente = 4;
+  string doc_titular = 5;
+  string nome_titular = 6;
+  string transf_padrao = 7;
+}
