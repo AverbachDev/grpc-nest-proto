@@ -15,7 +15,7 @@ message ListCriteriaRequestClienteLiquimolyAPI{
 message ServiceResponseClienteLiquimolyAPI{
     int32 status = 1;
     string message = 2;
-    repeated ClienteLiquimolyAPI data = 3;
+    repeated ClienteLiquimolyAPIData data = 3;
     string error = 4;        
 }
 
@@ -27,12 +27,12 @@ message ListCriteriaRequestContasReceberLiquimolyAPI{
 message ServiceResponseContasReceberLiquimolyAPI{
     int32 status = 1;
     string message = 2;
-    repeated ContasReceberLiquimolyAPI data = 3;
+    repeated ContasReceberLiquimolyAPIData data = 3;
     string error = 4;        
 }
 
 // ContasReceber message definition
-message ContasReceberLiquimolyAPI {
+message ContasReceberLiquimolyAPIData {
   Boleto boleto = 1;
   repeated Categoria categorias = 2;
   string chave_nfe = 3;
@@ -94,7 +94,7 @@ message Info {
 
 
 // Cliente message definition
-message ClienteLiquimolyAPI {
+message ClienteLiquimolyAPIData {
   int64 codigo_cliente_omie = 1;
   string codigo_cliente_integracao = 2;
   string razao_social = 3;
