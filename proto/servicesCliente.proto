@@ -9,7 +9,7 @@ service servicesClientesService {
 }
 
 message ListCriteriaRequestClienteLiquimolyAPI{
-    string codigo_cliente = 1;
+    string codigoCliente = 1;
 }
 
 message ServiceResponseClienteLiquimolyAPI{
