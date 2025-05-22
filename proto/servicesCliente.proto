@@ -208,9 +208,10 @@ message ListCriteriaRequestTitulosLiquimoly {
     string numeroDocumentoFiscal = 1;
     string dataPrevisao = 2;
     double valorDocumento = 3;
-    int32 items = 4;
-    int32 page = 5;
-    map<string, string> order = 6;
+    int32 codigoLancamentoOmie = 4;
+    int32 items = 5;
+    int32 page = 6;
+    map<string, string> order = 7;
 }
 
 message TitulosLiquimolyData {
