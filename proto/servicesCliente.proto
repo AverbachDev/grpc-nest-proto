@@ -227,7 +227,7 @@ message TitulosLiquimolyData {
 
 message TitulosLiquimolyUpdateRequest{
     int32 id = 1;
-    TitulosLiquimolyData titulosLiquimolyData = 2;
+    TitulosLiquimolyData titulosLiquimoly = 2;
 }
 
 message ServiceResponseTitulosLiquimoly {
