@@ -20,9 +20,11 @@ message ServiceResponseClienteLiquimolyAPI{
 }
 
 message ListCriteriaRequestContasReceberLiquimolyAPI{
-    int32 idAgencia = 1;
-    string nossoNumero = 2;
-    int32 status = 3;
+    int32 pagina = 1;
+    int32 registrosPorPagina = 2;
+    string filtrarPorEmissaoDe = 3;
+    string filtrarPorEmissaoAte = 4;
+    string filtrarApenasTitulosEmAberto = 5;
 }
 message ServiceResponseContasReceberLiquimolyAPI{
     int32 status = 1;
