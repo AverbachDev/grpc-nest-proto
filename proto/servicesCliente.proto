@@ -6,6 +6,12 @@ package servicesClientes;
 service servicesClientesService {
     rpc consultarClienteLiquimoly (ListCriteriaRequestClienteLiquimolyAPI) returns (ServiceResponseClienteLiquimolyAPI) {}
     rpc listarContasReceberLiquimoly (ListCriteriaRequestContasReceberLiquimolyAPI) returns (ServiceResponseContasReceberLiquimolyAPI) {}
+
+    rpc listTitulosLiquimoly (ListCriteriaRequestTitulosLiquimoly) returns (ServiceResponseListTitulosLiquimoly) {}
+    rpc findOneTitulosLiquimoly (IdRequest) returns (ServiceResponseTitulosLiquimoly) {}
+    rpc createTitulosLiquimoly (TitulosLiquimolyData) returns (ServiceResponseTitulosLiquimoly) {}
+    rpc updateTitulosLiquimoly (TitulosLiquimolyUpdateRequest) returns (ServiceResponseTitulosLiquimoly) {}
+    rpc removeTitulosLiquimoly (IdRequest) returns (ServiceResponseTitulosLiquimoly) {}
 }
 
 message ListCriteriaRequestClienteLiquimolyAPI{
@@ -26,6 +32,7 @@ message ListCriteriaRequestContasReceberLiquimolyAPI{
     string filtrarPorEmissaoAte = 4;
     string filtrarApenasTitulosEmAberto = 5;
 }
+
 message ServiceResponseContasReceberLiquimolyAPI{
     int32 status = 1;
     string message = 2;
@@ -180,4 +187,64 @@ message DadosBancarios {
   string doc_titular = 5;
   string nome_titular = 6;
   string transf_padrao = 7;
+}
+
+
+message IdRequest{
+    int32 id = 1;
+}
+
+message ServiceResponseBoolean {
+    int32 status = 1;
+    string message = 2;
+    bool data = 3;
+    string error = 4;
+}
+
+
+//TITULOS LIQUIMOLY
+
+message ListCriteriaRequestTitulosLiquimoly {
+    string numeroDocumentoFiscal = 1;
+    string dataPrevisao = 2;
+    double valorDocumento = 3;
+    int32 items = 4;
+    int32 page = 5;
+    map<string, string> order = 6;
+}
+
+message TitulosLiquimolyData {
+    int32 id = 1;
+    int32 codigoLancamentoOmie = 2;
+    string dataPrevisao = 3;
+    double valorDocumento = 4;
+    string numeroDocumentoFiscal = 5;
+    string numeroParcela = 6;
+    string createdDate = 7;
+    string updatedDate = 8;
+    string deletedDate = 9;
+}
+
+message TitulosLiquimolyUpdateRequest{
+    int32 id = 1;
+    TitulosLiquimolyData titulosLiquimolyData = 2;
+}
+
+message ServiceResponseTitulosLiquimoly {
+    int32 status = 1;
+    string message = 2;
+    repeated TitulosLiquimolyData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListTitulosLiquimoly {
+    int32 status = 1;
+    string message = 2;
+    ListResultTitulosLiquimoly data = 3;
+    string error = 4;
+}
+
+message ListResultTitulosLiquimoly {
+    repeated TitulosLiquimolyData result = 1;
+    int32 total = 2;
 }
