@@ -221,9 +221,10 @@ message TitulosLiquimolyData {
     double valorDocumento = 4;
     string numeroDocumentoFiscal = 5;
     string numeroParcela = 6;
-    string createdDate = 7;
-    string updatedDate = 8;
-    string deletedDate = 9;
+    string dataBaixa = 7;
+    string createdDate = 8;
+    string updatedDate = 9;
+    string deletedDate = 10;
 }
 
 message TitulosLiquimolyUpdateRequest{
