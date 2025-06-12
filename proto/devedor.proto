@@ -23,7 +23,111 @@ service DevedorService {
   rpc removeContato (IdRequest) returns (ServiceResponseContato) {}
   rpc removeAllContato (WithoutParams) returns (ServiceResponseContato) {}
   rpc createManyContato (ContatoManyData) returns (ServiceResponseContato) {}  
+
+    //DevedorAnaliseExploratoria
+  rpc findOneDevedorAnaliseExploratoria (IdRequest) returns (ServiceResponseDevedorAnaliseExploratoria) {}
+  rpc createDevedorAnaliseExploratoria (DevedorAnaliseExploratoriaData) returns (ServiceResponseDevedorAnaliseExploratoria) {}
+  rpc updateDevedorAnaliseExploratoria (DevedorAnaliseExploratoriaUpdateRequest) returns (ServiceResponseDevedorAnaliseExploratoria) {}
+  rpc removeDevedorAnaliseExploratoria (IdRequest) returns (ServiceResponseDevedorAnaliseExploratoria) {}
+  rpc createManyDevedorAnaliseExploratoria (DevedorAnaliseExploratoriaManyData) returns (ServiceResponseDevedorAnaliseExploratoria) {}
+  rpc removeAllDevedorAnaliseExploratoria (WithoutParams) returns (ServiceResponseDevedorAnaliseExploratoria) {}
+
+
+  //DevedorAnaliseExploratoriaDiaParcela
+  rpc listDevedorAnaliseExploratoriaDiaParcela (ListCriteriaRequestDevedorAnaliseExploratoriaDiaParcela) returns (ServiceResponseListDevedorAnaliseExploratoriaDiaParcela) {}
+  rpc findOneDevedorAnaliseExploratoriaDiaParcela (IdRequest) returns (ServiceResponseDevedorAnaliseExploratoriaDiaParcela) {}
+  rpc createDevedorAnaliseExploratoriaDiaParcela (DevedorAnaliseExploratoriaDiaParcelaData) returns (ServiceResponseDevedorAnaliseExploratoriaDiaParcela) {}
+  rpc updateDevedorAnaliseExploratoriaDiaParcela (DevedorAnaliseExploratoriaDiaParcelaUpdateRequest) returns (ServiceResponseDevedorAnaliseExploratoriaDiaParcela) {}
+  rpc removeDevedorAnaliseExploratoriaDiaParcela (IdRequest) returns (ServiceResponseDevedorAnaliseExploratoriaDiaParcela) {}
+  rpc createManyDevedorAnaliseExploratoriaDiaParcela (DevedorAnaliseExploratoriaDiaParcelaManyData) returns (ServiceResponseDevedorAnaliseExploratoriaDiaParcela) {}
+  rpc removeAllDevedorAnaliseExploratoriaDiaParcela (WithoutParams) returns (ServiceResponseDevedorAnaliseExploratoriaDiaParcela) {}
+
+
+  //DevedorAnaliseExploratoriaCasos
+  rpc listDevedorAnaliseExploratoriaCasos (ListCriteriaRequestDevedorAnaliseExploratoriaCasos) returns (ServiceResponseListDevedorAnaliseExploratoriaCasos) {}
+  rpc findOneDevedorAnaliseExploratoriaCasos (IdRequest) returns (ServiceResponseDevedorAnaliseExploratoriaCasos) {}
+  rpc createDevedorAnaliseExploratoriaCasos (DevedorAnaliseExploratoriaCasosData) returns (ServiceResponseDevedorAnaliseExploratoriaCasos) {}
+  rpc updateDevedorAnaliseExploratoriaCasos (DevedorAnaliseExploratoriaCasosUpdateRequest) returns (ServiceResponseDevedorAnaliseExploratoriaCasos) {}
+  rpc removeDevedorAnaliseExploratoriaCasos (IdRequest) returns (ServiceResponseDevedorAnaliseExploratoriaCasos) {}
+  rpc createManyDevedorAnaliseExploratoriaCasos (DevedorAnaliseExploratoriaCasosManyData) returns (ServiceResponseDevedorAnaliseExploratoriaCasos) {}
+  rpc removeAllDevedorAnaliseExploratoriaCasos (WithoutParams) returns (ServiceResponseDevedorAnaliseExploratoriaCasos) {}
+
+  // DevedorHistoricoNegativacao
+  rpc listDevedorHistoricoNegativacao (ListCriteriaRequestDevedorHistoricoNegativacao) returns (ServiceResponseListDevedorHistoricoNegativacao) {}
+  rpc findOneDevedorHistoricoNegativacao (IdRequest) returns (ServiceResponseDevedorHistoricoNegativacao) {}
+  rpc createDevedorHistoricoNegativacao (DevedorHistoricoNegativacaoData) returns (ServiceResponseDevedorHistoricoNegativacao) {}
+  rpc updateDevedorHistoricoNegativacao (DevedorHistoricoNegativacaoUpdateRequest) returns (ServiceResponseDevedorHistoricoNegativacao) {}
+  rpc removeDevedorHistoricoNegativacao (IdRequest) returns (ServiceResponseDevedorHistoricoNegativacao) {}
+  rpc createManyDevedorHistoricoNegativacao (DevedorHistoricoNegativacaoManyData) returns (ServiceResponseDevedorHistoricoNegativacao) {}
+  rpc removeAllDevedorHistoricoNegativacao (WithoutParams) returns (ServiceResponseDevedorHistoricoNegativacao) {}
+
+
+  //DevedorInformacoesPesquisaSocioEmpresa 
+  rpc listDevedorInformacoesPesquisaSocioEmpresa (ListCriteriaRequestDevedorInformacoesPesquisaSocioEmpresa) returns (ServiceResponseListDevedorInformacoesPesquisaSocioEmpresa) {}
+  rpc findOneDevedorInformacoesPesquisaSocioEmpresa (IdRequest) returns (ServiceResponseDevedorInformacoesPesquisaSocioEmpresa) {}
+  rpc createDevedorInformacoesPesquisaSocioEmpresa (DevedorInformacoesPesquisaSocioEmpresaData) returns (ServiceResponseDevedorInformacoesPesquisaSocioEmpresa) {}
+  rpc updateDevedorInformacoesPesquisaSocioEmpresa (DevedorInformacoesPesquisaSocioEmpresaUpdateRequest) returns (ServiceResponseDevedorInformacoesPesquisaSocioEmpresa) {}
+  rpc removeDevedorInformacoesPesquisaSocioEmpresa (IdRequest) returns (ServiceResponseDevedorInformacoesPesquisaSocioEmpresa) {}
+  rpc createManyDevedorInformacoesPesquisaSocioEmpresa (DevedorInformacoesPesquisaSocioEmpresaManyData) returns (ServiceResponseDevedorInformacoesPesquisaSocioEmpresa) {}
+  rpc removeAllDevedorInformacoesPesquisaSocioEmpresa (WithoutParams) returns (ServiceResponseDevedorInformacoesPesquisaSocioEmpresa) {}
+
+  //DevedorInformacoesPesquisaSocioTelefoneOcorrencia
+  rpc listDevedorInformacoesPesquisaSocioTelefone (ListCriteriaRequestDevedorInformacoesPesquisaSocioTelefone) returns (ServiceResponseListDevedorInformacoesPesquisaSocioTelefone) {}
+  rpc findOneDevedorInformacoesPesquisaSocioTelefone (IdRequest) returns (ServiceResponseDevedorInformacoesPesquisaSocioTelefone) {}
+  rpc createDevedorInformacoesPesquisaSocioTelefone (DevedorInformacoesPesquisaSocioTelefoneData) returns (ServiceResponseDevedorInformacoesPesquisaSocioTelefone) {}
+  rpc updateDevedorInformacoesPesquisaSocioTelefone (DevedorInformacoesPesquisaSocioTelefoneUpdateRequest) returns (ServiceResponseDevedorInformacoesPesquisaSocioTelefone) {}
+  rpc removeDevedorInformacoesPesquisaSocioTelefone (IdRequest) returns (ServiceResponseDevedorInformacoesPesquisaSocioTelefone) {}
+  rpc createManyDevedorInformacoesPesquisaSocioTelefone (DevedorInformacoesPesquisaSocioTelefoneManyData) returns (ServiceResponseDevedorInformacoesPesquisaSocioTelefone) {}
+  rpc removeAllDevedorInformacoesPesquisaSocioTelefone (WithoutParams) returns (ServiceResponseDevedorInformacoesPesquisaSocioTelefone) {}
+
+  //DevedorInformacoesPesquisaSocioTelefoneOcorrencia
+  rpc listDevedorInformacoesPesquisaSocioTelefoneOcorrencia (ListCriteriaRequestDevedorInformacoesPesquisaSocioTelefoneOcorrencia) returns (ServiceResponseListDevedorInformacoesPesquisaSocioTelefoneOcorrencia) {}
+  rpc findOneDevedorInformacoesPesquisaSocioTelefoneOcorrencia (IdRequest) returns (ServiceResponseDevedorInformacoesPesquisaSocioTelefoneOcorrencia) {}
+  rpc createDevedorInformacoesPesquisaSocioTelefoneOcorrencia (DevedorInformacoesPesquisaSocioTelefoneOcorrenciaData) returns (ServiceResponseDevedorInformacoesPesquisaSocioTelefoneOcorrencia) {}
+  rpc updateDevedorInformacoesPesquisaSocioTelefoneOcorrencia (DevedorInformacoesPesquisaSocioTelefoneOcorrenciaUpdateRequest) returns (ServiceResponseDevedorInformacoesPesquisaSocioTelefoneOcorrencia) {}
+  rpc removeDevedorInformacoesPesquisaSocioTelefoneOcorrencia (IdRequest) returns (ServiceResponseDevedorInformacoesPesquisaSocioTelefoneOcorrencia) {}
+  rpc createManyDevedorInformacoesPesquisaSocioTelefoneOcorrencia (DevedorInformacoesPesquisaSocioTelefoneOcorrenciaManyData) returns (ServiceResponseDevedorInformacoesPesquisaSocioTelefoneOcorrencia) {}
+  rpc removeAllDevedorInformacoesPesquisaSocioTelefoneOcorrencia (WithoutParams) returns (ServiceResponseDevedorInformacoesPesquisaSocioTelefoneOcorrencia) {}
+
+  //DevedorInformacoesPesquisaSocio
+  rpc listDevedorInformacoesPesquisaSocio (ListCriteriaRequestDevedorInformacoesPesquisaSocio) returns (ServiceResponseListDevedorInformacoesPesquisaSocio) {}
+  rpc findOneDevedorInformacoesPesquisaSocio (IdRequest) returns (ServiceResponseDevedorInformacoesPesquisaSocio) {}
+  rpc createDevedorInformacoesPesquisaSocio (DevedorInformacoesPesquisaSocioData) returns (ServiceResponseDevedorInformacoesPesquisaSocio) {}
+  rpc updateDevedorInformacoesPesquisaSocio (DevedorInformacoesPesquisaSocioUpdateRequest) returns (ServiceResponseDevedorInformacoesPesquisaSocio) {}
+  rpc removeDevedorInformacoesPesquisaSocio (IdRequest) returns (ServiceResponseDevedorInformacoesPesquisaSocio) {}
+  rpc createManyDevedorInformacoesPesquisaSocio (DevedorInformacoesPesquisaSocioManyData) returns (ServiceResponseDevedorInformacoesPesquisaSocio) {}  
+  rpc removeAllDevedorInformacoesPesquisaSocio (WithoutParams) returns (ServiceResponseDevedorInformacoesPesquisaSocio) {}
+
+  //DevedorInformacoesPesquisaTelefoneOcorrencia
+  rpc listDevedorInformacoesPesquisaTelefoneOcorrencia (ListCriteriaRequestDevedorInformacoesPesquisaTelefoneOcorrencia) returns (ServiceResponseListDevedorInformacoesPesquisaTelefoneOcorrencia) {}
+  rpc findOneDevedorInformacoesPesquisaTelefoneOcorrencia (IdRequest) returns (ServiceResponseDevedorInformacoesPesquisaTelefoneOcorrencia) {}
+  rpc createDevedorInformacoesPesquisaTelefoneOcorrencia (DevedorInformacoesPesquisaTelefoneOcorrenciaData) returns (ServiceResponseDevedorInformacoesPesquisaTelefoneOcorrencia) {}
+  rpc updateDevedorInformacoesPesquisaTelefoneOcorrencia (DevedorInformacoesPesquisaTelefoneOcorrenciaUpdateRequest) returns (ServiceResponseDevedorInformacoesPesquisaTelefoneOcorrencia) {}
+  rpc removeDevedorInformacoesPesquisaTelefoneOcorrencia (IdRequest) returns (ServiceResponseDevedorInformacoesPesquisaTelefoneOcorrencia) {}
+  rpc createManyDevedorInformacoesPesquisaTelefoneOcorrencia (DevedorInformacoesPesquisaTelefoneOcorrenciaManyData) returns (ServiceResponseDevedorInformacoesPesquisaTelefoneOcorrencia) {}
+  rpc removeAllDevedorInformacoesPesquisaTelefoneOcorrencia (WithoutParams) returns (ServiceResponseDevedorInformacoesPesquisaTelefoneOcorrencia) {}
+
+  // DevedorInformacoesPesquisaTelefone
+  rpc listDevedorInformacoesPesquisaTelefone (ListCriteriaRequestDevedorInformacoesPesquisaTelefone) returns (ServiceResponseListDevedorInformacoesPesquisaTelefone) {}
+  rpc findOneDevedorInformacoesPesquisaTelefone (IdRequest) returns (ServiceResponseDevedorInformacoesPesquisaTelefone) {}
+  rpc createDevedorInformacoesPesquisaTelefone (DevedorInformacoesPesquisaTelefoneData) returns (ServiceResponseDevedorInformacoesPesquisaTelefone) {}
+  rpc updateDevedorInformacoesPesquisaTelefone (DevedorInformacoesPesquisaTelefoneUpdateRequest) returns (ServiceResponseDevedorInformacoesPesquisaTelefone) {}
+  rpc removeDevedorInformacoesPesquisaTelefone (IdRequest) returns (ServiceResponseDevedorInformacoesPesquisaTelefone) {}
+  rpc createManyDevedorInformacoesPesquisaTelefone (DevedorInformacoesPesquisaTelefoneManyData) returns (ServiceResponseDevedorInformacoesPesquisaTelefone) {}
+  rpc removeAllDevedorInformacoesPesquisaTelefone (WithoutParams) returns (ServiceResponseDevedorInformacoesPesquisaTelefone) {}
+
+  // DevedorInformacoesPesquisa
+  rpc listDevedorInformacoesPesquisa (ListCriteriaRequestDevedorInformacoesPesquisa) returns (ServiceResponseListDevedorInformacoesPesquisa) {}
+  rpc findOneDevedorInformacoesPesquisa (IdRequest) returns (ServiceResponseDevedorInformacoesPesquisa) {}
+  rpc createDevedorInformacoesPesquisa (DevedorInformacoesPesquisaData) returns (ServiceResponseDevedorInformacoesPesquisa) {}
+  rpc updateDevedorInformacoesPesquisa (DevedorInformacoesPesquisaUpdateRequest) returns (ServiceResponseDevedorInformacoesPesquisa) {}
+  rpc removeDevedorInformacoesPesquisa (IdRequest) returns (ServiceResponseDevedorInformacoesPesquisa) {}
+  rpc createManyDevedorInformacoesPesquisa (DevedorInformacoesPesquisaManyData) returns (ServiceResponseDevedorInformacoesPesquisa) {}
+  rpc removeAllDevedorInformacoesPesquisa (WithoutParams) returns (ServiceResponseDevedorInformacoesPesquisa) {}  
 }
+
+
+
 
 // Empty message for RPCs that require no parameters
 message WithoutParams {}
@@ -189,5 +293,579 @@ message ServiceResponseListContato {
 message ListResultContato {
     repeated ContatoData result = 1;
     int32 total = 2;
+}
+
+//DevedorAnaliseExploratoria
+
+message DevedorAnaliseExploratoriaData {
+  int32 idAnaliseDevedor = 1;
+  int32 idDevedor = 2;
+  int32 nuCasosPagosAno = 3;
+  string deUltimoTelContato = 4;
+  int32 idUsuaOper = 5;
+  string dtRegistro = 6;
+  int32 nuDiasAcordo = 7;
+  int32 nuRetornoEmail = 8;
+  int32 nuRetornoWhatsapp = 9;
+  string createdDate = 10;
+  string updatedDate = 11;
+  string deletedDate = 12;
+}
+
+message DevedorAnaliseExploratoriaUpdateRequest {
+  int32 idAnaliseDevedor = 1;
+  DevedorAnaliseExploratoriaData analise = 2;
+}
+
+message DevedorAnaliseExploratoriaManyData {
+  repeated DevedorAnaliseExploratoriaData data = 1;
+}
+
+message ServiceResponseDevedorAnaliseExploratoria {
+  int32 status = 1;
+  string message = 2;
+  repeated DevedorAnaliseExploratoriaData data = 3;
+  string error = 4;
+}
+
+message ServiceResponseListDevedorAnaliseExploratoria {
+  int32 status = 1;
+  string message = 2;
+  ListResultDevedorAnaliseExploratoria data = 3;
+  string error = 4;
+}
+
+message ListResultDevedorAnaliseExploratoria {
+  repeated DevedorAnaliseExploratoriaData result = 1;
+  int32 total = 2;
+}
+
+message ListCriteriaRequestDevedorAnaliseExploratoria {
+  int32 idAnaliseDevedor = 1;
+  int32 idDevedor = 2;
+  int32 items = 3;
+  int32 page = 4;
+  map<string, string> order = 5;
+}
+
+
+//DevedorAnaliseExploratoriaDiaParcela
+message DevedorAnaliseExploratoriaDiaParcelaUpdateRequest {
+  int32 idAnaliseDia = 1;
+  DevedorAnaliseExploratoriaDiaParcelaData diaParcela = 2;
+}
+
+message DevedorAnaliseExploratoriaDiaParcelaManyData {
+  repeated DevedorAnaliseExploratoriaDiaParcelaData data = 1;
+}
+
+message ServiceResponseDevedorAnaliseExploratoriaDiaParcela {
+  int32 status = 1;
+  string message = 2;
+  repeated DevedorAnaliseExploratoriaDiaParcelaData data = 3;
+  string error = 4;
+}
+
+message ServiceResponseListDevedorAnaliseExploratoriaDiaParcela {
+  int32 status = 1;
+  string message = 2;
+  ListResultDevedorAnaliseExploratoriaDiaParcela data = 3;
+  string error = 4;
+}
+
+message ListResultDevedorAnaliseExploratoriaDiaParcela {
+  repeated DevedorAnaliseExploratoriaDiaParcelaData result = 1;
+  int32 total = 2;
+}
+
+message ListCriteriaRequestDevedorAnaliseExploratoriaDiaParcela {
+  int32 idAnaliseDia = 1;
+  int32 idAnaliseDevedor = 2;
+  int32 items = 3;
+  int32 page = 4;
+  map<string, string> order = 5;
+}
+
+message DevedorAnaliseExploratoriaDiaParcelaData {
+  int32 idAnaliseDia = 1;
+  int32 idAnaliseDevedor = 2;
+  int32 nuDia = 3;
+  int32 nuParcelas = 4;
+  double nuTotalDia = 5;
+  int32 idUsuaOper = 6;
+  string dtRegistro = 7;
+  string createdDate = 8;
+  string updatedDate = 9;
+  string deletedDate = 10;
+}
+
+
+//DevedorAnaliseExploratoriaCasos
+message DevedorAnaliseExploratoriaCasosData {
+  int32 idAnaliseAcordo = 1;
+  int32 idCaso = 2;
+  int32 idAnaliseDevedor = 3;
+  string dtCadastro = 4;
+  double nuTotalPago = 5;
+  int32 idUsuaOper = 6;
+  string dtRegistro = 7;
+  double perJuros = 8;
+  double perMulta = 9;
+  double perHonorDevedor = 10;
+  string createdDate = 11;
+  string updatedDate = 12;
+  string deletedDate = 13;
+}
+
+
+message DevedorAnaliseExploratoriaCasosUpdateRequest {
+  int32 idAnaliseAcordo = 1;
+  DevedorAnaliseExploratoriaCasosData caso = 2;
+}
+
+message DevedorAnaliseExploratoriaCasosManyData {
+  repeated DevedorAnaliseExploratoriaCasosData data = 1;
+}
+
+message ServiceResponseDevedorAnaliseExploratoriaCasos {
+  int32 status = 1;
+  string message = 2;
+  repeated DevedorAnaliseExploratoriaCasosData data = 3;
+  string error = 4;
+}
+
+message ServiceResponseListDevedorAnaliseExploratoriaCasos {
+  int32 status = 1;
+  string message = 2;
+  ListResultDevedorAnaliseExploratoriaCasos data = 3;
+  string error = 4;
+}
+
+message ListResultDevedorAnaliseExploratoriaCasos {
+  repeated DevedorAnaliseExploratoriaCasosData result = 1;
+  int32 total = 2;
+}
+
+message ListCriteriaRequestDevedorAnaliseExploratoriaCasos {
+  int32 idAnaliseAcordo = 1;
+  int32 idCaso = 2;
+  int32 idAnaliseDevedor = 3;
+  int32 items = 4;
+  int32 page = 5;
+  map<string, string> order = 6;
+}
+
+
+// DevedorHistoricoNegativacao
+
+message DevedorHistoricoNegativacaoData {
+  int32 idDevedorNegativacao = 1;
+  int32 idCaso = 2;
+  string dtNegativacaoIni = 3;
+  string dtNegativacaoFim = 4;
+  int32 idUsuaOper = 5;
+  string dtRegistro = 6;
+  string createdDate = 7;
+  string updatedDate = 8;
+  string deletedDate = 9;
+}
+
+message DevedorHistoricoNegativacaoUpdateRequest {
+  int32 idDevedorNegativacao = 1;
+  DevedorHistoricoNegativacaoData negativacao = 2;
+}
+
+message DevedorHistoricoNegativacaoManyData {
+  repeated DevedorHistoricoNegativacaoData data = 1;
+}
+
+message ServiceResponseDevedorHistoricoNegativacao {
+  int32 status = 1;
+  string message = 2;
+  repeated DevedorHistoricoNegativacaoData data = 3;
+  string error = 4;
+}
+
+message ServiceResponseListDevedorHistoricoNegativacao {
+  int32 status = 1;
+  string message = 2;
+  ListResultDevedorHistoricoNegativacao data = 3;
+  string error = 4;
+}
+
+message ListResultDevedorHistoricoNegativacao {
+  repeated DevedorHistoricoNegativacaoData result = 1;
+  int32 total = 2;
+}
+
+message ListCriteriaRequestDevedorHistoricoNegativacao {
+  int32 idDevedorNegativacao = 1;
+  int32 idCaso = 2;
+  string dtNegativacaoIni = 3;
+  string dtNegativacaoFim = 4;
+  int32 items = 5;
+  int32 page = 6;
+  map<string, string> order = 7;
+}
+
+
+//DevedorInformacoesPesquisaSocioEmpresa
+message DevedorInformacoesPesquisaSocioEmpresaData {
+  int32 idInfpesquisaSocioEmpresa = 1;
+  int32 idInfpesquisaSocio = 2;
+  string cdCnpjCpf = 3;
+  string deRazOsocial = 4;
+  bool nuCasosPagos = 5;
+  int32 idUsuaOper = 6;
+  string dtRegisto = 7;
+  string createdDate = 8;
+  string updatedDate = 9;
+  string deletedDate = 10;
+}
+
+message DevedorInformacoesPesquisaSocioEmpresaUpdateRequest {
+  int32 idInfpesquisaSocioEmpresa = 1;
+  DevedorInformacoesPesquisaSocioEmpresaData socioEmpresa = 2;
+}
+
+message DevedorInformacoesPesquisaSocioEmpresaManyData {
+  repeated DevedorInformacoesPesquisaSocioEmpresaData data = 1;
+}
+
+message ServiceResponseDevedorInformacoesPesquisaSocioEmpresa {
+  int32 status = 1;
+  string message = 2;
+  repeated DevedorInformacoesPesquisaSocioEmpresaData data = 3;
+  string error = 4;
+}
+
+message ServiceResponseListDevedorInformacoesPesquisaSocioEmpresa {
+  int32 status = 1;
+  string message = 2;
+  ListResultDevedorInformacoesPesquisaSocioEmpresa data = 3;
+  string error = 4;
+}
+
+message ListResultDevedorInformacoesPesquisaSocioEmpresa {
+  repeated DevedorInformacoesPesquisaSocioEmpresaData result = 1;
+  int32 total = 2;
+}
+
+message ListCriteriaRequestDevedorInformacoesPesquisaSocioEmpresa {
+  int32 idInfpesquisaSocioEmpresa = 1;
+  int32 idInfpesquisaSocio = 2;
+  int32 items = 3;
+  int32 page = 4;
+  map<string, string> order = 5;
+}
+
+//DevedorInformacoesPesquisaSocioTelefoneOcorrencia
+message DevedorInformacoesPesquisaSocioTelefoneData {
+  int32 idInfpesquisaSocioTelefone = 1;
+  int32 idInfpesquisaSocio = 2;
+  string deDdd = 3;
+  string deTelefone = 4;
+  bool cdCelular = 5;
+  bool cdWhatsapp = 6;
+  string dtInstalacao = 7; // usar string para datas, igual outros dt_*
+  int32 idUsuaOper = 8;
+  string dtRegisto = 9;
+  int32 nuSemAtendimento = 10;
+  string createdDate = 11;
+  string updatedDate = 12;
+  string deletedDate = 13;
+}
+
+message DevedorInformacoesPesquisaSocioTelefoneUpdateRequest {
+  int32 idInfpesquisaSocioTelefone = 1;
+  DevedorInformacoesPesquisaSocioTelefoneData socioTelefone = 2;
+}
+
+message DevedorInformacoesPesquisaSocioTelefoneManyData {
+  repeated DevedorInformacoesPesquisaSocioTelefoneData data = 1;
+}
+
+message ServiceResponseDevedorInformacoesPesquisaSocioTelefone {
+  int32 status = 1;
+  string message = 2;
+  repeated DevedorInformacoesPesquisaSocioTelefoneData data = 3;
+  string error = 4;
+}
+
+message ServiceResponseListDevedorInformacoesPesquisaSocioTelefone {
+  int32 status = 1;
+  string message = 2;
+  ListResultDevedorInformacoesPesquisaSocioTelefone data = 3;
+  string error = 4;
+}
+
+message ListResultDevedorInformacoesPesquisaSocioTelefone {
+  repeated DevedorInformacoesPesquisaSocioTelefoneData result = 1;
+  int32 total = 2;
+}
+
+message ListCriteriaRequestDevedorInformacoesPesquisaSocioTelefone {
+  int32 idInfpesquisaSocioTelefone = 1;
+  int32 idInfpesquisaSocio = 2;
+  int32 items = 3;
+  int32 page = 4;
+  map<string, string> order = 5;
+}
+
+
+//DevedorInformacoesPesquisaSocioTelefoneOcorrencia
+message DevedorInformacoesPesquisaSocioTelefoneOcorrenciaData {
+  int32 idTelOcorrencia = 1;
+  int32 idInfpesquisaSocioTelefone = 2;
+  int32 idOcorrenciaLigacao = 3;
+  string dtOcorrencia = 4;
+  int32 idUsuaOper = 5;
+  string dtRegistro = 6;
+  string createdDate = 7;
+  string updatedDate = 8;
+  string deletedDate = 9;
+}
+
+message DevedorInformacoesPesquisaSocioTelefoneOcorrenciaUpdateRequest {
+  int32 idTelOcorrencia = 1;
+  DevedorInformacoesPesquisaSocioTelefoneOcorrenciaData ocorrencia = 2;
+}
+
+message DevedorInformacoesPesquisaSocioTelefoneOcorrenciaManyData {
+  repeated DevedorInformacoesPesquisaSocioTelefoneOcorrenciaData data = 1;
+}
+
+message ServiceResponseDevedorInformacoesPesquisaSocioTelefoneOcorrencia {
+  int32 status = 1;
+  string message = 2;
+  repeated DevedorInformacoesPesquisaSocioTelefoneOcorrenciaData data = 3;
+  string error = 4;
+}
+
+message ServiceResponseListDevedorInformacoesPesquisaSocioTelefoneOcorrencia {
+  int32 status = 1;
+  string message = 2;
+  ListResultDevedorInformacoesPesquisaSocioTelefoneOcorrencia data = 3;
+  string error = 4;
+}
+
+message ListResultDevedorInformacoesPesquisaSocioTelefoneOcorrencia {
+  repeated DevedorInformacoesPesquisaSocioTelefoneOcorrenciaData result = 1;
+  int32 total = 2;
+}
+
+message ListCriteriaRequestDevedorInformacoesPesquisaSocioTelefoneOcorrencia {
+  int32 idTelOcorrencia = 1;
+  int32 idInfpesquisaSocioTelefone = 2;
+  int32 items = 3;
+  int32 page = 4;
+  map<string, string> order = 5;
+}
+
+
+// DevedorInformacoesPesquisaSocio
+message DevedorInformacoesPesquisaSocioData {
+  int32 idInfpesquisaSocio = 1;
+  int32 idDevedorInfpesquisa = 2;
+  string nmSocio = 3;
+  string dtSociedade = 4; // Use string para datas, igual aos outros DTOs
+  string cdCpfSocio = 5;
+  int32 idUsuaOper = 6;
+  string dtRegistro = 7;
+  string createdDate = 8;
+  string updatedDate = 9;
+  string deletedDate = 10;
+}
+
+message DevedorInformacoesPesquisaSocioUpdateRequest {
+  int32 idInfpesquisaSocio = 1;
+  DevedorInformacoesPesquisaSocioData socio = 2;
+}
+
+message DevedorInformacoesPesquisaSocioManyData {
+  repeated DevedorInformacoesPesquisaSocioData data = 1;
+}
+
+message ServiceResponseDevedorInformacoesPesquisaSocio {
+  int32 status = 1;
+  string message = 2;
+  repeated DevedorInformacoesPesquisaSocioData data = 3;
+  string error = 4;
+}
+
+message ServiceResponseListDevedorInformacoesPesquisaSocio {
+  int32 status = 1;
+  string message = 2;
+  ListResultDevedorInformacoesPesquisaSocio data = 3;
+  string error = 4;
+}
+
+message ListResultDevedorInformacoesPesquisaSocio {
+  repeated DevedorInformacoesPesquisaSocioData result = 1;
+  int32 total = 2;
+}
+
+message ListCriteriaRequestDevedorInformacoesPesquisaSocio {
+  int32 idInfpesquisaSocio = 1;
+  int32 idDevedorInfpesquisa = 2;
+  int32 items = 3;
+  int32 page = 4;
+  map<string, string> order = 5;
+}
+
+
+// DevedorInformacoesPesquisaTelefoneOcorrencia
+message DevedorInformacoesPesquisaTelefoneOcorrenciaData {
+  int32 idTelOcorrencia = 1;
+  int32 idInfpesquisaTel = 2;
+  int32 idOcorrenciaLigacao = 3;
+  string dtOcorrencia = 4;
+  int32 idUsuaOper = 5;
+  string dtRegistro = 6;
+  string createdDate = 7;
+  string updatedDate = 8;
+  string deletedDate = 9;
+}
+
+message DevedorInformacoesPesquisaTelefoneOcorrenciaUpdateRequest {
+  int32 idTelOcorrencia = 1;
+  DevedorInformacoesPesquisaTelefoneOcorrenciaData ocorrencia = 2;
+}
+
+message DevedorInformacoesPesquisaTelefoneOcorrenciaManyData {
+  repeated DevedorInformacoesPesquisaTelefoneOcorrenciaData data = 1;
+}
+
+message ServiceResponseDevedorInformacoesPesquisaTelefoneOcorrencia {
+  int32 status = 1;
+  string message = 2;
+  repeated DevedorInformacoesPesquisaTelefoneOcorrenciaData data = 3;
+  string error = 4;
+}
+
+message ServiceResponseListDevedorInformacoesPesquisaTelefoneOcorrencia {
+  int32 status = 1;
+  string message = 2;
+  ListResultDevedorInformacoesPesquisaTelefoneOcorrencia data = 3;
+  string error = 4;
+}
+
+message ListResultDevedorInformacoesPesquisaTelefoneOcorrencia {
+  repeated DevedorInformacoesPesquisaTelefoneOcorrenciaData result = 1;
+  int32 total = 2;
+}
+
+message ListCriteriaRequestDevedorInformacoesPesquisaTelefoneOcorrencia {
+  int32 idTelOcorrencia = 1;
+  int32 idInfpesquisaTel = 2;
+  int32 items = 3;
+  int32 page = 4;
+  map<string, string> order = 5;
+}
+
+
+// DevedorInformacoesPesquisaTelefone
+message DevedorInformacoesPesquisaTelefoneData {
+  int32 idInfpesquisaTel = 1;
+  int32 idDevedorInfpesquisa = 2;
+  string deDdd = 3;
+  string deTelefone = 4;
+  bool cdCelular = 5;
+  bool cdWhatsapp = 6;
+  string dtInstalacao = 7;
+  int32 idUsuaOper = 8;
+  string dtRegistro = 9;
+  int32 nuSemAtendimento = 10;
+  string createdDate = 11;
+  string updatedDate = 12;
+  string deletedDate = 13;
+}
+
+message DevedorInformacoesPesquisaTelefoneUpdateRequest {
+  int32 idInfpesquisaTel = 1;
+  DevedorInformacoesPesquisaTelefoneData telefone = 2;
+}
+
+message DevedorInformacoesPesquisaTelefoneManyData {
+  repeated DevedorInformacoesPesquisaTelefoneData data = 1;
+}
+
+message ServiceResponseDevedorInformacoesPesquisaTelefone {
+  int32 status = 1;
+  string message = 2;
+  repeated DevedorInformacoesPesquisaTelefoneData data = 3;
+  string error = 4;
+}
+
+message ServiceResponseListDevedorInformacoesPesquisaTelefone {
+  int32 status = 1;
+  string message = 2;
+  ListResultDevedorInformacoesPesquisaTelefone data = 3;
+  string error = 4;
+}
+
+message ListResultDevedorInformacoesPesquisaTelefone {
+  repeated DevedorInformacoesPesquisaTelefoneData result = 1;
+  int32 total = 2;
+}
+
+message ListCriteriaRequestDevedorInformacoesPesquisaTelefone {
+  int32 idInfpesquisaTel = 1;
+  int32 idDevedorInfpesquisa = 2;
+  int32 items = 3;
+  int32 page = 4;
+  map<string, string> order = 5;
+}
+
+// DevedorInformacoesPesquisa
+message DevedorInformacoesPesquisaData {
+  int32 idDevedorInfpesquisa = 1;
+  int32 idDevedor = 2;
+  string dtPesquisa = 3;
+  int32 idUsuaOper = 4;
+  string dtRegistro = 5;
+  string deSituacao = 6;
+  string deTipoEmpresa = 7;
+  string dtFundacao = 8;
+  string deEmail = 9;
+  string createdDate = 10;
+  string updatedDate = 11;
+  string deletedDate = 12;
+}
+
+message DevedorInformacoesPesquisaUpdateRequest {
+  int32 idDevedorInfpesquisa = 1;
+  DevedorInformacoesPesquisaData pesquisa = 2;
+}
+
+message DevedorInformacoesPesquisaManyData {
+  repeated DevedorInformacoesPesquisaData data = 1;
+}
+
+message ServiceResponseDevedorInformacoesPesquisa {
+  int32 status = 1;
+  string message = 2;
+  repeated DevedorInformacoesPesquisaData data = 3;
+  string error = 4;
+}
+
+message ServiceResponseListDevedorInformacoesPesquisa {
+  int32 status = 1;
+  string message = 2;
+  ListResultDevedorInformacoesPesquisa data = 3;
+  string error = 4;
+}
+
+message ListResultDevedorInformacoesPesquisa {
+  repeated DevedorInformacoesPesquisaData result = 1;
+  int32 total = 2;
+}
+
+message ListCriteriaRequestDevedorInformacoesPesquisa {
+  int32 idDevedorInfpesquisa = 1;
+  int32 idDevedor = 2;
+  int32 items = 3;
+  int32 page = 4;
+  map<string, string> order = 5;
 }
 
