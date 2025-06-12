@@ -12,6 +12,8 @@ service DevedorService {
   rpc removeDevedor (IdRequest) returns (ServiceResponseDevedor) {}
   rpc updateDevedorWithMonolito (DevedorUpdateRequest) returns (ServiceResponseDevedor) {}
   rpc getDataCredilink (CriteriaRequestCredilink) returns (ServiceResponseCredilink) {}
+  rpc removeAllDevedor (WithoutParams) returns (ServiceResponseDevedor) {}
+  rpc createManyDevedor (DevedorManyData) returns (ServiceResponseDevedor) {}
   
   //Contato
   rpc listContato (ListCriteriaRequestContato) returns (ServiceResponseListContato) {}
@@ -19,7 +21,12 @@ service DevedorService {
   rpc createContato (ContatoData) returns (ServiceResponseContato) {}
   rpc updateContato (ContatoUpdateRequest) returns (ServiceResponseContato) {} 
   rpc removeContato (IdRequest) returns (ServiceResponseContato) {}
+  rpc removeAllContato (WithoutParams) returns (ServiceResponseContato) {}
+  rpc createManyContato (ContatoManyData) returns (ServiceResponseContato) {}  
 }
+
+// Empty message for RPCs that require no parameters
+message WithoutParams {}
 
 
 message IdRequest{
@@ -84,6 +91,10 @@ message DevedorData {
 message DevedorUpdateRequest{
     int32 idDevedor = 1;
     DevedorData devedor = 2;
+}
+
+message DevedorManyData {
+    repeated DevedorData data = 1;
 }
 
 message ServiceResponseDevedor {
@@ -155,6 +166,10 @@ message ContatoData {
 message ContatoUpdateRequest{
     int32 id = 1;
     ContatoData contato = 2;
+}
+
+message ContatoManyData {
+    repeated ContatoData data = 1;
 }
 
 message ServiceResponseContato {
