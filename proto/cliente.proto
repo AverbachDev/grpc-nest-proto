@@ -17,6 +17,8 @@ service ClienteService {
   rpc listClientesByIdGrupo (IdRequest) returns (ServiceResponseListCliente) {}
   rpc listClienteChangedByCreatedorUpdatedDate (listCriteriaClienteChangedByCreatedorUpdatedDate) returns (ServiceResponseListCliente) {}
   rpc updateClienteWithoutKafka (ClienteUpdateRequest) returns (ServiceResponseCliente) {}
+  rpc createManyCliente (ClienteManyData) returns (ServiceResponseCliente) {}
+  rpc removeAllCliente (WithoutParams) returns (ServiceResponseCliente) {}
 
   //Contato
   rpc listContato (ListCriteriaRequestContato) returns (ServiceResponseListContato) {}
@@ -25,6 +27,8 @@ service ClienteService {
   rpc updateContato (ContatoUpdateRequest) returns (ServiceResponseContato) {} 
   rpc removeContato (IdRequest) returns (ServiceResponseContato) {}
   rpc findByKeyWithClienteDetais (ContatoByKeyRequest) returns (ServiceResponseContato) {}
+  rpc createManyContato (ContatoManyData) returns (ServiceResponseContato) {}
+  rpc removeAllContato (WithoutParams) returns (ServiceResponseContato) {}
   
   //UnNegocio
   rpc listUnNegocio (ListCriteriaRequestUnNegocio) returns (ServiceResponseListUnNegocio) {}
@@ -32,6 +36,8 @@ service ClienteService {
   rpc createUnNegocio (UnNegocioData) returns (ServiceResponseUnNegocio) {}
   rpc updateUnNegocio (UnNegocioUpdateRequest) returns (ServiceResponseUnNegocio) {} 
   rpc removeUnNegocio (IdRequest) returns (ServiceResponseUnNegocio) {}
+  rpc createManyUnNegocio (UnNegocioManyData) returns (ServiceResponseUnNegocio) {}
+  rpc removeAllUnNegocio (WithoutParams) returns (ServiceResponseUnNegocio) {}
 
   //GrupoCliente
   rpc listGrupoCliente (ListCriteriaRequestGrupoCliente) returns (ServiceResponseListGrupoCliente) {}
@@ -40,6 +46,8 @@ service ClienteService {
   rpc updateGrupoCliente (GrupoClienteUpdateRequest) returns (ServiceResponseGrupoCliente) {} 
   rpc removeGrupoCliente (IdRequest) returns (ServiceResponseGrupoCliente) {}
   rpc updateGrupoClienteWithoutKafka (GrupoClienteUpdateRequest) returns (ServiceResponseGrupoCliente) {}
+  rpc createManyGrupoCliente (GrupoClienteManyData) returns (ServiceResponseGrupoCliente) {}
+  rpc removeAllGrupoCliente (WithoutParams) returns (ServiceResponseGrupoCliente) {}
 
   //DadosBancarios
   rpc listDadosBancarios (ListCriteriaRequestDadosBancarios) returns (ServiceResponseListDadosBancarios) {}
@@ -47,13 +55,15 @@ service ClienteService {
   rpc createDadosBancarios (DadosBancariosData) returns (ServiceResponseDadosBancarios) {}
   rpc updateDadosBancarios (DadosBancariosUpdateRequest) returns (ServiceResponseDadosBancarios) {} 
   rpc removeDadosBancarios (IdRequest) returns (ServiceResponseDadosBancarios) {}
-
-  
+  rpc createManyDadosBancarios (DadosBancariosManyData) returns (ServiceResponseDadosBancarios) {}
+  rpc removeAllDadosBancarios (WithoutParams) returns (ServiceResponseDadosBancarios) {}
 }
 
 message IdRequest{
     int32 id = 1;
 }
+
+message WithoutParams {}
 
 //Cliente
 
@@ -231,6 +241,11 @@ message listCriteriaClienteChangedByCreatedorUpdatedDate {
     map<string, string> order =5;
 }
 
+message ClienteManyData {
+    repeated ClienteData data = 1;
+}
+
+
 //Contato
 
 message ListCriteriaRequestContato {
@@ -301,6 +316,11 @@ message ContatoByKeyRequest{
     string deKeyMicroservice = 1;
 }
 
+message ContatoManyData {
+    repeated ContatoData data = 1;
+}
+
+
 // UN Negocio
 message ListCriteriaRequestUnNegocio {
     int32 idCliente = 1;
@@ -370,6 +390,9 @@ message ServiceResponseGetUnNegocio{
     string error = 4;
 }
 
+message UnNegocioManyData {
+    repeated UnNegocioData data = 1;
+}
 
 //GrupoCliente
 message ListCriteriaRequestGrupoCliente {
@@ -423,6 +446,11 @@ message ListResultGrupoCliente {
     int32 total = 2;
 }
 
+message GrupoClienteManyData {
+    repeated GrupoClienteData data = 1;
+}
+
+
 //DadosBancarios
 message ListCriteriaRequestDadosBancarios {
     int32 idCliente = 1;
@@ -474,3 +502,9 @@ message ListResultDadosBancarios {
     repeated DadosBancariosData result = 1;
     int32 total = 2;
 }
+
+message DadosBancariosManyData {
+    repeated DadosBancariosData data = 1;
+}
+
+
