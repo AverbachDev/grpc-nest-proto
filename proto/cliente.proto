@@ -57,6 +57,33 @@ service ClienteService {
   rpc removeDadosBancarios (IdRequest) returns (ServiceResponseDadosBancarios) {}
   rpc createManyDadosBancarios (DadosBancariosManyData) returns (ServiceResponseDadosBancarios) {}
   rpc removeAllDadosBancarios (WithoutParams) returns (ServiceResponseDadosBancarios) {}
+
+  // AtuaisEmpresasCobranca
+  rpc listAtuaisEmpresasCobranca (ListCriteriaRequestAtuaisEmpresasCobranca) returns (ServiceResponseListAtuaisEmpresasCobranca) {}
+  rpc findOneAtuaisEmpresasCobranca (IdRequest) returns (ServiceResponseAtuaisEmpresasCobranca) {}
+  rpc createAtuaisEmpresasCobranca (AtuaisEmpresasCobrancaData) returns (ServiceResponseAtuaisEmpresasCobranca) {}
+  rpc updateAtuaisEmpresasCobranca (AtuaisEmpresasCobrancaUpdateRequest) returns (ServiceResponseAtuaisEmpresasCobranca) {}
+  rpc removeAtuaisEmpresasCobranca (IdRequest) returns (ServiceResponseAtuaisEmpresasCobranca) {}
+  rpc createManyAtuaisEmpresasCobranca (AtuaisEmpresasCobrancaManyData) returns (ServiceResponseAtuaisEmpresasCobranca) {}
+  rpc removeAllAtuaisEmpresasCobranca (WithoutParams) returns (ServiceResponseAtuaisEmpresasCobranca) {}
+
+  // HistoricoLigacao
+  rpc listHistoricoLigacao (ListCriteriaRequestHistoricoLigacao) returns (ServiceResponseListHistoricoLigacao) {}
+  rpc findOneHistoricoLigacao (IdRequest) returns (ServiceResponseHistoricoLigacao) {}
+  rpc createHistoricoLigacao (HistoricoLigacaoData) returns (ServiceResponseHistoricoLigacao) {}
+  rpc updateHistoricoLigacao (HistoricoLigacaoUpdateRequest) returns (ServiceResponseHistoricoLigacao) {}
+  rpc removeHistoricoLigacao (IdRequest) returns (ServiceResponseHistoricoLigacao) {}
+  rpc createManyHistoricoLigacao (HistoricoLigacaoManyData) returns (ServiceResponseHistoricoLigacao) {}
+  rpc removeAllHistoricoLigacao (WithoutParams) returns (ServiceResponseHistoricoLigacao) {}
+
+  // UnNegocioClienteExtraJudicial
+  rpc listUnNegocioClienteExtraJudicial (ListCriteriaRequestUnNegocioClienteExtraJudicial) returns (ServiceResponseListUnNegocioClienteExtraJudicial) {}
+  rpc findOneUnNegocioClienteExtraJudicial (IdRequest) returns (ServiceResponseUnNegocioClienteExtraJudicial) {}
+  rpc createUnNegocioClienteExtraJudicial (UnNegocioClienteExtraJudicialData) returns (ServiceResponseUnNegocioClienteExtraJudicial) {}
+  rpc updateUnNegocioClienteExtraJudicial (UnNegocioClienteExtraJudicialUpdateRequest) returns (ServiceResponseUnNegocioClienteExtraJudicial) {}
+  rpc removeUnNegocioClienteExtraJudicial (IdRequest) returns (ServiceResponseUnNegocioClienteExtraJudicial) {}
+  rpc createManyUnNegocioClienteExtraJudicial (UnNegocioClienteExtraJudicialManyData) returns (ServiceResponseUnNegocioClienteExtraJudicial) {}
+  rpc removeAllUnNegocioClienteExtraJudicial (WithoutParams) returns (ServiceResponseUnNegocioClienteExtraJudicial) {}
 }
 
 message IdRequest{
@@ -508,3 +535,164 @@ message DadosBancariosManyData {
 }
 
 
+// Mensagem para AtuaisEmpresasCobranca
+
+message AtuaisEmpresasCobrancaData {
+  int32 idEmpresaCobranca = 1;
+  int32 idCliente = 2;
+  string nmEmpresa = 3;
+  double nuHunorUtilizado = 4;
+  int32 idUsuaOper = 5;
+  string dtRegistro = 6;
+  string createdDate = 7;
+  string updatedDate = 8;
+  string deletedDate = 9;
+}
+
+// Mensagem para HistoricoLigacao
+message HistoricoLigacaoData {
+  int32 idHistorico = 1;
+  int32 idCliente = 2;
+  string deHistorico = 3;
+  string dtCadastro = 4;
+  int32 cdReceptividade = 5;
+  int32 cdHistorico = 6;
+  int32 idStatusLigacao = 7;
+  int32 idUsuaOper = 8;
+  string dtRegistro = 9;
+  string createdDate = 10;
+  string updatedDate = 11;
+  string deletedDate = 12;
+}
+
+// Mensagem para UnNegocioClienteExtraJudicial
+message UnNegocioClienteExtraJudicialData {
+  int32 idUnnegocioClienteExtrajudicial = 1;
+  int32 idCliente = 2;
+  int32 idContrato = 3;
+  int32 idUnNegocio = 4;
+  int32 idUsuaOper = 5;
+  string dtRegistro = 6;
+  string createdDate = 7;
+  string updatedDate = 8;
+  string deletedDate = 9;
+}
+
+// AtuaisEmpresasCobranca
+message AtuaisEmpresasCobrancaUpdateRequest {
+  int32 id = 1;
+  AtuaisEmpresasCobrancaData atuaisEmpresasCobranca = 2;
+}
+
+message ServiceResponseAtuaisEmpresasCobranca {
+  int32 status = 1;
+  string message = 2;
+  repeated AtuaisEmpresasCobrancaData data = 3;
+  string error = 4;
+}
+
+message ServiceResponseListAtuaisEmpresasCobranca {
+  int32 status = 1;
+  string message = 2;
+  ListResultAtuaisEmpresasCobranca data = 3;
+  string error = 4;
+}
+
+message ListResultAtuaisEmpresasCobranca {
+  repeated AtuaisEmpresasCobrancaData result = 1;
+  int32 total = 2;
+}
+
+message AtuaisEmpresasCobrancaManyData {
+  repeated AtuaisEmpresasCobrancaData data = 1;
+}
+
+// HistoricoLigacao
+message HistoricoLigacaoUpdateRequest {
+  int32 id = 1;
+  HistoricoLigacaoData historicoLigacao = 2;
+}
+
+message ServiceResponseHistoricoLigacao {
+  int32 status = 1;
+  string message = 2;
+  repeated HistoricoLigacaoData data = 3;
+  string error = 4;
+}
+
+message ServiceResponseListHistoricoLigacao {
+  int32 status = 1;
+  string message = 2;
+  ListResultHistoricoLigacao data = 3;
+  string error = 4;
+}
+
+message ListResultHistoricoLigacao {
+  repeated HistoricoLigacaoData result = 1;
+  int32 total = 2;
+}
+
+message HistoricoLigacaoManyData {
+  repeated HistoricoLigacaoData data = 1;
+}
+
+// UnNegocioClienteExtraJudicial
+message UnNegocioClienteExtraJudicialUpdateRequest {
+  int32 id = 1;
+  UnNegocioClienteExtraJudicialData unNegocioClienteExtraJudicial = 2;
+}
+
+message ServiceResponseUnNegocioClienteExtraJudicial {
+  int32 status = 1;
+  string message = 2;
+  repeated UnNegocioClienteExtraJudicialData data = 3;
+  string error = 4;
+}
+
+message ServiceResponseListUnNegocioClienteExtraJudicial {
+  int32 status = 1;
+  string message = 2;
+  ListResultUnNegocioClienteExtraJudicial data = 3;
+  string error = 4;
+}
+
+message ListResultUnNegocioClienteExtraJudicial {
+  repeated UnNegocioClienteExtraJudicialData result = 1;
+  int32 total = 2;
+}
+
+message UnNegocioClienteExtraJudicialManyData {
+  repeated UnNegocioClienteExtraJudicialData data = 1;
+}
+
+// Filtros para listagem das novas entidades
+message ListCriteriaRequestAtuaisEmpresasCobranca {
+  int32 idEmpresaCobranca = 1;
+  int32 idCliente = 2;
+  string nmEmpresa = 3;
+  int32 items = 4;
+  int32 page = 5;
+  map<string, string> order = 6;
+}
+
+message ListCriteriaRequestHistoricoLigacao {
+  int32 idHistorico = 1;
+  int32 idCliente = 2;
+  string deHistorico = 3;
+  int32 cdReceptividade = 4;
+  int32 cdHistorico = 5;
+  int32 idStatusLigacao = 6;
+  int32 items = 7;
+  int32 page = 8;
+  map<string, string> order = 9;
+}
+
+message ListCriteriaRequestUnNegocioClienteExtraJudicial {
+  int32 idUnnegocioClienteExtrajudicial = 1;
+  int32 idCliente = 2;
+  int32 idContrato = 3;
+  int32 idUnNegocio = 4;
+  int32 items = 5;
+  int32 page = 6;
+  map<string, string> order = 7;
+}
