@@ -58,6 +58,7 @@ service ClienteService {
   rpc createManyDadosBancarios (DadosBancariosManyData) returns (ServiceResponseDadosBancarios) {}
   rpc removeAllDadosBancarios (WithoutParams) returns (ServiceResponseDadosBancarios) {}
 
+  
   // AtuaisEmpresasCobranca
   rpc listAtuaisEmpresasCobranca (ListCriteriaRequestAtuaisEmpresasCobranca) returns (ServiceResponseListAtuaisEmpresasCobranca) {}
   rpc findOneAtuaisEmpresasCobranca (IdRequest) returns (ServiceResponseAtuaisEmpresasCobranca) {}

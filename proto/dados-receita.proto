@@ -74,9 +74,10 @@ message ServiceResponseProcessImport {
 //CnpjEmpresa
 
 message ListCriteriaRequestCnpjEmpresa {
-    string cdCnpjCpf = 1; 
-    int32 items = 2;
-    int32 page = 3;
+    string cdCnpjCpf = 1;
+    string idEmpresa = 2;
+    int32 items = 3;
+    int32 page = 4;
 }
 
 message CnpjEmpresaData {
