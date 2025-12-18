@@ -6,6 +6,7 @@ package servicesClientes;
 service servicesClientesService {
     rpc consultarClienteLiquimoly (ListCriteriaRequestClienteLiquimolyAPI) returns (ServiceResponseClienteLiquimolyAPI) {}
     rpc listarContasReceberLiquimoly (ListCriteriaRequestContasReceberLiquimolyAPI) returns (ServiceResponseContasReceberLiquimolyAPI) {}
+    rpc listarContasCorrentesLiquimoly (ListCriteriaRequestContasCorrentesLiquimolyAPI) returns (ServiceResponseContasCorrentesLiquimolyAPI) {}
 
     rpc listTitulosLiquimoly (ListCriteriaRequestTitulosLiquimoly) returns (ServiceResponseListTitulosLiquimoly) {}
     rpc findOneTitulosLiquimoly (IdRequest) returns (ServiceResponseTitulosLiquimoly) {}
@@ -38,6 +39,44 @@ message ServiceResponseContasReceberLiquimolyAPI{
     string message = 2;
     repeated ContasReceberLiquimolyAPIData data = 3;
     string error = 4;        
+}
+
+message ListCriteriaRequestContasCorrentesLiquimolyAPI{
+    int32 pagina = 1;
+    int32 registrosPorPagina = 2;
+    string apenas_importado_api = 3;
+}
+
+message ServiceResponseContasCorrentesLiquimolyAPI{
+    int32 status = 1;
+    string message = 2;
+    repeated ContasCorrentesLiquimolyAPIData data = 3;
+    string error = 4;        
+}
+
+message ContasCorrentesLiquimolyAPIData {
+  int32 nCodCC = 1;
+  string cCodCCInt = 2;
+  string descricao = 3;
+  string codigo_banco = 4;
+  string codigo_agencia = 5;
+  string conta_corrente = 6;
+  string nome_gerente = 7;
+  string tipo = 8;
+  string tipo_comunicacao = 9;
+  string cSincrAnalitica = 10;
+  int32 nTpTef = 11;
+  double nTaxaAdm = 12;
+  int32 nDiasVenc = 13;
+  int32 nNumParc = 14;
+  int32 nCodAdm = 15;
+  string cUtilPDV = 16;
+  string cCategoria = 17;
+  string cModalidade = 18;
+  double saldo_inicial = 19;
+  string saldo_data = 20; // Supondo que seja string (timestamp ISO, exemplo); se for timestamp, pode usar google.protobuf.Timestamp
+  double valor_limite = 21;
+  string cTipoCartao = 22;
 }
 
 // ContasReceber message definition
