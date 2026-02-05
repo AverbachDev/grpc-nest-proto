@@ -201,6 +201,7 @@ message RemessaData {
     string dtVencimento = 20;
     string nmDevedor = 21;
     string deDoc = 22;
+    string cdCnpjCpf = 23;
 }
 
 message RemessaManyData {
@@ -274,7 +275,9 @@ message RepasseData {
     string dtCadastro = 27;
     string dtVencimento = 28;
     string nmDevedor = 29;
-    string deDoc = 30;   
+    string deDoc = 30;
+    string cdCnpjCpf = 31;
+
 }
 
 message RepasseManyData {
@@ -343,7 +346,8 @@ message RDData {
     string dtCadastro = 23;
     string dtVencimento = 24;
     string nmDevedor = 25;
-    string deDoc = 26;       
+    string deDoc = 26;
+    string cdCnpjCpf = 27;
 }
 
 message RDManyData {
@@ -423,7 +427,8 @@ message DevolucaoData {
     string dtCadastro = 34;
     string dtVencimento = 35;
     string nmDevedor = 36;
-    string deDoc = 37;   
+    string deDoc = 37;
+    string cdCnpjCpf = 38;
 }
 
 message DevolucaoManyData {
