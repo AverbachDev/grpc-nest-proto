@@ -148,11 +148,13 @@ message ItemMesContaData {
     int32 nuDia = 4;
     string nmItemMesConta = 5;
     string deItemMesConta = 6;
-    int32 idUsuaOper = 7;
-    string dtRegistro = 8;
-    string createdDate = 9;
-    string updatedDate = 10;
-    string deletedDate = 11;
+    double nuValor = 7;
+    bool cdCustoFixo = 8;
+    int32 idUsuaOper = 9;
+    string dtRegistro = 10;
+    string createdDate = 11;
+    string updatedDate = 12;
+    string deletedDate = 13;
 }
 
 message ItemMesContaUpdateRequest{
