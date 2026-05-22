@@ -53,6 +53,7 @@ message FontePagamentoData {
     string createdDate = 6;
     string updatedDate = 7;
     string deletedDate = 8;
+    repeated ItemMesContaData itemMesContas = 9;
 }
 
 message FontePagamentoUpdateRequest{
@@ -102,6 +103,7 @@ message MesContaData {
     string createdDate = 7;
     string updatedDate = 8;
     string deletedDate = 9;
+    repeated ItemMesContaData itemMesContas = 10;
 }
 
 message MesContaUpdateRequest{
@@ -155,6 +157,7 @@ message ItemMesContaData {
     string createdDate = 11;
     string updatedDate = 12;
     string deletedDate = 13;
+    repeated DataPagamentoItemData dataPagamentoItems = 14;
 }
 
 message ItemMesContaUpdateRequest{
