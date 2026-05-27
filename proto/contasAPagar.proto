@@ -104,6 +104,7 @@ message MesContaData {
     string updatedDate = 8;
     string deletedDate = 9;
     repeated ItemMesContaData itemMesContas = 10;
+    int32 idFontePagamento = 11;
 }
 
 message MesContaUpdateRequest{
@@ -145,20 +146,19 @@ message ListCriteriaRequestItemMesConta {
 
 message ItemMesContaData {
     int32 id = 1;
-    int32 idFontePagamento = 2;
-    int32 idMesConta = 3;
-    int32 nuDia = 4;
-    string nmItemMesConta = 5;
-    string deItemMesConta = 6;
-    double nuValor = 7;
-    bool cdCustoFixo = 8;
-    int32 idUsuaOper = 9;
-    string dtRegistro = 10;
-    string createdDate = 11;
-    string updatedDate = 12;
-    string deletedDate = 13;
-    repeated DataPagamentoItemData dataPagamentoItems = 14;
-    bool deleted = 15;
+    int32 idMesConta = 2;
+    int32 nuDia = 3;
+    string nmItemMesConta = 4;
+    string deItemMesConta = 5;
+    double nuValor = 6;
+    bool cdCustoFixo = 7;
+    int32 idUsuaOper = 8;
+    string dtRegistro = 9;
+    string createdDate = 10;
+    string updatedDate = 11;
+    string deletedDate = 12;
+    repeated DataPagamentoItemData dataPagamentoItems = 13;
+    bool deleted = 14;
 }
 
 message ItemMesContaUpdateRequest{
