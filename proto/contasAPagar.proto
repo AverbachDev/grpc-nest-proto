@@ -16,6 +16,7 @@ service ContasAPagarService {
     rpc createMesConta (MesContaData) returns (ServiceResponseMesConta) {}
     rpc updateMesConta (MesContaUpdateRequest) returns (ServiceResponseMesConta) {}
     rpc removeMesConta (IdRequest) returns (ServiceResponseMesConta) {}
+    rpc importCustoFixoMesConta (IdRequest) returns (ServiceResponseMesConta) {}
 
     rpc listItemMesConta (ListCriteriaRequestItemMesConta) returns (ServiceResponseListItemMesConta) {}
     rpc findOneItemMesConta (IdRequest) returns (ServiceResponseItemMesConta) {}
