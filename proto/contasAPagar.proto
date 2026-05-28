@@ -53,7 +53,7 @@ message FontePagamentoData {
     string createdDate = 6;
     string updatedDate = 7;
     string deletedDate = 8;
-    repeated ItemMesContaData itemMesContas = 9;
+    repeated MesContaData mesContas = 9;
 }
 
 message FontePagamentoUpdateRequest{
@@ -88,9 +88,10 @@ message ListResultFontePagamento {
 message ListCriteriaRequestMesConta {
     int32 nuAno = 1;
     int32 nuMes = 2;
-    int32 items = 3;
-    int32 page = 4;
-    map<string, string> order = 5;
+    int32 idFontePagamento = 3;
+    int32 items = 4;
+    int32 page = 5;
+    map<string, string> order = 6;
 }
 
 message MesContaData {
