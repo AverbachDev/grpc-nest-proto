@@ -159,7 +159,6 @@ message ItemMesContaData {
     string updatedDate = 11;
     string deletedDate = 12;
     repeated DataPagamentoItemData dataPagamentoItems = 13;
-    bool deleted = 14;
 }
 
 message ItemMesContaUpdateRequest{
