@@ -67,7 +67,7 @@ message AreaDeTrabalhoData {
     string deCep = 11;
     int32 idMunicipio = 12;
     int32 idFederacao = 13;
-    int32 idCaso = 14;
+    int32 id = 14;
     string dtCadastro = 15;
     int32 idStatusCobranca = 16;
     double totalPrincipal = 17;
