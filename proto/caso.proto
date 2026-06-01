@@ -318,6 +318,7 @@ message AreaDeTrabalhoData {
     string cdClassificacao = 32;
     int32 idMotivoInadimplencia = 33;
     string deMotivoInadimplencia = 34;
+    string cdCnpjCpfClear = 35;
 }
 
 
