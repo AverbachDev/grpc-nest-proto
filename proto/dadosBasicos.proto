@@ -38,6 +38,7 @@ service DadosBasicosService {
     rpc createMotivoInadimplencia (MotivoInadimplenciaData) returns (ServiceResponseMotivoInadimplencia) {}
     rpc updateMotivoInadimplencia (MotivoInadimplenciaUpdateRequest) returns (ServiceResponseMotivoInadimplencia) {}
     rpc removeMotivoInadimplencia (IdRequest) returns (ServiceResponseMotivoInadimplencia) {}
+    rpc createManyMotivoInadimplencia (MotivoInadimplenciaManyData) returns (ServiceResponseMotivoInadimplencia) {}
     
     rpc listNatureza (ListCriteriaRequestNatureza) returns (ServiceResponseListNatureza) {}
     rpc findOneNatureza (IdRequest) returns (ServiceResponseNatureza) {}
@@ -332,6 +333,10 @@ message ListCriteriaRequestMotivoInadimplencia {
     int32 items = 3;
     int32 page = 4;
     map<string, string> order = 5;
+}
+
+message MotivoInadimplenciaManyData {
+    repeated MotivoInadimplenciaData data = 1;
 }
 
 message MotivoInadimplenciaData {
