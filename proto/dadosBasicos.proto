@@ -38,6 +38,7 @@ service DadosBasicosService {
     rpc createMotivoInadimplencia (MotivoInadimplenciaData) returns (ServiceResponseMotivoInadimplencia) {}
     rpc updateMotivoInadimplencia (MotivoInadimplenciaUpdateRequest) returns (ServiceResponseMotivoInadimplencia) {}
     rpc removeMotivoInadimplencia (IdRequest) returns (ServiceResponseMotivoInadimplencia) {}
+    rpc removeAllMotivoInadimplencia (WithoutParams) returns (ServiceResponseMotivoInadimplencia) {}
     rpc createManyMotivoInadimplencia (MotivoInadimplenciaManyData) returns (ServiceResponseMotivoInadimplencia) {}
     
     rpc listNatureza (ListCriteriaRequestNatureza) returns (ServiceResponseListNatureza) {}
