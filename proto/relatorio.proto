@@ -562,7 +562,6 @@ message FaturamentoData {
     string createdDate = 18;
     string updatedDate = 19;
     string deletedDate = 20;
-    string dtVencimento = 21;
 }
 
 message FaturamentoUpdateRequest{
