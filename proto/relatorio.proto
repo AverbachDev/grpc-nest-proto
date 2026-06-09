@@ -59,8 +59,8 @@ service RelatorioService {
     //Faturamento
     rpc listFaturamento (ListCriteriaRequestFaturamento) returns (ServiceResponseListFaturamento) {}
     rpc findOneFaturamento (IdRequest) returns (ServiceResponseFaturamento) {}
-    rpc createFaturamento (ClienteData) returns (ServiceResponseFaturamento) {}
-    rpc updateFaturamento (ClienteUpdateRequest) returns (ServiceResponseFaturamento) {}    
+    rpc createFaturamento (FaturamentoData) returns (ServiceResponseFaturamento) {}
+    rpc updateFaturamento (FaturamentoUpdateRequest) returns (ServiceResponseFaturamento) {}    
     rpc removeFaturamento (IdRequest) returns (ServiceResponseFaturamento) {}
 
 }
