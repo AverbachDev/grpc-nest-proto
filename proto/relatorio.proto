@@ -56,8 +56,14 @@ service RelatorioService {
     rpc removeAllCliente (WithoutParams) returns (ServiceResponseCliente) {}
     rpc createManyCliente (ClienteManyData) returns (ServiceResponseCliente) {}
 
-}
+    //Faturamento
+    rpc listFaturamento (ListCriteriaRequestFaturamento) returns (ServiceResponseListFaturamento) {}
+    rpc findOneFaturamento (IdRequest) returns (ServiceResponseFaturamento) {}
+    rpc createFaturamento (ClienteData) returns (ServiceResponseFaturamento) {}
+    rpc updateFaturamento (ClienteUpdateRequest) returns (ServiceResponseFaturamento) {}    
+    rpc removeFaturamento (IdRequest) returns (ServiceResponseFaturamento) {}
 
+}
 
 message IdRequest{
     int32 id = 1;
@@ -521,5 +527,64 @@ message ServiceResponseCliente {
     int32 status = 1;
     string message = 2;
     repeated ClienteData data = 3;
+    string error = 4;
+}
+
+//Faturamento
+
+message ListCriteriaRequestFaturamento {
+    int32 nuMes = 1;
+    int32 nuAno = 2;
+    int32 idFontePagamento = 3;
+    int32 items = 4;
+    int32 page = 5;
+    map<string, string> order = 6;
+}
+
+message FaturamentoData {
+    int32 idFaturamento = 1;
+    int32 idFontePagamento = 2;
+    int32 nuDia = 3;
+    int32 nuMes = 4;
+    int32 nuAno = 5;
+    double nuValorExtrato = 6;
+    int32 nuTotalBoleto = 7;
+    double nuValorBoleto = 8;
+    double nuValorJuros = 9;
+    double nuValorMulta = 10;
+    double nuValorHonorClienteLiquido = 11;
+    double nuValorHonorClienteBruto = 12;
+    double nuValorHonorDevedor = 13;
+    double nuValorHonorClienteJudicial = 14;
+    double nuValorHonorClienteJudicialAntecipado = 15;
+    double nuValorHonorDevedorJudicial = 16;
+    double nuValorHonorClienteRecDireto = 17;
+    string createdDate = 18;
+    string updatedDate = 19;
+    string deletedDate = 20;
+    string dtVencimento = 21;
+}
+
+message FaturamentoUpdateRequest{
+    int32 idFaturamento = 1;
+    FaturamentoData faturamento = 2;
+}
+
+message ListResultFaturamento {
+    repeated FaturamentoData result = 1;
+    int32 total = 2;
+}
+
+message ServiceResponseListFaturamento {
+    int32 status = 1;
+    string message = 2;
+    ListResultFaturamento data = 3;
+    string error = 4;
+}
+
+message ServiceResponseFaturamento {
+    int32 status = 1;
+    string message = 2;
+    repeated FaturamentoData data = 3;
     string error = 4;
 }
