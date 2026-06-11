@@ -543,7 +543,7 @@ message ListCriteriaRequestFaturamento {
 
 message FaturamentoData {
     int32 idFaturamento = 1;
-    int32 idFontePagamento = 2;
+    int32 idEmpresa = 2;
     int32 nuDia = 3;
     int32 nuMes = 4;
     int32 nuAno = 5;

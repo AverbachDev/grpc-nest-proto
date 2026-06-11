@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package proto.receita;
 
-option go_package = "https://github.com/AverbachDev/grpc-nest-proto/proto";
+option go_package = "github.com/AverbachDev/grpc-nest-proto/proto;receita";
 
 
 service DadosReceitaService {
