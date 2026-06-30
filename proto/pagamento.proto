@@ -17,6 +17,7 @@ service PagamentoService {
     rpc createDepositosEfetuados (DepositosEfetuadosData) returns (ServiceResponseDepositosEfetuados) {}
     rpc updateDepositosEfetuados (DepositosEfetuadosUpdateRequest) returns (ServiceResponseDepositosEfetuados) {}
     rpc removeDepositosEfetuados (IdRequest) returns (ServiceResponseDepositosEfetuados) {}
+    rpc identificarDepositosEfetuados (IdentificarDepositosEfetuadosRequest) returns (ServiceResponseIdentificarDepositosEfetuados) {}
 
     rpc listParcelaPagamento (ListCriteriaRequestParcelaPagamento) returns (ServiceResponseListParcelaPagamento) {}
     rpc findOneParcelaPagamento (IdRequest) returns (ServiceResponseParcelaPagamento) {}
@@ -185,6 +186,22 @@ message ServiceResponseListDepositosEfetuados {
 message ListResultDepositosEfetuados {
     repeated DepositosEfetuadosData result = 1;
     int32 total = 2;
+}
+
+message IdentificarDepositosEfetuadosRequest {
+    optional int32 idPagto = 1;
+    string idParcela = 2;
+    int32 idDeposito = 3;
+    int32 idTipoVoucher = 4;
+    int32 porConta = 5;
+    int32 idUsuaOper = 6;
+}
+
+message ServiceResponseIdentificarDepositosEfetuados {
+    int32 status = 1;
+    string message = 2;
+    int32 idTitulo = 3;
+    string error = 4;
 }
 
 
