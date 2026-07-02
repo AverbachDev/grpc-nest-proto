@@ -458,6 +458,7 @@ message ListCriteriaRequestClienteAtivoPreventivo {
     int32 items = 3;
     int32 page = 4;
     map<string, string> order = 5;
+    optional bool status = 6;
 }
 
 message ClienteAtivoPreventivoPData {
