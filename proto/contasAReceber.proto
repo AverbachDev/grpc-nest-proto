@@ -455,10 +455,9 @@ message ListResultBoletoAVBRemessa {
 message ListCriteriaRequestClienteAtivoPreventivo {
     string nomeEmpresa = 1;
     string modalidade = 2;
-    string status = 3;
-    int32 items = 4;
-    int32 page = 5;
-    map<string, string> order = 6;
+    int32 items = 3;
+    int32 page = 4;
+    map<string, string> order = 5;
 }
 
 message ClienteAtivoPreventivoPData {
@@ -476,7 +475,7 @@ message ClienteAtivoPreventivoPData {
     string periodicidade = 12;
     string prazoPagamento = 13;
     string emissaoNF = 14;
-    string status = 15;
+    bool status = 15;
     string createdDate = 16;
     string updatedDate = 17;
     string deletedDate = 18;
