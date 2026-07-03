@@ -9,6 +9,7 @@ service CasoService {
     rpc findOneCaso (IdRequest) returns (ServiceResponseCaso) {}
     rpc createCaso (CasoData) returns (ServiceResponseCaso) {}
     rpc updateCaso (CasoUpdateRequest) returns (ServiceResponseCaso) {}
+    rpc saveCaso (CasoUpdateRequest) returns (ServiceResponseCaso) {}
     rpc removeCaso (IdRequest) returns (ServiceResponseCaso) {}
     rpc listCasoWithExternalFields (ListCriteriaRequestCasoWithExternalFields) returns (ServiceResponseListCasoWithExternalFields) {}
     rpc listCasosRD (ListCriteriaRequestCaso) returns (ServiceResponseListCasoWithExternalFields) {}
@@ -20,6 +21,7 @@ service CasoService {
     rpc findOneTitulo (IdRequest) returns (ServiceResponseTitulo) {}
     rpc createTitulo (TituloData) returns (ServiceResponseTitulo) {}
     rpc updateTitulo (TituloUpdateRequest) returns (ServiceResponseTitulo) {}
+    rpc saveTitulo (TituloUpdateRequest) returns (ServiceResponseTitulo) {}
     rpc removeTitulo (IdRequest) returns (ServiceResponseTitulo) {}
     rpc findBalanceTitulosCaso (IdRequest) returns (ServiceResponseTitulo) {}
 
@@ -27,6 +29,7 @@ service CasoService {
     rpc findOneAcordo (IdRequest) returns (ServiceResponseAcordo) {}
     rpc createAcordo (AcordoData) returns (ServiceResponseAcordo) {}
     rpc updateAcordo (AcordoUpdateRequest) returns (ServiceResponseAcordo) {}
+    rpc saveAcordo (AcordoUpdateRequest) returns (ServiceResponseAcordo) {}
     rpc removeAcordo (IdRequest) returns (ServiceResponseAcordo) {}
     rpc setAcordoRd (AcordoData) returns (ServiceResponseAcordo) {}
 
@@ -34,6 +37,7 @@ service CasoService {
     rpc findOneParcela (IdRequest) returns (ServiceResponseParcela) {}
     rpc createParcela (ParcelaData) returns (ServiceResponseParcela) {}
     rpc updateParcela (ParcelaUpdateRequest) returns (ServiceResponseParcela) {}
+    rpc saveParcela (ParcelaUpdateRequest) returns (ServiceResponseParcela) {}
     rpc removeParcela (IdRequest) returns (ServiceResponseParcela) {}
     rpc deleteUnPaidParcela (IdRequest) returns (ServiceResponseBoolean) {}
     
@@ -42,18 +46,21 @@ service CasoService {
     rpc findOneCasoCarta (IdRequest) returns (ServiceResponseCasoCarta) {}
     rpc createCasoCarta (CasoCartaData) returns (ServiceResponseCasoCarta) {}
     rpc updateCasoCarta (CasoCartaUpdateRequest) returns (ServiceResponseCasoCarta) {}
+    rpc saveCasoCarta (CasoCartaUpdateRequest) returns (ServiceResponseCasoCarta) {}
     rpc removeCasoCarta (IdRequest) returns (ServiceResponseCasoCarta) {}
 
     rpc listTituloCadastro (ListCriteriaRequestTituloCadastro) returns (ServiceResponseListTituloCadastro) {}
     rpc findOneTituloCadastro (IdRequest) returns (ServiceResponseTituloCadastro) {}
     rpc createTituloCadastro (TituloCadastroData) returns (ServiceResponseTituloCadastro) {}
     rpc updateTituloCadastro (TituloCadastroUpdateRequest) returns (ServiceResponseTituloCadastro) {}
+    rpc saveTituloCadastro (TituloCadastroUpdateRequest) returns (ServiceResponseTituloCadastro) {}
     rpc removeTituloCadastro (IdRequest) returns (ServiceResponseTituloCadastro) {}
 
     rpc listBoleto (ListCriteriaRequestBoleto) returns (ServiceResponseListBoleto) {}
     rpc findOneBoleto (IdRequest) returns (ServiceResponseBoleto) {}
     rpc createBoleto (BoletoData) returns (ServiceResponseBoleto) {}
     rpc updateBoleto (BoletoUpdateRequest) returns (ServiceResponseBoleto) {}
+    rpc saveBoleto (BoletoUpdateRequest) returns (ServiceResponseBoleto) {}
     rpc removeBoleto (IdRequest) returns (ServiceResponseBoleto) {}
     rpc sendBoletoToBradesco (IdRequest) returns (ServiceResponseRegistroBoletoAPI) {}
     rpc consultBoletoInBradesco (ListCriteriaRequestBoletoAPI) returns (ServiceResponseBoletodAPI) {}
@@ -66,12 +73,14 @@ service CasoService {
     rpc findOneBoletoRemessa (IdRequest) returns (ServiceResponseBoletoRemessa) {}
     rpc createBoletoRemessa (BoletoRemessaData) returns (ServiceResponseBoletoRemessa) {}
     rpc updateBoletoRemessa (BoletoRemessaUpdateRequest) returns (ServiceResponseBoletoRemessa) {}
+    rpc saveBoletoRemessa (BoletoRemessaUpdateRequest) returns (ServiceResponseBoletoRemessa) {}
     rpc removeBoletoRemessa (IdRequest) returns (ServiceResponseBoletoRemessa) {}
 
     rpc listBoletoRemessaBaixa (ListCriteriaRequestBoletoRemessaBaixa) returns (ServiceResponseListBoletoRemessaBaixa) {}
     rpc findOneBoletoRemessaBaixa (IdRequest) returns (ServiceResponseBoletoRemessaBaixa) {}
     rpc createBoletoRemessaBaixa (BoletoRemessaBaixaData) returns (ServiceResponseBoletoRemessaBaixa) {}
     rpc updateBoletoRemessaBaixa (BoletoRemessaBaixaUpdateRequest) returns (ServiceResponseBoletoRemessaBaixa) {}
+    rpc saveBoletoRemessaBaixa (BoletoRemessaBaixaUpdateRequest) returns (ServiceResponseBoletoRemessaBaixa) {}
     rpc removeBoletoRemessaBaixa (IdRequest) returns (ServiceResponseBoletoRemessaBaixa) {}    
 
 }
