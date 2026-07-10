@@ -10,7 +10,8 @@ service DevedorService {
   rpc createDevedor (DevedorData) returns (ServiceResponseDevedor) {}
   rpc updateDevedor (DevedorUpdateRequest) returns (ServiceResponseDevedor) {}
   rpc removeDevedor (IdRequest) returns (ServiceResponseDevedor) {}
-  rpc updateDevedorWithMonolito (DevedorUpdateRequest) returns (ServiceResponseDevedor) {}
+  rpc createDevedorWithMonolito (DevedorUpdateRequest) returns (ServiceResponseDevedor) {}
+  rpc createDevedor (DevedorData) returns (ServiceResponseDevedor) {}
   rpc getDataCredilink (CriteriaRequestCredilink) returns (ServiceResponseCredilink) {}
   rpc removeAllDevedor (WithoutParams) returns (ServiceResponseDevedor) {}
   rpc createManyDevedor (DevedorManyData) returns (ServiceResponseDevedor) {}
