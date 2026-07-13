@@ -142,7 +142,7 @@ message IdRequest{
 
 message ListCriteriaRequestDevedor {
     int32 idDevedor = 1;
-    string nmDevedor = 2; 
+    string nmDevedor = 2;
     string deEmail = 3;
     string cdCnpjCpf = 4;
     string deDddWhatsapp = 5;
@@ -150,7 +150,8 @@ message ListCriteriaRequestDevedor {
     int32 idMunicipio = 7;
     int32 items = 8;
     int32 page = 9;
-    map<string, string> order =10;
+    map<string, string> order = 10;
+    string nmDevedorOrCnpjCpf = 11;
 }
 
 message DevedorData {
