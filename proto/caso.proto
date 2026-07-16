@@ -81,7 +81,9 @@ service CasoService {
     rpc createBoletoRemessaBaixa (BoletoRemessaBaixaData) returns (ServiceResponseBoletoRemessaBaixa) {}
     rpc updateBoletoRemessaBaixa (BoletoRemessaBaixaUpdateRequest) returns (ServiceResponseBoletoRemessaBaixa) {}
     rpc saveBoletoRemessaBaixa (BoletoRemessaBaixaUpdateRequest) returns (ServiceResponseBoletoRemessaBaixa) {}
-    rpc removeBoletoRemessaBaixa (IdRequest) returns (ServiceResponseBoletoRemessaBaixa) {}    
+    rpc removeBoletoRemessaBaixa (IdRequest) returns (ServiceResponseBoletoRemessaBaixa) {}
+
+    rpc analisarDevedorNovaCobranca (RequestAnaliseDevedorNovaCobranca) returns (ServiceResponseAnaliseDevedorNovaCobranca) {}
 
 }
 
@@ -1187,4 +1189,98 @@ message DadosRetornoBaixa{
     string dataHoraSolicitacao = 1;
     int32 status = 2;
     int32 statusAnterior = 3;
+}
+
+
+//ANALISE DEVEDOR (GEMINI)
+//REQUEST analisarDevedorNovaCobranca
+
+message RequestAnaliseDevedorNovaCobranca {
+    string cdCnpjCpf = 1;
+    int32 idCasoAtual = 2;
+}
+
+message PerfilDevedorAnaliseData {
+    int32 idDevedor = 1;
+    string nmDevedor = 2;
+    string cdCnpjCpf = 3;
+    string cdPessoa = 4;
+    string deTelefone = 5;
+    string deCelular = 6;
+    string deWhatsapp = 7;
+    string deEmail = 8;
+    string primeiroCadastroNoSistema = 9;
+    int32 qtdCasosAnteriores = 10;
+}
+
+message CasoAnteriorAnaliseData {
+    int32 idCaso = 1;
+    string nmCliente = 2;
+    string desStatusCobranca = 3;
+    string dtCadastro = 4;
+    double valorOriginal = 5;
+    double valorPago = 6;
+    bool foiParaJudicial = 7;
+}
+
+message AcordoAnteriorAnaliseData {
+    int32 idAcordo = 1;
+    int32 idCaso = 2;
+    string dtAcordo = 3;
+    bool cdAcordoFormal = 4;
+    bool cdConfissaoDivida = 5;
+    double valorTotalAcordado = 6;
+    double valorTotalPago = 7;
+    double pctCumprido = 8;
+    int32 qtdParcelas = 9;
+    int32 qtdParcelasPagas = 10;
+}
+
+message TratativaHistoricoAnaliseData {
+    int32 idHistorico = 1;
+    int32 idCaso = 2;
+    string dtCadastro = 3;
+    string descricao = 4;
+    string responsavel = 5;
+}
+
+message ScoreHeuristicoAnaliseData {
+    int32 qtdAcordosAnteriores = 1;
+    int32 qtdAcordosHonrados = 2;
+    double pctMedioCumprido = 3;
+    string recomendacao = 4;
+}
+
+message DevedorAnaliseCompletaData {
+    PerfilDevedorAnaliseData perfil = 1;
+    repeated CasoAnteriorAnaliseData casosAnteriores = 2;
+    repeated AcordoAnteriorAnaliseData acordosAnteriores = 3;
+    repeated TratativaHistoricoAnaliseData ultimasTratativas = 4;
+    ScoreHeuristicoAnaliseData scoreHeuristico = 5;
+}
+
+message CondicoesRecomendadasAnaliseData {
+    double entradaMinimaPercentual = 1;
+    int32 prazoMaximoParcelas = 2;
+    bool exigirGarantias = 3;
+}
+
+message InsightNegociacaoGeminiData {
+    string resumoComportamento = 1;
+    string probabilidadeAcordo = 2;
+    string estrategiaSugerida = 3;
+    CondicoesRecomendadasAnaliseData condicoesRecomendadas = 4;
+    repeated string pontosDeAtencao = 5;
+}
+
+message AnaliseDevedorNovaCobrancaData {
+    DevedorAnaliseCompletaData dadosHistoricos = 1;
+    InsightNegociacaoGeminiData insightGemini = 2;
+}
+
+message ServiceResponseAnaliseDevedorNovaCobranca {
+    int32 status = 1;
+    string message = 2;
+    repeated AnaliseDevedorNovaCobrancaData data = 3;
+    string error = 4;
 }
