@@ -189,6 +189,7 @@ message CasoData {
     repeated AcordoData acordos = 39;
     repeated ParcelaData parcelas = 40;
     repeated CasoCartaData cartas = 41;
+    bool cdAnaliseIa = 42;
 }
 
 message CasoUpdateRequest{
