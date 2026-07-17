@@ -6,6 +6,7 @@ package contrato;
 service ContratoService {
     //Contrato
     rpc listContrato (ListCriteriaRequestContrato) returns (ServiceResponseListContrato) {}
+    rpc listContratoExtrajudicial (WithoutParams) returns (ServiceResponseListContrato) {}
     rpc findOneContrato (IdRequest) returns (ServiceResponseContrato) {}
     rpc createContrato (ContratoData) returns (ServiceResponseContrato) {}
     rpc updateContrato (ContratoUpdateRequest) returns (ServiceResponseContrato) {}
