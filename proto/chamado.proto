@@ -1,0 +1,156 @@
+syntax = "proto3";
+
+package chamado;
+
+
+service ChamadoService {
+    //Chamado
+    rpc listChamado (ListCriteriaRequestChamado) returns (ServiceResponseListChamado) {}
+    rpc findOneChamado (IdRequest) returns (ServiceResponseChamado) {}
+    rpc createChamado (CreateChamadoRequest) returns (ServiceResponseChamado) {}
+
+    //AndamentoChamado
+    rpc listAndamentoChamado (IdRequest) returns (ServiceResponseListAndamentoChamado) {}
+    rpc createAndamentoChamado (CreateAndamentoChamadoRequest) returns (ServiceResponseAndamentoChamado) {}
+
+    //Dominios
+    rpc listStatusChamado (WithoutParams) returns (ServiceResponseListStatusChamado) {}
+    rpc listTipoChamado (WithoutParams) returns (ServiceResponseListTipoChamado) {}
+}
+
+message WithoutParams {}
+
+message IdRequest {
+    int32 id = 1;
+}
+
+//CHAMADO (tabela tecoChamado)
+message ChamadoData {
+    int32 idChamado = 1;
+    string dtCadastro = 2;
+    int32 idUsuaChamado = 3;
+    int32 idTipoChamado = 4;
+    int32 idUsuaOper = 5;
+    string dtRegistro = 6;
+    string deTitulo = 7;
+}
+
+//Linha da view vsgaChamado_Lista (grid de listagem)
+message ChamadoListaData {
+    int32 idChamado = 1;
+    string dtCadastro = 2;
+    string nmUsuarioChamado = 3;
+    string deStatus = 4;
+    bool cdAlerta = 5;
+    string dtRegistro = 6;
+    string nmUsuarioOperador = 7;
+    string deAndamento = 8;
+    int32 idUsuaChamado = 9;
+    string deTitulo = 10;
+    string dtFinalizado = 11;
+    bool cdPrioridade = 12;
+}
+
+message ListCriteriaRequestChamado {
+    int32 idChamado = 1;
+    string deStatus = 2;
+    string dtCadastroInicio = 3;
+    string dtCadastroFim = 4;
+    int32 idUsuaChamado = 5;
+    int32 items = 6;
+    int32 page = 7;
+    map<string, string> order = 8;
+}
+
+message CreateChamadoRequest {
+    int32 idUsuaChamado = 1;
+    int32 idTipoChamado = 2;
+    string deTitulo = 3;
+    string deAndamento = 4;
+    int32 idUsuaOper = 5;
+}
+
+message ListResultChamado {
+    repeated ChamadoListaData result = 1;
+    int32 total = 2;
+}
+
+message ServiceResponseListChamado {
+    int32 status = 1;
+    string message = 2;
+    ListResultChamado data = 3;
+    string error = 4;
+}
+
+message ServiceResponseChamado {
+    int32 status = 1;
+    string message = 2;
+    repeated ChamadoData data = 3;
+    string error = 4;
+}
+
+//ANDAMENTO (tabela tecoAndamentoChamado)
+message AndamentoChamadoData {
+    int32 idAndamento = 1;
+    string deAndamento = 2;
+    string deUrlAnexo = 3;
+    int32 idStatusChamado = 4;
+    int32 idUsuaOper = 5;
+    string dtRegistro = 6;
+    int32 idChamado = 7;
+}
+
+message CreateAndamentoChamadoRequest {
+    int32 idChamado = 1;
+    string deAndamento = 2;
+    int32 idStatusChamado = 3;
+    int32 idUsuaOper = 4;
+}
+
+message ServiceResponseListAndamentoChamado {
+    int32 status = 1;
+    string message = 2;
+    repeated AndamentoChamadoData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseAndamentoChamado {
+    int32 status = 1;
+    string message = 2;
+    repeated AndamentoChamadoData data = 3;
+    string error = 4;
+}
+
+//STATUS (tabela tecoStatusChamado - dominio: 1=Aberto, 2=Atendimento, 3=Reaberto, 4=Finalizado)
+message StatusChamadoData {
+    int32 idStatusChamado = 1;
+    string deStatus = 2;
+    int32 idUsuaOper = 3;
+    string dtRegistro = 4;
+    bool cdAlerta = 5;
+}
+
+message ServiceResponseListStatusChamado {
+    int32 status = 1;
+    string message = 2;
+    repeated StatusChamadoData data = 3;
+    string error = 4;
+}
+
+//TIPO (tabela tecoTipoChamado - dominio)
+message TipoChamadoData {
+    int32 idTipoChamado = 1;
+    string deChamado = 2;
+    bool cdPrioridade = 3;
+    bool cdAtivo = 4;
+    int32 idUsuaOper = 5;
+    string dtRegistro = 6;
+    bool cdAdmin = 7;
+}
+
+message ServiceResponseListTipoChamado {
+    int32 status = 1;
+    string message = 2;
+    repeated TipoChamadoData data = 3;
+    string error = 4;
+}

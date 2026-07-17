@@ -1,0 +1,54 @@
+syntax = "proto3";
+
+package whatsappDevedor;
+
+
+service WhatsappDevedorService {
+    //InstanciaWhats (tabela legada tecoInstanciaWhats - SQL Server SGC)
+    rpc listInstanciaWhats (WithoutParams) returns (ServiceResponseListInstanciaWhats) {}
+    rpc findOneInstanciaWhats (IdRequest) returns (ServiceResponseInstanciaWhats) {}
+    rpc createInstanciaWhats (InstanciaWhatsData) returns (ServiceResponseInstanciaWhats) {}
+    rpc updateInstanciaWhats (InstanciaWhatsUpdateRequest) returns (ServiceResponseInstanciaWhats) {}
+    rpc removeInstanciaWhats (IdRequest) returns (ServiceResponseInstanciaWhats) {}
+}
+
+message WithoutParams {}
+
+message IdRequest {
+    int32 id = 1;
+}
+
+message InstanciaWhatsData {
+    int32 idInstanciaWhats = 1;
+    string deUrlwhats = 2;
+    string deInstanciaWhats = 3;
+    string deTokenWhats = 4;
+    int32 idUsuaOper = 5;
+    string dtRegistro = 6;
+    string nmInstanciaWhats = 7;
+    int32 cdEmpresa = 8;
+}
+
+message InstanciaWhatsUpdateRequest {
+    int32 idInstanciaWhats = 1;
+    InstanciaWhatsData instanciaWhats = 2;
+}
+
+message ListResultInstanciaWhats {
+    repeated InstanciaWhatsData result = 1;
+    int32 total = 2;
+}
+
+message ServiceResponseListInstanciaWhats {
+    int32 status = 1;
+    string message = 2;
+    ListResultInstanciaWhats data = 3;
+    string error = 4;
+}
+
+message ServiceResponseInstanciaWhats {
+    int32 status = 1;
+    string message = 2;
+    repeated InstanciaWhatsData data = 3;
+    string error = 4;
+}
