@@ -60,6 +60,7 @@ message ListCriteriaRequestChamado {
     int32 items = 6;
     int32 page = 7;
     map<string, string> order = 8;
+    bool excluirFinalizados = 9;
 }
 
 message CreateChamadoRequest {
