@@ -10,6 +10,13 @@ service WhatsappDevedorService {
     rpc createInstanciaWhats (InstanciaWhatsData) returns (ServiceResponseInstanciaWhats) {}
     rpc updateInstanciaWhats (InstanciaWhatsUpdateRequest) returns (ServiceResponseInstanciaWhats) {}
     rpc removeInstanciaWhats (IdRequest) returns (ServiceResponseInstanciaWhats) {}
+
+    //InstanciaUsuario (tabela legada tecoInstanciaUsuario - SQL Server SGC)
+    rpc listInstanciaUsuario (WithoutParams) returns (ServiceResponseListInstanciaUsuario) {}
+    rpc findOneInstanciaUsuario (IdRequest) returns (ServiceResponseInstanciaUsuario) {}
+    rpc createInstanciaUsuario (InstanciaUsuarioData) returns (ServiceResponseInstanciaUsuario) {}
+    rpc updateInstanciaUsuario (InstanciaUsuarioUpdateRequest) returns (ServiceResponseInstanciaUsuario) {}
+    rpc removeInstanciaUsuario (IdRequest) returns (ServiceResponseInstanciaUsuario) {}
 }
 
 message WithoutParams {}
@@ -50,5 +57,39 @@ message ServiceResponseInstanciaWhats {
     int32 status = 1;
     string message = 2;
     repeated InstanciaWhatsData data = 3;
+    string error = 4;
+}
+
+//InstanciaUsuario (tabela legada tecoInstanciaUsuario - SQL Server SGC)
+message InstanciaUsuarioData {
+    int32 idInstanciaUsuario = 1;
+    int32 idUsuario = 2;
+    int32 idInstanciaWhats = 3;
+    int32 idUsuaOper = 4;
+    string dtRegistro = 5;
+    bool cdDesabilitado = 6;
+}
+
+message InstanciaUsuarioUpdateRequest {
+    int32 idInstanciaUsuario = 1;
+    InstanciaUsuarioData instanciaUsuario = 2;
+}
+
+message ListResultInstanciaUsuario {
+    repeated InstanciaUsuarioData result = 1;
+    int32 total = 2;
+}
+
+message ServiceResponseListInstanciaUsuario {
+    int32 status = 1;
+    string message = 2;
+    ListResultInstanciaUsuario data = 3;
+    string error = 4;
+}
+
+message ServiceResponseInstanciaUsuario {
+    int32 status = 1;
+    string message = 2;
+    repeated InstanciaUsuarioData data = 3;
     string error = 4;
 }
