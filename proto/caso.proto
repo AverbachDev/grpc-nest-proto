@@ -24,6 +24,7 @@ service CasoService {
     rpc saveTitulo (TituloUpdateRequest) returns (ServiceResponseTitulo) {}
     rpc removeTitulo (IdRequest) returns (ServiceResponseTitulo) {}
     rpc findBalanceTitulosCaso (IdRequest) returns (ServiceResponseTitulo) {}
+    rpc obterCalculoPadraoTitulo (IdRequest) returns (ServiceResponseCalculoPadraoTitulo) {}
 
     rpc listAcordo (ListCriteriaRequestAcordo) returns (ServiceResponseListAcordo) {}
     rpc findOneAcordo (IdRequest) returns (ServiceResponseAcordo) {}
@@ -427,6 +428,26 @@ message ServiceResponseListTitulo {
 message ListResultTitulo {
     repeated TituloData result = 1;
     int32 total = 2;
+}
+
+// Porte da stored procedure legada psgaTitulo_ObterCalculoPadrao: limites/
+// valores padrao de juros, multa e honorarios de devedor definidos no
+// contrato do titulo.
+message CalculoPadraoTituloData {
+    double jurosNuTxMin = 1;
+    double jurosNuTxMax = 2;
+    double perMinHonoDev = 3;
+    double perMaxHonoDev = 4;
+    double multaPerMax = 5;
+    double nuMulta = 6;
+    string cdHonorDev = 7;
+}
+
+message ServiceResponseCalculoPadraoTitulo {
+    int32 status = 1;
+    string message = 2;
+    repeated CalculoPadraoTituloData data = 3;
+    string error = 4;
 }
 
 
