@@ -25,6 +25,7 @@ service CasoService {
     rpc removeTitulo (IdRequest) returns (ServiceResponseTitulo) {}
     rpc findBalanceTitulosCaso (IdRequest) returns (ServiceResponseTitulo) {}
     rpc obterCalculoPadraoTitulo (IdRequest) returns (ServiceResponseCalculoPadraoTitulo) {}
+    rpc calcularTitulo (CalcularTituloRequest) returns (ServiceResponseTitulo) {}
 
     rpc listAcordo (ListCriteriaRequestAcordo) returns (ServiceResponseListAcordo) {}
     rpc findOneAcordo (IdRequest) returns (ServiceResponseAcordo) {}
@@ -448,6 +449,17 @@ message ServiceResponseCalculoPadraoTitulo {
     string message = 2;
     repeated CalculoPadraoTituloData data = 3;
     string error = 4;
+}
+
+// Porte dos metodos de calculo de juros/multa/honorarios (titulo-calculo.service.ts)
+// aplicados a um titulo especifico, usando os parametros (tp_juros, cd_multa,
+// cd_nu_multa) do contrato do titulo.
+message CalcularTituloRequest {
+    int32 id = 1;
+    string dtCalculo = 2;
+    double perJuros = 3;
+    double perMulta = 4;
+    double perHonorDevedor = 5;
 }
 
 
