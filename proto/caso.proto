@@ -16,6 +16,7 @@ service CasoService {
     rpc getTotalCasosAgendadosByUser (IdRequest) returns (ServiceResponseInteger) {}
     rpc applyNewCobrador (ApplyNewCobradorRequest) returns (ServiceResponseCaso) {}
     rpc listAreaTrabalho (ListCriteriaRequestAreaDeTrabalho) returns (ServiceResponseListAreaDeTrabalho) {}
+    rpc obterParametrizacaoAcordo (IdRequest) returns (ServiceResponseParametrizacaoAcordo) {}
 
     rpc listTitulo (ListCriteriaRequestTitulo) returns (ServiceResponseListTitulo) {}
     rpc findOneTitulo (IdRequest) returns (ServiceResponseTitulo) {}
@@ -26,6 +27,8 @@ service CasoService {
     rpc findBalanceTitulosCaso (IdRequest) returns (ServiceResponseTitulo) {}
     rpc obterCalculoPadraoTitulo (IdRequest) returns (ServiceResponseCalculoPadraoTitulo) {}
     rpc calcularTitulo (CalcularTituloRequest) returns (ServiceResponseTitulo) {}
+    rpc obterStatusPagamentoTitulo (IdRequest) returns (ServiceResponseStatusPagamentoTitulo) {}
+    rpc validarCalculoProativoTitulo (CalcularTituloRequest) returns (ServiceResponseValidarCalculoProativoTitulo) {}
 
     rpc listAcordo (ListCriteriaRequestAcordo) returns (ServiceResponseListAcordo) {}
     rpc findOneAcordo (IdRequest) returns (ServiceResponseAcordo) {}
@@ -42,7 +45,8 @@ service CasoService {
     rpc saveParcela (ParcelaUpdateRequest) returns (ServiceResponseParcela) {}
     rpc removeParcela (IdRequest) returns (ServiceResponseParcela) {}
     rpc deleteUnPaidParcela (IdRequest) returns (ServiceResponseBoolean) {}
-    
+    rpc obterPagamentoParcela (IdRequest) returns (ServiceResponsePagamentoParcela) {}
+
 
     rpc listCasoCarta (ListCriteriaRequestCasoCarta) returns (ServiceResponseListCasoCarta) {}
     rpc findOneCasoCarta (IdRequest) returns (ServiceResponseCasoCarta) {}
@@ -50,6 +54,13 @@ service CasoService {
     rpc updateCasoCarta (CasoCartaUpdateRequest) returns (ServiceResponseCasoCarta) {}
     rpc saveCasoCarta (CasoCartaUpdateRequest) returns (ServiceResponseCasoCarta) {}
     rpc removeCasoCarta (IdRequest) returns (ServiceResponseCasoCarta) {}
+
+    rpc listCasoAtributo (ListCriteriaRequestCasoAtributo) returns (ServiceResponseListCasoAtributo) {}
+    rpc findOneCasoAtributo (IdRequest) returns (ServiceResponseCasoAtributo) {}
+    rpc createCasoAtributo (CasoAtributoData) returns (ServiceResponseCasoAtributo) {}
+    rpc updateCasoAtributo (CasoAtributoUpdateRequest) returns (ServiceResponseCasoAtributo) {}
+    rpc saveCasoAtributo (CasoAtributoUpdateRequest) returns (ServiceResponseCasoAtributo) {}
+    rpc removeCasoAtributo (IdRequest) returns (ServiceResponseCasoAtributo) {}
 
     rpc listTituloCadastro (ListCriteriaRequestTituloCadastro) returns (ServiceResponseListTituloCadastro) {}
     rpc findOneTituloCadastro (IdRequest) returns (ServiceResponseTituloCadastro) {}
@@ -65,6 +76,7 @@ service CasoService {
     rpc saveBoleto (BoletoUpdateRequest) returns (ServiceResponseBoleto) {}
     rpc removeBoleto (IdRequest) returns (ServiceResponseBoleto) {}
     rpc sendBoletoToBradesco (IdRequest) returns (ServiceResponseRegistroBoletoAPI) {}
+    rpc gerarBoletoParcela (GerarBoletoParcelaRequest) returns (ServiceResponseGerarBoletoParcela) {}
     rpc consultBoletoInBradesco (ListCriteriaRequestBoletoAPI) returns (ServiceResponseBoletodAPI) {}
     rpc consultBoletoPaidInBradesco (ListCriteriaRequestBoletoPaid) returns (ServiceResponseBoletoPaidAPI) {}
     rpc sendRangeBoletoToBradesco (RequestSendRangeBoletoToBradesco) returns (ServiceResponseBoolean) {}
@@ -192,6 +204,7 @@ message CasoData {
     repeated ParcelaData parcelas = 40;
     repeated CasoCartaData cartas = 41;
     bool cdAnaliseIa = 42;
+    CasoAtributoData casoAtributo = 43;
 }
 
 message CasoUpdateRequest{
@@ -356,6 +369,30 @@ message ListResultAreaDeTrabalho {
     int32 total = 2;
 }
 
+// Porte da cascata de parametrizacao de acordo do legado (wfmCadAcordo.aspx.vb,
+// ObterDados): campos do contrato do primeiro titulo do caso (mesmo padrao do
+// VB EntCliente.tecoContratos(0)) + idGrupo do cliente (usado nas excecoes
+// hardcoded de quantidade de parcela por grupo).
+message ParametrizacaoAcordoData {
+    double nuMaxParcelas = 1;
+    bool cdDesabilitaAcordoIntegral = 2;
+    bool cdDesabilitaAcordoParcelado = 3;
+    bool cdDesabilitaAcordoPorTitulos = 4;
+    bool cdDesabilitaAcordoPorConta = 5;
+    bool cdDesabPorTitulosSupMaxParcelas = 6;
+    bool cdCartaoCredito = 7;
+    bool cdPagtoCliente = 8;
+    bool cdCalculoAcordoTabelaPrice = 9;
+    int32 idGrupo = 10;
+}
+
+message ServiceResponseParametrizacaoAcordo {
+    int32 status = 1;
+    string message = 2;
+    repeated ParametrizacaoAcordoData data = 3;
+    string error = 4;
+}
+
 
 
 //TITULO
@@ -442,6 +479,9 @@ message CalculoPadraoTituloData {
     double multaPerMax = 5;
     double nuMulta = 6;
     string cdHonorDev = 7;
+    int32 cdTipoContrato = 8;
+    double nuDiasExtra = 9;
+    bool cdCalculoAcordoTabelaPrice = 10;
 }
 
 message ServiceResponseCalculoPadraoTitulo {
@@ -460,6 +500,37 @@ message CalcularTituloRequest {
     double perJuros = 3;
     double perMulta = 4;
     double perHonorDevedor = 5;
+}
+
+// Porte de grdCalculo_ItemDataBound (wfmCadAcordo.aspx.vb): determina se um
+// titulo esta quitado (cd_quitado > 0) ou ainda tem saldo de principal em
+// aberto para calculo, a partir dos registros de pagamento do titulo.
+message StatusPagamentoTituloData {
+    bool quitado = 1;
+    bool podeCalcular = 2;
+}
+
+message ServiceResponseStatusPagamentoTitulo {
+    int32 status = 1;
+    string message = 2;
+    repeated StatusPagamentoTituloData data = 3;
+    string error = 4;
+}
+
+// Porte da regra Proativo (wfmCadAcordo.aspx.vb:3521-3541): bloqueia o
+// calculo de um titulo vencido ha mais de nu_dias_extra dias em contrato
+// Proativo, exceto se o motivo de inadimplencia do caso for BLOQUEIO/
+// CONFIRMA PAGAMENTO.
+message ValidarCalculoProativoTituloData {
+    bool bloqueado = 1;
+    string mensagem = 2;
+}
+
+message ServiceResponseValidarCalculoProativoTitulo {
+    int32 status = 1;
+    string message = 2;
+    repeated ValidarCalculoProativoTituloData data = 3;
+    string error = 4;
 }
 
 
@@ -562,6 +633,22 @@ message ServiceResponseParcela {
     string error = 4;
 }
 
+// Status de pagamento de uma parcela, recuperado do microservice-pagamento
+// (ParcelaPagamento) - soma de todos os valores pagos e a data de pagamento
+// mais recente, ou vazio/pago=false se nenhum pagamento foi registrado ainda.
+message PagamentoParcelaData {
+    string dtPagto = 1;
+    double nuValorPago = 2;
+    bool pago = 3;
+}
+
+message ServiceResponsePagamentoParcela {
+    int32 status = 1;
+    string message = 2;
+    repeated PagamentoParcelaData data = 3;
+    string error = 4;
+}
+
 message ServiceResponseListParcela {
     int32 status = 1;
     string message = 2;
@@ -622,6 +709,60 @@ message ServiceResponseListCasoCarta {
 
 message ListResultCasoCarta {
     repeated CasoCartaData result = 1;
+    int32 total = 2;
+}
+
+
+//CASOATRIBUTO
+
+message ListCriteriaRequestCasoAtributo {
+    int32 idCasoAtributo = 1;
+    int32 idCaso = 2;
+    int32 items = 3;
+    int32 page = 4;
+    map<string, string> order = 5;
+}
+
+message CasoAtributoData {
+    int32 id = 1;
+    int32 idCaso = 2;
+    int32 idUltimoCobrador = 3;
+    string dtUltimoHistorico = 4;
+    int32 nuDiasPosse = 5;
+    int32 idUsuaOper = 6;
+    string dtRegistro = 7;
+    bool cdPermitirPermanenciaAposPrazo = 8;
+    bool cdQuebraAcordo = 9;
+    bool cdPossuiHistoricoCobrador = 10;
+    int32 nuDiasSemHistCobranca = 11;
+    int32 nuTelefoneAgente = 12;
+    int32 idUsuarioCriador = 13;
+    string createdDate = 14;
+    string updatedDate = 15;
+    string deletedDate = 16;
+}
+
+message CasoAtributoUpdateRequest{
+    int32 id = 1;
+    CasoAtributoData casoAtributo = 2;
+}
+
+message ServiceResponseCasoAtributo {
+    int32 status = 1;
+    string message = 2;
+    repeated CasoAtributoData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListCasoAtributo {
+    int32 status = 1;
+    string message = 2;
+    ListResultCasoAtributo data = 3;
+    string error = 4;
+}
+
+message ListResultCasoAtributo {
+    repeated CasoAtributoData result = 1;
     int32 total = 2;
 }
 
@@ -709,6 +850,27 @@ message ServiceResponseBoleto {
     int32 status = 1;
     string message = 2;
     repeated BoletoData data = 3;
+    string error = 4;
+}
+
+// Porte do procedimento "GerarBoleto" (wfmCadAcordo.aspx.vb:3784-3889): cria
+// o Boleto + BoletoRemessa para uma parcela (idNatureza = 29, "Boleto") e ja
+// aciona o registro no Bradesco (sendBoletoToBradesco).
+message GerarBoletoParcelaRequest {
+    int32 id = 1; // idParcela
+    int32 idUsuaOper = 2;
+}
+
+message GerarBoletoParcelaData {
+    int32 idBoleto = 1;
+    bool registrado = 2;
+    string mensagem = 3;
+}
+
+message ServiceResponseGerarBoletoParcela {
+    int32 status = 1;
+    string message = 2;
+    repeated GerarBoletoParcelaData data = 3;
     string error = 4;
 }
 
