@@ -124,7 +124,12 @@ service DevedorService {
   rpc updateDevedorInformacoesPesquisa (DevedorInformacoesPesquisaUpdateRequest) returns (ServiceResponseDevedorInformacoesPesquisa) {}
   rpc removeDevedorInformacoesPesquisa (IdRequest) returns (ServiceResponseDevedorInformacoesPesquisa) {}
   rpc createManyDevedorInformacoesPesquisa (DevedorInformacoesPesquisaManyData) returns (ServiceResponseDevedorInformacoesPesquisa) {}
-  rpc removeAllDevedorInformacoesPesquisa (WithoutParams) returns (ServiceResponseDevedorInformacoesPesquisa) {}  
+  rpc removeAllDevedorInformacoesPesquisa (WithoutParams) returns (ServiceResponseDevedorInformacoesPesquisa) {}
+
+  // Aba "Informacoes Pesquisa" (caso/acordo/view) - leitura agregada + acoes
+  rpc obterInformacoesPesquisaCompleta (IdRequest) returns (ServiceResponseDevedorInformacoesPesquisaCompleta) {}
+  rpc solicitarPesquisaCredilink (SolicitarPesquisaCredilinkRequest) returns (ServiceResponseSolicitarPesquisaCredilink) {}
+  rpc salvarOcorrenciasPesquisa (SalvarOcorrenciasRequest) returns (ServiceResponseSalvarOcorrencias) {}  
 }
 
 
@@ -870,5 +875,65 @@ message ListCriteriaRequestDevedorInformacoesPesquisa {
   int32 items = 3;
   int32 page = 4;
   map<string, string> order = 5;
+}
+
+// --- Aba "Informacoes Pesquisa" (caso/acordo/view): leitura agregada + acoes ---
+
+message DevedorInformacoesPesquisaSocioCompletaData {
+  DevedorInformacoesPesquisaSocioData socio = 1;
+  repeated DevedorInformacoesPesquisaSocioTelefoneData telefones = 2;
+}
+
+message DevedorInformacoesPesquisaCompletaData {
+  DevedorInformacoesPesquisaData pesquisa = 1;
+  repeated DevedorInformacoesPesquisaTelefoneData telefones = 2;
+  repeated DevedorInformacoesPesquisaSocioCompletaData socios = 3;
+}
+
+message ServiceResponseDevedorInformacoesPesquisaCompleta {
+  int32 status = 1;
+  string message = 2;
+  DevedorInformacoesPesquisaCompletaData data = 3;
+  string error = 4;
+}
+
+message SolicitarPesquisaCredilinkRequest {
+  int32 idDevedor = 1;
+  int32 idUsuaOper = 2;
+}
+
+message ServiceResponseSolicitarPesquisaCredilink {
+  int32 status = 1;
+  string message = 2;
+  // Sistema.vb ObterPesquisaCrediLinkPJ/PF: '' = nao processado, '1' = cota
+  // mensal excedida, '2'/'3' = nao foi possivel recuperar dados do CPF/CNPJ.
+  string codigoRetorno = 3;
+  DevedorInformacoesPesquisaCompletaData data = 4;
+  string error = 5;
+}
+
+message OcorrenciaTelefoneRequest {
+  // Exatamente um dos dois deve ser preenchido por linha - telefone
+  // principal ou telefone de socio (grdTelefonesPesquisa/grdTelSocio no
+  // legado, wfmCadAcordo.aspx.vb:7701-7826).
+  int32 idInfpesquisaTel = 1;
+  int32 idInfpesquisaSocioTelefone = 2;
+  int32 idOcorrenciaLigacao = 3;
+  // Nome da ocorrencia (ja disponivel no combo do frontend) - usado apenas
+  // para compor o texto do historico (Sistema.vb:7737/7788), evita um novo
+  // client grpc so para essa label.
+  string nmOcorrencia = 4;
+}
+
+message SalvarOcorrenciasRequest {
+  int32 idCaso = 1;
+  int32 idUsuaOper = 2;
+  repeated OcorrenciaTelefoneRequest ocorrencias = 3;
+}
+
+message ServiceResponseSalvarOcorrencias {
+  int32 status = 1;
+  string message = 2;
+  string error = 3;
 }
 

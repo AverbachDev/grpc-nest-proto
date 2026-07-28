@@ -17,6 +17,7 @@ service CasoService {
     rpc applyNewCobrador (ApplyNewCobradorRequest) returns (ServiceResponseCaso) {}
     rpc listAreaTrabalho (ListCriteriaRequestAreaDeTrabalho) returns (ServiceResponseListAreaDeTrabalho) {}
     rpc obterParametrizacaoAcordo (IdRequest) returns (ServiceResponseParametrizacaoAcordo) {}
+    rpc obterUsuarioCriadorCaso (IdRequest) returns (ServiceResponseUsuarioCriadorCaso) {}
 
     rpc listTitulo (ListCriteriaRequestTitulo) returns (ServiceResponseListTitulo) {}
     rpc findOneTitulo (IdRequest) returns (ServiceResponseTitulo) {}
@@ -384,12 +385,26 @@ message ParametrizacaoAcordoData {
     bool cdPagtoCliente = 8;
     bool cdCalculoAcordoTabelaPrice = 9;
     int32 idGrupo = 10;
+    int32 nuPrazoPermanencia = 11;
+    string dePermanencia = 12;
 }
 
 message ServiceResponseParametrizacaoAcordo {
     int32 status = 1;
     string message = 2;
     repeated ParametrizacaoAcordoData data = 3;
+    string error = 4;
+}
+
+message UsuarioCriadorCasoData {
+    int32 idUsuarioCriador = 1;
+    string nmUsuarioLogin = 2;
+}
+
+message ServiceResponseUsuarioCriadorCaso {
+    int32 status = 1;
+    string message = 2;
+    repeated UsuarioCriadorCasoData data = 3;
     string error = 4;
 }
 

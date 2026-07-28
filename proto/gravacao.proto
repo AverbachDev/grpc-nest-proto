@@ -1,0 +1,64 @@
+syntax = "proto3";
+
+package gravacao;
+
+service GravacaoService {
+    rpc listGravacao (ListCriteriaRequestGravacao) returns (ServiceResponseListGravacao) {}
+    rpc findOneGravacao (IdRequest) returns (ServiceResponseGravacao) {}
+    rpc createGravacao (GravacaoData) returns (ServiceResponseGravacao) {}
+    rpc updateGravacao (GravacaoUpdateRequest) returns (ServiceResponseGravacao) {}
+    rpc removeGravacao (IdRequest) returns (ServiceResponseGravacao) {}
+}
+
+message IdRequest {
+    int32 id = 1;
+}
+
+message GravacaoData {
+    int32 id = 1;
+    int32 idCaso = 2;
+    string dtCadastro = 3;
+    string deArquivo = 4;
+    int32 idUsuaOper = 5;
+    string dtRegistro = 6;
+    string cdTipoligacao = 7;
+    string cdTipochamada = 8;
+    int32 idUnidadeOrigem = 9;
+    string createdDate = 10;
+    string updatedDate = 11;
+    string deletedDate = 12;
+}
+
+message GravacaoUpdateRequest {
+    int32 id = 1;
+    GravacaoData gravacao = 2;
+}
+
+message ListCriteriaRequestGravacao {
+    int32 idGravacao = 1;
+    int32 idCaso = 2;
+    string deArquivo = 3;
+    int32 idUsuaOper = 4;
+    int32 items = 5;
+    int32 page = 6;
+    map<string, string> order = 7;
+}
+
+message ServiceResponseGravacao {
+    int32 status = 1;
+    string message = 2;
+    repeated GravacaoData data = 3;
+    string error = 4;
+}
+
+message ListResultGravacao {
+    repeated GravacaoData result = 1;
+    int32 total = 2;
+}
+
+message ServiceResponseListGravacao {
+    int32 status = 1;
+    string message = 2;
+    ListResultGravacao data = 3;
+    string error = 4;
+}
