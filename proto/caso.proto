@@ -16,6 +16,8 @@ service CasoService {
     rpc getTotalCasosAgendadosByUser (IdRequest) returns (ServiceResponseInteger) {}
     rpc applyNewCobrador (ApplyNewCobradorRequest) returns (ServiceResponseCaso) {}
     rpc listAreaTrabalho (ListCriteriaRequestAreaDeTrabalho) returns (ServiceResponseListAreaDeTrabalho) {}
+    rpc contarCasosTrabalhados (ContadorAreaTrabalhoRequest) returns (ServiceResponseContadorAreaTrabalho) {}
+    rpc contarCasosEmPesquisa (ContadorAreaTrabalhoRequest) returns (ServiceResponseContadorAreaTrabalho) {}
     rpc obterParametrizacaoAcordo (IdRequest) returns (ServiceResponseParametrizacaoAcordo) {}
     rpc obterUsuarioCriadorCaso (IdRequest) returns (ServiceResponseUsuarioCriadorCaso) {}
 
@@ -55,6 +57,9 @@ service CasoService {
     rpc updateCasoCarta (CasoCartaUpdateRequest) returns (ServiceResponseCasoCarta) {}
     rpc saveCasoCarta (CasoCartaUpdateRequest) returns (ServiceResponseCasoCarta) {}
     rpc removeCasoCarta (IdRequest) returns (ServiceResponseCasoCarta) {}
+    rpc gerarCasoCarta (GerarCasoCartaRequest) returns (ServiceResponseGerarCasoCarta) {}
+    rpc obterCartasPermitidas (ObterCartasPermitidasRequest) returns (ServiceResponseCartaPermitida) {}
+    rpc downloadCasoCarta (IdRequest) returns (ServiceResponseDownloadCasoCarta) {}
 
     rpc listCasoAtributo (ListCriteriaRequestCasoAtributo) returns (ServiceResponseListCasoAtributo) {}
     rpc findOneCasoAtributo (IdRequest) returns (ServiceResponseCasoAtributo) {}
@@ -310,6 +315,7 @@ message ListCriteriaRequestAreaDeTrabalho {
     int32 items = 17;
     int32 page = 18;
     map<string, string> order = 19;
+    int32 idMotivoInadimplencia = 20;
 }
 
 message AreaDeTrabalhoData {
@@ -368,6 +374,19 @@ message ServiceResponseListAreaDeTrabalho {
 message ListResultAreaDeTrabalho {
     repeated AreaDeTrabalhoData result = 1;
     int32 total = 2;
+}
+
+// Contadores exibidos ao lado do combo de cobrador na Area de Trabalho
+// (wfmAreaTrabalho.aspx.vb: AtualizarCasosCobrados/AtualizarCasosEmPesquisa).
+message ContadorAreaTrabalhoRequest {
+    int32 idUsuaCobrador = 1;
+}
+
+message ServiceResponseContadorAreaTrabalho {
+    int32 status = 1;
+    string message = 2;
+    int32 total = 3;
+    string error = 4;
 }
 
 // Porte da cascata de parametrizacao de acordo do legado (wfmCadAcordo.aspx.vb,
@@ -719,6 +738,98 @@ message ServiceResponseListCasoCarta {
     int32 status = 1;
     string message = 2;
     ListResultCasoCarta data = 3;
+    string error = 4;
+}
+
+// Porte de GerarCarta (wucCartas.ascx.vb): gera o PDF da carta via
+// microservice-crystal e grava o CasoCarta correspondente.
+// Porte dos paineis manuais de dados complementares de wucCartas.ascx
+// (avalista/conjuge/representante legal/testemunha) - ver plano "Dados
+// complementares da carta".
+message PessoaComplementarData {
+    string nome = 1;
+    string cpf = 2;
+    string endereco = 3;
+    string nacionalidade = 4;
+    string profissao = 5;
+    string identidadeRg = 6;
+    string estadoCivil = 7;
+}
+
+message TestemunhaData {
+    string nome = 1;
+    string rg = 2;
+    string cpf = 3;
+}
+
+message DadosClienteContratoOverrideData {
+    string nmCliente = 1;
+    string cdCnpjCpf = 2;
+    string deLogradouro = 3;
+    string deComplemento = 4;
+    string deFederacao = 5;
+    string deMunicipio = 6;
+    string deForo = 7;
+    double perJuros = 8;
+    double perHonorarios = 9;
+}
+
+message DadosComplementaresCartaData {
+    DadosClienteContratoOverrideData dadosClienteContrato = 1;
+    PessoaComplementarData avalista1 = 2;
+    PessoaComplementarData conjuge1 = 3;
+    PessoaComplementarData avalista2 = 4;
+    PessoaComplementarData conjuge2 = 5;
+    PessoaComplementarData representanteLegal = 6;
+    TestemunhaData testemunha1 = 7;
+    TestemunhaData testemunha2 = 8;
+}
+
+message GerarCasoCartaRequest {
+    int32 idCaso = 1;
+    int32 idCarta = 2;
+    string destinatario = 3; // "CLIENTE" ou "DEVEDOR"
+    int32 idUsuaOper = 4;
+    string nmUsuaOperLogin = 5; // usado so para a heuristica de id_unidade_origem (SP/RJ)
+    DadosComplementaresCartaData dadosComplementares = 6;
+}
+
+message ServiceResponseGerarCasoCarta {
+    int32 status = 1;
+    string message = 2;
+    repeated CasoCartaData data = 3;
+    string error = 4;
+}
+
+// Porte de psgaCaso_ObterCartasPermitidas.sql - regras por cliente/grupo +
+// regras por papel do cobrador (via UsuarioGrupo, ver plano "Bloqueio de
+// cartas por papel do cobrador").
+message ObterCartasPermitidasRequest {
+    int32 idCaso = 1;
+    int32 idUsuario = 2;
+}
+
+message CartaPermitidaData {
+    int32 idCarta = 1;
+    string deCarta = 2;
+}
+
+message ServiceResponseCartaPermitida {
+    int32 status = 1;
+    string message = 2;
+    repeated CartaPermitidaData data = 3;
+    string error = 4;
+}
+
+message DownloadCasoCartaData {
+    string filename = 1;
+    bytes conteudo = 2;
+}
+
+message ServiceResponseDownloadCasoCarta {
+    int32 status = 1;
+    string message = 2;
+    repeated DownloadCasoCartaData data = 3;
     string error = 4;
 }
 
