@@ -15,6 +15,12 @@ service CasoService {
     rpc listCasosRD (ListCriteriaRequestCaso) returns (ServiceResponseListCasoWithExternalFields) {}
     rpc getTotalCasosAgendadosByUser (IdRequest) returns (ServiceResponseInteger) {}
     rpc applyNewCobrador (ApplyNewCobradorRequest) returns (ServiceResponseCaso) {}
+    rpc cancelarAcordo (CancelarAcordoRequest) returns (ServiceResponseCaso) {}
+    rpc avaliarCaso (AvaliarCasoRequest) returns (ServiceResponseCaso) {}
+    rpc solicitarProrrogacao (SolicitarProrrogacaoRequest) returns (ServiceResponseCaso) {}
+    rpc salvarSituacaoCobranca (SalvarSituacaoCobrancaRequest) returns (ServiceResponseCaso) {}
+    rpc obterAvisosCaso (IdRequest) returns (ServiceResponseAvisoCaso) {}
+    rpc validarDevolucaoCaso (IdRequest) returns (ServiceResponseValidarDevolucao) {}
     rpc listAreaTrabalho (ListCriteriaRequestAreaDeTrabalho) returns (ServiceResponseListAreaDeTrabalho) {}
     rpc contarCasosTrabalhados (ContadorAreaTrabalhoRequest) returns (ServiceResponseContadorAreaTrabalho) {}
     rpc contarCasosEmPesquisa (ContadorAreaTrabalhoRequest) returns (ServiceResponseContadorAreaTrabalho) {}
@@ -222,6 +228,58 @@ message ServiceResponseCaso {
     int32 status = 1;
     string message = 2;
     repeated CasoData data = 3;
+    string error = 4;
+}
+
+// Porte dos botoes de cabecalho de wfmCadAcordo.aspx (Cancelar Acordo,
+// Avaliacao, Prorrogacao, Salvar Situacao Cobranca) - ver plano "Cabeçalho
+// de caso/acordo/view - item 2 do relatório comparativo".
+message CancelarAcordoRequest {
+    int32 idCaso = 1;
+    int32 idUsuaOper = 2;
+}
+
+message AvaliarCasoRequest {
+    int32 idCaso = 1;
+    int32 idUsuaOper = 2;
+}
+
+message SolicitarProrrogacaoRequest {
+    int32 idCaso = 1;
+    int32 idUsuaOper = 2;
+}
+
+message SalvarSituacaoCobrancaRequest {
+    int32 idCaso = 1;
+    int32 idMotivoInadimplencia = 2;
+    int32 idUsuaOper = 3;
+}
+
+// Porte dos avisos computados do cabecalho (exceto os 4 tp_mensagem de
+// psgaCaso_ObterMensagemInicio, que ficaram de fora - SP inacessivel).
+message AvisoCasoData {
+    string texto = 1;
+    string cor = 2;
+}
+
+message ServiceResponseAvisoCaso {
+    int32 status = 1;
+    string message = 2;
+    repeated AvisoCasoData data = 3;
+    string error = 4;
+}
+
+// Porte da validacao client-side do fluxo de Devolucao (bloqueio por
+// cliente/grupo + regra AKAD 40 dias).
+message ValidarDevolucaoData {
+    bool bloqueado = 1;
+    string mensagem = 2;
+}
+
+message ServiceResponseValidarDevolucao {
+    int32 status = 1;
+    string message = 2;
+    repeated ValidarDevolucaoData data = 3;
     string error = 4;
 }
 
