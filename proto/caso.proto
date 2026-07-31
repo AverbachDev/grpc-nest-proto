@@ -16,11 +16,13 @@ service CasoService {
     rpc getTotalCasosAgendadosByUser (IdRequest) returns (ServiceResponseInteger) {}
     rpc applyNewCobrador (ApplyNewCobradorRequest) returns (ServiceResponseCaso) {}
     rpc cancelarAcordo (CancelarAcordoRequest) returns (ServiceResponseCaso) {}
+    rpc registrarQuebraAcordo (RegistrarQuebraAcordoRequest) returns (ServiceResponseCaso) {}
     rpc avaliarCaso (AvaliarCasoRequest) returns (ServiceResponseCaso) {}
     rpc solicitarProrrogacao (SolicitarProrrogacaoRequest) returns (ServiceResponseCaso) {}
     rpc salvarSituacaoCobranca (SalvarSituacaoCobrancaRequest) returns (ServiceResponseCaso) {}
     rpc obterAvisosCaso (IdRequest) returns (ServiceResponseAvisoCaso) {}
     rpc validarDevolucaoCaso (IdRequest) returns (ServiceResponseValidarDevolucao) {}
+    rpc listPossibilidadeExitoCaso (EmptyRequest) returns (ServiceResponseListPossibilidadeExitoCaso) {}
     rpc listAreaTrabalho (ListCriteriaRequestAreaDeTrabalho) returns (ServiceResponseListAreaDeTrabalho) {}
     rpc contarCasosTrabalhados (ContadorAreaTrabalhoRequest) returns (ServiceResponseContadorAreaTrabalho) {}
     rpc contarCasosEmPesquisa (ContadorAreaTrabalhoRequest) returns (ServiceResponseContadorAreaTrabalho) {}
@@ -37,6 +39,7 @@ service CasoService {
     rpc obterCalculoPadraoTitulo (IdRequest) returns (ServiceResponseCalculoPadraoTitulo) {}
     rpc calcularTitulo (CalcularTituloRequest) returns (ServiceResponseTitulo) {}
     rpc obterStatusPagamentoTitulo (IdRequest) returns (ServiceResponseStatusPagamentoTitulo) {}
+    rpc obterSolicLuxotticaTitulo (IdRequest) returns (ServiceResponseRepositorioLuxottica) {}
     rpc validarCalculoProativoTitulo (CalcularTituloRequest) returns (ServiceResponseValidarCalculoProativoTitulo) {}
 
     rpc listAcordo (ListCriteriaRequestAcordo) returns (ServiceResponseListAcordo) {}
@@ -239,6 +242,14 @@ message CancelarAcordoRequest {
     int32 idUsuaOper = 2;
 }
 
+// Porte de RegistrarQuebraAcordo (wfmCadAcordo.aspx.vb:1714-1760) - roda na
+// ABERTURA do caso (nao no Salvar): grupo 1525, status atual 13/17, atraso
+// da primeira parcela nao paga > 3 dias.
+message RegistrarQuebraAcordoRequest {
+    int32 idCaso = 1;
+    int32 idUsuaOper = 2;
+}
+
 message AvaliarCasoRequest {
     int32 idCaso = 1;
     int32 idUsuaOper = 2;
@@ -280,6 +291,22 @@ message ServiceResponseValidarDevolucao {
     int32 status = 1;
     string message = 2;
     repeated ValidarDevolucaoData data = 3;
+    string error = 4;
+}
+
+// Porte de tecoPossibilidadeExitoCaso (lookup estatico: POSSIVEL/PROVAVEL/
+// REMOTO) - usado no popup "Possibilidade de Exito" do cabecalho.
+message PossibilidadeExitoCasoData {
+    int32 idPossibilidadeExito = 1;
+    string dePossibilidade = 2;
+    int32 idUsuaOper = 3;
+    string dtRegistro = 4;
+}
+
+message ServiceResponseListPossibilidadeExitoCaso {
+    int32 status = 1;
+    string message = 2;
+    repeated PossibilidadeExitoCasoData data = 3;
     string error = 4;
 }
 
@@ -534,6 +561,13 @@ message TituloData {
     string createdDate = 32;
     string updatedDate = 33;
     string deletedDate = 34;
+    int32 cdFlagTitulo = 35;
+    // Preenchido so pelo CalcularTituloUseCase quando o percentual de
+    // honorarios de devedor precisa ser ajustado para caber na faixa de dias
+    // vencido (cd_honor_dev="2", tabela tecoHonorDevDiasVenc) - nao e uma
+    // coluna persistida, so trafega na resposta do calculo. "optional" para
+    // nao obrigar todo implementador de TituloData a preenche-lo.
+    optional string mensagemAjusteCalculo = 36;
 }
 
 message TituloUpdateRequest{
@@ -592,6 +626,12 @@ message CalcularTituloRequest {
     double perJuros = 3;
     double perMulta = 4;
     double perHonorDevedor = 5;
+    // Usado so para a excecao Saint-Gobain Weber5 (juros=0, editavel apenas
+    // para Admin ou um grupo pequeno de usuarios especificos,
+    // wfmCadAcordo.aspx.vb:753-812) - precisa saber quem esta calculando.
+    // "optional" porque outras chamadas que reusam esta mensagem (ex.:
+    // validarCalculoProativoTitulo) nao tem esse dado.
+    optional int32 idUsuario = 6;
 }
 
 // Porte de grdCalculo_ItemDataBound (wfmCadAcordo.aspx.vb): determina se um
@@ -622,6 +662,21 @@ message ServiceResponseValidarCalculoProativoTitulo {
     int32 status = 1;
     string message = 2;
     repeated ValidarCalculoProativoTituloData data = 3;
+    string error = 4;
+}
+
+// Porte do tooltip "L/C Luxottica" (grdCalculo_ItemDataBound,
+// wfmCadAcordo.aspx.vb:3162-3179): busca em tecoRepositorioluxottica pelo
+// id_titulo, exibida so para titulos com id_contrato 7509/7618.
+message RepositorioLuxotticaData {
+    int64 solicLC = 1;
+    bool encontrado = 2;
+}
+
+message ServiceResponseRepositorioLuxottica {
+    int32 status = 1;
+    string message = 2;
+    repeated RepositorioLuxotticaData data = 3;
     string error = 4;
 }
 
