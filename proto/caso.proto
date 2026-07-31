@@ -17,6 +17,7 @@ service CasoService {
     rpc applyNewCobrador (ApplyNewCobradorRequest) returns (ServiceResponseCaso) {}
     rpc cancelarAcordo (CancelarAcordoRequest) returns (ServiceResponseCaso) {}
     rpc registrarQuebraAcordo (RegistrarQuebraAcordoRequest) returns (ServiceResponseCaso) {}
+    rpc obterInformacoesCaso (IdRequest) returns (ServiceResponseInformacoesCaso) {}
     rpc avaliarCaso (AvaliarCasoRequest) returns (ServiceResponseCaso) {}
     rpc solicitarProrrogacao (SolicitarProrrogacaoRequest) returns (ServiceResponseCaso) {}
     rpc salvarSituacaoCobranca (SalvarSituacaoCobrancaRequest) returns (ServiceResponseCaso) {}
@@ -250,6 +251,28 @@ message RegistrarQuebraAcordoRequest {
     int32 idUsuaOper = 2;
 }
 
+// Complemento do popup "Informacoes do Caso" (wfmPopInformacoesCaso.aspx do
+// legado): Observacoes Contratuais (contrato.de_obs) + grid Historico de
+// Distribuicao (via tecoHistoricoDistribuicao, a SP que a lia nao existe
+// mais mas a tabela continua no banco).
+message HistoricoDistribuicaoData {
+    int32 idUsuaCobrador = 1;
+    string nmUsuarioLogin = 2;
+    string dtUsuaCobrador = 3;
+}
+
+message InformacoesCasoData {
+    string deObsContratuais = 1;
+    repeated HistoricoDistribuicaoData historicoDistribuicao = 2;
+}
+
+message ServiceResponseInformacoesCaso {
+    int32 status = 1;
+    string message = 2;
+    repeated InformacoesCasoData data = 3;
+    string error = 4;
+}
+
 message AvaliarCasoRequest {
     int32 idCaso = 1;
     int32 idUsuaOper = 2;
@@ -266,11 +289,16 @@ message SalvarSituacaoCobrancaRequest {
     int32 idUsuaOper = 3;
 }
 
-// Porte dos avisos computados do cabecalho (exceto os 4 tp_mensagem de
-// psgaCaso_ObterMensagemInicio, que ficaram de fora - SP inacessivel).
+// Porte dos avisos computados do cabecalho, incluindo a categoria
+// tp_mensagem=1 (mensagem principal, sempre visivel) de
+// psgaCaso_ObterMensagemInicio (definicao obtida do usuario - as outras 3
+// categorias dessa SP, tp_mensagem 2/3/4, ficaram de fora desta rodada).
 message AvisoCasoData {
     string texto = 1;
     string cor = 2;
+    // Quando true, `texto` contem HTML literal (font/br/strong/table do
+    // legado) e deve ser renderizado como tal, nao como texto puro.
+    optional bool htmlContent = 3;
 }
 
 message ServiceResponseAvisoCaso {
