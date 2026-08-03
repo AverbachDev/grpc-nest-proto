@@ -10,6 +10,7 @@ service CasoService {
     rpc createCaso (CasoData) returns (ServiceResponseCaso) {}
     rpc updateCaso (CasoUpdateRequest) returns (ServiceResponseCaso) {}
     rpc saveCaso (CasoUpdateRequest) returns (ServiceResponseCaso) {}
+    rpc saveCasoAcordo (CasoUpdateRequest) returns (ServiceResponseCaso) {}
     rpc removeCaso (IdRequest) returns (ServiceResponseCaso) {}
     rpc listCasoWithExternalFields (ListCriteriaRequestCasoWithExternalFields) returns (ServiceResponseListCasoWithExternalFields) {}
     rpc listCasosRD (ListCriteriaRequestCaso) returns (ServiceResponseListCasoWithExternalFields) {}
