@@ -520,6 +520,8 @@ message ParametrizacaoAcordoData {
     int32 idGrupo = 10;
     int32 nuPrazoPermanencia = 11;
     string dePermanencia = 12;
+    int32 cdTipoContrato = 13;
+    int32 cdValorPreventivo = 14;
 }
 
 message ServiceResponseParametrizacaoAcordo {
@@ -637,6 +639,7 @@ message CalculoPadraoTituloData {
     int32 cdTipoContrato = 8;
     double nuDiasExtra = 9;
     bool cdCalculoAcordoTabelaPrice = 10;
+    int32 cdValorPreventivo = 11;
 }
 
 message ServiceResponseCalculoPadraoTitulo {
