@@ -30,6 +30,7 @@ service CasoService {
     rpc contarCasosEmPesquisa (ContadorAreaTrabalhoRequest) returns (ServiceResponseContadorAreaTrabalho) {}
     rpc obterParametrizacaoAcordo (IdRequest) returns (ServiceResponseParametrizacaoAcordo) {}
     rpc obterUsuarioCriadorCaso (IdRequest) returns (ServiceResponseUsuarioCriadorCaso) {}
+    rpc listCasoPrevPagto (ListCriteriaRequestCasoPrevPagto) returns (ServiceResponseListCasoPrevPagto) {}
 
     rpc listTitulo (ListCriteriaRequestTitulo) returns (ServiceResponseListTitulo) {}
     rpc findOneTitulo (IdRequest) returns (ServiceResponseTitulo) {}
@@ -492,6 +493,71 @@ message ServiceResponseListAreaDeTrabalho {
 
 message ListResultAreaDeTrabalho {
     repeated AreaDeTrabalhoData result = 1;
+    int32 total = 2;
+}
+
+// Porte de vsgaCaso_ObterCasosPrevPagto (view legada, usada em
+// wfmPrevPagto.aspx.vb) - mesmo molde do bloco AreaDeTrabalho acima
+// (ListCriteriaRequest/Data/ServiceResponseList/ListResult), espelhando
+// 1:1 CasoPrevPagtoModel (infrastructure/database/typeorm/models/
+// caso-prev-pagto.entity-orm.ts).
+message ListCriteriaRequestCasoPrevPagto {
+    int32 idCaso = 1;
+    int32 idUsuaCobrador = 2;
+    string nmDevedor = 3;
+    string cdCnpjCpf = 4;
+    string dtVencInicio = 5;
+    string dtVencFim = 6;
+    string dtAgendContInicio = 7;
+    string dtAgendContFim = 8;
+    double nuValorInicio = 9;
+    double nuValorFim = 10;
+    // Forma do acordo (wfmPrevPagto.aspx.vb ddlFormaPagto: filtro por
+    // "comeca com" sobre o TEXTO descritivo que a propria view retorna em
+    // cd_acordo - ex.: "Integral"/"Parcelado"/"Por Títulos"/"Por Conta" -,
+    // nao os codigos curtos '0'-'3' usados em outras entidades.
+    string cdAcordo = 11;
+    // Status da cobranca (filtro exato) - a aba "Aguardando Cartão de
+    // Crédito" do legado usa id_statusCobranca = 22.
+    int32 idStatusCobranca = 12;
+    // Idem, mas para excluir (<>) - a aba "Previsão de Pagamento" do legado
+    // usa id_statusCobranca <> 22 (wfmPrevPagto.aspx.vb:99-103).
+    int32 idStatusCobrancaDiferente = 16;
+    int32 items = 13;
+    int32 page = 14;
+    map<string, string> order = 15;
+}
+
+message CasoPrevPagtoData {
+    string cdCnpjCpf = 1;
+    string nmDevedor = 2;
+    double nuValor = 3;
+    string cdAcordo = 4;
+    int32 idCaso = 5;
+    string nmCliente = 6;
+    string dtVenc = 7;
+    int32 idUsuaCobrador = 8;
+    string deParcela = 9;
+    string desNatureza = 10;
+    string dtUltimoHistorico = 11;
+    string dtAgendCont = 12;
+    int32 nuDiasAtraso = 13;
+    int32 idAcordo = 14;
+    int32 idStatusCobranca = 15;
+    int32 cdTituloInseridoComPagamento = 16;
+    int32 cdImportadoAtivo = 17;
+    double honorariosParcela = 18;
+}
+
+message ServiceResponseListCasoPrevPagto {
+    int32 status = 1;
+    string message = 2;
+    ListResultCasoPrevPagto data = 3;
+    string error = 4;
+}
+
+message ListResultCasoPrevPagto {
+    repeated CasoPrevPagtoData result = 1;
     int32 total = 2;
 }
 
