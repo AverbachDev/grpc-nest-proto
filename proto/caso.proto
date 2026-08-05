@@ -300,6 +300,11 @@ message AvisoCasoData {
     // Quando true, `texto` contem HTML literal (font/br/strong/table do
     // legado) e deve ser renderizado como tal, nao como texto puro.
     optional bool htmlContent = 3;
+    // Quando true, o aviso e fiel a MensagemInicio (wfmCadAcordo.aspx.vb:
+    // 1403-1532, Me.ExibirMensagem(MensagemInicio)) - exibido como popup
+    // modal na abertura do caso, nao como label fixo no cabecalho. Quando
+    // false/ausente, o aviso e fiel a lbl_aviso1/lbl_aviso2 - label fixo.
+    optional bool popup = 4;
 }
 
 message ServiceResponseAvisoCaso {
@@ -522,6 +527,12 @@ message ParametrizacaoAcordoData {
     string dePermanencia = 12;
     int32 cdTipoContrato = 13;
     int32 cdValorPreventivo = 14;
+    // Juros Vincendos (wfmCadAcordo.aspx.vb:1339-1391): "0"/vazio sem juros
+    // vincendos, "1" percentual igual ao maior juros do calculo, "2"
+    // percentual fixo definido em contrato (perVincendos).
+    string cdVincendos = 15;
+    double perVincendos = 16;
+    bool cdVincendosParcelasIguais = 17;
 }
 
 message ServiceResponseParametrizacaoAcordo {
@@ -1130,6 +1141,9 @@ message ServiceResponseBoleto {
 message GerarBoletoParcelaRequest {
     int32 id = 1; // idParcela
     int32 idUsuaOper = 2;
+    // Instrucoes do boleto (wfmCadAcordo.aspx: hndInstrucoesBoleto, digitado
+    // no popup AbrirPopBoleto antes de gerar) - opcional.
+    string deInstrucoes = 3;
 }
 
 message GerarBoletoParcelaData {
