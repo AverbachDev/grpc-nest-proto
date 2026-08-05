@@ -878,16 +878,82 @@ message ListCriteriaRequestDevedorInformacoesPesquisa {
 }
 
 // --- Aba "Informacoes Pesquisa" (caso/acordo/view): leitura agregada + acoes ---
+//
+// As 4 mensagens abaixo espelham EXATAMENTE a forma "achatada" (campos da
+// entidade TypeORM no nivel raiz + relations aninhadas pelo mesmo nome de
+// propriedade) que DevedorInformacoesPesquisaService.findCompleta/
+// solicitarPesquisaCredilink retornam (entidade bruta do TypeORM, nao um DTO
+// com wrapper) e que o frontend (types.ts: InformacoesPesquisaDataType/
+// PesquisaTelefoneDataType/PesquisaSocioDataType/PesquisaSocioTelefoneDataType)
+// consome. Uma versao anterior usava um shape com wrapper ({pesquisa,
+// telefones, socios: [{socio, telefones}]}) que nao batia com nenhum dos dois
+// lados - o gRPC descartava silenciosamente todos os campos no serialize (por
+// nao encontrar "pesquisa"/"telefones"/"socios" no objeto bruto), fazendo
+// `data` chegar como {} no frontend mesmo com o registro existindo no banco.
+
+message DevedorInformacoesPesquisaTelefoneCompletaData {
+  int32 idInfpesquisaTel = 1;
+  int32 idDevedorInfpesquisa = 2;
+  string deDdd = 3;
+  string deTelefone = 4;
+  bool cdCelular = 5;
+  bool cdWhatsapp = 6;
+  string dtInstalacao = 7;
+  int32 idUsuaOper = 8;
+  string dtRegistro = 9;
+  int32 nuSemAtendimento = 10;
+  string createdDate = 11;
+  string updatedDate = 12;
+  string deletedDate = 13;
+  repeated DevedorInformacoesPesquisaTelefoneOcorrenciaData devedorInformacoesPesquisaTelefoneOcorrencias = 14;
+}
+
+message DevedorInformacoesPesquisaSocioTelefoneCompletaData {
+  int32 idInfpesquisaSocioTelefone = 1;
+  int32 idInfpesquisaSocio = 2;
+  string deDdd = 3;
+  string deTelefone = 4;
+  bool cdCelular = 5;
+  bool cdWhatsapp = 6;
+  string dtInstalacao = 7;
+  int32 idUsuaOper = 8;
+  string dtRegisto = 9; // grafia exata da coluna/propriedade na entidade (typo historico preservado)
+  int32 nuSemAtendimento = 10;
+  string createdDate = 11;
+  string updatedDate = 12;
+  string deletedDate = 13;
+  repeated DevedorInformacoesPesquisaSocioTelefoneOcorrenciaData devedorInformacoesPesquisaSocioTelefoneOcorrencias = 14;
+}
 
 message DevedorInformacoesPesquisaSocioCompletaData {
-  DevedorInformacoesPesquisaSocioData socio = 1;
-  repeated DevedorInformacoesPesquisaSocioTelefoneData telefones = 2;
+  int32 idInfpesquisaSocio = 1;
+  int32 idDevedorInfpesquisa = 2;
+  string nmSocio = 3;
+  string dtSociedade = 4;
+  string cdCpfSocio = 5;
+  int32 idUsuaOper = 6;
+  string dtRegistro = 7;
+  string createdDate = 8;
+  string updatedDate = 9;
+  string deletedDate = 10;
+  repeated DevedorInformacoesPesquisaSocioTelefoneCompletaData devedorInformacoesPesquisaSocioTelefones = 11;
 }
 
 message DevedorInformacoesPesquisaCompletaData {
-  DevedorInformacoesPesquisaData pesquisa = 1;
-  repeated DevedorInformacoesPesquisaTelefoneData telefones = 2;
-  repeated DevedorInformacoesPesquisaSocioCompletaData socios = 3;
+  int32 idDevedorInfpesquisa = 1;
+  int32 idDevedor = 2;
+  string dtPesquisa = 3;
+  int32 idUsuaOper = 4;
+  string dtRegistro = 5;
+  string deSituacao = 6;
+  string deTipoEmpresa = 7;
+  string dtFundacao = 8;
+  string deEmail = 9;
+  string createdDate = 10;
+  string updatedDate = 11;
+  string deletedDate = 12;
+  repeated DevedorInformacoesPesquisaTelefoneCompletaData devedorInformacoesPesquisaTelefones = 13;
+  repeated DevedorInformacoesPesquisaSocioCompletaData devedorInformacoesPesquisaSocios = 14;
 }
 
 message ServiceResponseDevedorInformacoesPesquisaCompleta {
