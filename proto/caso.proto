@@ -306,6 +306,12 @@ message AvisoCasoData {
     // modal na abertura do caso, nao como label fixo no cabecalho. Quando
     // false/ausente, o aviso e fiel a lbl_aviso1/lbl_aviso2 - label fixo.
     optional bool popup = 4;
+    // Quando true, este e o aviso do tp_mensagem=4 (COBRANCA BRANDA) da SP
+    // psgaCaso_ObterMensagemInicio - o frontend usa a presenca deste aviso
+    // para sobrescrever a exibicao do checkbox "Cobranca Branda" (chkcd_branda,
+    // wfmCadAcordo.aspx.vb:1421-1440), fiel ao Page_Load do legado, que
+    // forca o Checked=True mesmo quando caso.cd_branda=0 no banco.
+    optional bool cobrancaBranda = 5;
 }
 
 message ServiceResponseAvisoCaso {
