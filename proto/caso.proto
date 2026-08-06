@@ -442,6 +442,12 @@ message ListCriteriaRequestAreaDeTrabalho {
     int32 page = 18;
     map<string, string> order = 19;
     int32 idMotivoInadimplencia = 20;
+    // Porte dos popups wfmPopCobranca/wfmPopCasosAgendados (wfmAreaTrabalho.aspx):
+    // filtros novos sobre o dataset ja portado de listAreaTrabalho, evitando
+    // depender das SPs legadas psgaCaso_ObterCasosSemAndamento /
+    // psgaUsuario_ObterCasosAgendados (inacessiveis no banco atual).
+    int32 nuDiasSemHistCobrancaMinimo = 21;
+    bool somenteComAgendamento = 22;
 }
 
 message AreaDeTrabalhoData {
