@@ -28,6 +28,8 @@ service CasoService {
     rpc listAreaTrabalho (ListCriteriaRequestAreaDeTrabalho) returns (ServiceResponseListAreaDeTrabalho) {}
     rpc contarCasosTrabalhados (ContadorAreaTrabalhoRequest) returns (ServiceResponseContadorAreaTrabalho) {}
     rpc contarCasosEmPesquisa (ContadorAreaTrabalhoRequest) returns (ServiceResponseContadorAreaTrabalho) {}
+    rpc obterCasosSemAndamento (ObterCasosSemAndamentoRequest) returns (ServiceResponseListCasoSemAndamento) {}
+    rpc obterCasosAgendados (ObterCasosAgendadosRequest) returns (ServiceResponseListCasoAgendado) {}
     rpc obterParametrizacaoAcordo (IdRequest) returns (ServiceResponseParametrizacaoAcordo) {}
     rpc obterUsuarioCriadorCaso (IdRequest) returns (ServiceResponseUsuarioCriadorCaso) {}
     rpc listCasoPrevPagto (ListCriteriaRequestCasoPrevPagto) returns (ServiceResponseListCasoPrevPagto) {}
@@ -442,12 +444,12 @@ message ListCriteriaRequestAreaDeTrabalho {
     int32 page = 18;
     map<string, string> order = 19;
     int32 idMotivoInadimplencia = 20;
-    // Porte dos popups wfmPopCobranca/wfmPopCasosAgendados (wfmAreaTrabalho.aspx):
-    // filtros novos sobre o dataset ja portado de listAreaTrabalho, evitando
-    // depender das SPs legadas psgaCaso_ObterCasosSemAndamento /
-    // psgaUsuario_ObterCasosAgendados (inacessiveis no banco atual).
-    int32 nuDiasSemHistCobrancaMinimo = 21;
-    bool somenteComAgendamento = 22;
+    // Campos 21/22 (nuDiasSemHistCobrancaMinimo/somenteComAgendamento) foram
+    // removidos - a ideia de reaproveitar este dataset pros popups Casos sem
+    // Andamento/Contatos Agendados nao se sustentou: as SPs originais
+    // (psgaCaso_ObterCasosSemAndamento/psgaUsuario_ObterCasosAgendados), uma
+    // vez obtidas, mostraram logica muito diferente da vista deste dataset -
+    // ver ObterCasosSemAndamentoRequest/ObterCasosAgendadosRequest.
 }
 
 message AreaDeTrabalhoData {
@@ -579,10 +581,21 @@ message ContadorAreaTrabalhoRequest {
     int32 idUsuaCobrador = 1;
 }
 
+// Antes "total" era um campo solto direto nesta mensagem, mas o
+// WrapperDataInterceptor (global, usado por todas as RPCs) sempre embrulha
+// o retorno do usecase dentro de "data" - igual toda outra RPC de
+// list/get deste arquivo (ex: ServiceResponseListAreaDeTrabalho.data).
+// Sem essa submensagem, "total" nunca era serializado no wire format,
+// entao a contagem sempre chegava zerada/ausente no api-gateway
+// independente do usecase retornar o valor certo.
+message ContadorAreaTrabalhoData {
+    int32 total = 1;
+}
+
 message ServiceResponseContadorAreaTrabalho {
     int32 status = 1;
     string message = 2;
-    int32 total = 3;
+    ContadorAreaTrabalhoData data = 3;
     string error = 4;
 }
 
@@ -1841,5 +1854,62 @@ message ServiceResponseAnaliseDevedorNovaCobranca {
     int32 status = 1;
     string message = 2;
     repeated AnaliseDevedorNovaCobrancaData data = 3;
+    string error = 4;
+}
+
+// Porte fiel de popups/wfmPopCobranca.aspx ("Casos sem Andamento") -
+// psgaCaso_ObterCasosSemAndamento(@id_usua_cobrador, @cd_perfil, @nu_dias).
+// idUsuarioAtual e sempre o usuario que abriu o popup (usado so pra derivar
+// o escopo: proprio ou time inteiro), nao um cobrador escolhido no combo do
+// popup - esse combo filtra client-side sobre a lista completa retornada,
+// fiel ao legado.
+message ObterCasosSemAndamentoRequest {
+    int32 idUsuarioAtual = 1;
+    bool podeVerTodosCobradores = 2;
+    int32 nuDias = 3;
+}
+
+message CasoSemAndamentoData {
+    int32 idCaso = 1;
+    string nmCobrador = 2;
+    int32 dias = 3;
+    string ultimoHistorico = 4;
+    int32 idUsuaCobrador = 5;
+}
+
+message ListResultCasoSemAndamento {
+    repeated CasoSemAndamentoData result = 1;
+}
+
+message ServiceResponseListCasoSemAndamento {
+    int32 status = 1;
+    string message = 2;
+    ListResultCasoSemAndamento data = 3;
+    string error = 4;
+}
+
+// Porte fiel de popups/wfmPopCasosAgendados.aspx ("Contatos Agendados") -
+// psgaUsuario_ObterCasosAgendados(@id_usua_cobrador, @cd_perfil). Mesma
+// semantica de idUsuarioAtual do request acima.
+message ObterCasosAgendadosRequest {
+    int32 idUsuarioAtual = 1;
+    bool podeVerTodosCobradores = 2;
+}
+
+message CasoAgendadoData {
+    int32 idCaso = 1;
+    string dtAgendCont = 2;
+    int32 idUsuaCobrador = 3;
+    string nmUsuarioLogin = 4;
+}
+
+message ListResultCasoAgendado {
+    repeated CasoAgendadoData result = 1;
+}
+
+message ServiceResponseListCasoAgendado {
+    int32 status = 1;
+    string message = 2;
+    ListResultCasoAgendado data = 3;
     string error = 4;
 }

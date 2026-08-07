@@ -126,6 +126,15 @@ service DevedorService {
   rpc createManyDevedorInformacoesPesquisa (DevedorInformacoesPesquisaManyData) returns (ServiceResponseDevedorInformacoesPesquisa) {}
   rpc removeAllDevedorInformacoesPesquisa (WithoutParams) returns (ServiceResponseDevedorInformacoesPesquisa) {}
 
+  //OcorrenciaLigacao
+  rpc listOcorrenciaLigacao (ListCriteriaRequestOcorrenciaLigacao) returns (ServiceResponseListOcorrenciaLigacao) {}
+  rpc findOneOcorrenciaLigacao (IdRequest) returns (ServiceResponseOcorrenciaLigacao) {}
+  rpc createOcorrenciaLigacao (OcorrenciaLigacaoData) returns (ServiceResponseOcorrenciaLigacao) {}
+  rpc updateOcorrenciaLigacao (OcorrenciaLigacaoUpdateRequest) returns (ServiceResponseOcorrenciaLigacao) {}
+  rpc removeOcorrenciaLigacao (IdRequest) returns (ServiceResponseOcorrenciaLigacao) {}
+  rpc createManyOcorrenciaLigacao (OcorrenciaLigacaoManyData) returns (ServiceResponseOcorrenciaLigacao) {}
+  rpc removeAllOcorrenciaLigacao (WithoutParams) returns (ServiceResponseOcorrenciaLigacao) {}
+
   // Aba "Informacoes Pesquisa" (caso/acordo/view) - leitura agregada + acoes
   rpc obterInformacoesPesquisaCompleta (IdRequest) returns (ServiceResponseDevedorInformacoesPesquisaCompleta) {}
   rpc solicitarPesquisaCredilink (SolicitarPesquisaCredilinkRequest) returns (ServiceResponseSolicitarPesquisaCredilink) {}
@@ -766,6 +775,51 @@ message ListResultDevedorInformacoesPesquisaTelefoneOcorrencia {
 message ListCriteriaRequestDevedorInformacoesPesquisaTelefoneOcorrencia {
   int32 idTelOcorrencia = 1;
   int32 idInfpesquisaTel = 2;
+  int32 items = 3;
+  int32 page = 4;
+  map<string, string> order = 5;
+}
+
+// OcorrenciaLigacao
+message OcorrenciaLigacaoData {
+  int32 idOcorrenciaLigacao = 1;
+  string nmOcorrencia = 2;
+  bool cdAtivo = 3;
+  int32 idUsuaOper = 4;
+  string dtRegistro = 5;
+}
+
+message OcorrenciaLigacaoUpdateRequest {
+  int32 idOcorrenciaLigacao = 1;
+  OcorrenciaLigacaoData ocorrenciaLigacao = 2;
+}
+
+message OcorrenciaLigacaoManyData {
+  repeated OcorrenciaLigacaoData data = 1;
+}
+
+message ServiceResponseOcorrenciaLigacao {
+  int32 status = 1;
+  string message = 2;
+  repeated OcorrenciaLigacaoData data = 3;
+  string error = 4;
+}
+
+message ServiceResponseListOcorrenciaLigacao {
+  int32 status = 1;
+  string message = 2;
+  ListResultOcorrenciaLigacao data = 3;
+  string error = 4;
+}
+
+message ListResultOcorrenciaLigacao {
+  repeated OcorrenciaLigacaoData result = 1;
+  int32 total = 2;
+}
+
+message ListCriteriaRequestOcorrenciaLigacao {
+  int32 idOcorrenciaLigacao = 1;
+  string nmOcorrencia = 2;
   int32 items = 3;
   int32 page = 4;
   map<string, string> order = 5;
