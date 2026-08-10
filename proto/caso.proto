@@ -97,6 +97,7 @@ service CasoService {
     rpc removeBoleto (IdRequest) returns (ServiceResponseBoleto) {}
     rpc sendBoletoToBradesco (IdRequest) returns (ServiceResponseRegistroBoletoAPI) {}
     rpc gerarBoletoParcela (GerarBoletoParcelaRequest) returns (ServiceResponseGerarBoletoParcela) {}
+    rpc obterValorBoleto (ObterValorBoletoRequest) returns (ServiceResponseObterValorBoleto) {}
     rpc consultBoletoInBradesco (ListCriteriaRequestBoletoAPI) returns (ServiceResponseBoletodAPI) {}
     rpc consultBoletoPaidInBradesco (ListCriteriaRequestBoletoPaid) returns (ServiceResponseBoletoPaidAPI) {}
     rpc sendRangeBoletoToBradesco (RequestSendRangeBoletoToBradesco) returns (ServiceResponseBoolean) {}
@@ -1247,6 +1248,27 @@ message ServiceResponseGerarBoletoParcela {
     int32 status = 1;
     string message = 2;
     repeated GerarBoletoParcelaData data = 3;
+    string error = 4;
+}
+
+// Porte de dbo.psgaBoleto_ObterValorBoleto (fonte fornecida pelo usuario):
+// valor da taxa de boleto a somar ao valor da parcela quando sua natureza e
+// definida como "Boleto" (idNatureza=29), por faixa de valor + excecoes
+// hardcoded de cliente/grupo (wfmCadAcordo.aspx.vb:5010-5052,
+// AtualizarValorParcelaBoleto).
+message ObterValorBoletoRequest {
+    double nuValor = 1;
+    int32 idCaso = 2;
+}
+
+message ObterValorBoletoData {
+    double nuValorBoleto = 1;
+}
+
+message ServiceResponseObterValorBoleto {
+    int32 status = 1;
+    string message = 2;
+    repeated ObterValorBoletoData data = 3;
     string error = 4;
 }
 
