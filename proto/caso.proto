@@ -23,6 +23,7 @@ service CasoService {
     rpc solicitarProrrogacao (SolicitarProrrogacaoRequest) returns (ServiceResponseCaso) {}
     rpc salvarSituacaoCobranca (SalvarSituacaoCobrancaRequest) returns (ServiceResponseCaso) {}
     rpc obterAvisosCaso (IdRequest) returns (ServiceResponseAvisoCaso) {}
+    rpc obterInfoAdicionaisTitulo (IdRequest) returns (ServiceResponseInfoAdicionaisTitulo) {}
     rpc validarDevolucaoCaso (IdRequest) returns (ServiceResponseValidarDevolucao) {}
     rpc listPossibilidadeExitoCaso (EmptyRequest) returns (ServiceResponseListPossibilidadeExitoCaso) {}
     rpc listAreaTrabalho (ListCriteriaRequestAreaDeTrabalho) returns (ServiceResponseListAreaDeTrabalho) {}
@@ -321,6 +322,43 @@ message ServiceResponseAvisoCaso {
     int32 status = 1;
     string message = 2;
     repeated AvisoCasoData data = 3;
+    string error = 4;
+}
+
+// Porte do popup "Informações Adicionais de Títulos" (botao
+// btnInformacoesAdicionaisTitulos, aba Calculo -
+// popups/wfmPopInfoAdicionaisTitulo.aspx, SP
+// psgaCaso_ObterInfoAdicionaisTitulo) - so os campos efetivamente exibidos
+// no grid do popup (a SP tambem devolve campos de calculo/faixa que essa
+// tela nao usa, ex.: juros_nu_tx_min/max, cd_honor_dev - omitidos aqui). A
+// visibilidade das colunas extras (dt_vigencia_ini/fim, SolicLC,
+// de_titulo_ar/de_loja/de_id_documento/nm_produto, nu_valor_original/
+// dt_venda) e do checkbox de selecao + botoes de texto rapido (so
+// ILLYCAFFE, grupo 5364) e decidida no FRONTEND por idGrupo do cliente
+// (ja disponivel via ParametrizacaoAcordoData.idGrupo), fiel a
+// OcultarColunasGrid/grdInfoAdicionaisTitulo_ItemDataBound do code-behind.
+message InfoAdicionaisTituloData {
+    int32 idTitulo = 1;
+    string deDoc = 2;
+    string desNatureza = 3;
+    string dtVencimento = 4;
+    double nuValor = 5;
+    optional string dtVigenciaIni = 6;
+    optional string dtVigenciaFim = 7;
+    optional string solicLC = 8;
+    optional string deTituloAr = 9;
+    optional string deLoja = 10;
+    optional string deIdDocumento = 11;
+    optional string nmProduto = 12;
+    optional double nuValorOriginal = 13;
+    optional string dtVenda = 14;
+    bool tituloComPagto = 15;
+}
+
+message ServiceResponseInfoAdicionaisTitulo {
+    int32 status = 1;
+    string message = 2;
+    repeated InfoAdicionaisTituloData data = 3;
     string error = 4;
 }
 
