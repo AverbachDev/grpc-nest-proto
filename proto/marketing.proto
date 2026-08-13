@@ -1,0 +1,141 @@
+syntax = "proto3";
+
+package marketing;
+
+service MarketingService {
+    // Empresa (Prospect)
+    rpc listEmpresa (ListCriteriaRequestMarketingEmpresa) returns (ServiceResponseMarketingEmpresa) {}
+    rpc findOneEmpresa (IdRequest) returns (ServiceResponseMarketingEmpresa) {}
+    rpc createEmpresa (MarketingEmpresaData) returns (ServiceResponseMarketingEmpresa) {}
+    rpc updateEmpresa (MarketingEmpresaData) returns (ServiceResponseMarketingEmpresa) {}
+    rpc removeEmpresa (IdRequest) returns (ServiceResponseMarketingEmpresa) {}
+    rpc updatePromoter (UpdatePromoterRequest) returns (ServiceResponseMarketingEmpresa) {}
+    rpc efetuarAgendamento (EfetuarAgendamentoRequest) returns (ServiceResponseMarketingEmpresa) {}
+
+    // Contato
+    rpc listContato (ListCriteriaRequestMarketingContato) returns (ServiceResponseMarketingContato) {}
+    rpc findOneContato (IdRequest) returns (ServiceResponseMarketingContato) {}
+    rpc createContato (MarketingContatoData) returns (ServiceResponseMarketingContato) {}
+    rpc updateContato (MarketingContatoData) returns (ServiceResponseMarketingContato) {}
+    rpc removeContato (IdRequest) returns (ServiceResponseMarketingContato) {}
+
+    // HistoricoLigacao
+    rpc listHistoricoLigacao (ListCriteriaRequestMarketingHistoricoLigacao) returns (ServiceResponseMarketingHistoricoLigacao) {}
+    rpc createHistoricoLigacao (MarketingHistoricoLigacaoData) returns (ServiceResponseMarketingHistoricoLigacao) {}
+}
+
+message IdRequest {
+    int32 id = 1;
+}
+
+message EmptyRequest {}
+
+message UpdatePromoterRequest {
+    repeated int32 ids = 1;
+    int32 idPromoter = 2;
+    int32 idStatusProspect = 3;
+    string dtDistribuicao = 4;
+}
+
+message EfetuarAgendamentoRequest {
+    int32 idEmpresa = 1;
+    string dtAgendamento = 2;
+    string deHistorico = 3;
+    int32 idUsuOper = 4;
+}
+
+message MarketingEmpresaData {
+    int32 idEmpresa = 1;
+    string nmFantasia = 2;
+    string deRazaoSocial = 3;
+    string cdCnpj = 4;
+    string deDdd = 5;
+    string deTelefone = 6;
+    string deDdd1 = 7;
+    string deTelefone1 = 8;
+    string deDdd2 = 9;
+    string deTelefone2 = 10;
+    string deLogradouro = 11;
+    string deComplemento = 12;
+    string deBairro = 13;
+    string deCep = 14;
+    int32 idMunicipio = 15;
+    string deSite = 16;
+    string deEmail = 17;
+    double nuFaturamento = 18;
+    int32 nuFuncionarios = 19;
+    string dtCadastro = 20;
+    int32 idUsuOpe = 21;
+    string dtRegistro = 22;
+    int32 idUsuPromoter = 23;
+    string dtAgendamento = 24;
+    int32 idStatusProspect = 25;
+    string deObservacao = 26;
+    string dtPromessaBorderaux = 27;
+    bool cdExcluido = 28;
+    string dtModificacao = 29;
+}
+
+message MarketingContatoData {
+    int32 idContato = 1;
+    int32 idEmpresa = 2;
+    string deDdd = 3;
+    string deTelefone = 4;
+    string nmContato = 5;
+    string deEmail = 6;
+    string deCargo = 7;
+    int32 idPerfil = 8;
+    int32 idUsuOpe = 9;
+    string dtRegistro = 10;
+    bool cdPrincipal = 11;
+}
+
+message MarketingHistoricoLigacaoData {
+    int32 idHistorico = 1;
+    int32 idEmpresa = 2;
+    string deHistorico = 3;
+    string dtCadastro = 4;
+    int32 cdReceptividade = 5;
+    int32 cdHistorico = 6;
+    int32 idUsuOpe = 7;
+    string tpHistorico = 8;
+}
+
+message ListCriteriaRequestMarketingEmpresa {
+    int32 idEmpresa = 1;
+    int32 idUsuPromoter = 2;
+    int32 idStatusProspect = 3;
+    string nmFantasia = 4;
+    int32 page = 5;
+    int32 items = 6;
+}
+
+message ListCriteriaRequestMarketingContato {
+    int32 idEmpresa = 1;
+}
+
+message ListCriteriaRequestMarketingHistoricoLigacao {
+    int32 idEmpresa = 1;
+}
+
+message ServiceResponseMarketingEmpresa {
+    int32 status = 1;
+    string message = 2;
+    repeated MarketingEmpresaData data = 3;
+    string error = 4;
+    int32 total = 5;
+}
+
+message ServiceResponseMarketingContato {
+    int32 status = 1;
+    string message = 2;
+    repeated MarketingContatoData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseMarketingHistoricoLigacao {
+    int32 status = 1;
+    string message = 2;
+    repeated MarketingHistoricoLigacaoData data = 3;
+    string error = 4;
+}

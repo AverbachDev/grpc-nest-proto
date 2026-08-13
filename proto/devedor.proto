@@ -13,6 +13,7 @@ service DevedorService {
   rpc updateDevedorWithMonolito (DevedorUpdateRequest) returns (ServiceResponseDevedor) {}
   rpc createDevedorWithMonolito (DevedorData) returns (ServiceResponseDevedor) {}
   rpc getDataCredilink (CriteriaRequestCredilink) returns (ServiceResponseCredilink) {}
+  rpc ligarTelefone (LigarTelefoneRequest) returns (ServiceResponseLigarTelefone) {}
   rpc removeAllDevedor (WithoutParams) returns (ServiceResponseDevedor) {}
   rpc createManyDevedor (DevedorManyData) returns (ServiceResponseDevedor) {}
   
@@ -248,6 +249,25 @@ message ServiceResponseCredilink {
     int32 status = 1;
     string message = 2;
     string data = 3;
+    string error = 4;
+}
+
+// Porte de Discador.asmx/EnviarTelefonePesquisa (Discador.asmx.vb:283-292) -
+// "Ligar" na aba Informações Pesquisa (telefone principal e de sócios).
+// O legado grava o telefone em memória (Global_asax.obterUsuario, não no
+// banco); um cliente desktop (softphone/PABX) separado faz polling de
+// Discador.asmx/ObterTelefonePesquisa pra efetivamente discar - essa
+// chamada só "avisa" o legado.
+message LigarTelefoneRequest {
+    string nmLogin = 1;
+    string nuTelefone = 2;
+    int32 idCaso = 3;
+}
+
+message ServiceResponseLigarTelefone {
+    int32 status = 1;
+    string message = 2;
+    bool data = 3;
     string error = 4;
 }
 

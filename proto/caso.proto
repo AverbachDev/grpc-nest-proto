@@ -24,11 +24,12 @@ service CasoService {
     rpc salvarSituacaoCobranca (SalvarSituacaoCobrancaRequest) returns (ServiceResponseCaso) {}
     rpc obterAvisosCaso (IdRequest) returns (ServiceResponseAvisoCaso) {}
     rpc obterInfoAdicionaisTitulo (IdRequest) returns (ServiceResponseInfoAdicionaisTitulo) {}
+    rpc obterInformacoesComplementares (IdRequest) returns (ServiceResponseInformacoesComplementares) {}
+    rpc salvarInformacoesComplementares (SalvarInformacoesComplementaresRequest) returns (ServiceResponseInformacoesComplementares) {}
     rpc validarDevolucaoCaso (IdRequest) returns (ServiceResponseValidarDevolucao) {}
     rpc listPossibilidadeExitoCaso (EmptyRequest) returns (ServiceResponseListPossibilidadeExitoCaso) {}
     rpc listAreaTrabalho (ListCriteriaRequestAreaDeTrabalho) returns (ServiceResponseListAreaDeTrabalho) {}
     rpc contarCasosTrabalhados (ContadorAreaTrabalhoRequest) returns (ServiceResponseContadorAreaTrabalho) {}
-    rpc contarCasosEmPesquisa (ContadorAreaTrabalhoRequest) returns (ServiceResponseContadorAreaTrabalho) {}
     rpc obterCasosSemAndamento (ObterCasosSemAndamentoRequest) returns (ServiceResponseListCasoSemAndamento) {}
     rpc obterCasosAgendados (ObterCasosAgendadosRequest) returns (ServiceResponseListCasoAgendado) {}
     rpc obterParametrizacaoAcordo (IdRequest) returns (ServiceResponseParametrizacaoAcordo) {}
@@ -98,6 +99,8 @@ service CasoService {
     rpc removeBoleto (IdRequest) returns (ServiceResponseBoleto) {}
     rpc sendBoletoToBradesco (IdRequest) returns (ServiceResponseRegistroBoletoAPI) {}
     rpc gerarBoletoParcela (GerarBoletoParcelaRequest) returns (ServiceResponseGerarBoletoParcela) {}
+    rpc enviarBoleto (EnviarBoletoRequest) returns (ServiceResponseEnviarBoleto) {}
+    rpc obterArquivoBoleto (IdRequest) returns (ServiceResponseArquivoBoleto) {}
     rpc obterValorBoleto (ObterValorBoletoRequest) returns (ServiceResponseObterValorBoleto) {}
     rpc consultBoletoInBradesco (ListCriteriaRequestBoletoAPI) returns (ServiceResponseBoletodAPI) {}
     rpc consultBoletoPaidInBradesco (ListCriteriaRequestBoletoPaid) returns (ServiceResponseBoletoPaidAPI) {}
@@ -359,6 +362,29 @@ message ServiceResponseInfoAdicionaisTitulo {
     int32 status = 1;
     string message = 2;
     repeated InfoAdicionaisTituloData data = 3;
+    string error = 4;
+}
+
+// Aba "Informações Complementares" (wfmCadAcordo.aspx:560-625,
+// btnAtualizarInformacoesComplementares_Click == btnAtualizarDevedor_Click,
+// wfmCadAcordo.aspx.vb:2596-2805, tabela tecoCasoInformacoesComplementares)
+// - so os campos de Corretor sao portados (nm_corretor/de_telefone_corretor).
+message InformacoesComplementaresData {
+    string nmCorretor = 1;
+    string deTelefoneCorretor = 2;
+}
+
+message SalvarInformacoesComplementaresRequest {
+    int32 idCaso = 1;
+    int32 idUsuaOper = 2;
+    string nmCorretor = 3;
+    string deTelefoneCorretor = 4;
+}
+
+message ServiceResponseInformacoesComplementares {
+    int32 status = 1;
+    string message = 2;
+    repeated InformacoesComplementaresData data = 3;
     string error = 4;
 }
 
@@ -956,10 +982,14 @@ message ServiceResponseParcela {
 // Status de pagamento de uma parcela, recuperado do microservice-pagamento
 // (ParcelaPagamento) - soma de todos os valores pagos e a data de pagamento
 // mais recente, ou vazio/pago=false se nenhum pagamento foi registrado ainda.
+// transacaoCartaoAutorizada reflete tecoParcelaTransacaoCartaoCredito.Status=1
+// (wfmCadAcordo.aspx.vb:1636/4404 - esconde o ícone de Cartão de Crédito
+// quando já existe uma transação autorizada pra essa parcela).
 message PagamentoParcelaData {
     string dtPagto = 1;
     double nuValorPago = 2;
     bool pago = 3;
+    bool transacaoCartaoAutorizada = 4;
 }
 
 message ServiceResponsePagamentoParcela {
@@ -1286,6 +1316,52 @@ message ServiceResponseGerarBoletoParcela {
     int32 status = 1;
     string message = 2;
     repeated GerarBoletoParcelaData data = 3;
+    string error = 4;
+}
+
+// Porte de wucBoleto.ascx.vb:btnEnviar_Click - envia boleto(s) ja gerado(s)
+// por e-mail e/ou WhatsApp. O PDF real (com codigo de barras/linha
+// digitavel corretos) e gerado no proprio backend chamando o webservice
+// legado Boleto.asmx/GerarBoletoNegocie (LegacyBoletoServiceProvider) - o
+// frontend so precisa informar quais parcelas foram selecionadas.
+message EnviarBoletoParcelaItem {
+    int32 idParcela = 1;
+}
+
+message EnviarBoletoRequest {
+    int32 idCaso = 1;
+    int32 idUsuario = 2;
+    bool enviarEmail = 3;
+    bool enviarWhatsapp = 4;
+    repeated EnviarBoletoParcelaItem boletos = 5;
+}
+
+message EnviarBoletoData {
+    bool enviouEmail = 1;
+    bool enviouWhatsapp = 2;
+    string mensagem = 3;
+}
+
+message ServiceResponseEnviarBoleto {
+    int32 status = 1;
+    string message = 2;
+    repeated EnviarBoletoData data = 3;
+    string error = 4;
+}
+
+// Porte de wucBoleto.ascx.vb:MontarBoleto - gera (ou regera, sob demanda,
+// sem cache) o PDF real do boleto via Boleto.asmx/GerarBoletoNegocie e
+// devolve o nome do arquivo, ja acessivel via api-gateway em
+// GET files/BOLETOS/:id.
+message ArquivoBoletoData {
+    string nomeArquivo = 1;
+    string linhaDigitavel = 2;
+}
+
+message ServiceResponseArquivoBoleto {
+    int32 status = 1;
+    string message = 2;
+    repeated ArquivoBoletoData data = 3;
     string error = 4;
 }
 
