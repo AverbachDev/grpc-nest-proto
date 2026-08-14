@@ -100,6 +100,7 @@ service CasoService {
     rpc sendBoletoToBradesco (IdRequest) returns (ServiceResponseRegistroBoletoAPI) {}
     rpc gerarBoletoParcela (GerarBoletoParcelaRequest) returns (ServiceResponseGerarBoletoParcela) {}
     rpc enviarBoleto (EnviarBoletoRequest) returns (ServiceResponseEnviarBoleto) {}
+    rpc previaEmailBoleto (PreviaEnviarBoletoRequest) returns (ServiceResponsePreviaEmailBoleto) {}
     rpc obterArquivoBoleto (IdRequest) returns (ServiceResponseArquivoBoleto) {}
     rpc obterValorBoleto (ObterValorBoletoRequest) returns (ServiceResponseObterValorBoleto) {}
     rpc consultBoletoInBradesco (ListCriteriaRequestBoletoAPI) returns (ServiceResponseBoletodAPI) {}
@@ -1340,6 +1341,13 @@ message EnviarBoletoRequest {
     bool enviarEmail = 3;
     bool enviarWhatsapp = 4;
     repeated EnviarBoletoParcelaItem boletos = 5;
+    // Campos editaveis no popup de e-mail (wfmpopEmail.aspx) - quando
+    // vazios, o backend calcula os valores padrao (mesma logica de sempre,
+    // montarCorpoEmailBoleto). So usados quando enviarEmail=true.
+    string paraOverride = 6;
+    string ccOverride = 7;
+    string assuntoOverride = 8;
+    string mensagemOverride = 9;
 }
 
 message EnviarBoletoData {
@@ -1352,6 +1360,40 @@ message ServiceResponseEnviarBoleto {
     int32 status = 1;
     string message = 2;
     repeated EnviarBoletoData data = 3;
+    string error = 4;
+}
+
+// Popup de e-mail do legado (wfmpopEmail.aspx, tipo=boleto) - MontarBoleto
+// gera o PDF real de cada parcela selecionada (mesma chamada usada por
+// EnviarBoletoUseCase) e MontarEmailBoleto monta assunto/corpo/anexos;
+// devolve tudo pronto pro usuario revisar/editar antes de confirmar o
+// envio de fato (rpc enviarBoleto).
+message PreviaEnviarBoletoRequest {
+    int32 idCaso = 1;
+    int32 idUsuario = 2;
+    repeated EnviarBoletoParcelaItem boletos = 3;
+}
+
+message PreviaEmailBoletoAnexo {
+    int32 idParcela = 1;
+    string nomeArquivo = 2;
+    string url = 3;
+}
+
+message PreviaEmailBoletoData {
+    string de = 1;
+    string para = 2;
+    string cc = 3;
+    string bcc = 4;
+    string assunto = 5;
+    string mensagem = 6;
+    repeated PreviaEmailBoletoAnexo anexos = 7;
+}
+
+message ServiceResponsePreviaEmailBoleto {
+    int32 status = 1;
+    string message = 2;
+    repeated PreviaEmailBoletoData data = 3;
     string error = 4;
 }
 
