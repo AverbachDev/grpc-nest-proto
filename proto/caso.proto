@@ -235,6 +235,12 @@ message CasoData {
 message CasoUpdateRequest{
     int32 id = 1;
     CasoData caso = 2;
+    // Usado so pelo auto-save de GerarBoleto/GerarCartao
+    // (parcelas-table.tsx) - esse fluxo nunca deveria travar por causa de
+    // dados do devedor (ver validar-email-devedor.ts): so o botao Salvar
+    // do caso ou o botao Salvar do devedor na aba Dados Basicos devem
+    // rodar essa validacao.
+    bool pularValidacaoDevedor = 3;
 }
 
 message ServiceResponseCaso {
