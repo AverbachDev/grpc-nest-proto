@@ -875,7 +875,11 @@ message ServiceResponseValidarCalculoProativoTitulo {
 // wfmCadAcordo.aspx.vb:3162-3179): busca em tecoRepositorioluxottica pelo
 // id_titulo, exibida so para titulos com id_contrato 7509/7618.
 message RepositorioLuxotticaData {
-    int64 solicLC = 1;
+    // int32 (nao int64): valor e um id sequencial pequeno - int64 arrisca
+    // serializar como string/Long em algum ponto do pipeline gRPC, e o
+    // template literal do frontend (`Solic. L/C: ${solic.solicLC}`) so
+    // funciona corretamente com um number puro.
+    int32 solicLC = 1;
     bool encontrado = 2;
 }
 
@@ -1348,6 +1352,7 @@ message EnviarBoletoRequest {
     string ccOverride = 7;
     string assuntoOverride = 8;
     string mensagemOverride = 9;
+    string bccOverride = 10;
 }
 
 message EnviarBoletoData {
