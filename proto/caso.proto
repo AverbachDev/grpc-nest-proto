@@ -661,8 +661,11 @@ message ListResultCasoPrevPagto {
 message ListCriteriaRequestCasoLista {
     int32 idCaso = 1;
     int32 idStatusCobranca = 2;
-    string nmCliente = 3;
-    string nmDevedor = 4;
+    // Fiel ao padrao da Area de Trabalho (ListCriteriaRequestAreaDeTrabalho) -
+    // Cliente/Devedor sao escolhidos via autocomplete (id exato), nao busca
+    // por texto livre. cdCnpjCpf continua texto (normalizado no repository).
+    int32 idCliente = 3;
+    int32 idDevedor = 4;
     string cdCnpjCpf = 5;
     string deCodDevedor = 6;
     string deLogradouro = 7;
