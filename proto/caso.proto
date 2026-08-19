@@ -75,6 +75,7 @@ service CasoService {
     rpc saveCasoCarta (CasoCartaUpdateRequest) returns (ServiceResponseCasoCarta) {}
     rpc removeCasoCarta (IdRequest) returns (ServiceResponseCasoCarta) {}
     rpc gerarCasoCarta (GerarCasoCartaRequest) returns (ServiceResponseGerarCasoCarta) {}
+    rpc listCalculoCarta (ListCalculoCartaRequest) returns (ServiceResponseListCalculoCarta) {}
     rpc obterCartasPermitidas (ObterCartasPermitidasRequest) returns (ServiceResponseCartaPermitida) {}
     rpc downloadCasoCarta (IdRequest) returns (ServiceResponseDownloadCasoCarta) {}
 
@@ -1187,6 +1188,16 @@ message DadosComplementaresCartaData {
     TestemunhaData testemunha2 = 8;
 }
 
+// Item do detalhamento financeiro (grid grdCalculo, wucCartas.ascx.vb) ja
+// filtrado/agrupado/renomeado pelo operador na tela - so as linhas marcadas
+// pra aparecer na Carta Cálculo (idCarta=3). "Total" NAO entra aqui, o backend
+// soma valorAtual das linhas recebidas e monta a linha Total sozinho (mesmo
+// que ObterCalculoSelecionado, wucCartas.ascx.vb:2858-2863).
+message ItemCalculoSelecionadoData {
+    string nomeAlt = 1;
+    double valorAtual = 2;
+}
+
 message GerarCasoCartaRequest {
     int32 idCaso = 1;
     int32 idCarta = 2;
@@ -1194,12 +1205,40 @@ message GerarCasoCartaRequest {
     int32 idUsuaOper = 4;
     string nmUsuaOperLogin = 5; // usado so para a heuristica de id_unidade_origem (SP/RJ)
     DadosComplementaresCartaData dadosComplementares = 6;
+    // So usado quando idCarta=3 (Carta Cálculo) - linhas do detalhamento
+    // financeiro escolhidas/agrupadas/renomeadas pelo operador (ver
+    // listCalculoCarta abaixo pra montar a tela de seleção).
+    repeated ItemCalculoSelecionadoData itensCalculo = 7;
 }
 
 message ServiceResponseGerarCasoCarta {
     int32 status = 1;
     string message = 2;
     repeated CasoCartaData data = 3;
+    string error = 4;
+}
+
+// Porte de psgaCarta_CalculoGrid - popula a grid de seleção da Carta Cálculo
+// (grdCalculo, wucCartas.ascx.vb) antes de gerar. idItemCarta=1 quando a
+// linha vem visível por padrão (ex.: "Principal"); nomeAtual/nomeAlt vem
+// iguais numa consulta nova (nomeAlt só diverge depois que o operador
+// agrupa/renomeia em tela - isso acontece no frontend, não é persistido).
+message ItemCalculoCartaData {
+    int32 idItemCarta = 1;
+    string nomeAtual = 2;
+    string nomeAlt = 3;
+    double valorAtual = 4;
+    int32 agrupar = 5;
+}
+
+message ListCalculoCartaRequest {
+    int32 idCaso = 1;
+}
+
+message ServiceResponseListCalculoCarta {
+    int32 status = 1;
+    string message = 2;
+    repeated ItemCalculoCartaData data = 3;
     string error = 4;
 }
 
