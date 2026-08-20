@@ -78,6 +78,8 @@ service CasoService {
     rpc listCalculoCarta (ListCalculoCartaRequest) returns (ServiceResponseListCalculoCarta) {}
     rpc obterCartasPermitidas (ObterCartasPermitidasRequest) returns (ServiceResponseCartaPermitida) {}
     rpc downloadCasoCarta (IdRequest) returns (ServiceResponseDownloadCasoCarta) {}
+    rpc previaEmailCasoCarta (PreviaEmailCasoCartaRequest) returns (ServiceResponsePreviaEmailCasoCarta) {}
+    rpc enviarEmailCasoCarta (EnviarEmailCasoCartaRequest) returns (ServiceResponseEnviarEmailCasoCarta) {}
 
     rpc listCasoAtributo (ListCriteriaRequestCasoAtributo) returns (ServiceResponseListCasoAtributo) {}
     rpc findOneCasoAtributo (IdRequest) returns (ServiceResponseCasoAtributo) {}
@@ -1215,6 +1217,64 @@ message ServiceResponseGerarCasoCarta {
     int32 status = 1;
     string message = 2;
     repeated CasoCartaData data = 3;
+    string error = 4;
+}
+
+// Popup de e-mail do legado (wfmpopEmail.aspx, tipo='cartas') - mesmo
+// padrão já usado para boleto (ver PreviaEnviarBoletoRequest/EnviarBoletoRequest
+// acima). previaEmailCasoCarta calcula tudo que o popup do legado exibe
+// (De/Para/CC/BCC/Assunto/Mensagem/Anexo) SEM enviar nada, pra alimentar o
+// dialog editável do frontend antes do usuário confirmar o envio de fato
+// (rpc enviarEmailCasoCarta).
+message PreviaEmailCasoCartaRequest {
+    int32 idCasoCarta = 1; // id da linha em tecoCasoCarta (carta já gerada)
+    int32 idUsuario = 2;
+}
+
+message PreviaEmailCasoCartaAnexo {
+    string nomeArquivo = 1;
+    string url = 2;
+}
+
+message PreviaEmailCasoCartaData {
+    string de = 1;
+    string para = 2;
+    string cc = 3;
+    string bcc = 4;
+    string assunto = 5;
+    string mensagem = 6;
+    PreviaEmailCasoCartaAnexo anexo = 7;
+}
+
+message ServiceResponsePreviaEmailCasoCarta {
+    int32 status = 1;
+    string message = 2;
+    repeated PreviaEmailCasoCartaData data = 3;
+    string error = 4;
+}
+
+message EnviarEmailCasoCartaRequest {
+    int32 idCasoCarta = 1;
+    int32 idUsuario = 2;
+    // Campos editáveis no popup de e-mail (wfmpopEmail.aspx) - quando
+    // vazios, o backend usa os valores padrão (mesma lógica de
+    // previaEmailCasoCarta).
+    string paraOverride = 3;
+    string ccOverride = 4;
+    string bccOverride = 5;
+    string assuntoOverride = 6;
+    string mensagemOverride = 7;
+}
+
+message EnviarEmailCasoCartaData {
+    bool enviouEmail = 1;
+    string mensagem = 2;
+}
+
+message ServiceResponseEnviarEmailCasoCarta {
+    int32 status = 1;
+    string message = 2;
+    repeated EnviarEmailCasoCartaData data = 3;
     string error = 4;
 }
 
