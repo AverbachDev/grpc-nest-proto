@@ -69,6 +69,8 @@ message CreateChamadoRequest {
     string deTitulo = 3;
     string deAndamento = 4;
     int32 idUsuaOper = 5;
+    string anexoBase64 = 6;
+    string deNomeAnexo = 7;
 }
 
 message ListResultChamado {
