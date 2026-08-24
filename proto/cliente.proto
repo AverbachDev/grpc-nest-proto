@@ -19,6 +19,12 @@ service ClienteService {
   rpc updateClienteWithoutKafka (ClienteUpdateRequest) returns (ServiceResponseCliente) {}
   rpc createManyCliente (ClienteManyData) returns (ServiceResponseCliente) {}
   rpc removeAllCliente (WithoutParams) returns (ServiceResponseCliente) {}
+  // Get/save completo do agregado (Cliente + contatos + dadosBancarios +
+  // unNegocios + grupo/clientePai aninhados) usado pela tela cliente/view -
+  // reaproveita ClienteData/ClienteUpdateRequest/ServiceResponseCliente ja
+  // existentes, sem mensagens novas.
+  rpc getClienteCompleto (IdRequest) returns (ServiceResponseCliente) {}
+  rpc saveClienteCompleto (ClienteUpdateRequest) returns (ServiceResponseCliente) {}
 
   //Contato
   rpc listContato (ListCriteriaRequestContato) returns (ServiceResponseListContato) {}
