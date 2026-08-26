@@ -1,0 +1,631 @@
+syntax = "proto3";
+
+package extrato;
+
+service ExtratoService {
+
+    // Casos de uso especiais da tela "Conferência de Depósitos"
+    // (wfmListaConferenciaDepositos.aspx) - substituem
+    // vsgaExtrato_ObterItensConferencia / vsgaUsuario_ListaCobradores.
+    rpc listItensConferencia (ListCriteriaRequestItemConferencia) returns (ServiceResponseListItemConferencia) {}
+    rpc listCobradores (ListCriteriaRequestCobrador) returns (ServiceResponseListCobrador) {}
+    // DepositosEfetuados pertence ao microservice-pagamento (nao ao extrato) -
+    // agrupar/liberar criam o registro la via GrpcPagamentoProvider e devolvem
+    // so a referencia do deposito criado, nao o dado completo.
+    rpc agruparDepositos (AgruparDepositosRequest) returns (ServiceResponseAgruparDepositos) {}
+    rpc liberarDeposito (LiberarDepositoRequest) returns (ServiceResponseLiberarDeposito) {}
+    rpc aprovarDeposito (AprovarDepositoRequest) returns (ServiceResponseItemExtrato) {}
+
+    rpc listExtrato (ListCriteriaRequestExtrato) returns (ServiceResponseListExtrato) {}
+    rpc findOneExtrato (IdRequest) returns (ServiceResponseExtrato) {}
+    rpc createExtrato (ExtratoData) returns (ServiceResponseExtrato) {}
+    rpc updateExtrato (ExtratoUpdateRequest) returns (ServiceResponseExtrato) {}
+    rpc removeExtrato (IdRequest) returns (ServiceResponseExtrato) {}
+
+    rpc listItemExtrato (ListCriteriaRequestItemExtrato) returns (ServiceResponseListItemExtrato) {}
+    rpc findOneItemExtrato (IdRequest) returns (ServiceResponseItemExtrato) {}
+    rpc createItemExtrato (ItemExtratoData) returns (ServiceResponseItemExtrato) {}
+    rpc updateItemExtrato (ItemExtratoUpdateRequest) returns (ServiceResponseItemExtrato) {}
+    rpc removeItemExtrato (IdRequest) returns (ServiceResponseItemExtrato) {}
+
+    rpc listItemExtratoParcela (ListCriteriaRequestItemExtratoParcela) returns (ServiceResponseListItemExtratoParcela) {}
+    rpc findOneItemExtratoParcela (IdRequest) returns (ServiceResponseItemExtratoParcela) {}
+    rpc createItemExtratoParcela (ItemExtratoParcelaData) returns (ServiceResponseItemExtratoParcela) {}
+    rpc updateItemExtratoParcela (ItemExtratoParcelaUpdateRequest) returns (ServiceResponseItemExtratoParcela) {}
+    rpc removeItemExtratoParcela (IdRequest) returns (ServiceResponseItemExtratoParcela) {}
+
+    rpc listItemExtratoCobrador (ListCriteriaRequestItemExtratoCobrador) returns (ServiceResponseListItemExtratoCobrador) {}
+    rpc findOneItemExtratoCobrador (IdRequest) returns (ServiceResponseItemExtratoCobrador) {}
+    rpc createItemExtratoCobrador (ItemExtratoCobradorData) returns (ServiceResponseItemExtratoCobrador) {}
+    rpc updateItemExtratoCobrador (ItemExtratoCobradorUpdateRequest) returns (ServiceResponseItemExtratoCobrador) {}
+    rpc removeItemExtratoCobrador (IdRequest) returns (ServiceResponseItemExtratoCobrador) {}
+
+    rpc listItemExtratoDepositante (ListCriteriaRequestItemExtratoDepositante) returns (ServiceResponseListItemExtratoDepositante) {}
+    rpc findOneItemExtratoDepositante (IdRequest) returns (ServiceResponseItemExtratoDepositante) {}
+    rpc createItemExtratoDepositante (ItemExtratoDepositanteData) returns (ServiceResponseItemExtratoDepositante) {}
+    rpc updateItemExtratoDepositante (ItemExtratoDepositanteUpdateRequest) returns (ServiceResponseItemExtratoDepositante) {}
+    rpc removeItemExtratoDepositante (IdRequest) returns (ServiceResponseItemExtratoDepositante) {}
+
+    rpc listCriticaExtrato (ListCriteriaRequestCriticaExtrato) returns (ServiceResponseListCriticaExtrato) {}
+    rpc findOneCriticaExtrato (IdRequest) returns (ServiceResponseCriticaExtrato) {}
+    rpc createCriticaExtrato (CriticaExtratoData) returns (ServiceResponseCriticaExtrato) {}
+    rpc updateCriticaExtrato (CriticaExtratoUpdateRequest) returns (ServiceResponseCriticaExtrato) {}
+    rpc removeCriticaExtrato (IdRequest) returns (ServiceResponseCriticaExtrato) {}
+
+    rpc listTipoDeposito (ListCriteriaRequestTipoDeposito) returns (ServiceResponseListTipoDeposito) {}
+    rpc findOneTipoDeposito (IdRequest) returns (ServiceResponseTipoDeposito) {}
+    rpc createTipoDeposito (TipoDepositoData) returns (ServiceResponseTipoDeposito) {}
+    rpc updateTipoDeposito (TipoDepositoUpdateRequest) returns (ServiceResponseTipoDeposito) {}
+    rpc removeTipoDeposito (IdRequest) returns (ServiceResponseTipoDeposito) {}
+
+    rpc listStatusDeposito (ListCriteriaRequestStatusDeposito) returns (ServiceResponseListStatusDeposito) {}
+    rpc findOneStatusDeposito (IdRequest) returns (ServiceResponseStatusDeposito) {}
+    rpc createStatusDeposito (StatusDepositoData) returns (ServiceResponseStatusDeposito) {}
+    rpc updateStatusDeposito (StatusDepositoUpdateRequest) returns (ServiceResponseStatusDeposito) {}
+    rpc removeStatusDeposito (IdRequest) returns (ServiceResponseStatusDeposito) {}
+
+    rpc listStatusExtrato (ListCriteriaRequestStatusExtrato) returns (ServiceResponseListStatusExtrato) {}
+    rpc findOneStatusExtrato (IdRequest) returns (ServiceResponseStatusExtrato) {}
+    rpc createStatusExtrato (StatusExtratoData) returns (ServiceResponseStatusExtrato) {}
+    rpc updateStatusExtrato (StatusExtratoUpdateRequest) returns (ServiceResponseStatusExtrato) {}
+    rpc removeStatusExtrato (IdRequest) returns (ServiceResponseStatusExtrato) {}
+}
+
+message IdRequest{
+    int32 id = 1;
+}
+
+//ITEMCONFERENCIA (porte de vsgaExtrato_ObterItensConferencia)
+
+// Cada grade da tela e uma consulta separada com paginacao propria -
+// RadGrid1 (Identificados) via IDENTIFICADOS, RadGrid2/RadGrid3
+// (Nao Identificados / Nao Identificados Preventivo) via os outros dois,
+// filtrados por cd_tipo_escrituracao (replica ObterDados() do code-behind).
+enum TipoListaConferencia {
+    IDENTIFICADOS = 0;
+    NAO_IDENTIFICADOS = 1;
+    NAO_IDENTIFICADOS_PREVENTIVO = 2;
+}
+
+message ListCriteriaRequestItemConferencia {
+    TipoListaConferencia tipoLista = 1;
+    // Filtro do dropdown de cobrador na tela - so aplicavel a IDENTIFICADOS
+    // (compara com o nm_usuario_login do cobrador do caso, tecoCaso.id_usua_cobrador).
+    int32 idUsuaCobrador = 2;
+    // Usuario autenticado fazendo a chamada - usado para excluir, nas listas
+    // Nao Identificadas, itens ja vinculados a ELE via ItemExtratoCobrador
+    // (equivalente ao filtro por Me.UsuarioLogado.id_usuario no legado).
+    int32 idUsuarioLogado = 3;
+    int32 items = 4;
+    int32 page = 5;
+    map<string, string> order = 6;
+}
+
+// Uma linha das grades da tela de Conferência de Depósitos - equivalente
+// a vsgaExtrato_ObterItensConferencia, já com os campos calculados que
+// hoje vivem em RadGrid1_ItemDataBound (percentual/tooltip/habilitação),
+// pra o frontend só exibir, sem recalcular.
+message ItemConferenciaData {
+    int32 idItemExtrato = 1;
+    string dtRegistro = 2;
+    string cdCnpjCpf = 3;
+    int32 idCaso = 4;
+    double nuValor = 5;
+    string nmDevedor = 6;
+    string tipoDeposito = 7;
+    int32 idAgencia = 8;
+    string desMunicipio = 9;
+    string codFederacao = 10;
+    string nmCliente = 11;
+    string nmUsuarioLogin = 12;
+    string desForma = 13;
+    string deCritica = 14;
+    int32 idStatusDeposito = 15;
+    string dtExtrato = 16;
+    string nuConta = 17;
+    string cdStatus = 18;
+    string desStatusCobranca = 19;
+    bool cdTipoEscrituracao = 20;
+    double valorParcelasEsperado = 21;
+    bool chkSelecionarHabilitado = 22;
+    string chkSelecionarTooltip = 23;
+    bool chkSelAgrupadoVisivel = 24;
+    string obsExistente = 25;
+}
+
+message ServiceResponseListItemConferencia {
+    int32 status = 1;
+    string message = 2;
+    ListResultItemConferencia data = 3;
+    string error = 4;
+}
+
+message ListResultItemConferencia {
+    repeated ItemConferenciaData result = 1;
+    int32 total = 2;
+}
+
+//COBRADOR (porte de vsgaUsuario_ListaCobradores)
+
+message ListCriteriaRequestCobrador {
+    int32 items = 1;
+    int32 page = 2;
+    map<string, string> order = 3;
+}
+
+message CobradorData {
+    int32 idUsuario = 1;
+    string nmUsuarioLogin = 2;
+}
+
+message ServiceResponseListCobrador {
+    int32 status = 1;
+    string message = 2;
+    ListResultCobrador data = 3;
+    string error = 4;
+}
+
+message ListResultCobrador {
+    repeated CobradorData result = 1;
+    int32 total = 2;
+}
+
+//AÇÕES DE ESCRITA (porte de btnAgrupado_Click / btnLiberar_Click / btnAprovar_Click)
+
+message AgruparDepositosRequest {
+    repeated int32 idsItemExtrato = 1;
+    int32 idUsuaOper = 2;
+}
+
+message LiberarDepositoRequest {
+    int32 idItemExtrato = 1;
+    int32 idUsuaOper = 2;
+}
+
+message AprovarDepositoRequest {
+    int32 idItemExtrato = 1;
+    int32 idCaso = 2;
+    int32 idUsuaCobrador = 3;
+    int32 idUsuaOper = 4;
+}
+
+//EXTRATO
+
+message ListCriteriaRequestExtrato {
+    string dtExtratoInicio = 1;
+    string dtExtratoFim = 2;
+    int32 idStatusExtrato = 3;
+    int32 items = 4;
+    int32 page = 5;
+    map<string, string> order = 6;
+}
+
+message ExtratoData {
+    int32 id = 1;
+    string dtExtrato = 2;
+    string deExtrato = 3;
+    int32 idStatusExtrato = 4;
+    int32 idUsuaOper = 5;
+    string dtRegistro = 6;
+    bool cdTipoExtrato = 7;
+    string createdDate = 8;
+    string updatedDate = 9;
+    string deletedDate = 10;
+}
+
+message ExtratoUpdateRequest{
+    int32 id = 1;
+    ExtratoData extrato = 2;
+}
+
+message ServiceResponseExtrato {
+    int32 status = 1;
+    string message = 2;
+    repeated ExtratoData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListExtrato {
+    int32 status = 1;
+    string message = 2;
+    ListResultExtrato data = 3;
+    string error = 4;
+}
+
+message ListResultExtrato {
+    repeated ExtratoData result = 1;
+    int32 total = 2;
+}
+
+//ITEMEXTRATO
+
+message ListCriteriaRequestItemExtrato {
+    int32 idExtrato = 1;
+    int32 idCaso = 2;
+    string cdCnpjCpf = 3;
+    int32 idStatusDeposito = 4;
+    int32 items = 5;
+    int32 page = 6;
+    map<string, string> order = 7;
+}
+
+message ItemExtratoData {
+    int32 id = 1;
+    int32 idExtrato = 2;
+    string cdCnpjCpf = 3;
+    int32 idCaso = 4;
+    double nuValor = 5;
+    int32 idTipoDeposito = 6;
+    int32 idAgencia = 7;
+    int32 idMunicipio = 8;
+    int32 idCritica = 9;
+    int32 idStatusDeposito = 10;
+    string cdStatus = 11;
+    int32 idUsuaOper = 12;
+    string dtRegistro = 13;
+    bool cdEstornado = 14;
+    double nuValorDevolvido = 15;
+    bool cdTipoEscrituracao = 16;
+    string createdDate = 17;
+    string updatedDate = 18;
+    string deletedDate = 19;
+}
+
+message ItemExtratoUpdateRequest{
+    int32 id = 1;
+    ItemExtratoData itemExtrato = 2;
+}
+
+message ServiceResponseItemExtrato {
+    int32 status = 1;
+    string message = 2;
+    repeated ItemExtratoData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListItemExtrato {
+    int32 status = 1;
+    string message = 2;
+    ListResultItemExtrato data = 3;
+    string error = 4;
+}
+
+message ListResultItemExtrato {
+    repeated ItemExtratoData result = 1;
+    int32 total = 2;
+}
+
+//ITEMEXTRATOPARCELA
+
+message ListCriteriaRequestItemExtratoParcela {
+    int32 idItemExtrato = 1;
+    int32 idParcela = 2;
+    int32 idDeposito = 3;
+    int32 items = 4;
+    int32 page = 5;
+    map<string, string> order = 6;
+}
+
+message ItemExtratoParcelaData {
+    int32 id = 1;
+    int32 idItemExtrato = 2;
+    int32 idParcela = 3;
+    int32 idDeposito = 4;
+    int32 idUsuaOper = 5;
+    string dtRegistro = 6;
+    string createdDate = 7;
+    string updatedDate = 8;
+    string deletedDate = 9;
+}
+
+message ItemExtratoParcelaUpdateRequest{
+    int32 id = 1;
+    ItemExtratoParcelaData itemExtratoParcela = 2;
+}
+
+message ServiceResponseItemExtratoParcela {
+    int32 status = 1;
+    string message = 2;
+    repeated ItemExtratoParcelaData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListItemExtratoParcela {
+    int32 status = 1;
+    string message = 2;
+    ListResultItemExtratoParcela data = 3;
+    string error = 4;
+}
+
+message ListResultItemExtratoParcela {
+    repeated ItemExtratoParcelaData result = 1;
+    int32 total = 2;
+}
+
+//ITEMEXTRATOCOBRADOR
+
+message ListCriteriaRequestItemExtratoCobrador {
+    int32 idItemExtrato = 1;
+    int32 idCaso = 2;
+    int32 idUsuaCobrador = 3;
+    int32 items = 4;
+    int32 page = 5;
+    map<string, string> order = 6;
+}
+
+message ItemExtratoCobradorData {
+    int32 id = 1;
+    int32 idItemExtrato = 2;
+    int32 idCaso = 3;
+    int32 idUsuaCobrador = 4;
+    int32 idUsuaOper = 5;
+    string dtRegistro = 6;
+    string createdDate = 7;
+    string updatedDate = 8;
+    string deletedDate = 9;
+}
+
+message ItemExtratoCobradorUpdateRequest{
+    int32 id = 1;
+    ItemExtratoCobradorData itemExtratoCobrador = 2;
+}
+
+message ServiceResponseItemExtratoCobrador {
+    int32 status = 1;
+    string message = 2;
+    repeated ItemExtratoCobradorData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListItemExtratoCobrador {
+    int32 status = 1;
+    string message = 2;
+    ListResultItemExtratoCobrador data = 3;
+    string error = 4;
+}
+
+message ListResultItemExtratoCobrador {
+    repeated ItemExtratoCobradorData result = 1;
+    int32 total = 2;
+}
+
+//ITEMEXTRATODEPOSITANTE
+
+message ListCriteriaRequestItemExtratoDepositante {
+    int32 idItemExtrato = 1;
+    int32 items = 2;
+    int32 page = 3;
+    map<string, string> order = 4;
+}
+
+message ItemExtratoDepositanteData {
+    int32 id = 1;
+    int32 idItemExtrato = 2;
+    string deObs = 3;
+    int32 idUsuaOper = 4;
+    string dtRegistro = 5;
+    string createdDate = 6;
+    string updatedDate = 7;
+    string deletedDate = 8;
+}
+
+message ItemExtratoDepositanteUpdateRequest{
+    int32 id = 1;
+    ItemExtratoDepositanteData itemExtratoDepositante = 2;
+}
+
+message ServiceResponseItemExtratoDepositante {
+    int32 status = 1;
+    string message = 2;
+    repeated ItemExtratoDepositanteData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListItemExtratoDepositante {
+    int32 status = 1;
+    string message = 2;
+    ListResultItemExtratoDepositante data = 3;
+    string error = 4;
+}
+
+message ListResultItemExtratoDepositante {
+    repeated ItemExtratoDepositanteData result = 1;
+    int32 total = 2;
+}
+
+// DepositosEfetuados NAO pertence a este dominio - a entidade e o CRUD
+// completo moram no microservice-pagamento (message DepositosEfetuadosData
+// em pagamento.proto). As acoes abaixo apenas devolvem a referencia do
+// deposito criado/localizado la, via GrpcPagamentoProvider.
+
+message AgruparDepositosData {
+    int32 idDeposito = 1;
+}
+
+message ServiceResponseAgruparDepositos {
+    int32 status = 1;
+    string message = 2;
+    AgruparDepositosData data = 3;
+    string error = 4;
+}
+
+message LiberarDepositoData {
+    int32 idDeposito = 1;
+}
+
+message ServiceResponseLiberarDeposito {
+    int32 status = 1;
+    string message = 2;
+    LiberarDepositoData data = 3;
+    string error = 4;
+}
+
+//CRITICAEXTRATO
+
+message ListCriteriaRequestCriticaExtrato {
+    string deCritica = 1;
+    int32 items = 2;
+    int32 page = 3;
+    map<string, string> order = 4;
+}
+
+message CriticaExtratoData {
+    int32 id = 1;
+    string deCritica = 2;
+    int32 idUsuaOper = 3;
+    string dtRegistro = 4;
+    string createdDate = 5;
+    string updatedDate = 6;
+    string deletedDate = 7;
+}
+
+message CriticaExtratoUpdateRequest{
+    int32 id = 1;
+    CriticaExtratoData criticaExtrato = 2;
+}
+
+message ServiceResponseCriticaExtrato {
+    int32 status = 1;
+    string message = 2;
+    repeated CriticaExtratoData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListCriticaExtrato {
+    int32 status = 1;
+    string message = 2;
+    ListResultCriticaExtrato data = 3;
+    string error = 4;
+}
+
+message ListResultCriticaExtrato {
+    repeated CriticaExtratoData result = 1;
+    int32 total = 2;
+}
+
+//TIPODEPOSITO
+
+message ListCriteriaRequestTipoDeposito {
+    string nmDeposito = 1;
+    int32 items = 2;
+    int32 page = 3;
+    map<string, string> order = 4;
+}
+
+message TipoDepositoData {
+    int32 id = 1;
+    string nmDeposito = 2;
+    int32 idUsuaOper = 3;
+    string dtRegistro = 4;
+    string createdDate = 5;
+    string updatedDate = 6;
+    string deletedDate = 7;
+}
+
+message TipoDepositoUpdateRequest{
+    int32 id = 1;
+    TipoDepositoData tipoDeposito = 2;
+}
+
+message ServiceResponseTipoDeposito {
+    int32 status = 1;
+    string message = 2;
+    repeated TipoDepositoData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListTipoDeposito {
+    int32 status = 1;
+    string message = 2;
+    ListResultTipoDeposito data = 3;
+    string error = 4;
+}
+
+message ListResultTipoDeposito {
+    repeated TipoDepositoData result = 1;
+    int32 total = 2;
+}
+
+//STATUSDEPOSITO
+
+message ListCriteriaRequestStatusDeposito {
+    int32 items = 1;
+    int32 page = 2;
+    map<string, string> order = 3;
+}
+
+message StatusDepositoData {
+    int32 id = 1;
+    string desStatusDeposito = 2;
+    int32 idUsuaOper = 3;
+    string dtRegistro = 4;
+    string createdDate = 5;
+    string updatedDate = 6;
+    string deletedDate = 7;
+}
+
+message StatusDepositoUpdateRequest{
+    int32 id = 1;
+    StatusDepositoData statusDeposito = 2;
+}
+
+message ServiceResponseStatusDeposito {
+    int32 status = 1;
+    string message = 2;
+    repeated StatusDepositoData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListStatusDeposito {
+    int32 status = 1;
+    string message = 2;
+    ListResultStatusDeposito data = 3;
+    string error = 4;
+}
+
+message ListResultStatusDeposito {
+    repeated StatusDepositoData result = 1;
+    int32 total = 2;
+}
+
+//STATUSEXTRATO
+
+message ListCriteriaRequestStatusExtrato {
+    int32 items = 1;
+    int32 page = 2;
+    map<string, string> order = 3;
+}
+
+message StatusExtratoData {
+    int32 id = 1;
+    string deStatusExtrato = 2;
+    int32 idUsuaOper = 3;
+    string dtRegistro = 4;
+    string createdDate = 5;
+    string updatedDate = 6;
+    string deletedDate = 7;
+}
+
+message StatusExtratoUpdateRequest{
+    int32 id = 1;
+    StatusExtratoData statusExtrato = 2;
+}
+
+message ServiceResponseStatusExtrato {
+    int32 status = 1;
+    string message = 2;
+    repeated StatusExtratoData data = 3;
+    string error = 4;
+}
+
+message ServiceResponseListStatusExtrato {
+    int32 status = 1;
+    string message = 2;
+    ListResultStatusExtrato data = 3;
+    string error = 4;
+}
+
+message ListResultStatusExtrato {
+    repeated StatusExtratoData result = 1;
+    int32 total = 2;
+}
