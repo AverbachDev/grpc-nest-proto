@@ -35,6 +35,7 @@ service CasoService {
     rpc obterParametrizacaoAcordo (IdRequest) returns (ServiceResponseParametrizacaoAcordo) {}
     rpc obterUsuarioCriadorCaso (IdRequest) returns (ServiceResponseUsuarioCriadorCaso) {}
     rpc listCasoPrevPagto (ListCriteriaRequestCasoPrevPagto) returns (ServiceResponseListCasoPrevPagto) {}
+    rpc listParcelaPrevPagto (ListParcelaPrevPagtoRequest) returns (ServiceResponseListParcelaPrevPagto) {}
     rpc listCasoLista (ListCriteriaRequestCasoLista) returns (ServiceResponseListCasoLista) {}
 
     rpc listTitulo (ListCriteriaRequestTitulo) returns (ServiceResponseListTitulo) {}
@@ -1299,6 +1300,46 @@ message ServiceResponseListCalculoCarta {
     int32 status = 1;
     string message = 2;
     repeated ItemCalculoCartaData data = 3;
+    string error = 4;
+}
+
+// Porte de psgaParcela_PrevPagto - popula o popup de identificacao de
+// deposito (wfmpopBuscaExtrato.aspx / autocomplete de wfmCadExtrato.aspx e
+// wfmCadExtratoBoston.aspx, no microservice-extrato), buscando por
+// CNPJ/CPF do devedor OU numero do caso (so um dos dois preenchido por vez,
+// igual a SP original).
+message ListParcelaPrevPagtoRequest {
+    string cdCnpjCpf = 1;
+    int32 idCaso = 2;
+}
+
+message ParcelaPrevPagtoData {
+    int32 idCaso = 1;
+    int32 idStatusCobranca = 2;
+    int32 idCliente = 3;
+    string nmCliente = 4;
+    int32 idUsuaCobrador = 5;
+    string dtUsuaCobrador = 6;
+    int32 idDevedor = 7;
+    string nmDevedor = 8;
+    string cdCnpjCpf = 9;
+    string deLogradouro = 10;
+    int32 idFederacao = 11;
+    string desFederacao = 12;
+    int32 idMunicipio = 13;
+    string desMunicipio = 14;
+    string deDdd = 15;
+    string nmUsuarioLogin = 16;
+    string dtVenc = 17;
+    double nuValor = 18;
+    int32 idParcela = 19;
+    string desForma = 20;
+}
+
+message ServiceResponseListParcelaPrevPagto {
+    int32 status = 1;
+    string message = 2;
+    repeated ParcelaPrevPagtoData data = 3;
     string error = 4;
 }
 

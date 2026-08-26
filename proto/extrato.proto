@@ -30,6 +30,14 @@ service ExtratoService {
     // vsgaExtrato_ObterLista (soma dos itens por extrato).
     rpc listExtratoResumo (ListCriteriaRequestExtratoResumo) returns (ServiceResponseListExtratoResumo) {}
 
+    // Cadastro manual de Extrato (porte de wfmCadExtrato.aspx /
+    // wfmCadExtratoBoston.aspx - so a "feature #1": grade editavel de N
+    // depositos com auto-complete, Salvar/Liberar/Adicionar Deposito. A
+    // importacao automatica de arquivo de retorno/API Bradesco dessas
+    // telas fica fora de escopo por enquanto - ver Etapa E).
+    rpc getExtratoDetalhe (GetExtratoDetalheRequest) returns (ServiceResponseExtratoDetalhe) {}
+    rpc salvarExtrato (SalvarExtratoRequest) returns (ServiceResponseSalvarExtrato) {}
+
     rpc listExtrato (ListCriteriaRequestExtrato) returns (ServiceResponseListExtrato) {}
     rpc findOneExtrato (IdRequest) returns (ServiceResponseExtrato) {}
     rpc createExtrato (ExtratoData) returns (ServiceResponseExtrato) {}
@@ -679,6 +687,94 @@ message ServiceResponseListExtratoResumo {
 message ListResultExtratoResumo {
     repeated ExtratoResumoData result = 1;
     int32 total = 2;
+}
+
+//CADASTRO MANUAL (porte de wfmCadExtrato.aspx / wfmCadExtratoBoston.aspx -
+//"feature #1": grade editavel de N depositos com auto-complete)
+
+message GetExtratoDetalheRequest {
+    int32 idExtrato = 1;
+}
+
+message ItemExtratoDetalheData {
+    int32 idItemExtrato = 1;
+    int32 idFederacao = 2;
+    int32 idMunicipio = 3;
+    int32 idAgencia = 4;
+    int32 idTipoDeposito = 5;
+    double nuValor = 6;
+    int32 idCaso = 7;
+    string cdCnpjCpf = 8;
+    // Ja calculado no backend (Integral/Parcelado - X/Parcelado - X Y/Por
+    // Titulos/Por Conta), igual ao des_forma dos demais usecases de Extrato.
+    string desForma = 9;
+    string nmDevedor = 10;
+    string nmCliente = 11;
+    string nmUsuarioLogin = 12;
+    int32 idCritica = 13;
+    string deCritica = 14;
+    repeated int32 idsParcela = 15;
+    string deObs = 16;
+}
+
+message ExtratoDetalheData {
+    int32 idExtrato = 1;
+    string dtExtrato = 2;
+    string deExtrato = 3;
+    int32 idStatusExtrato = 4;
+    bool cdTipoExtrato = 5;
+    repeated ItemExtratoDetalheData itens = 6;
+}
+
+message ServiceResponseExtratoDetalhe {
+    int32 status = 1;
+    string message = 2;
+    ExtratoDetalheData data = 3;
+    string error = 4;
+}
+
+message ItemExtratoInputData {
+    // 0 = deposito novo (ainda nao existe em ItemExtrato).
+    int32 idItemExtrato = 1;
+    int32 idFederacao = 2;
+    int32 idMunicipio = 3;
+    int32 idAgencia = 4;
+    int32 idTipoDeposito = 5;
+    double nuValor = 6;
+    int32 idCaso = 7;
+    string cdCnpjCpf = 8;
+    // Parcelas identificadas via auto-complete (listParcelaPrevPagto,
+    // microservice-caso) - pode ter mais de uma quando ha varias parcelas
+    // do mesmo caso vencendo na mesma data (mesma regra do popup).
+    repeated int32 idsParcela = 9;
+    // Observacao do depositante (cheque/malote sem identificacao) - porte
+    // de tecoItemExtratoDepositante.de_obs.
+    string deObs = 10;
+}
+
+message SalvarExtratoRequest {
+    // 0 = extrato novo.
+    int32 idExtrato = 1;
+    string dtExtrato = 2;
+    string deExtrato = 3;
+    // false=wfmCadExtrato.aspx (normal), true=wfmCadExtratoBoston.aspx.
+    bool cdTipoExtrato = 4;
+    // Equivale a btnLiberar_Click (id_statusextrato=2, id_statusdeposito=1
+    // em cada item) quando true; a MasterPage_Salvar (so grava) quando false.
+    bool liberar = 5;
+    repeated ItemExtratoInputData itens = 6;
+    int32 idUsuaOper = 7;
+}
+
+message SalvarExtratoData {
+    int32 idExtrato = 1;
+}
+
+message ServiceResponseSalvarExtrato {
+    int32 status = 1;
+    string message = 2;
+    SalvarExtratoData data = 3;
+    string error = 4;
 }
 
 //ITEMPENDENTEAPROVACAO (porte de vsgaExtrato_ObterItensPendentesAprovacao -
