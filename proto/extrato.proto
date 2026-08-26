@@ -757,13 +757,17 @@ message EscriturarDepositoRequest {
     int32 idUsuaOper = 6;
 }
 
-message ServiceResponseEscriturarDeposito {
-    int32 status = 1;
-    string message = 2;
+message EscriturarDepositoData {
     // ids dos DepositosEfetuados criados no microservice-pagamento - mais
     // de um quando as parcelas cobrem mais de 2 casos distintos (desmembra
     // o deposito, replicando a regra do legado).
-    repeated int32 idsDeposito = 3;
+    repeated int32 idsDeposito = 1;
+}
+
+message ServiceResponseEscriturarDeposito {
+    int32 status = 1;
+    string message = 2;
+    EscriturarDepositoData data = 3;
     string error = 4;
 }
 
