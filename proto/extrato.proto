@@ -16,6 +16,20 @@ service ExtratoService {
     rpc liberarDeposito (LiberarDepositoRequest) returns (ServiceResponseLiberarDeposito) {}
     rpc aprovarDeposito (AprovarDepositoRequest) returns (ServiceResponseItemExtrato) {}
 
+    // Casos de uso especiais da tela "Depositos Pendentes de Aprovacao"
+    // (wfmListaDepositosPendentesAprovacao.aspx) - segunda camada de
+    // aprovacao, agindo sobre itens ja vinculados a um cobrador via
+    // aprovarDeposito acima. Substituem vsgaExtrato_ObterItensPendentesAprovacao.
+    rpc listItensPendentesAprovacao (ListCriteriaRequestItemPendenteAprovacao) returns (ServiceResponseListItemPendenteAprovacao) {}
+    rpc escriturarDeposito (EscriturarDepositoRequest) returns (ServiceResponseEscriturarDeposito) {}
+    rpc retornarDeposito (RetornarDepositoRequest) returns (ServiceResponseItemExtrato) {}
+    rpc estornarDeposito (EstornarDepositoRequest) returns (ServiceResponseItemExtrato) {}
+
+    // Resumo agregado da tela "Extratos - Listagem" (wfmListaExtrato.aspx /
+    // wfmListaExtratoBoston.aspx, diferenciadas por cdTipoExtrato) - substitui
+    // vsgaExtrato_ObterLista (soma dos itens por extrato).
+    rpc listExtratoResumo (ListCriteriaRequestExtratoResumo) returns (ServiceResponseListExtratoResumo) {}
+
     rpc listExtrato (ListCriteriaRequestExtrato) returns (ServiceResponseListExtrato) {}
     rpc findOneExtrato (IdRequest) returns (ServiceResponseExtrato) {}
     rpc createExtrato (ExtratoData) returns (ServiceResponseExtrato) {}
@@ -628,4 +642,139 @@ message ServiceResponseListStatusExtrato {
 message ListResultStatusExtrato {
     repeated StatusExtratoData result = 1;
     int32 total = 2;
+}
+
+//EXTRATORESUMO (porte de vsgaExtrato_ObterLista - wfmListaExtrato.aspx/wfmListaExtratoBoston.aspx)
+
+message ListCriteriaRequestExtratoResumo {
+    string dtExtratoInicio = 1;
+    string dtExtratoFim = 2;
+    string deExtrato = 3;
+    // false=wfmListaExtrato.aspx (normal), true=wfmListaExtratoBoston.aspx.
+    bool cdTipoExtrato = 4;
+    int32 items = 5;
+    int32 page = 6;
+    map<string, string> order = 7;
+}
+
+message ExtratoResumoData {
+    int32 idExtrato = 1;
+    string dtExtrato = 2;
+    string deExtrato = 3;
+    int32 idStatusExtrato = 4;
+    string deStatusExtrato = 5;
+    // SUM(ItemExtrato.nuValor - nuValorDevolvido), excluindo itens
+    // estornados/devolvidos - nao e o Extrato.id, e um agregado calculado.
+    double nuValor = 6;
+    bool cdTipoExtrato = 7;
+}
+
+message ServiceResponseListExtratoResumo {
+    int32 status = 1;
+    string message = 2;
+    ListResultExtratoResumo data = 3;
+    string error = 4;
+}
+
+message ListResultExtratoResumo {
+    repeated ExtratoResumoData result = 1;
+    int32 total = 2;
+}
+
+//ITEMPENDENTEAPROVACAO (porte de vsgaExtrato_ObterItensPendentesAprovacao -
+//wfmListaDepositosPendentesAprovacao.aspx)
+
+enum TipoListaPendenteAprovacao {
+    NORMAL = 0;
+    PREVENTIVO = 1;
+}
+
+message ListCriteriaRequestItemPendenteAprovacao {
+    TipoListaPendenteAprovacao tipoLista = 1;
+    // Usuario autenticado fazendo a chamada - quem nao e Administrador so
+    // ve o que foi vinculado a ele (equivalente a nm_usuario_login = login
+    // do usuario logado no legado, aqui comparado por ID).
+    int32 idUsuarioLogado = 2;
+    bool ehAdministrador = 3;
+    string nmDevedor = 4;
+    string cdCnpjCpf = 5;
+    double nuValorInicio = 6;
+    double nuValorFim = 7;
+    int32 items = 8;
+    int32 page = 9;
+    map<string, string> order = 10;
+}
+
+message ItemPendenteAprovacaoData {
+    // 0 quando o item vem do bloco "Cheques Por Malote" (sem vinculo de
+    // cobrador ainda) - replica o UNION ALL da view legada.
+    int32 idItemExtratoCob = 1;
+    int32 idItemExtrato = 2;
+    string cdCnpjCpf = 3;
+    int32 idCaso = 4;
+    double nuValor = 5;
+    string nmDevedor = 6;
+    string tipoDeposito = 7;
+    int32 idAgencia = 8;
+    string desMunicipio = 9;
+    string codFederacao = 10;
+    string nmCliente = 11;
+    string nmUsuarioLogin = 12;
+    string desForma = 13;
+    string deCritica = 14;
+    int32 idStatusDeposito = 15;
+    string dtExtrato = 16;
+    string nuConta = 17;
+    bool cdTipoEscrituracao = 18;
+}
+
+message ServiceResponseListItemPendenteAprovacao {
+    int32 status = 1;
+    string message = 2;
+    ListResultItemPendenteAprovacao data = 3;
+    string error = 4;
+}
+
+message ListResultItemPendenteAprovacao {
+    repeated ItemPendenteAprovacaoData result = 1;
+    int32 total = 2;
+}
+
+//ACOES DE ESCRITA (porte de btnLiberar_Click/btnRetornar_Click/btnEstornar_Click
+//de wfmListaDepositosPendentesAprovacao.aspx.vb)
+
+message EscriturarDepositoRequest {
+    int32 idItemExtrato = 1;
+    // 0 se o item veio do bloco "Cheques Por Malote" (sem vinculo ainda).
+    int32 idItemExtratoCob = 2;
+    // Casos distintos envolvidos nas parcelas escolhidas no popup de busca
+    // (wfmpopBuscaExtrato.aspx) - o backend busca cada um via
+    // GrpcCasoProvider.findOneCaso pra descobrir a qual caso cada
+    // idParcela pertence, sem confiar em dado vindo do cliente pra isso.
+    repeated int32 idsCaso = 3;
+    repeated int32 idsParcela = 4;
+    bool cdTipoEscrituracao = 5;
+    int32 idUsuaOper = 6;
+}
+
+message ServiceResponseEscriturarDeposito {
+    int32 status = 1;
+    string message = 2;
+    // ids dos DepositosEfetuados criados no microservice-pagamento - mais
+    // de um quando as parcelas cobrem mais de 2 casos distintos (desmembra
+    // o deposito, replicando a regra do legado).
+    repeated int32 idsDeposito = 3;
+    string error = 4;
+}
+
+message RetornarDepositoRequest {
+    int32 idItemExtrato = 1;
+    int32 idItemExtratoCob = 2;
+    int32 idUsuaOper = 3;
+}
+
+message EstornarDepositoRequest {
+    int32 idItemExtrato = 1;
+    int32 idItemExtratoCob = 2;
+    int32 idUsuaOper = 3;
 }
