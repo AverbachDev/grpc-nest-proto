@@ -36,6 +36,7 @@ service CasoService {
     rpc obterUsuarioCriadorCaso (IdRequest) returns (ServiceResponseUsuarioCriadorCaso) {}
     rpc listCasoPrevPagto (ListCriteriaRequestCasoPrevPagto) returns (ServiceResponseListCasoPrevPagto) {}
     rpc listParcelaPrevPagto (ListParcelaPrevPagtoRequest) returns (ServiceResponseListParcelaPrevPagto) {}
+    rpc importarDepositosBradesco (ImportarDepositosBradescoRequest) returns (ServiceResponseImportarDepositosBradesco) {}
     rpc listCasoLista (ListCriteriaRequestCasoLista) returns (ServiceResponseListCasoLista) {}
 
     rpc listTitulo (ListCriteriaRequestTitulo) returns (ServiceResponseListTitulo) {}
@@ -1340,6 +1341,43 @@ message ServiceResponseListParcelaPrevPagto {
     int32 status = 1;
     string message = 2;
     repeated ParcelaPrevPagtoData data = 3;
+    string error = 4;
+}
+
+// Porte de ObterRegistrosAPIBradesco (wfmCadExtrato.aspx.vb) - consulta a
+// API do Bradesco (ver consultBoletoPaidInBradesco) para cada agencia
+// informada e ja identifica cada titulo pago contra as parcelas em
+// Previsao de Pagamento (psgaParcela_PrevPagtoCNABComRegistro /
+// psgaParcela_PrevPagtoNaoIdentificadoComRegistro/NaoIdentificado),
+// devolvendo candidatos prontos pra virar linha na grade de
+// wfmCadExtrato.aspx/wfmCadExtratoBoston.aspx.
+message ImportarDepositosBradescoRequest {
+    repeated int32 idsAgencia = 1;
+    string dtPagamento = 2;
+    int32 idUsuaOper = 3;
+}
+
+message CandidatoDepositoBradescoData {
+    int32 idAgencia = 1;
+    int32 idFederacao = 2;
+    int32 idMunicipio = 3;
+    double nuValor = 4;
+    int32 idCaso = 5;
+    string cdCnpjCpf = 6;
+    string desForma = 7;
+    string nmDevedor = 8;
+    string nmCliente = 9;
+    string nmUsuarioLogin = 10;
+    repeated int32 idsParcela = 11;
+    // 0 = identificado; 10 = "O Caso informado não possui mais o boleto
+    // pago" (mesma critica do legado pra boletos sem parcela localizada).
+    int32 idCritica = 12;
+}
+
+message ServiceResponseImportarDepositosBradesco {
+    int32 status = 1;
+    string message = 2;
+    repeated CandidatoDepositoBradescoData data = 3;
     string error = 4;
 }
 
