@@ -37,6 +37,9 @@ service CasoService {
     rpc listCasoPrevPagto (ListCriteriaRequestCasoPrevPagto) returns (ServiceResponseListCasoPrevPagto) {}
     rpc listParcelaPrevPagto (ListParcelaPrevPagtoRequest) returns (ServiceResponseListParcelaPrevPagto) {}
     rpc importarDepositosBradesco (ImportarDepositosBradescoRequest) returns (ServiceResponseImportarDepositosBradesco) {}
+    rpc identificarDepositosCnab (IdentificarDepositosCnabRequest) returns (ServiceResponseIdentificarDepositosCnab) {}
+    rpc identificarDepositosCnabItau (IdentificarDepositosCnabItauRequest) returns (ServiceResponseIdentificarDepositosCnabItau) {}
+    rpc identificarDepositosPlanilha (IdentificarDepositosPlanilhaRequest) returns (ServiceResponseIdentificarDepositosPlanilha) {}
     rpc listCasoLista (ListCriteriaRequestCasoLista) returns (ServiceResponseListCasoLista) {}
 
     rpc listTitulo (ListCriteriaRequestTitulo) returns (ServiceResponseListTitulo) {}
@@ -1375,6 +1378,86 @@ message CandidatoDepositoBradescoData {
 }
 
 message ServiceResponseImportarDepositosBradesco {
+    int32 status = 1;
+    string message = 2;
+    repeated CandidatoDepositoBradescoData data = 3;
+    string error = 4;
+}
+
+// Porte de ObterRegistrosRemessa (wfmCadExtrato.aspx.vb, tela normal) e
+// ObterRegistrosRemessaAverbach (wfmCadExtratoBoston.aspx.vb) - mesmo
+// layout de arquivo CNAB (posicao fixa), so difere a SP "ComRegistro"
+// usada e a direcao do filtro de cliente proativo (normal exclui,
+// Boston Averbach so aceita proativo - a propria SP Boston ja filtra).
+// O parsing das posicoes do arquivo acontece no frontend (client-side);
+// aqui so chega o Nosso Numero/Ocorrencia/Valor/Agencia ja extraidos.
+enum VarianteCnab {
+    CNAB_NORMAL = 0;
+    CNAB_BOSTON_AVERBACH = 1;
+}
+
+message TituloCnabInput {
+    string nossoNumero = 1;
+    string ocorrencia = 2;
+    double valor = 3;
+    // Digitos da conta extraidos do arquivo (col. 31-36) - casado por LIKE
+    // contra tecoAgenciaBradesco.nu_conta, igual ao legado. Vazio na
+    // variante Boston Averbach (agencia sempre 15, Boston).
+    string agencia = 4;
+}
+
+message IdentificarDepositosCnabRequest {
+    VarianteCnab variante = 1;
+    repeated TituloCnabInput titulos = 2;
+    int32 idUsuaOper = 3;
+}
+
+message ServiceResponseIdentificarDepositosCnab {
+    int32 status = 1;
+    string message = 2;
+    repeated CandidatoDepositoBradescoData data = 3;
+    string error = 4;
+}
+
+// Porte de ObterRegistrosRemessa (wfmCadExtratoBoston.aspx.vb, opcao "CNAB
+// ITAU") - layout de posicoes diferente do normal/Averbach, sem fallback
+// de nao-identificado (titulo sem match e descartado silenciosamente).
+message TituloCnabItauInput {
+    string nossoNumero1 = 1;
+    string nossoNumero2 = 2;
+    string ocorrencia = 3;
+    double valor = 4;
+    // "DD/MM/AA" (so usado no fallback por nossoNumero2).
+    string dtVencimento = 5;
+}
+
+message IdentificarDepositosCnabItauRequest {
+    repeated TituloCnabItauInput titulos = 1;
+    int32 idUsuaOper = 2;
+}
+
+message ServiceResponseIdentificarDepositosCnabItau {
+    int32 status = 1;
+    string message = 2;
+    repeated CandidatoDepositoBradescoData data = 3;
+    string error = 4;
+}
+
+// Porte de ObterRegistrosRemessaPlanilha (wfmCadExtratoBoston.aspx.vb,
+// opcao "PLANILHA BOSTON") - CSV por Nota Fiscal + Data de Vencimento, sem
+// nenhuma relacao com Nosso Numero/CNAB (SP so devolve o cliente 5617).
+message LinhaPlanilhaInput {
+    string notaFiscal = 1;
+    string dtVencimento = 2;
+    double valor = 3;
+}
+
+message IdentificarDepositosPlanilhaRequest {
+    repeated LinhaPlanilhaInput linhas = 1;
+    int32 idUsuaOper = 2;
+}
+
+message ServiceResponseIdentificarDepositosPlanilha {
     int32 status = 1;
     string message = 2;
     repeated CandidatoDepositoBradescoData data = 3;
