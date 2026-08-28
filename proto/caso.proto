@@ -1358,6 +1358,13 @@ message ImportarDepositosBradescoRequest {
     repeated int32 idsAgencia = 1;
     string dtPagamento = 2;
     int32 idUsuaOper = 3;
+    // wfmCadExtratoBoston.aspx.vb tem seu proprio ObterRegistrosAPIBradesco,
+    // com regras diferentes da tela normal (wfmCadExtrato.aspx): usa a SP
+    // psgaParcela_PrevPagtoCNABComRegistroBoston (ja escopada a clientes
+    // proativos) no match direto, inclui (em vez de excluir) clientes
+    // proativos no fallback, e adiciona uma linha em branco (critica=10)
+    // mesmo quando nenhuma parcela e encontrada por nenhuma via.
+    bool boston = 4;
 }
 
 message CandidatoDepositoBradescoData {
