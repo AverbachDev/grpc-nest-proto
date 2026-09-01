@@ -7,6 +7,13 @@ service CasoService {
 
     rpc listCaso (ListCriteriaRequestCaso) returns (ServiceResponseListCaso) {}
     rpc findOneCaso (IdRequest) returns (ServiceResponseCaso) {}
+    // Busca em lote so os campos leves (sem titulos/acordos/parcelas/cartas)
+    // de varios casos de uma vez - pra consumidores que precisam so de
+    // idUsuaCobrador/idDevedor/idCliente/idStatusCobranca de uma lista grande
+    // de casos (ex. microservice-extrato/conferencia de depositos, que antes
+    // chamava findOneCaso - pesado - uma vez por caso unico do resultado
+    // inteiro antes de paginar).
+    rpc listCasoResumo (IdsRequest) returns (ServiceResponseListCasoResumo) {}
     rpc createCaso (CasoData) returns (ServiceResponseCaso) {}
     rpc updateCaso (CasoUpdateRequest) returns (ServiceResponseCaso) {}
     rpc saveCaso (CasoUpdateRequest) returns (ServiceResponseCaso) {}
@@ -140,6 +147,27 @@ message EmptyRequest{}
 
 message IdRequest{
     int32 id = 1;
+}
+
+message IdsRequest{
+    repeated int32 ids = 1;
+}
+
+// Versao leve de CasoData, so com os campos escalares mais buscados em lote
+// (sem titulos/acordos/parcelas/cartas) - ver comentario em listCasoResumo.
+message CasoResumoData {
+    int32 id = 1;
+    int32 idUsuaCobrador = 2;
+    int32 idDevedor = 3;
+    int32 idCliente = 4;
+    int32 idStatusCobranca = 5;
+}
+
+message ServiceResponseListCasoResumo {
+    int32 status = 1;
+    string message = 2;
+    repeated CasoResumoData data = 3;
+    string error = 4;
 }
 
 message ServiceResponseBoolean {
