@@ -949,6 +949,15 @@ message CalcularTituloRequest {
     // "optional" porque outras chamadas que reusam esta mensagem (ex.:
     // validarCalculoProativoTitulo) nao tem esse dado.
     optional int32 idUsuario = 6;
+    // Selecao AO VIVO do combo "Situacao Cobranca"/"SubStatus"
+    // (ddlMotivoInadimplencia, wfmCadAcordo.aspx.vb:3510) no momento do
+    // calculo - usada so por validarCalculoProativoTitulo para a excecao
+    // BLOQUEIO/CONFIRMA PAGAMENTO da regra Proativo. E a selecao corrente
+    // do combo, que pode ainda nao ter sido persistida no caso (o legado
+    // le o ddlMotivoInadimplencia da tela, nao o id_motivo_inadimplencia
+    // salvo no banco) - por isso precisa vir explicito aqui em vez de so
+    // reaproveitar o campo do caso.
+    optional int32 idMotivoInadimplencia = 7;
 }
 
 // Porte de grdCalculo_ItemDataBound (wfmCadAcordo.aspx.vb): determina se um
