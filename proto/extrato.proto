@@ -37,6 +37,7 @@ service ExtratoService {
     // telas fica fora de escopo por enquanto - ver Etapa E).
     rpc getExtratoDetalhe (GetExtratoDetalheRequest) returns (ServiceResponseExtratoDetalhe) {}
     rpc salvarExtrato (SalvarExtratoRequest) returns (ServiceResponseSalvarExtrato) {}
+    rpc obterArquivoExtrato (IdRequest) returns (ServiceResponseArquivoExtrato) {}
 
     rpc listExtrato (ListCriteriaRequestExtrato) returns (ServiceResponseListExtrato) {}
     rpc findOneExtrato (IdRequest) returns (ServiceResponseExtrato) {}
@@ -233,6 +234,10 @@ message ExtratoData {
     string createdDate = 8;
     string updatedDate = 9;
     string deletedDate = 10;
+    // Chave do objeto gravado no MinIO (arquivo CNAB/planilha original
+    // importado ao salvar) - null quando o extrato foi criado sem arquivo
+    // (ex.: so digitacao manual) ou salvo antes desse campo existir.
+    optional string deArquivoOriginal = 11;
 }
 
 message ExtratoUpdateRequest{
@@ -727,6 +732,9 @@ message ExtratoDetalheData {
     int32 idStatusExtrato = 4;
     bool cdTipoExtrato = 5;
     repeated ItemExtratoDetalheData itens = 6;
+    // Presente quando este extrato tem um arquivo original (CNAB/planilha)
+    // gravado no MinIO - usado pelo front pra mostrar o botao de download.
+    optional string deArquivoOriginal = 7;
 }
 
 message ServiceResponseExtratoDetalhe {
@@ -767,6 +775,13 @@ message SalvarExtratoRequest {
     bool liberar = 5;
     repeated ItemExtratoInputData itens = 6;
     int32 idUsuaOper = 7;
+    // Arquivo original importado (CNAB/planilha) pra gravar no MinIO junto
+    // com o salvamento - transiente, so usado pelo usecase pra subir o
+    // arquivo (nao e persistido direto, vira a chave em deArquivoOriginal
+    // apos o upload). Ambos opcionais - Salvar sem arquivo (edicao manual,
+    // ou re-salvar um extrato ja existente) nao manda nada aqui.
+    optional string deNomeArquivoOriginal = 8;
+    optional string deArquivoBase64 = 9;
 }
 
 message SalvarExtratoData {
@@ -777,6 +792,18 @@ message ServiceResponseSalvarExtrato {
     int32 status = 1;
     string message = 2;
     SalvarExtratoData data = 3;
+    string error = 4;
+}
+
+message ArquivoExtratoData {
+    string nomeArquivo = 1;
+    string conteudoBase64 = 2;
+}
+
+message ServiceResponseArquivoExtrato {
+    int32 status = 1;
+    string message = 2;
+    ArquivoExtratoData data = 3;
     string error = 4;
 }
 
