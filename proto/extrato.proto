@@ -616,6 +616,9 @@ message ListCriteriaRequestStatusExtrato {
     int32 items = 1;
     int32 page = 2;
     map<string, string> order = 3;
+    // Filtro por descricao (LIKE), replica wfmListaStatusExtrato.aspx.vb
+    // (txtde_statusextrato) - ausente ate agora, tela nova ainda nao existia.
+    optional string deStatusExtrato = 4;
 }
 
 message StatusExtratoData {
