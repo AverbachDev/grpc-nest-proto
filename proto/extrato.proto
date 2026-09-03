@@ -38,6 +38,7 @@ service ExtratoService {
     rpc getExtratoDetalhe (GetExtratoDetalheRequest) returns (ServiceResponseExtratoDetalhe) {}
     rpc salvarExtrato (SalvarExtratoRequest) returns (ServiceResponseSalvarExtrato) {}
     rpc obterArquivoExtrato (IdRequest) returns (ServiceResponseArquivoExtrato) {}
+    rpc importarArquivoExtrato (ImportarArquivoExtratoRequest) returns (ServiceResponseImportarArquivoExtrato) {}
 
     rpc listExtrato (ListCriteriaRequestExtrato) returns (ServiceResponseListExtrato) {}
     rpc findOneExtrato (IdRequest) returns (ServiceResponseExtrato) {}
@@ -775,13 +776,14 @@ message SalvarExtratoRequest {
     bool liberar = 5;
     repeated ItemExtratoInputData itens = 6;
     int32 idUsuaOper = 7;
-    // Arquivo original importado (CNAB/planilha) pra gravar no MinIO junto
-    // com o salvamento - transiente, so usado pelo usecase pra subir o
-    // arquivo (nao e persistido direto, vira a chave em deArquivoOriginal
-    // apos o upload). Ambos opcionais - Salvar sem arquivo (edicao manual,
-    // ou re-salvar um extrato ja existente) nao manda nada aqui.
+    // Nome do arquivo original importado (CNAB/planilha) - o conteudo em si
+    // ja foi enviado antes, na selecao do arquivo (ver importarArquivoExtrato
+    // abaixo), e esta em "depositos/Recebidos/<nome>" no MinIO. Presente so
+    // quando o Salvar corresponde a uma importacao de arquivo em andamento -
+    // o usecase move esse objeto pra "depositos/Processados/<nome>" (replica
+    // MoverArquivo do legado). Ausente em edicao manual ou re-salvar um
+    // extrato ja existente sem reimportar nada.
     optional string deNomeArquivoOriginal = 8;
-    optional string deArquivoBase64 = 9;
 }
 
 message SalvarExtratoData {
@@ -792,6 +794,29 @@ message ServiceResponseSalvarExtrato {
     int32 status = 1;
     string message = 2;
     SalvarExtratoData data = 3;
+    string error = 4;
+}
+
+// Porte de SalvarArquivo (wfmCadExtrato.aspx.vb) - roda na SELECAO do
+// arquivo (antes de interpretar/preencher a grade), nao no Salvar. Bloqueia
+// (erro na ServiceResponse) se um arquivo de mesmo nome ja existir em
+// "depositos/Processados/" (mesma checagem do legado: "O Arquivo informado
+// ja foi importado anteriormente."); senao grava em "depositos/Recebidos/"
+// e devolve sucesso - o Salvar (SalvarExtratoRequest.deNomeArquivoOriginal
+// acima) depois move pra Processados.
+message ImportarArquivoExtratoRequest {
+    string nomeArquivo = 1;
+    string conteudoBase64 = 2;
+}
+
+message ImportarArquivoExtratoData {
+    string chaveRecebido = 1;
+}
+
+message ServiceResponseImportarArquivoExtrato {
+    int32 status = 1;
+    string message = 2;
+    ImportarArquivoExtratoData data = 3;
     string error = 4;
 }
 
