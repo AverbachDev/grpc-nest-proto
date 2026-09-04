@@ -48,6 +48,13 @@ service CasoService {
     rpc identificarDepositosCnabItau (IdentificarDepositosCnabItauRequest) returns (ServiceResponseIdentificarDepositosCnabItau) {}
     rpc identificarDepositosPlanilha (IdentificarDepositosPlanilhaRequest) returns (ServiceResponseIdentificarDepositosPlanilha) {}
     rpc listCasoLista (ListCriteriaRequestCasoLista) returns (ServiceResponseListCasoLista) {}
+    // Porte de wfmListaDistribuicao.aspx (3 abas sobre a mesma view
+    // vsgaCaso_ObterCasosDistribuicao) - ver bloco DISTRIBUICAO mais abaixo.
+    rpc listCasoDistribuicao (ListCriteriaRequestCasoDistribuicao) returns (ServiceResponseListCasoDistribuicao) {}
+    rpc listCasosMesmoDevedor (IdRequest) returns (ServiceResponseListCasoMesmoDevedor) {}
+    rpc designarCasos (DesignarCasosRequest) returns (ServiceResponseBoolean) {}
+    rpc designarUltimoCobrador (DesignarUltimoCobradorRequest) returns (ServiceResponseBoolean) {}
+    rpc listCobradorTotalCasos (ListCobradorTotalCasosRequest) returns (ServiceResponseListCobradorTotalCasos) {}
 
     rpc listTitulo (ListCriteriaRequestTitulo) returns (ServiceResponseListTitulo) {}
     rpc findOneTitulo (IdRequest) returns (ServiceResponseTitulo) {}
@@ -756,6 +763,139 @@ message ServiceResponseListCasoLista {
 message ListResultCasoLista {
     repeated CasoListaData result = 1;
     int32 total = 2;
+}
+
+//DISTRIBUICAO
+
+// Porte de wfmListaDistribuicao.aspx.vb - view vsgaCaso_ObterCasosDistribuicao
+// (WHERE base ja exclui id_statuscobranca IN (2,3,4,5,6,11,15,18,19,20)).
+// `aba` decide o filtro fixo aplicado no repository, alem dos filtros
+// compartilhados abaixo (mesmo espirito do bloco CasoPrevPagto acima):
+//   0 = Lista Distribuicao (id_statuscobranca=8 AND id_usua_cobrador IS NULL
+//       AND dt_usua_cobrador IS NULL AND cd_tipocontrato='E')
+//   1 = Casos Distribuidos (id_usua_cobrador IS NOT NULL, sem outra restricao)
+//   2 = Lista Distribuicao Proativo (igual a aba 0, cd_tipocontrato='P')
+// idCobrador filtra por idUltimoCobrador nas abas 0/2, por idUsuaCobrador na
+// aba 1 - resolvido no repository conforme `aba`, nao no frontend.
+message ListCriteriaRequestCasoDistribuicao {
+    int32 aba = 1;
+    int32 idCaso = 2;
+    string nmCliente = 3;
+    string nmDevedor = 4;
+    string cdCnpjCpf = 5;
+    string dtCadastroInicio = 6;
+    string dtCadastroFim = 7;
+    string dtUltimoHistoricoInicio = 8;
+    string dtUltimoHistoricoFim = 9;
+    double totalPrincipalInicio = 10;
+    double totalPrincipalFim = 11;
+    int32 idCobrador = 12;
+    int32 items = 13;
+    int32 page = 14;
+    map<string, string> order = 15;
+}
+
+message CasoDistribuicaoData {
+    int32 idCaso = 1;
+    int32 idCliente = 2;
+    string nmCliente = 3;
+    string cdTipoContrato = 4;
+    int32 idDevedor = 5;
+    string nmDevedor = 6;
+    string cdCnpjCpf = 7;
+    string dtCadastro = 8;
+    string dtUltimoHistorico = 9;
+    double totalPrincipal = 10;
+    // Sem des_statuscobranca (a view nao tem essa coluna, diferente de
+    // vsgaCaso_Lista) - abas 0/2 sao sempre status 8 (fixo no filtro), so a
+    // aba 1 (Casos Distribuidos) varia; o frontend resolve o texto via um
+    // mapa local pequeno (distribuicao-utils.ts), mesmo espirito de outras
+    // constantes hardcoded ja usadas nesta tela.
+    int32 idStatusCobranca = 11;
+    int32 idUltimoCobrador = 12;
+    // Nome do ultimo cobrador ja vem pronto da view (nm_ultimo_cobrador) -
+    // evita um join/lookup extra so pra exibir.
+    string nmUltimoCobrador = 13;
+    int32 idUsuaCobrador = 14;
+    string dtUsuaCobrador = 15;
+    // 0 = caso trabalhado, devedor unico; 1 = caso trabalhado, devedor com
+    // mais de um caso ativo; 2 = caso virgem, devedor unico; 3 = caso
+    // virgem, devedor com mais de um caso ativo. Linha ganha fundo
+    // LemonChiffon quando IN (1,3) - ver distribuicao-utils.ts no frontend.
+    int32 flagSituacaoCaso = 16;
+    int32 nuCasosPagosAno = 17;
+}
+
+message ServiceResponseListCasoDistribuicao {
+    int32 status = 1;
+    string message = 2;
+    ListResultCasoDistribuicao data = 3;
+    string error = 4;
+}
+
+message ListResultCasoDistribuicao {
+    repeated CasoDistribuicaoData result = 1;
+    int32 total = 2;
+}
+
+// Porte de psgaCaso_ObterCasosMesmoDevedor - popup "Casos do mesmo devedor"
+// (wucCasosMesmoDevedor.ascx) e insumo da logica de prioridade/cascata de
+// designarCasos.
+message CasoMesmoDevedorData {
+    int32 idCaso = 1;
+    string desStatusCobranca = 2;
+    string nmUsuarioLogin = 3;
+    string dtUsuaCobrador = 4;
+    string nmCliente = 5;
+    double totalPrincipal = 6;
+    int32 idCliente = 7;
+    int32 idStatusCobranca = 8;
+    int32 idUsuaCobrador = 9;
+}
+
+message ServiceResponseListCasoMesmoDevedor {
+    int32 status = 1;
+    string message = 2;
+    repeated CasoMesmoDevedorData data = 3;
+    string error = 4;
+}
+
+// Porte do botao "Designar" (btnDesignar_Click) - designa idsCaso ao
+// idCobrador escolhido, com prioridade de convergencia (mesmo devedor em
+// acordo com outro cobrador vence) e cascata pros demais casos ativos do
+// mesmo devedor (AtualizarDemaisCasosMesmoDevedor).
+message DesignarCasosRequest {
+    repeated int32 idsCaso = 1;
+    int32 idCobrador = 2;
+    int32 idUsuaOper = 3;
+}
+
+// Porte do botao "Designar Último Cobrador" (btnDesignarUltCob_Click) -
+// reatribui idsCaso ao respectivo idUltimoCobrador (da view, sem cascata).
+message DesignarUltimoCobradorRequest {
+    repeated int32 idsCaso = 1;
+    int32 idUsuaOper = 2;
+}
+
+// Porte de vsgaCaso_TotalCasosCobrador/vsgaCaso_TotalCasosCobradorProativo -
+// combo do dropdown "Designar". A view so tem 2 colunas (id_usuario,
+// cobrador_casos) - cobrador_casos ja vem pronta da view como string
+// formatada ("nm_usuario_login [ N ] [ M ] "), usada direto como rotulo do
+// combo, sem reconstrucao no frontend.
+message ListCobradorTotalCasosRequest {
+    bool proativo = 1;
+}
+
+message CobradorTotalCasosData {
+    int32 idUsuario = 1;
+    string cobradorCasos = 2;
+}
+
+message ServiceResponseListCobradorTotalCasos {
+    int32 status = 1;
+    string message = 2;
+    repeated CobradorTotalCasosData data = 3;
+    string error = 4;
 }
 
 // Contadores exibidos ao lado do combo de cobrador na Area de Trabalho
