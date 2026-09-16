@@ -68,6 +68,10 @@ service CasoService {
     rpc obterStatusPagamentoTitulo (IdRequest) returns (ServiceResponseStatusPagamentoTitulo) {}
     rpc obterSolicLuxotticaTitulo (IdRequest) returns (ServiceResponseRepositorioLuxottica) {}
     rpc validarCalculoProativoTitulo (CalcularTituloRequest) returns (ServiceResponseValidarCalculoProativoTitulo) {}
+    // Porte de wfmListaValoresTitulos.aspx ("Casos - Valores Titulos") -
+    // fielmente reimplementado em TypeORM/providers (nao chama a SP
+    // psgaTitulo_ObterValoresTitulo2), ver ObterValoresTituloUseCase.
+    rpc obterValoresTitulo (ValoresTituloRequest) returns (ServiceResponseListValorTitulo) {}
 
     rpc listAcordo (ListCriteriaRequestAcordo) returns (ServiceResponseListAcordo) {}
     rpc findOneAcordo (IdRequest) returns (ServiceResponseAcordo) {}
@@ -1148,6 +1152,85 @@ message ServiceResponseRepositorioLuxottica {
     string message = 2;
     repeated RepositorioLuxotticaData data = 3;
     string error = 4;
+}
+
+// Porte de wfmListaValoresTitulos.aspx.vb (ObterDados -> SP
+// psgaTitulo_ObterValoresTitulo2) - 3 modos de busca, so um preenchido por
+// vez: idCaso (busca por caso), ou idCliente+cdGrupo (idCliente=idGrupo
+// quando cdGrupo=false / idCliente=id do cliente individual quando
+// cdGrupo=true). Igual ao legado, filtro totalmente vazio nao retorna nada.
+message ValoresTituloRequest {
+    optional int32 idCaso = 1;
+    optional int32 idCliente = 2;
+    bool cdGrupo = 3;
+}
+
+// Um titulo com seus saldos/repasse ja calculados - equivalente a uma
+// linha do grid de wfmListaValoresTitulos.aspx (32 colunas). Reimplementado
+// em TypeORM/providers (TituloRepository + PagamentoProvider +
+// ContratoProvider + RepositorioLuxotticaRepository), nao chama a SP
+// legada diretamente.
+message ValorTituloData {
+    int32 idCaso = 1;
+    int32 idCliente = 2;
+    string nmCliente = 3;
+    int32 idDevedor = 4;
+    string nmDevedor = 5;
+    string cdCnpjCpf = 6;
+    int32 idTitulo = 7;
+    string deDoc = 8;
+    string solicLC = 9;
+    string dtCadastro = 10;
+    string dtVencimento = 11;
+    double nuPrincipal = 12;
+    double saldoPrincipal = 13;
+    double perJuros = 14;
+    double nuJuros = 15;
+    double saldoJuros = 16;
+    double perJurosDivididos = 17;
+    double nuJurosDivididos = 18;
+    double saldoJurosDivididos = 19;
+    double nuReajuste = 20;
+    double nuProtesto = 21;
+    double saldoProtesto = 22;
+    double perMulta = 23;
+    double nuMulta = 24;
+    double saldoMulta = 25;
+    double perMultaDividida = 26;
+    double nuMultaDividida = 27;
+    double saldoMultaDividida = 28;
+    double perHonorDevedor = 29;
+    double nuHonorDevedor = 30;
+    double saldoHonorDevedor = 31;
+    double nuTotalPago = 32;
+    double nuHonorCliente = 33;
+    double nuTotalRepasse = 34;
+    double nuSaldoTotal = 35;
+    // 0/1, fiel ao cd_quitado da SP legada (nao bool: MAX(CAST(cd_quitado
+    // AS INT)) pode ser 0, 1, ou ausente/0 quando nunca houve pagamento).
+    int32 cdQuitado = 36;
+    // Soma de nu_juros_vincendo de todas as parcelas do CASO (nao so deste
+    // titulo) - repetido em toda linha do mesmo caso; o frontend soma so
+    // 1x por id_caso distinto no painel de totais, igual ao legado.
+    double nuJurosVincendoCaso = 37;
+    // Flags do CONTRATO do titulo - usadas pelo frontend pros 2 badges de
+    // aviso, calculados fielmente so a partir da PRIMEIRA linha do
+    // resultado (replica o comportamento do legado, inclusive a limitacao
+    // dele numa busca por Grupo com clientes de contratos diferentes).
+    bool cdPrestContaHonorDev = 38;
+    bool cdJurosHonorarios = 39;
+}
+
+message ServiceResponseListValorTitulo {
+    int32 status = 1;
+    string message = 2;
+    ListResultValorTitulo data = 3;
+    string error = 4;
+}
+
+message ListResultValorTitulo {
+    repeated ValorTituloData result = 1;
+    int32 total = 2;
 }
 
 
