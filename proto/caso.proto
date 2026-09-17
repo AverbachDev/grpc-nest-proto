@@ -1219,6 +1219,13 @@ message ValorTituloData {
     // dele numa busca por Grupo com clientes de contratos diferentes).
     bool cdPrestContaHonorDev = 38;
     bool cdJurosHonorarios = 39;
+    // Juros vincendo ja PAGO (SUM(nu_juros_vincendo) de tecoTituloPagamento
+    // por titulo, igual ao juros_vincendos_pago da SP legada) - usado so
+    // pelo painel de totais consolidados do frontend (SaldoTotal = Total
+    // Calculado - (TotalPago + TotalJurosVincendosPago), fiel ao code-behind
+    // de wfmListaValoresTitulos.aspx.vb). Nao confundir com
+    // nuJurosVincendoCaso (juros a vencer, nao pago).
+    double nuJurosVincendosPago = 40;
 }
 
 message ServiceResponseListValorTitulo {
