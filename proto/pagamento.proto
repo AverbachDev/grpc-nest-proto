@@ -33,6 +33,13 @@ service PagamentoService {
     rpc removeTituloPagamento (IdRequest) returns (ServiceResponseTituloPagamento) {}
     rpc findTotalPaymentTituloPagamento (IdRequest) returns (ServiceResponseTotalPaymentTituloPagamento) {}
     rpc isPaidUpTituloPagamento (IdRequest) returns (ServiceResponseBoolean) {}
+    // Porte de wfmRPTFaturamentoCobrador.aspx.vb (SP
+    // psgaTituloPagamento_ObterHonorDevedor) - so a fatia de dominio de
+    // pagamento (tecoTituloPagamento+tecoPagamento+tecoDepositosEfetuados).
+    // Resolucao de caso/cobrador/cliente/contrato e o branch "aaa" (UNION
+    // ALL de linhas sem caso, que depende dos MESMOS filtros de
+    // caso/cobrador) ficam por conta de quem consome isso.
+    rpc listDepositoHonorDevedor (ListDepositoHonorDevedorRequest) returns (ServiceResponseListDepositoHonorDevedor) {}
 
     rpc listTituloPagamentoBalancete (ListCriteriaRequestTituloPagamentoBalancete) returns (ServiceResponseListTituloPagamentoBalancete) {}
     rpc findOneTituloPagamentoBalancete (IdRequest) returns (ServiceResponseTituloPagamentoBalancete) {}
@@ -360,6 +367,39 @@ message TituloPagamentoPaymentData {
     int32 idCaso = 14;
     int32 idUsuaOper = 15;
     string dtRegistro = 16;
+}
+
+// dtIni/dtFim: "YYYY-MM-DD" - filtro fica em DE.dt_registro, limite
+// superior inclusive o dia inteiro (replicar
+// >= dtIni AND < DATEADD(day,1,DATEADD(SECOND,-1,dtFim)) fielmente).
+message ListDepositoHonorDevedorRequest {
+    string dtIni = 1;
+    string dtFim = 2;
+}
+
+// Uma linha por (id_titulo, id_pagto, id_deposito) - fiel a
+// tecoTituloPagamento/tecoPagamento/tecoDepositosEfetuados da SP legada,
+// SEM a resolucao de caso/cliente/cobrador-grupo/agencia (fora do
+// dominio deste microsservico) e SEM o branch "aaa" (ver comentario no
+// RPC). Quem consome resolve idTitulo->idCaso e agrupa/resoma por
+// idCaso, nao por idTitulo - um caso pode ter varios titulos pagos no
+// mesmo deposito.
+message DepositoHonorDevedorData {
+    int32 idTitulo = 1;
+    int32 idUsuaCobrador = 2;
+    int32 idPagto = 3;
+    int32 idDeposito = 4;
+    double nuValorPago = 5;
+    double nuHonorDevedor = 6;
+    string dtRegistro = 7;
+    string dtDeposito = 8;
+}
+
+message ServiceResponseListDepositoHonorDevedor {
+    int32 status = 1;
+    string message = 2;
+    repeated DepositoHonorDevedorData data = 3;
+    string error = 4;
 }
 
 message TituloPaymentRdData {

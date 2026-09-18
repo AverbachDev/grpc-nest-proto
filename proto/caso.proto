@@ -72,6 +72,14 @@ service CasoService {
     // fielmente reimplementado em TypeORM/providers (nao chama a SP
     // psgaTitulo_ObterValoresTitulo2), ver ObterValoresTituloUseCase.
     rpc obterValoresTitulo (ValoresTituloRequest) returns (ServiceResponseListValorTitulo) {}
+    // Porte de wfmRPTFaturamentoCobrador.aspx ("Faturamento por Cobrador") -
+    // fielmente reimplementado em TypeORM/providers (nao chama a SP
+    // psgaTituloPagamento_ObterHonorDevedor), ver
+    // ObterFaturamentoCobradorUseCase. Orquestra dados de
+    // microservice-pagamento (listDepositoHonorDevedor),
+    // microservice-extrato (item extrato/agencia) e microservice-user
+    // (cobradores do grupo 4).
+    rpc obterFaturamentoCobrador (ObterFaturamentoCobradorRequest) returns (ServiceResponseListFaturamentoCobrador) {}
 
     rpc listAcordo (ListCriteriaRequestAcordo) returns (ServiceResponseListAcordo) {}
     rpc findOneAcordo (IdRequest) returns (ServiceResponseAcordo) {}
@@ -1237,6 +1245,60 @@ message ServiceResponseListValorTitulo {
 
 message ListResultValorTitulo {
     repeated ValorTituloData result = 1;
+    int32 total = 2;
+}
+
+// Porte de wfmRPTFaturamentoCobrador.aspx.vb (ObterDados -> SP
+// psgaTituloPagamento_ObterHonorDevedor) - dtIni/dtFim sao os 2 unicos
+// parametros que vao pro SQL (RequiredFieldValidator no legado, iguais a
+// SP). Os campos abaixo replicam o filtro que o code-behind legado
+// aplicava em memoria sobre o .ToList() da SP (Caso/Cobrador/Cliente/
+// Conta/faixa de Honorarios) - aqui aplicados em memoria dentro do
+// ObterFaturamentoCobradorUseCase, depois de montar as linhas (nao vao
+// pro SQL, so filtram o array final em memoria no microservice-caso).
+message ObterFaturamentoCobradorRequest {
+    string dtIni = 1;
+    string dtFim = 2;
+    optional int32 idCaso = 3;
+    optional string nmUsuarioLogin = 4;
+    optional string nmCliente = 5;
+    optional int32 idAgencia = 6;
+    optional double nuHonorDevedorMin = 7;
+    optional double nuHonorDevedorMax = 8;
+}
+
+// Uma linha do relatorio "Faturamento por Cobrador" - fiel as 11 colunas
+// do RadGrid1 (export Excel) de wfmRPTFaturamentoCobrador.aspx, ja com
+// caso/cliente/cobrador/agencia resolvidos e reagrupados por idCaso
+// (ObterFaturamentoCobradorUseCase reagrupa os dados por-titulo vindos de
+// microservice-pagamento antes de montar essas linhas - ver comentario em
+// PagamentoProvider.listDepositoHonorDevedor).
+message FaturamentoCobradorData {
+    string nmUsuarioLogin = 1;
+    int32 idCaso = 2;
+    string nmCliente = 3;
+    double nuValorPago = 4;
+    double nuHonorDevedor = 5;
+    int32 idAgencia = 6;
+    string nuConta = 7;
+    double perHonorDevedorPago = 8;
+    double perHonorDevedorContrato = 9;
+    string dtDeposito = 10;
+    string dtRegistro = 11;
+    double totalPrincipal = 12;
+    // 'S'/'N' - fiel ao char da SP legada (fecoPagamento_PrimeiroPagamento).
+    string primeiroPagamento = 13;
+}
+
+message ServiceResponseListFaturamentoCobrador {
+    int32 status = 1;
+    string message = 2;
+    ListResultFaturamentoCobrador data = 3;
+    string error = 4;
+}
+
+message ListResultFaturamentoCobrador {
+    repeated FaturamentoCobradorData result = 1;
     int32 total = 2;
 }
 
