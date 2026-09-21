@@ -273,6 +273,8 @@ message ListCriteriaRequestChatWhatsDevedor {
     // true = so chats com cdNaoLidaCobrador = true (alerta de mensagens pendentes do
     // cobrador). false/omitido = sem esse filtro.
     bool somenteNaoLidaCobrador = 13;
+    // Lista de devedores (IN). Quando informada, substitui o filtro de idDevedor unico.
+    repeated int32 idDevedores = 14;
 }
 
 message ChatWhatsDevedorData {
