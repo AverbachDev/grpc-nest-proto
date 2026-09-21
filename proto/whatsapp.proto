@@ -270,6 +270,9 @@ message ListCriteriaRequestChatWhatsDevedor {
     int32 items = 10;
     int32 page = 11;
     map<string, string> order =12;
+    // true = so chats com cdNaoLidaCobrador = true (alerta de mensagens pendentes do
+    // cobrador). false/omitido = sem esse filtro.
+    bool somenteNaoLidaCobrador = 13;
 }
 
 message ChatWhatsDevedorData {
