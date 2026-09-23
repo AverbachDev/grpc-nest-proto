@@ -91,6 +91,13 @@ service ClienteService {
   rpc removeUnNegocioClienteExtraJudicial (IdRequest) returns (ServiceResponseUnNegocioClienteExtraJudicial) {}
   rpc createManyUnNegocioClienteExtraJudicial (UnNegocioClienteExtraJudicialManyData) returns (ServiceResponseUnNegocioClienteExtraJudicial) {}
   rpc removeAllUnNegocioClienteExtraJudicial (WithoutParams) returns (ServiceResponseUnNegocioClienteExtraJudicial) {}
+
+  // ContatoPrestConta
+  rpc listContatoPrestConta (ListCriteriaRequestContatoPrestConta) returns (ServiceResponseListContatoPrestConta) {}
+  rpc findOneContatoPrestConta (IdRequest) returns (ServiceResponseContatoPrestConta) {}
+  rpc createContatoPrestConta (ContatoPrestContaData) returns (ServiceResponseContatoPrestConta) {}
+  rpc updateContatoPrestConta (ContatoPrestContaUpdateRequest) returns (ServiceResponseContatoPrestConta) {}
+  rpc removeContatoPrestConta (IdRequest) returns (ServiceResponseContatoPrestConta) {}
 }
 
 message IdRequest{
@@ -702,4 +709,54 @@ message ListCriteriaRequestUnNegocioClienteExtraJudicial {
   int32 items = 5;
   int32 page = 6;
   map<string, string> order = 7;
+}
+
+// ContatoPrestConta - contatos de e-mail pra envio automático de
+// Prestação de Contas (tecoContatoPrestConta no legado). Por CLIENTE,
+// não por Contrato - compartilhado entre todos os contratos daquele
+// cliente (wfmCadContrato.aspx.vb: ExibirContatos filtra só por
+// id_cliente, sem id_contrato).
+message ContatoPrestContaData {
+  int32 idContatoPrestConta = 1;
+  int32 idCliente = 2;
+  string nmContato = 3;
+  string deEmail = 4;
+  bool cdAtivo = 5;
+  int32 idUsuaOper = 6;
+  string dtRegistro = 7;
+  string createdDate = 8;
+  string updatedDate = 9;
+  string deletedDate = 10;
+}
+
+message ContatoPrestContaUpdateRequest {
+  int32 id = 1;
+  ContatoPrestContaData contatoPrestConta = 2;
+}
+
+message ServiceResponseContatoPrestConta {
+  int32 status = 1;
+  string message = 2;
+  repeated ContatoPrestContaData data = 3;
+  string error = 4;
+}
+
+message ServiceResponseListContatoPrestConta {
+  int32 status = 1;
+  string message = 2;
+  ListResultContatoPrestConta data = 3;
+  string error = 4;
+}
+
+message ListResultContatoPrestConta {
+  repeated ContatoPrestContaData result = 1;
+  int32 total = 2;
+}
+
+message ListCriteriaRequestContatoPrestConta {
+  int32 idContatoPrestConta = 1;
+  int32 idCliente = 2;
+  int32 items = 3;
+  int32 page = 4;
+  map<string, string> order = 5;
 }
