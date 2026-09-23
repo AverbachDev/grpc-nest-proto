@@ -213,7 +213,12 @@ message ClienteUpdateRequest{
 
 message UpdateClienteCampanhaRequest {
     int32 idCliente = 1;
-    optional int32 idClienteCampanha = 2;
+    // 0 = limpar (idClienteCampanha vira NULL na tabela) - não usa
+    // "optional" de propósito, ver comentário na rpc acima: esta chamada é
+    // sempre feita com intenção definida (nunca "não mexer"), então não
+    // precisa de tracking de presença nem de sentinela genérico do resto
+    // do domínio (-999999/'null').
+    int32 idClienteCampanha = 2;
 }
 
 message ServiceResponseCliente {
