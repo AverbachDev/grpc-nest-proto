@@ -26,6 +26,18 @@ service ClienteService {
   rpc getClienteCompleto (IdRequest) returns (ServiceResponseCliente) {}
   rpc saveClienteCompleto (ClienteUpdateRequest) returns (ServiceResponseCliente) {}
 
+  // Update de um único campo escalar (id_cliente_campanha), usado pela tela
+  // de Contrato ("Cliente da Campanha" - é campo do Cliente, não do
+  // Contrato). Mensagem própria e minúscula de propósito: updateCliente
+  // reconstrói o ClienteEntity inteiro a partir de ClienteData (ver
+  // update-cliente.usecase.ts) - como ClienteData não tem "optional" nos
+  // campos, um payload parcial vindo por gRPC chega com os campos não
+  // enviados zerados (proto3 não distingue "ausente" de "valor default"
+  // pra campo escalar sem "optional"), não com undefined, então um merge
+  // ingênuo apagaria o resto do cadastro. Rota dedicada evita esse
+  // problema por completo em vez de tentar reconstruir presença parcial.
+  rpc updateClienteCampanha (UpdateClienteCampanhaRequest) returns (ServiceResponseCliente) {}
+
   //Contato
   rpc listContato (ListCriteriaRequestContato) returns (ServiceResponseListContato) {}
   rpc findOneContato (IdRequest) returns (ServiceResponseContato) {}
@@ -197,6 +209,11 @@ message ClienteData {
 message ClienteUpdateRequest{
     int32 idCliente = 1;
     ClienteData cliente = 2;
+}
+
+message UpdateClienteCampanhaRequest {
+    int32 idCliente = 1;
+    optional int32 idClienteCampanha = 2;
 }
 
 message ServiceResponseCliente {
