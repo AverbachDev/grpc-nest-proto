@@ -308,6 +308,27 @@ message ContratoData {
     bool cdDesabilitaAcordoPorConta = 95;
     bool cdClientePrioritario = 96;
 
+    // Grades do contrato (agregado completo - usado pelo findOne/update com
+    // relations e cascade save, ver contrato.entity.ts). Preenchidas pelo
+    // findOne; no update, o array presente SUBSTITUI o estado atual dessa
+    // grade inteira (linhas ausentes do array sao excluidas via
+    // orphanedRowAction:'delete' no cascade do TypeORM).
+    repeated ContratoPermanenciaData contratoPermanencias = 97;
+    repeated EmissaoNFData emissaoNfs = 98;
+    repeated JurosAnoRefData jurosAnoRefs = 99;
+    repeated JurosPrincipalData jurosPrincipals = 100;
+    repeated JurosDiasVencData jurosDiasVencs = 101;
+    repeated HonorDevCasoData honorDevCasos = 102;
+    repeated HonorDevDiasVencData honorDevDiasVencs = 103;
+    repeated HonorDevAnoVencTitulosData honorDevAnoVencTitulos = 104;
+    repeated HonorValTitulosData honorValTitulos = 105;
+    repeated HonorDiasVencData honorDiasVencs = 106;
+    repeated HonorVencTitulosData honorVencTitulos = 107;
+    repeated HonorDiasCadData honorDiasCads = 108;
+    repeated HonorJudicialValTitulosData honorJudicialValTitulos = 109;
+    repeated HonorJudicialDiasVencData honorJudicialDiasVencs = 110;
+    repeated PrestContaHonorDevedorData prestContaHonorDevedors = 111;
+    repeated ValorNegativacaoData valorNegativacaos = 112;
 }
 
 message ContratoManyData {
