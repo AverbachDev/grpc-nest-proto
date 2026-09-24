@@ -302,6 +302,7 @@ message ContatoData {
     string createdDate = 15;
     string updatedDate = 16;
     string deletedDate = 17;
+    string deKeyMicroservice = 18;
 }
 
 message ContatoUpdateRequest{
