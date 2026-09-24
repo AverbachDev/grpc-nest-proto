@@ -1218,6 +1218,7 @@ message JurosDiasVencData {
     string createdDate = 8;
     string updatedDate = 9;
     string deletedDate = 10;
+    double perJurosRepasse = 11;
 
 }
 
