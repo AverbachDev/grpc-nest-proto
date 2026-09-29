@@ -26,6 +26,9 @@ service PagamentoService {
     // (vsgaDepositosEfetuados_ObterListaNaoIdentificados + flags derivadas
     // de RadGrid1_ItemDataBound).
     rpc listDepositosIdentificados (ListDepositosIdentificadosRequest) returns (ServiceResponseListDepositosIdentificados) {}
+    // Porte de btnConferir_Click/btnConferirPreventivo_Click
+    // (wfmListaEscrituracaoLote.aspx.vb) - psgaDepositosEfetuados_ConferenciaRepasse.
+    rpc conferenciaRepasse (ConferenciaRepasseRequest) returns (ServiceResponseConferenciaRepasse) {}
 
     rpc listParcelaPagamento (ListCriteriaRequestParcelaPagamento) returns (ServiceResponseListParcelaPagamento) {}
     rpc findOneParcelaPagamento (IdRequest) returns (ServiceResponseParcelaPagamento) {}
@@ -274,6 +277,35 @@ message ServiceResponseListDepositosIdentificados {
     int32 status = 1;
     string message = 2;
     ListResultDepositosIdentificados data = 3;
+    string error = 4;
+}
+
+message ConferenciaRepasseRequest {
+    bool cdTipoEscrituracao = 1;
+    string dtInicio = 2;
+    string dtFim = 3;
+}
+
+message ConferenciaRepasseItem {
+    string nmCliente = 1;
+    string nmDevedor = 2;
+    int32 idCaso = 3;
+    string tpRepasse = 4;
+    double totalRepasse = 5;
+    double totalNuValorPago = 6;
+    double totalNuHonorDevedor = 7;
+    double totalNuHonorCliente = 8;
+    string dtRegistro = 9;
+    string dtPagto = 10;
+    string cdPeriodicidadeEmissao = 11;
+    string cdCnpjAverbachNf = 12;
+    bool cdTipoEscrituracao = 13;
+}
+
+message ServiceResponseConferenciaRepasse {
+    int32 status = 1;
+    string message = 2;
+    repeated ConferenciaRepasseItem data = 3;
     string error = 4;
 }
 
