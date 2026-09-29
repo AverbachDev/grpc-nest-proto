@@ -22,6 +22,10 @@ service PagamentoService {
     // deposito selecionado, executa InserirHistorico +
     // identificarDepositosEfetuados + AtualizarStatusCaso.
     rpc escriturarLoteDepositosEfetuados (EscriturarLoteDepositosEfetuadosRequest) returns (ServiceResponseEscriturarLoteDepositosEfetuados) {}
+    // Porte da fonte de dados de wfmListaEscrituracaoLote.aspx.vb
+    // (vsgaDepositosEfetuados_ObterListaNaoIdentificados + flags derivadas
+    // de RadGrid1_ItemDataBound).
+    rpc listDepositosIdentificados (ListDepositosIdentificadosRequest) returns (ServiceResponseListDepositosIdentificados) {}
 
     rpc listParcelaPagamento (ListCriteriaRequestParcelaPagamento) returns (ServiceResponseListParcelaPagamento) {}
     rpc findOneParcelaPagamento (IdRequest) returns (ServiceResponseParcelaPagamento) {}
@@ -229,6 +233,47 @@ message ServiceResponseEscriturarLoteDepositosEfetuados {
     int32 status = 1;
     string message = 2;
     repeated EscriturarLoteResultadoItem data = 3;
+    string error = 4;
+}
+
+message ListDepositosIdentificadosRequest {
+    bool cdTipoEscrituracao = 1;
+    string deDepositante = 2;
+    double nuValorMin = 3;
+    double nuValorMax = 4;
+    string dtDepositoIni = 5;
+    string dtDepositoFim = 6;
+    int32 items = 7;
+    int32 page = 8;
+    map<string, string> order = 9;
+}
+
+message DepositoIdentificadoItem {
+    int32 idDeposito = 1;
+    int32 idPagto = 2;
+    string dtExtrato = 3;
+    string dtDeposito = 4;
+    int32 idAgencia = 5;
+    string deAgencia = 6;
+    string nuConta = 7;
+    string deDepositante = 8;
+    string deTipo = 9;
+    double nuValor = 10;
+    string cdCnpjCpf = 11;
+    bool cdTipoEscrituracao = 12;
+    bool possuiParcelaCasada = 13;
+    bool parcelaJaPaga = 14;
+}
+
+message ListResultDepositosIdentificados {
+    repeated DepositoIdentificadoItem result = 1;
+    int32 total = 2;
+}
+
+message ServiceResponseListDepositosIdentificados {
+    int32 status = 1;
+    string message = 2;
+    ListResultDepositosIdentificados data = 3;
     string error = 4;
 }
 
