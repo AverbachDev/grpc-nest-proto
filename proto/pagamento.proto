@@ -18,6 +18,10 @@ service PagamentoService {
     rpc updateDepositosEfetuados (DepositosEfetuadosUpdateRequest) returns (ServiceResponseDepositosEfetuados) {}
     rpc removeDepositosEfetuados (IdRequest) returns (ServiceResponseDepositosEfetuados) {}
     rpc identificarDepositosEfetuados (IdentificarDepositosEfetuadosRequest) returns (ServiceResponseIdentificarDepositosEfetuados) {}
+    // Porte de wfmListaEscrituracaoLote.aspx.vb (btnEscriturar_Click) - por
+    // deposito selecionado, executa InserirHistorico +
+    // identificarDepositosEfetuados + AtualizarStatusCaso.
+    rpc escriturarLoteDepositosEfetuados (EscriturarLoteDepositosEfetuadosRequest) returns (ServiceResponseEscriturarLoteDepositosEfetuados) {}
 
     rpc listParcelaPagamento (ListCriteriaRequestParcelaPagamento) returns (ServiceResponseListParcelaPagamento) {}
     rpc findOneParcelaPagamento (IdRequest) returns (ServiceResponseParcelaPagamento) {}
@@ -208,6 +212,23 @@ message ServiceResponseIdentificarDepositosEfetuados {
     int32 status = 1;
     string message = 2;
     int32 idTitulo = 3;
+    string error = 4;
+}
+
+message EscriturarLoteDepositosEfetuadosRequest {
+    repeated int32 idsDeposito = 1;
+    int32 idUsuaOper = 2;
+}
+
+message EscriturarLoteResultadoItem {
+    int32 idDeposito = 1;
+    int32 idTitulo = 2;
+}
+
+message ServiceResponseEscriturarLoteDepositosEfetuados {
+    int32 status = 1;
+    string message = 2;
+    repeated EscriturarLoteResultadoItem data = 3;
     string error = 4;
 }
 
