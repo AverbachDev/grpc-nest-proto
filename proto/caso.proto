@@ -959,6 +959,11 @@ message ParametrizacaoAcordoData {
     string cdVincendos = 15;
     double perVincendos = 16;
     bool cdVincendosParcelasIguais = 17;
+    // Juros pelo Calculo da Data Final do Acordo (wfmCadAcordo.aspx.vb:
+    // 5330-5368) - quando true, a Data de Calculo compartilhada de todos
+    // os titulos do acordo vira a data da ultima parcela do parcelamento,
+    // em vez de ficar na data default/manual.
+    bool cdCalculoFinalAcordo = 18;
 }
 
 message ServiceResponseParametrizacaoAcordo {
