@@ -47,6 +47,18 @@ service CasoService {
     rpc identificarDepositosCnab (IdentificarDepositosCnabRequest) returns (ServiceResponseIdentificarDepositosCnab) {}
     rpc identificarDepositosCnabItau (IdentificarDepositosCnabItauRequest) returns (ServiceResponseIdentificarDepositosCnabItau) {}
     rpc identificarDepositosPlanilha (IdentificarDepositosPlanilhaRequest) returns (ServiceResponseIdentificarDepositosPlanilha) {}
+
+    // Porte de wfmCadImportacaoSGA.aspx.vb - mecanismos de importacao
+    // PADRAO/ILLYCAFFE/ILLYCAFFEBaixa (psgaCaso_ImportacaoPadraoTitulo,
+    // psgaCaso_ImportacaoTituloILLYCAFFE,
+    // psgaCaso_ImportacaoPadraoTituloILLYCAFFEBaixa). Diferente do
+    // ImportarDepositosBradesco acima, a logica de negocio dessas SPs foi
+    // REIMPLEMENTADA em TypeORM (decisao explicita do usuario) - as SPs nao
+    // sao mais chamadas, so serviram de especificacao.
+    rpc importarArquivoLegado (ImportarArquivoLegadoRequest) returns (ServiceResponseImportarArquivoLegado) {}
+    rpc importarMecanismoPadrao (ImportarMecanismoPadraoRequest) returns (ServiceResponseImportarMecanismoPadrao) {}
+    rpc importarMecanismoIllycaffe (ImportarMecanismoIllycaffeRequest) returns (ServiceResponseImportarMecanismoIllycaffe) {}
+    rpc importarMecanismoIllycaffeBaixa (ImportarMecanismoIllycaffeBaixaRequest) returns (ServiceResponseImportarMecanismoIllycaffeBaixa) {}
     rpc listCasoLista (ListCriteriaRequestCasoLista) returns (ServiceResponseListCasoLista) {}
     // Porte de wfmListaDistribuicao.aspx (3 abas sobre a mesma view
     // vsgaCaso_ObterCasosDistribuicao) - ver bloco DISTRIBUICAO mais abaixo.
@@ -2777,5 +2789,159 @@ message ServiceResponseListCasoAgendado {
     int32 status = 1;
     string message = 2;
     ListResultCasoAgendado data = 3;
+    string error = 4;
+}
+
+// ===========================================================================
+// Importacao de mecanismos legados (wfmCadImportacaoSGA.aspx.vb) - PADRAO,
+// ILLYCAFFE, ILLYCAFFEBaixa. Ver nota na rpc importarArquivoLegado acima: a
+// logica das SPs legadas foi reimplementada em TypeORM, nao chamada via EXEC.
+// ===========================================================================
+
+message ImportarArquivoLegadoRequest {
+    // 'PADRAO' | 'ILLYCAFFE' | 'ILLYCAFFEBAIXA' - decide o prefixo da chave
+    // no MinIO e a stored procedure legada de referencia.
+    string mecanismo = 1;
+    string nomeArquivo = 2;
+    string conteudoBase64 = 3;
+    int32 idUsuaOper = 4;
+}
+
+message ImportarArquivoLegadoData {
+    int32 idArquivoImportacao = 1;
+}
+
+message ServiceResponseImportarArquivoLegado {
+    int32 status = 1;
+    string message = 2;
+    repeated ImportarArquivoLegadoData data = 3;
+    string error = 4;
+}
+
+// Resultado por linha, compartilhado pelas 3 importacoes (mesmo shape de
+// saida nas 3 SPs legadas: id_caso/id_devedor/id_titulo/id_cliente_retorno +
+// cd_retorno).
+message ResultadoImportacaoLegadoData {
+    int32 linha = 1;
+    int32 idCasoRetorno = 2;
+    int32 idDevedorRetorno = 3;
+    int32 idTituloRetorno = 4;
+    int32 idClienteRetorno = 5;
+    string cdRetorno = 6;
+}
+
+// Porte de MecanismoImportacaoPADRAO / psgaCaso_ImportacaoPadraoTitulo.
+message LinhaImportacaoPadraoData {
+    string nmCliente = 1;
+    string cdCnpjCpf = 2;
+    string nmDevedor = 3;
+    string deDoc = 4;
+    string deIdDocumento = 5;
+    string dtEmissao = 6;
+    string dtVencimento = 7;
+    double nuValor = 8;
+    string desNatureza = 9;
+    string deLogradouro = 10;
+    string nmBairro = 11;
+    string desMunicipio = 12;
+    string codFederacao = 13;
+    string deCep = 14;
+    string deDdd = 15;
+    string deTelefone = 16;
+    string deCodDevedor = 17;
+    double nuProtesto = 18;
+    bool cdBranda = 19;
+    string deUnnegocio = 20;
+    string dtVigenciaIni = 21;
+    string dtVigenciaFim = 22;
+    string nmCorretor = 23;
+    string deTelefoneCorretor = 24;
+    string deVeiculo = 25;
+    string deDddCelular = 26;
+    string deCelular = 27;
+    string deEmail = 28;
+    string cdCnpjCpfCliente = 29;
+    // Campos extras desta fase (fora da SP legada) - passo de Contato via
+    // microservice-devedor, ver importar-mecanismo-padrao.usecase.ts.
+    string deDddContato = 30;
+    string deTelefoneContato = 31;
+    string deEmailContato = 32;
+}
+
+message ImportarMecanismoPadraoRequest {
+    repeated LinhaImportacaoPadraoData linhas = 1;
+    int32 idUsuaOper = 2;
+    int32 idArquivoImportacao = 3;
+    string nomeArquivo = 4;
+}
+
+message ServiceResponseImportarMecanismoPadrao {
+    int32 status = 1;
+    string message = 2;
+    repeated ResultadoImportacaoLegadoData data = 3;
+    string error = 4;
+}
+
+// Porte de MecanismoImportacaoILLYCAFFE / psgaCaso_ImportacaoTituloILLYCAFFE
+// (cliente fixo 8042).
+message LinhaImportacaoIllycaffeData {
+    string nmDevedor = 1;
+    string cdCnpjCpf = 2;
+    string deLogradouro = 3;
+    string nmBairro = 4;
+    string desMunicipio = 5;
+    string codFederacao = 6;
+    string deCep = 7;
+    string deEmail = 8;
+    bool cdBranda = 9;
+    string deCodDevedor = 10;
+    string deDoc = 11;
+    string dtEmissao = 12;
+    string deIdDocumento = 13;
+    string dtVencimento = 14;
+    double nuValor = 15;
+    string desNatureza = 16;
+}
+
+message ImportarMecanismoIllycaffeRequest {
+    repeated LinhaImportacaoIllycaffeData linhas = 1;
+    int32 idUsuaOper = 2;
+    int32 idArquivoImportacao = 3;
+    string nomeArquivo = 4;
+}
+
+message ServiceResponseImportarMecanismoIllycaffe {
+    int32 status = 1;
+    string message = 2;
+    repeated ResultadoImportacaoLegadoData data = 3;
+    string error = 4;
+}
+
+// Porte de MecanismoImportacaoILLYCAFFEBaixa /
+// psgaCaso_ImportacaoPadraoTituloILLYCAFFEBaixa (cliente fixo 8042, so
+// baixa/devolve/altera titulos existentes - nunca cria titulo novo).
+message LinhaImportacaoIllycaffeBaixaData {
+    string deCodDevedor = 1;
+    string nmDevedor = 2;
+    string deDoc = 3;
+    string dtVencimento = 4;
+    double nuValor = 5;
+    double nuPrincipalPago = 6;
+    double nuJurosMoraPago = 7;
+    double nuProtestoPago = 8;
+    string codOcorrencia = 9;
+}
+
+message ImportarMecanismoIllycaffeBaixaRequest {
+    repeated LinhaImportacaoIllycaffeBaixaData linhas = 1;
+    int32 idUsuaOper = 2;
+    int32 idArquivoImportacao = 3;
+    string nomeArquivo = 4;
+}
+
+message ServiceResponseImportarMecanismoIllycaffeBaixa {
+    int32 status = 1;
+    string message = 2;
+    repeated ResultadoImportacaoLegadoData data = 3;
     string error = 4;
 }
