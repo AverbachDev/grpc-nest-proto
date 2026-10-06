@@ -60,6 +60,11 @@ service CasoService {
     rpc importarMecanismoIllycaffe (ImportarMecanismoIllycaffeRequest) returns (ServiceResponseImportarMecanismoIllycaffe) {}
     rpc importarMecanismoIllycaffeBaixa (ImportarMecanismoIllycaffeBaixaRequest) returns (ServiceResponseImportarMecanismoIllycaffeBaixa) {}
     rpc importarMecanismoIllycaffeBaseClientes (ImportarMecanismoIllycaffeBaseClientesRequest) returns (ServiceResponseImportarMecanismoIllycaffeBaseClientes) {}
+    // Progresso em memoria (no-op cross-instancia) da importacao em
+    // andamento - usecase atualiza a cada 50 linhas processadas, front faz
+    // polling enquanto a chamada sincrona principal (importarMecanismo*)
+    // ainda esta em andamento.
+    rpc obterProgressoImportacaoLegado (ObterProgressoImportacaoLegadoRequest) returns (ServiceResponseProgressoImportacaoLegado) {}
     rpc listCasoLista (ListCriteriaRequestCasoLista) returns (ServiceResponseListCasoLista) {}
     // Porte de wfmListaDistribuicao.aspx (3 abas sobre a mesma view
     // vsgaCaso_ObterCasosDistribuicao) - ver bloco DISTRIBUICAO mais abaixo.
@@ -2981,5 +2986,22 @@ message ServiceResponseImportarMecanismoIllycaffeBaseClientes {
     int32 status = 1;
     string message = 2;
     repeated ResultadoImportacaoBaseClientesData data = 3;
+    string error = 4;
+}
+
+message ObterProgressoImportacaoLegadoRequest {
+    int32 idArquivoImportacao = 1;
+}
+
+message ProgressoImportacaoLegadoData {
+    int32 processadas = 1;
+    int32 total = 2;
+    bool finalizado = 3;
+}
+
+message ServiceResponseProgressoImportacaoLegado {
+    int32 status = 1;
+    string message = 2;
+    repeated ProgressoImportacaoLegadoData data = 3;
     string error = 4;
 }
