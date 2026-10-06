@@ -59,6 +59,7 @@ service CasoService {
     rpc importarMecanismoPadrao (ImportarMecanismoPadraoRequest) returns (ServiceResponseImportarMecanismoPadrao) {}
     rpc importarMecanismoIllycaffe (ImportarMecanismoIllycaffeRequest) returns (ServiceResponseImportarMecanismoIllycaffe) {}
     rpc importarMecanismoIllycaffeBaixa (ImportarMecanismoIllycaffeBaixaRequest) returns (ServiceResponseImportarMecanismoIllycaffeBaixa) {}
+    rpc importarMecanismoIllycaffeBaseClientes (ImportarMecanismoIllycaffeBaseClientesRequest) returns (ServiceResponseImportarMecanismoIllycaffeBaseClientes) {}
     rpc listCasoLista (ListCriteriaRequestCasoLista) returns (ServiceResponseListCasoLista) {}
     // Porte de wfmListaDistribuicao.aspx (3 abas sobre a mesma view
     // vsgaCaso_ObterCasosDistribuicao) - ver bloco DISTRIBUICAO mais abaixo.
@@ -2943,5 +2944,42 @@ message ServiceResponseImportarMecanismoIllycaffeBaixa {
     int32 status = 1;
     string message = 2;
     repeated ResultadoImportacaoLegadoData data = 3;
+    string error = 4;
+}
+
+// Porte de MecanismoImportacaoILLYCAFFEBaseClientes /
+// psgaCaso_ImportacaoBaseClientesILLYCAFFE (cliente fixo 8042) - so
+// insere/atualiza o repositorio mestre de devedores (tecoRepositorioClientesIllyCaffe),
+// nao importa titulo - por isso usa um resultado proprio (id_item_rep, nao
+// id_caso/id_devedor/id_titulo como ResultadoImportacaoLegadoData).
+message LinhaImportacaoIllycaffeBaseClientesData {
+    string billToCode = 1;
+    string billTo = 2;
+    string vatCode = 3;
+    string address1 = 4;
+    string address2 = 5;
+    string telephone = 6;
+    string province = 7;
+    string zipCode = 8;
+    string town = 9;
+}
+
+message ImportarMecanismoIllycaffeBaseClientesRequest {
+    repeated LinhaImportacaoIllycaffeBaseClientesData linhas = 1;
+    int32 idUsuaOper = 2;
+    int32 idArquivoImportacao = 3;
+    string nomeArquivo = 4;
+}
+
+message ResultadoImportacaoBaseClientesData {
+    int32 linha = 1;
+    int32 idItemRepRetorno = 2;
+    string cdRetorno = 3;
+}
+
+message ServiceResponseImportarMecanismoIllycaffeBaseClientes {
+    int32 status = 1;
+    string message = 2;
+    repeated ResultadoImportacaoBaseClientesData data = 3;
     string error = 4;
 }
