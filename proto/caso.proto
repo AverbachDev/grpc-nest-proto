@@ -60,6 +60,9 @@ service CasoService {
     rpc importarMecanismoIllycaffe (ImportarMecanismoIllycaffeRequest) returns (ServiceResponseImportarMecanismoIllycaffe) {}
     rpc importarMecanismoIllycaffeBaixa (ImportarMecanismoIllycaffeBaixaRequest) returns (ServiceResponseImportarMecanismoIllycaffeBaixa) {}
     rpc importarMecanismoIllycaffeBaseClientes (ImportarMecanismoIllycaffeBaseClientesRequest) returns (ServiceResponseImportarMecanismoIllycaffeBaseClientes) {}
+    // Mecanismo novo (sem equivalente no legado) - cliente ELEVADORES ATLAS
+    // SCHINDLER (id_cliente 8489 / id_grupo 5613).
+    rpc importarMecanismoAtlasSchindler (ImportarMecanismoAtlasSchindlerRequest) returns (ServiceResponseImportarMecanismoAtlasSchindler) {}
     // Progresso em memoria (no-op cross-instancia) da importacao em
     // andamento - usecase atualiza a cada 50 linhas processadas, front faz
     // polling enquanto a chamada sincrona principal (importarMecanismo*)
@@ -437,6 +440,11 @@ message InfoAdicionaisTituloData {
     optional double nuValorOriginal = 13;
     optional string dtVenda = 14;
     bool tituloComPagto = 15;
+    // So preenchidos p/ ATLAS SCHINDLER (tecoTituloInformacoesDevedorAtlasSchindler).
+    optional string deAtribuicao = 16;
+    optional string deReferencia = 17;
+    optional string deNfseNumero = 18;
+    optional string deVerifCode = 19;
 }
 
 message ServiceResponseInfoAdicionaisTitulo {
@@ -2872,6 +2880,46 @@ message LinhaImportacaoPadraoData {
     string deDddContato = 30;
     string deTelefoneContato = 31;
     string deEmailContato = 32;
+}
+
+// Mecanismo ELEVADORES ATLAS SCHINDLER: colunas cruas do arquivo (so as
+// descritas na especificacao) - concatenacoes/zeros a esquerda/validacoes
+// sao feitas no usecase (importar-mecanismo-atlas-schindler.usecase.ts).
+message LinhaImportacaoAtlasSchindlerData {
+    string deCodDevedor = 1;        // coluna "Cliente"
+    string nmDevedor = 2;           // coluna "Customer name"
+    string cdCnpj = 3;              // coluna "CNPJ"
+    string cdCpf = 4;               // coluna "CPF"
+    string nuDoc = 5;               // coluna "Nº doc"
+    string nuItm = 6;               // coluna "Itm"
+    string deLinhaNegocio = 7;      // coluna "Linha de Negócio"
+    double nuBaseDesconto = 8;      // coluna "Base desconto" -> nu_valor
+    string dtVencLiquido = 9;       // coluna "VencLíquido" (yyyy-MM-dd)
+    string deRua = 10;              // coluna "Rua"
+    string deNumero = 11;           // coluna "Nº"
+    string deContatoPrincipal = 12; // coluna "Contact person"
+    string deTelefone = 13;         // coluna "Telefone 1"
+    string deEmail1 = 14;           // coluna "Email1"
+    string deEmail2 = 15;           // coluna "Email2"
+    string deEmail3 = 16;           // coluna "Email3"
+    string deAtribuicao = 17;       // coluna "Atribuição"
+    string deReferencia = 18;       // coluna "Referência"
+    string deNfseNumero = 19;       // coluna "NFSe Numb."
+    string deVerifCode = 20;        // coluna "Verif.Code"
+}
+
+message ImportarMecanismoAtlasSchindlerRequest {
+    repeated LinhaImportacaoAtlasSchindlerData linhas = 1;
+    int32 idUsuaOper = 2;
+    int32 idArquivoImportacao = 3;
+    string nomeArquivo = 4;
+}
+
+message ServiceResponseImportarMecanismoAtlasSchindler {
+    int32 status = 1;
+    string message = 2;
+    repeated ResultadoImportacaoLegadoData data = 3;
+    string error = 4;
 }
 
 message ImportarMecanismoPadraoRequest {
