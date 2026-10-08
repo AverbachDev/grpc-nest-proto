@@ -3103,6 +3103,10 @@ message TituloEmailMassaData {
     // envio (@MsgHistorico_TpN da procedure). E' a MESMA string usada na
     // deduplicacao - o historico novo deve comecar com ela.
     string deMensagemHistorico = 16;
+    // tecoTituloInformacoesDevedor.de_id_documento (ex.: Nota Fiscal de DP World/Embraport).
+    optional string deIdDocumento = 17;
+    // Unidade de negocio do caso (DP World: DPW - TERRESTRE / DPW - MARITIMO).
+    optional int32 idUnNegocio = 18;
 }
 
 message ListResultTitulosEmailMassa {
