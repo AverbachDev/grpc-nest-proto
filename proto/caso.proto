@@ -101,6 +101,12 @@ service CasoService {
     // microservice-extrato (item extrato/agencia) e microservice-user
     // (cobradores do grupo 4).
     rpc obterFaturamentoCobrador (ObterFaturamentoCobradorRequest) returns (ServiceResponseListFaturamentoCobrador) {}
+    // Porte da procedure psgaCliente_RotinaEmailVencimentoTitulo (rotinas de
+    // e-mail em massa de cobranca preventiva/ativa, ex-Rotinas_EmailEmMassa.exe)
+    // - reimplementada em SQL parametrizado (nao chama a SP), ver
+    // ListTitulosEmailMassaUseCase. Devolve uma linha por TITULO elegivel;
+    // quem agrupa por caso e envia e' o microservice-cliente-services.
+    rpc listTitulosEmailMassa (ListTitulosEmailMassaRequest) returns (ServiceResponseListTitulosEmailMassa) {}
 
     rpc listAcordo (ListCriteriaRequestAcordo) returns (ServiceResponseListAcordo) {}
     rpc findOneAcordo (IdRequest) returns (ServiceResponseAcordo) {}
@@ -3051,5 +3057,58 @@ message ServiceResponseProgressoImportacaoLegado {
     int32 status = 1;
     string message = 2;
     repeated ProgressoImportacaoLegadoData data = 3;
+    string error = 4;
+}
+
+// E-MAIL EM MASSA (porte de psgaCliente_RotinaEmailVencimentoTitulo)
+message ListTitulosEmailMassaRequest {
+    int32 idCliente = 1;
+    // 0 = preventivo (a vencer), 1 = vencidos, 3 = titulos antigos (so Illy).
+    // Mesma numeracao do @tp_envio da procedure (2 nao e' usado).
+    int32 tpEnvio = 2;
+    // 'YYYY-MM-DD'. Omitido = hoje (America/Sao_Paulo). Existe pra teste e pra
+    // comparacao na fase sombra - a rotina real nunca preenche.
+    optional string dataReferencia = 3;
+    // true = nao aplica a exclusao "ja recebeu e-mail hoje" (tecoHistorico).
+    // So pra comparar o conjunto elegivel com o que o legado ja enviou.
+    optional bool semDeduplicacao = 4;
+}
+
+message TituloEmailMassaData {
+    int32 idCaso = 1;
+    string nmDevedor = 2;
+    int32 idCliente = 3;
+    string nmCliente = 4;
+    string deDoc = 5;
+    // 'YYYY-MM-DD' (data pura, sem fuso).
+    string dtVencimento = 6;
+    double nuValor = 7;
+    string deEmail = 8;
+    string nmContato = 9;
+    string deCodDevedor = 10;
+    string cdCnpjCpf = 11;
+    // Data alvo da regua que casou esse titulo (vencimento efetivo; pra
+    // vencidos em sab/dom e' a segunda seguinte). 'YYYY-MM-DD'.
+    string data = 12;
+    // Negativo = dias ate vencer (D-N); positivo = dias de atraso (D+N).
+    int32 intervalo = 13;
+    optional string dtEmissao = 14;
+    // Cobrador do caso (Cooperfemsa/Hexis enviam como o e-mail dele).
+    optional int32 idUsuaCobrador = 15;
+    // Inicio do texto que o legado grava em tecoHistorico pra esse tipo de
+    // envio (@MsgHistorico_TpN da procedure). E' a MESMA string usada na
+    // deduplicacao - o historico novo deve comecar com ela.
+    string deMensagemHistorico = 16;
+}
+
+message ListResultTitulosEmailMassa {
+    repeated TituloEmailMassaData result = 1;
+    int32 total = 2;
+}
+
+message ServiceResponseListTitulosEmailMassa {
+    int32 status = 1;
+    string message = 2;
+    ListResultTitulosEmailMassa data = 3;
     string error = 4;
 }
