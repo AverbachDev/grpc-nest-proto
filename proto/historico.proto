@@ -11,6 +11,13 @@ service HistoricoService {
   rpc updateHistorico (HistoricoUpdateRequest) returns (ServiceResponseHistorico) {}
   rpc removeHistorico (IdRequest) returns (ServiceResponseHistorico) {}
   rpc findHistoricosCaso (IdRequest) returns (ServiceResponseCasoHistorico) {}
+  // E-mail em massa (ex-Rotinas_EmailEmMassa.exe). Escrevem direto no SQL Server
+  // com o relogio do banco (GETDATE) e cd_historico = 0, como o legado - o
+  // createHistorico normal grava cd_historico NULL e em UTC, o que quebraria a
+  // deduplicacao "caso ja recebeu e-mail hoje" feita por tecoHistorico.
+  rpc registrarHistoricoEmailMassa (RegistrarHistoricoEmailMassaRequest) returns (ServiceResponseEmailMassa) {}
+  rpc iniciarLoteEmailMassa (IniciarLoteEmailMassaRequest) returns (ServiceResponseEmailMassa) {}
+  rpc finalizarLoteEmailMassa (FinalizarLoteEmailMassaRequest) returns (ServiceResponseEmailMassa) {}
 
 }
 
@@ -96,4 +103,38 @@ message ServiceResponseListHistorico {
 message ListResultHistorico {
     repeated HistoricoData result = 1;
     int32 total = 2;
+}
+
+
+// E-MAIL EM MASSA
+message RegistrarHistoricoEmailMassaRequest {
+    int32 idCaso = 1;
+    // Texto completo do historico. Deve COMECAR com a mensagem do tipo de envio
+    // (TituloEmailMassaData.deMensagemHistorico do caso), que e' a chave da deduplicacao.
+    string deDescricao = 2;
+}
+
+// Lote de uma rotina (tecoHistoricoEmailMassa): serve de auditoria e, pra rotina
+// 15 da Illy, de sinal de que o envio dos vencidos do dia terminou.
+message IniciarLoteEmailMassaRequest {
+    int32 idCliente = 1;
+    // Mesma numeracao de tp_envio da procedure de e-mail em massa (0, 1 ou 3).
+    int32 tpEnvio = 2;
+}
+
+message FinalizarLoteEmailMassaRequest {
+    int32 idEmailMassa = 1;
+    int32 qtdEnviados = 2;
+}
+
+message EmailMassaResult {
+    // So preenchido em iniciarLoteEmailMassa.
+    optional int32 idEmailMassa = 1;
+}
+
+message ServiceResponseEmailMassa {
+    int32 status = 1;
+    string message = 2;
+    EmailMassaResult data = 3;
+    string error = 4;
 }
