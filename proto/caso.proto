@@ -107,6 +107,10 @@ service CasoService {
     // ListTitulosEmailMassaUseCase. Devolve uma linha por TITULO elegivel;
     // quem agrupa por caso e envia e' o microservice-cliente-services.
     rpc listTitulosEmailMassa (ListTitulosEmailMassaRequest) returns (ServiceResponseListTitulosEmailMassa) {}
+    // Porta de liberacao das rotinas de e-mail em massa: o legado so enviava depois que a
+    // importacao de titulos (e, em alguns clientes, a baixa de pagamentos) do contrato tinha
+    // acontecido no dia, pra nao cobrar titulo ja pago e ainda nao baixado.
+    rpc verificarProntidaoEmailMassa (VerificarProntidaoEmailMassaRequest) returns (ServiceResponseProntidaoEmailMassa) {}
 
     rpc listAcordo (ListCriteriaRequestAcordo) returns (ServiceResponseListAcordo) {}
     rpc findOneAcordo (IdRequest) returns (ServiceResponseAcordo) {}
@@ -3110,5 +3114,23 @@ message ServiceResponseListTitulosEmailMassa {
     int32 status = 1;
     string message = 2;
     ListResultTitulosEmailMassa data = 3;
+    string error = 4;
+}
+
+message VerificarProntidaoEmailMassaRequest {
+    int32 idContrato = 1;
+}
+
+message ProntidaoEmailMassaData {
+    // Existe titulo do contrato cadastrado hoje (tecoTituloCadastro.dt_cadastro > hoje).
+    bool importacaoHoje = 1;
+    // Existe baixa de pagamento de titulo do contrato registrada hoje.
+    bool baixaHoje = 2;
+}
+
+message ServiceResponseProntidaoEmailMassa {
+    int32 status = 1;
+    string message = 2;
+    ProntidaoEmailMassaData data = 3;
     string error = 4;
 }

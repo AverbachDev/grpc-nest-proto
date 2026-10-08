@@ -18,6 +18,9 @@ service HistoricoService {
   rpc registrarHistoricoEmailMassa (RegistrarHistoricoEmailMassaRequest) returns (ServiceResponseEmailMassa) {}
   rpc iniciarLoteEmailMassa (IniciarLoteEmailMassaRequest) returns (ServiceResponseEmailMassa) {}
   rpc finalizarLoteEmailMassa (FinalizarLoteEmailMassaRequest) returns (ServiceResponseEmailMassa) {}
+  // True se ja existe lote finalizado hoje pra esse cliente/tp (a rotina 15 da Illy so roda
+  // depois que o envio de vencidos do dia terminou).
+  rpc verificarLoteFinalizadoEmailMassa (VerificarLoteEmailMassaRequest) returns (ServiceResponseEmailMassa) {}
 
 }
 
@@ -130,6 +133,8 @@ message FinalizarLoteEmailMassaRequest {
 message EmailMassaResult {
     // So preenchido em iniciarLoteEmailMassa.
     optional int32 idEmailMassa = 1;
+    // So preenchido em verificarLoteFinalizadoEmailMassa.
+    optional bool finalizadoHoje = 2;
 }
 
 message ServiceResponseEmailMassa {
@@ -137,4 +142,9 @@ message ServiceResponseEmailMassa {
     string message = 2;
     EmailMassaResult data = 3;
     string error = 4;
+}
+
+message VerificarLoteEmailMassaRequest {
+    int32 idCliente = 1;
+    int32 tpEnvio = 2;
 }
