@@ -63,6 +63,9 @@ service CasoService {
     // Mecanismo novo (sem equivalente no legado) - cliente ELEVADORES ATLAS
     // SCHINDLER (id_cliente 8489 / id_grupo 5613).
     rpc importarMecanismoAtlasSchindler (ImportarMecanismoAtlasSchindlerRequest) returns (ServiceResponseImportarMecanismoAtlasSchindler) {}
+    // Mecanismo EMBRAPORT (DP World) - arquivo XLSX; substitui o antigo CSV que
+    // passava pelo importarMecanismoPadrao. O cliente (grupo 5591) vem da tela.
+    rpc importarMecanismoEmbraport (ImportarMecanismoEmbraportRequest) returns (ServiceResponseImportarMecanismoEmbraport) {}
     // Progresso em memoria (no-op cross-instancia) da importacao em
     // andamento - usecase atualiza a cada 50 linhas processadas, front faz
     // polling enquanto a chamada sincrona principal (importarMecanismo*)
@@ -456,6 +459,10 @@ message InfoAdicionaisTituloData {
     optional string deReferencia = 17;
     optional string deNfseNumero = 18;
     optional string deVerifCode = 19;
+    // So preenchidos p/ EMBRAPORT/DP WORLD (tecoTituloInformacoesDevedorEmbraport).
+    optional string deSegmento = 20;
+    optional string deDraft = 21;
+    optional string deNotaFiscal = 22;
 }
 
 message ServiceResponseInfoAdicionaisTitulo {
@@ -2948,6 +2955,40 @@ message ImportarMecanismoAtlasSchindlerRequest {
 }
 
 message ServiceResponseImportarMecanismoAtlasSchindler {
+    int32 status = 1;
+    string message = 2;
+    repeated ResultadoImportacaoLegadoData data = 3;
+    string error = 4;
+}
+
+// Mecanismo EMBRAPORT (DP World): colunas do arquivo-modelo EMBRAPORT_MODELO.XLSX (so as
+// descritas na especificacao; BL/BOOKING, OBSERVACAO e SITUACAO sao ignoradas).
+// E-mails e telefones vao BRUTOS (podem trazer varios separados por virgula) - a
+// separacao/eliminacao de duplicados e feita no usecase.
+message LinhaImportacaoEmbraportData {
+    string deUnnegocio = 1;    // coluna "UN. NEGOCIO" -> tecoUnNegocio.de_unnegocio
+    string cdCnpj = 2;         // coluna "CNPJ" -> tecoDevedor.cd_cnpj_cpf
+    string nmDevedor = 3;      // coluna "CLIENTE" -> tecoDevedor.nm_devedor
+    string deSegmento = 4;     // coluna "SEGMENTO" -> repositorio Embraport
+    string deDraft = 5;        // coluna "DRAFT" -> repositorio Embraport
+    string deRps = 6;          // coluna "RPS" -> tecoTitulo.de_doc
+    string deNotaFiscal = 7;   // coluna "NOTA FISCAL" -> repositorio Embraport
+    double nuSaldoDevido = 8;  // coluna "SALDO DEVIDO" -> tecoTitulo.nu_valor
+    string dtEmissao = 9;      // coluna "DATA EMISSÃO" (yyyy-MM-dd) -> tecoTituloInformacoesDevedor.dt_emissao
+    string dtVencimento = 10;  // coluna "DATA VENCIMENTO" (yyyy-MM-dd) -> tecoTitulo.dt_vencimento
+    string deEmails = 11;      // coluna "E-MAIL DE CADASTRO ATUALIZADO" -> tecoDevedor.de_email (+ Contato)
+    string deTelefones = 12;   // coluna "TELEFONE" -> tecoDevedor.de_telefone (+ Contato)
+}
+
+message ImportarMecanismoEmbraportRequest {
+    repeated LinhaImportacaoEmbraportData linhas = 1;
+    int32 idUsuaOper = 2;
+    int32 idArquivoImportacao = 3;
+    string nomeArquivo = 4;
+    int32 idCliente = 5;       // cliente do grupo 5591 escolhido na tela
+}
+
+message ServiceResponseImportarMecanismoEmbraport {
     int32 status = 1;
     string message = 2;
     repeated ResultadoImportacaoLegadoData data = 3;
