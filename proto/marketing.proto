@@ -3,49 +3,783 @@ syntax = "proto3";
 package marketing;
 
 service MarketingService {
-    // Empresa (Prospect)
-    rpc listEmpresa (ListCriteriaRequestMarketingEmpresa) returns (ServiceResponseMarketingEmpresa) {}
-    rpc findOneEmpresa (IdRequest) returns (ServiceResponseMarketingEmpresa) {}
-    rpc createEmpresa (MarketingEmpresaData) returns (ServiceResponseMarketingEmpresa) {}
-    rpc updateEmpresa (MarketingEmpresaData) returns (ServiceResponseMarketingEmpresa) {}
-    rpc removeEmpresa (IdRequest) returns (ServiceResponseMarketingEmpresa) {}
-    rpc updatePromoter (UpdatePromoterRequest) returns (ServiceResponseMarketingEmpresa) {}
-    rpc efetuarAgendamento (EfetuarAgendamentoRequest) returns (ServiceResponseMarketingEmpresa) {}
+  //SegmentoProduto
+  rpc listSegmentoProduto (ListCriteriaRequestSegmentoProduto) returns (ServiceResponseListSegmentoProduto) {}
+  rpc findOneSegmentoProduto (IdRequest) returns (ServiceResponseSegmentoProduto) {}
+  rpc createSegmentoProduto (SegmentoProdutoData) returns (ServiceResponseSegmentoProduto) {}
+  rpc updateSegmentoProduto (SegmentoProdutoUpdateRequest) returns (ServiceResponseSegmentoProduto) {}
+  rpc removeSegmentoProduto (IdRequest) returns (ServiceResponseSegmentoProduto) {}
 
-    // Contato
-    rpc listContato (ListCriteriaRequestMarketingContato) returns (ServiceResponseMarketingContato) {}
-    rpc findOneContato (IdRequest) returns (ServiceResponseMarketingContato) {}
-    rpc createContato (MarketingContatoData) returns (ServiceResponseMarketingContato) {}
-    rpc updateContato (MarketingContatoData) returns (ServiceResponseMarketingContato) {}
-    rpc removeContato (IdRequest) returns (ServiceResponseMarketingContato) {}
+  //Agenda
+  rpc listAgenda (ListCriteriaRequestAgenda) returns (ServiceResponseListAgenda) {}
+  rpc findOneAgenda (IdRequest) returns (ServiceResponseAgenda) {}
+  rpc createAgenda (AgendaData) returns (ServiceResponseAgenda) {}
+  rpc updateAgenda (AgendaUpdateRequest) returns (ServiceResponseAgenda) {}
+  rpc removeAgenda (IdRequest) returns (ServiceResponseAgenda) {}
 
-    // HistoricoLigacao
-    rpc listHistoricoLigacao (ListCriteriaRequestMarketingHistoricoLigacao) returns (ServiceResponseMarketingHistoricoLigacao) {}
-    rpc createHistoricoLigacao (MarketingHistoricoLigacaoData) returns (ServiceResponseMarketingHistoricoLigacao) {}
+  //AgendaHorario
+  rpc listAgendaHorario (ListCriteriaRequestAgendaHorario) returns (ServiceResponseListAgendaHorario) {}
+  rpc findOneAgendaHorario (IdRequest) returns (ServiceResponseAgendaHorario) {}
+  rpc createAgendaHorario (AgendaHorarioData) returns (ServiceResponseAgendaHorario) {}
+  rpc updateAgendaHorario (AgendaHorarioUpdateRequest) returns (ServiceResponseAgendaHorario) {}
+  rpc removeAgendaHorario (IdRequest) returns (ServiceResponseAgendaHorario) {}
+
+  //AssinaturaEmail
+  rpc listAssinaturaEmail (ListCriteriaRequestAssinaturaEmail) returns (ServiceResponseListAssinaturaEmail) {}
+  rpc findOneAssinaturaEmail (IdRequest) returns (ServiceResponseAssinaturaEmail) {}
+  rpc createAssinaturaEmail (AssinaturaEmailData) returns (ServiceResponseAssinaturaEmail) {}
+  rpc updateAssinaturaEmail (AssinaturaEmailUpdateRequest) returns (ServiceResponseAssinaturaEmail) {}
+  rpc removeAssinaturaEmail (IdRequest) returns (ServiceResponseAssinaturaEmail) {}
+
+  //AtuaisEmpresasCobranca
+  rpc listAtuaisEmpresasCobranca (ListCriteriaRequestAtuaisEmpresasCobranca) returns (ServiceResponseListAtuaisEmpresasCobranca) {}
+  rpc findOneAtuaisEmpresasCobranca (IdRequest) returns (ServiceResponseAtuaisEmpresasCobranca) {}
+  rpc createAtuaisEmpresasCobranca (AtuaisEmpresasCobrancaData) returns (ServiceResponseAtuaisEmpresasCobranca) {}
+  rpc updateAtuaisEmpresasCobranca (AtuaisEmpresasCobrancaUpdateRequest) returns (ServiceResponseAtuaisEmpresasCobranca) {}
+  rpc removeAtuaisEmpresasCobranca (IdRequest) returns (ServiceResponseAtuaisEmpresasCobranca) {}
+
+  //Briefing
+  rpc listBriefing (ListCriteriaRequestBriefing) returns (ServiceResponseListBriefing) {}
+  rpc findOneBriefing (IdRequest) returns (ServiceResponseBriefing) {}
+  rpc createBriefing (BriefingData) returns (ServiceResponseBriefing) {}
+  rpc updateBriefing (BriefingUpdateRequest) returns (ServiceResponseBriefing) {}
+  rpc removeBriefing (IdRequest) returns (ServiceResponseBriefing) {}
+
+  //Classificacao
+  rpc listClassificacao (ListCriteriaRequestClassificacao) returns (ServiceResponseListClassificacao) {}
+  rpc findOneClassificacao (IdRequest) returns (ServiceResponseClassificacao) {}
+  rpc createClassificacao (ClassificacaoData) returns (ServiceResponseClassificacao) {}
+  rpc updateClassificacao (ClassificacaoUpdateRequest) returns (ServiceResponseClassificacao) {}
+  rpc removeClassificacao (IdRequest) returns (ServiceResponseClassificacao) {}
+
+  //Contato
+  rpc listContato (ListCriteriaRequestContato) returns (ServiceResponseListContato) {}
+  rpc findOneContato (IdRequest) returns (ServiceResponseContato) {}
+  rpc createContato (ContatoData) returns (ServiceResponseContato) {}
+  rpc updateContato (ContatoUpdateRequest) returns (ServiceResponseContato) {}
+  rpc removeContato (IdRequest) returns (ServiceResponseContato) {}
+
+  //CustomizacaoDocumento
+  rpc listCustomizacaoDocumento (ListCriteriaRequestCustomizacaoDocumento) returns (ServiceResponseListCustomizacaoDocumento) {}
+  rpc findOneCustomizacaoDocumento (IdRequest) returns (ServiceResponseCustomizacaoDocumento) {}
+  rpc createCustomizacaoDocumento (CustomizacaoDocumentoData) returns (ServiceResponseCustomizacaoDocumento) {}
+  rpc updateCustomizacaoDocumento (CustomizacaoDocumentoUpdateRequest) returns (ServiceResponseCustomizacaoDocumento) {}
+  rpc removeCustomizacaoDocumento (IdRequest) returns (ServiceResponseCustomizacaoDocumento) {}
+
+  //Empresa
+  rpc listEmpresa (ListCriteriaRequestEmpresa) returns (ServiceResponseListEmpresa) {}
+  rpc findOneEmpresa (IdRequest) returns (ServiceResponseEmpresa) {}
+  rpc createEmpresa (EmpresaData) returns (ServiceResponseEmpresa) {}
+  rpc updateEmpresa (EmpresaUpdateRequest) returns (ServiceResponseEmpresa) {}
+  rpc removeEmpresa (IdRequest) returns (ServiceResponseEmpresa) {}
+
+  //EmpresaPromoterFixo
+  rpc listEmpresaPromoterFixo (ListCriteriaRequestEmpresaPromoterFixo) returns (ServiceResponseListEmpresaPromoterFixo) {}
+  rpc findOneEmpresaPromoterFixo (IdRequest) returns (ServiceResponseEmpresaPromoterFixo) {}
+  rpc createEmpresaPromoterFixo (EmpresaPromoterFixoData) returns (ServiceResponseEmpresaPromoterFixo) {}
+  rpc updateEmpresaPromoterFixo (EmpresaPromoterFixoUpdateRequest) returns (ServiceResponseEmpresaPromoterFixo) {}
+  rpc removeEmpresaPromoterFixo (IdRequest) returns (ServiceResponseEmpresaPromoterFixo) {}
+
+  //EmpresaSegmentoProduto
+  rpc listEmpresaSegmentoProduto (ListCriteriaRequestEmpresaSegmentoProduto) returns (ServiceResponseListEmpresaSegmentoProduto) {}
+  rpc findOneEmpresaSegmentoProduto (IdRequest) returns (ServiceResponseEmpresaSegmentoProduto) {}
+  rpc createEmpresaSegmentoProduto (EmpresaSegmentoProdutoData) returns (ServiceResponseEmpresaSegmentoProduto) {}
+  rpc updateEmpresaSegmentoProduto (EmpresaSegmentoProdutoUpdateRequest) returns (ServiceResponseEmpresaSegmentoProduto) {}
+  rpc removeEmpresaSegmentoProduto (IdRequest) returns (ServiceResponseEmpresaSegmentoProduto) {}
+
+  //Enquete
+  rpc listEnquete (ListCriteriaRequestEnquete) returns (ServiceResponseListEnquete) {}
+  rpc findOneEnquete (IdRequest) returns (ServiceResponseEnquete) {}
+  rpc createEnquete (EnqueteData) returns (ServiceResponseEnquete) {}
+  rpc updateEnquete (EnqueteUpdateRequest) returns (ServiceResponseEnquete) {}
+  rpc removeEnquete (IdRequest) returns (ServiceResponseEnquete) {}
+
+  //EnvioDocumento
+  rpc listEnvioDocumento (ListCriteriaRequestEnvioDocumento) returns (ServiceResponseListEnvioDocumento) {}
+  rpc findOneEnvioDocumento (IdRequest) returns (ServiceResponseEnvioDocumento) {}
+  rpc createEnvioDocumento (EnvioDocumentoData) returns (ServiceResponseEnvioDocumento) {}
+  rpc updateEnvioDocumento (EnvioDocumentoUpdateRequest) returns (ServiceResponseEnvioDocumento) {}
+  rpc removeEnvioDocumento (IdRequest) returns (ServiceResponseEnvioDocumento) {}
+
+  //EventosStatus
+  rpc listEventosStatus (ListCriteriaRequestEventosStatus) returns (ServiceResponseListEventosStatus) {}
+  rpc findOneEventosStatus (IdRequest) returns (ServiceResponseEventosStatus) {}
+  rpc createEventosStatus (EventosStatusData) returns (ServiceResponseEventosStatus) {}
+  rpc updateEventosStatus (EventosStatusUpdateRequest) returns (ServiceResponseEventosStatus) {}
+  rpc removeEventosStatus (IdRequest) returns (ServiceResponseEventosStatus) {}
+
+  //Federacao
+  rpc listFederacao (ListCriteriaRequestFederacao) returns (ServiceResponseListFederacao) {}
+  rpc findOneFederacao (IdRequest) returns (ServiceResponseFederacao) {}
+  rpc createFederacao (FederacaoData) returns (ServiceResponseFederacao) {}
+  rpc updateFederacao (FederacaoUpdateRequest) returns (ServiceResponseFederacao) {}
+  rpc removeFederacao (IdRequest) returns (ServiceResponseFederacao) {}
+
+  //Gravacao
+  rpc listGravacao (ListCriteriaRequestGravacao) returns (ServiceResponseListGravacao) {}
+  rpc findOneGravacao (IdRequest) returns (ServiceResponseGravacao) {}
+  rpc createGravacao (GravacaoData) returns (ServiceResponseGravacao) {}
+  rpc updateGravacao (GravacaoUpdateRequest) returns (ServiceResponseGravacao) {}
+  rpc removeGravacao (IdRequest) returns (ServiceResponseGravacao) {}
+
+  //GrupoPagina
+  rpc listGrupoPagina (ListCriteriaRequestGrupoPagina) returns (ServiceResponseListGrupoPagina) {}
+  rpc findOneGrupoPagina (IdRequest) returns (ServiceResponseGrupoPagina) {}
+  rpc createGrupoPagina (GrupoPaginaData) returns (ServiceResponseGrupoPagina) {}
+  rpc updateGrupoPagina (GrupoPaginaUpdateRequest) returns (ServiceResponseGrupoPagina) {}
+  rpc removeGrupoPagina (IdRequest) returns (ServiceResponseGrupoPagina) {}
+
+  //Grupos
+  rpc listGrupos (ListCriteriaRequestGrupos) returns (ServiceResponseListGrupos) {}
+  rpc findOneGrupos (IdRequest) returns (ServiceResponseGrupos) {}
+  rpc createGrupos (GruposData) returns (ServiceResponseGrupos) {}
+  rpc updateGrupos (GruposUpdateRequest) returns (ServiceResponseGrupos) {}
+  rpc removeGrupos (IdRequest) returns (ServiceResponseGrupos) {}
+
+  //HistoricoDistribuicao
+  rpc listHistoricoDistribuicao (ListCriteriaRequestHistoricoDistribuicao) returns (ServiceResponseListHistoricoDistribuicao) {}
+  rpc findOneHistoricoDistribuicao (IdRequest) returns (ServiceResponseHistoricoDistribuicao) {}
+  rpc createHistoricoDistribuicao (HistoricoDistribuicaoData) returns (ServiceResponseHistoricoDistribuicao) {}
+  rpc updateHistoricoDistribuicao (HistoricoDistribuicaoUpdateRequest) returns (ServiceResponseHistoricoDistribuicao) {}
+  rpc removeHistoricoDistribuicao (IdRequest) returns (ServiceResponseHistoricoDistribuicao) {}
+
+  //HistoricoEmailVisita
+  rpc listHistoricoEmailVisita (ListCriteriaRequestHistoricoEmailVisita) returns (ServiceResponseListHistoricoEmailVisita) {}
+  rpc findOneHistoricoEmailVisita (IdRequest) returns (ServiceResponseHistoricoEmailVisita) {}
+  rpc createHistoricoEmailVisita (HistoricoEmailVisitaData) returns (ServiceResponseHistoricoEmailVisita) {}
+  rpc updateHistoricoEmailVisita (HistoricoEmailVisitaUpdateRequest) returns (ServiceResponseHistoricoEmailVisita) {}
+  rpc removeHistoricoEmailVisita (IdRequest) returns (ServiceResponseHistoricoEmailVisita) {}
+
+  //HistoricoEmpresaStatusLigacao
+  rpc listHistoricoEmpresaStatusLigacao (ListCriteriaRequestHistoricoEmpresaStatusLigacao) returns (ServiceResponseListHistoricoEmpresaStatusLigacao) {}
+  rpc findOneHistoricoEmpresaStatusLigacao (IdRequest) returns (ServiceResponseHistoricoEmpresaStatusLigacao) {}
+  rpc createHistoricoEmpresaStatusLigacao (HistoricoEmpresaStatusLigacaoData) returns (ServiceResponseHistoricoEmpresaStatusLigacao) {}
+  rpc updateHistoricoEmpresaStatusLigacao (HistoricoEmpresaStatusLigacaoUpdateRequest) returns (ServiceResponseHistoricoEmpresaStatusLigacao) {}
+  rpc removeHistoricoEmpresaStatusLigacao (IdRequest) returns (ServiceResponseHistoricoEmpresaStatusLigacao) {}
+
+  //HistoricoLigacao
+  rpc listHistoricoLigacao (ListCriteriaRequestHistoricoLigacao) returns (ServiceResponseListHistoricoLigacao) {}
+  rpc findOneHistoricoLigacao (IdRequest) returns (ServiceResponseHistoricoLigacao) {}
+  rpc createHistoricoLigacao (HistoricoLigacaoData) returns (ServiceResponseHistoricoLigacao) {}
+  rpc updateHistoricoLigacao (HistoricoLigacaoUpdateRequest) returns (ServiceResponseHistoricoLigacao) {}
+  rpc removeHistoricoLigacao (IdRequest) returns (ServiceResponseHistoricoLigacao) {}
+
+  //HistoricoVisita
+  rpc listHistoricoVisita (ListCriteriaRequestHistoricoVisita) returns (ServiceResponseListHistoricoVisita) {}
+  rpc findOneHistoricoVisita (IdRequest) returns (ServiceResponseHistoricoVisita) {}
+  rpc createHistoricoVisita (HistoricoVisitaData) returns (ServiceResponseHistoricoVisita) {}
+  rpc updateHistoricoVisita (HistoricoVisitaUpdateRequest) returns (ServiceResponseHistoricoVisita) {}
+  rpc removeHistoricoVisita (IdRequest) returns (ServiceResponseHistoricoVisita) {}
+
+  //Horarios
+  rpc listHorarios (ListCriteriaRequestHorarios) returns (ServiceResponseListHorarios) {}
+  rpc findOneHorarios (IdRequest) returns (ServiceResponseHorarios) {}
+  rpc createHorarios (HorariosData) returns (ServiceResponseHorarios) {}
+  rpc updateHorarios (HorariosUpdateRequest) returns (ServiceResponseHorarios) {}
+  rpc removeHorarios (IdRequest) returns (ServiceResponseHorarios) {}
+
+  //Mensagem
+  rpc listMensagem (ListCriteriaRequestMensagem) returns (ServiceResponseListMensagem) {}
+  rpc findOneMensagem (IdRequest) returns (ServiceResponseMensagem) {}
+  rpc createMensagem (MensagemData) returns (ServiceResponseMensagem) {}
+  rpc updateMensagem (MensagemUpdateRequest) returns (ServiceResponseMensagem) {}
+  rpc removeMensagem (IdRequest) returns (ServiceResponseMensagem) {}
+
+  //Menu
+  rpc listMenu (ListCriteriaRequestMenu) returns (ServiceResponseListMenu) {}
+  rpc findOneMenu (IdRequest) returns (ServiceResponseMenu) {}
+  rpc createMenu (MenuData) returns (ServiceResponseMenu) {}
+  rpc updateMenu (MenuUpdateRequest) returns (ServiceResponseMenu) {}
+  rpc removeMenu (IdRequest) returns (ServiceResponseMenu) {}
+
+  //Municipio
+  rpc listMunicipio (ListCriteriaRequestMunicipio) returns (ServiceResponseListMunicipio) {}
+  rpc findOneMunicipio (IdRequest) returns (ServiceResponseMunicipio) {}
+  rpc createMunicipio (MunicipioData) returns (ServiceResponseMunicipio) {}
+  rpc updateMunicipio (MunicipioUpdateRequest) returns (ServiceResponseMunicipio) {}
+  rpc removeMunicipio (IdRequest) returns (ServiceResponseMunicipio) {}
+
+  //PaginaAcesso
+  rpc listPaginaAcesso (ListCriteriaRequestPaginaAcesso) returns (ServiceResponseListPaginaAcesso) {}
+  rpc findOnePaginaAcesso (IdRequest) returns (ServiceResponsePaginaAcesso) {}
+  rpc createPaginaAcesso (PaginaAcessoData) returns (ServiceResponsePaginaAcesso) {}
+  rpc updatePaginaAcesso (PaginaAcessoUpdateRequest) returns (ServiceResponsePaginaAcesso) {}
+  rpc removePaginaAcesso (IdRequest) returns (ServiceResponsePaginaAcesso) {}
+
+  //Paginas
+  rpc listPaginas (ListCriteriaRequestPaginas) returns (ServiceResponseListPaginas) {}
+  rpc findOnePaginas (IdRequest) returns (ServiceResponsePaginas) {}
+  rpc createPaginas (PaginasData) returns (ServiceResponsePaginas) {}
+  rpc updatePaginas (PaginasUpdateRequest) returns (ServiceResponsePaginas) {}
+  rpc removePaginas (IdRequest) returns (ServiceResponsePaginas) {}
+
+  //Parametros
+  rpc listParametros (ListCriteriaRequestParametros) returns (ServiceResponseListParametros) {}
+  rpc findOneParametros (IdRequest) returns (ServiceResponseParametros) {}
+  rpc createParametros (ParametrosData) returns (ServiceResponseParametros) {}
+  rpc updateParametros (ParametrosUpdateRequest) returns (ServiceResponseParametros) {}
+  rpc removeParametros (IdRequest) returns (ServiceResponseParametros) {}
+
+  //ParticipanteVisitas
+  rpc listParticipanteVisitas (ListCriteriaRequestParticipanteVisitas) returns (ServiceResponseListParticipanteVisitas) {}
+  rpc findOneParticipanteVisitas (IdRequest) returns (ServiceResponseParticipanteVisitas) {}
+  rpc createParticipanteVisitas (ParticipanteVisitasData) returns (ServiceResponseParticipanteVisitas) {}
+  rpc updateParticipanteVisitas (ParticipanteVisitasUpdateRequest) returns (ServiceResponseParticipanteVisitas) {}
+  rpc removeParticipanteVisitas (IdRequest) returns (ServiceResponseParticipanteVisitas) {}
+
+  //PerfilContato
+  rpc listPerfilContato (ListCriteriaRequestPerfilContato) returns (ServiceResponseListPerfilContato) {}
+  rpc findOnePerfilContato (IdRequest) returns (ServiceResponsePerfilContato) {}
+  rpc createPerfilContato (PerfilContatoData) returns (ServiceResponsePerfilContato) {}
+  rpc updatePerfilContato (PerfilContatoUpdateRequest) returns (ServiceResponsePerfilContato) {}
+  rpc removePerfilContato (IdRequest) returns (ServiceResponsePerfilContato) {}
+
+  //ProbabilidadeEmpresa
+  rpc listProbabilidadeEmpresa (ListCriteriaRequestProbabilidadeEmpresa) returns (ServiceResponseListProbabilidadeEmpresa) {}
+  rpc findOneProbabilidadeEmpresa (IdRequest) returns (ServiceResponseProbabilidadeEmpresa) {}
+  rpc createProbabilidadeEmpresa (ProbabilidadeEmpresaData) returns (ServiceResponseProbabilidadeEmpresa) {}
+  rpc updateProbabilidadeEmpresa (ProbabilidadeEmpresaUpdateRequest) returns (ServiceResponseProbabilidadeEmpresa) {}
+  rpc removeProbabilidadeEmpresa (IdRequest) returns (ServiceResponseProbabilidadeEmpresa) {}
+
+  //ProbabilidadeVisita
+  rpc listProbabilidadeVisita (ListCriteriaRequestProbabilidadeVisita) returns (ServiceResponseListProbabilidadeVisita) {}
+  rpc findOneProbabilidadeVisita (IdRequest) returns (ServiceResponseProbabilidadeVisita) {}
+  rpc createProbabilidadeVisita (ProbabilidadeVisitaData) returns (ServiceResponseProbabilidadeVisita) {}
+  rpc updateProbabilidadeVisita (ProbabilidadeVisitaUpdateRequest) returns (ServiceResponseProbabilidadeVisita) {}
+  rpc removeProbabilidadeVisita (IdRequest) returns (ServiceResponseProbabilidadeVisita) {}
+
+  //Produto
+  rpc listProduto (ListCriteriaRequestProduto) returns (ServiceResponseListProduto) {}
+  rpc findOneProduto (IdRequest) returns (ServiceResponseProduto) {}
+  rpc createProduto (ProdutoData) returns (ServiceResponseProduto) {}
+  rpc updateProduto (ProdutoUpdateRequest) returns (ServiceResponseProduto) {}
+  rpc removeProduto (IdRequest) returns (ServiceResponseProduto) {}
+
+  //RamoAtividade
+  rpc listRamoAtividade (ListCriteriaRequestRamoAtividade) returns (ServiceResponseListRamoAtividade) {}
+  rpc findOneRamoAtividade (IdRequest) returns (ServiceResponseRamoAtividade) {}
+  rpc createRamoAtividade (RamoAtividadeData) returns (ServiceResponseRamoAtividade) {}
+  rpc updateRamoAtividade (RamoAtividadeUpdateRequest) returns (ServiceResponseRamoAtividade) {}
+  rpc removeRamoAtividade (IdRequest) returns (ServiceResponseRamoAtividade) {}
+
+  //RecebimentoDocumento
+  rpc listRecebimentoDocumento (ListCriteriaRequestRecebimentoDocumento) returns (ServiceResponseListRecebimentoDocumento) {}
+  rpc findOneRecebimentoDocumento (IdRequest) returns (ServiceResponseRecebimentoDocumento) {}
+  rpc createRecebimentoDocumento (RecebimentoDocumentoData) returns (ServiceResponseRecebimentoDocumento) {}
+  rpc updateRecebimentoDocumento (RecebimentoDocumentoUpdateRequest) returns (ServiceResponseRecebimentoDocumento) {}
+  rpc removeRecebimentoDocumento (IdRequest) returns (ServiceResponseRecebimentoDocumento) {}
+
+  //Segmento
+  rpc listSegmento (ListCriteriaRequestSegmento) returns (ServiceResponseListSegmento) {}
+  rpc findOneSegmento (IdRequest) returns (ServiceResponseSegmento) {}
+  rpc createSegmento (SegmentoData) returns (ServiceResponseSegmento) {}
+  rpc updateSegmento (SegmentoUpdateRequest) returns (ServiceResponseSegmento) {}
+  rpc removeSegmento (IdRequest) returns (ServiceResponseSegmento) {}
+
+  //SolicitacaoDocumento
+  rpc listSolicitacaoDocumento (ListCriteriaRequestSolicitacaoDocumento) returns (ServiceResponseListSolicitacaoDocumento) {}
+  rpc findOneSolicitacaoDocumento (IdRequest) returns (ServiceResponseSolicitacaoDocumento) {}
+  rpc createSolicitacaoDocumento (SolicitacaoDocumentoData) returns (ServiceResponseSolicitacaoDocumento) {}
+  rpc updateSolicitacaoDocumento (SolicitacaoDocumentoUpdateRequest) returns (ServiceResponseSolicitacaoDocumento) {}
+  rpc removeSolicitacaoDocumento (IdRequest) returns (ServiceResponseSolicitacaoDocumento) {}
+
+  //StatusLigacao
+  rpc listStatusLigacao (ListCriteriaRequestStatusLigacao) returns (ServiceResponseListStatusLigacao) {}
+  rpc findOneStatusLigacao (IdRequest) returns (ServiceResponseStatusLigacao) {}
+  rpc createStatusLigacao (StatusLigacaoData) returns (ServiceResponseStatusLigacao) {}
+  rpc updateStatusLigacao (StatusLigacaoUpdateRequest) returns (ServiceResponseStatusLigacao) {}
+  rpc removeStatusLigacao (IdRequest) returns (ServiceResponseStatusLigacao) {}
+
+  //StatusProspect
+  rpc listStatusProspect (ListCriteriaRequestStatusProspect) returns (ServiceResponseListStatusProspect) {}
+  rpc findOneStatusProspect (IdRequest) returns (ServiceResponseStatusProspect) {}
+  rpc createStatusProspect (StatusProspectData) returns (ServiceResponseStatusProspect) {}
+  rpc updateStatusProspect (StatusProspectUpdateRequest) returns (ServiceResponseStatusProspect) {}
+  rpc removeStatusProspect (IdRequest) returns (ServiceResponseStatusProspect) {}
+
+  //Template
+  rpc listTemplate (ListCriteriaRequestTemplate) returns (ServiceResponseListTemplate) {}
+  rpc findOneTemplate (IdRequest) returns (ServiceResponseTemplate) {}
+  rpc createTemplate (TemplateData) returns (ServiceResponseTemplate) {}
+  rpc updateTemplate (TemplateUpdateRequest) returns (ServiceResponseTemplate) {}
+  rpc removeTemplate (IdRequest) returns (ServiceResponseTemplate) {}
+
+  //TipoDocumento
+  rpc listTipoDocumento (ListCriteriaRequestTipoDocumento) returns (ServiceResponseListTipoDocumento) {}
+  rpc findOneTipoDocumento (IdRequest) returns (ServiceResponseTipoDocumento) {}
+  rpc createTipoDocumento (TipoDocumentoData) returns (ServiceResponseTipoDocumento) {}
+  rpc updateTipoDocumento (TipoDocumentoUpdateRequest) returns (ServiceResponseTipoDocumento) {}
+  rpc removeTipoDocumento (IdRequest) returns (ServiceResponseTipoDocumento) {}
+
+  //UsuarioEmpresa
+  rpc listUsuarioEmpresa (ListCriteriaRequestUsuarioEmpresa) returns (ServiceResponseListUsuarioEmpresa) {}
+  rpc findOneUsuarioEmpresa (IdRequest) returns (ServiceResponseUsuarioEmpresa) {}
+  rpc createUsuarioEmpresa (UsuarioEmpresaData) returns (ServiceResponseUsuarioEmpresa) {}
+  rpc updateUsuarioEmpresa (UsuarioEmpresaUpdateRequest) returns (ServiceResponseUsuarioEmpresa) {}
+  rpc removeUsuarioEmpresa (IdRequest) returns (ServiceResponseUsuarioEmpresa) {}
+
+  //Usuarios
+  rpc listUsuarios (ListCriteriaRequestUsuarios) returns (ServiceResponseListUsuarios) {}
+  rpc findOneUsuarios (IdRequest) returns (ServiceResponseUsuarios) {}
+  rpc createUsuarios (UsuariosData) returns (ServiceResponseUsuarios) {}
+  rpc updateUsuarios (UsuariosUpdateRequest) returns (ServiceResponseUsuarios) {}
+  rpc removeUsuarios (IdRequest) returns (ServiceResponseUsuarios) {}
+
+  //VisitaMapInfo
+  rpc listVisitaMapInfo (ListCriteriaRequestVisitaMapInfo) returns (ServiceResponseListVisitaMapInfo) {}
+  rpc findOneVisitaMapInfo (IdRequest) returns (ServiceResponseVisitaMapInfo) {}
+  rpc createVisitaMapInfo (VisitaMapInfoData) returns (ServiceResponseVisitaMapInfo) {}
+  rpc updateVisitaMapInfo (VisitaMapInfoUpdateRequest) returns (ServiceResponseVisitaMapInfo) {}
+  rpc removeVisitaMapInfo (IdRequest) returns (ServiceResponseVisitaMapInfo) {}
 }
 
 message IdRequest {
     int32 id = 1;
 }
 
-message EmptyRequest {}
+//SegmentoProduto
+message ListCriteriaRequestSegmentoProduto {
+    int32 idSegmento = 1;
+    int32 idProduto = 2;
+    int32 idUsuOpe = 3;
+    int32 items = 4;
+    int32 page = 5;
+    map<string, string> order = 6;
+}
 
-message UpdatePromoterRequest {
-    repeated int32 ids = 1;
+message SegmentoProdutoData {
+    int32 id = 1;
+    int32 idSegmento = 2;
+    int32 idProduto = 3;
+    int32 idUsuOpe = 4;
+    string deRegistro = 5;
+    string dtModificacao = 6;
+    string createdDate = 7;
+    string updatedDate = 8;
+    string deletedDate = 9;
+}
+
+message SegmentoProdutoUpdateRequest {
+    int32 id = 1;
+    SegmentoProdutoData segmentoProduto = 2;
+}
+
+message ServiceResponseSegmentoProduto {
+    int32 status = 1;
+    string message = 2;
+    repeated SegmentoProdutoData data = 3;
+    string error = 4;
+}
+
+message ListResultSegmentoProduto {
+    repeated SegmentoProdutoData result = 1;
+    int32 total = 2;
+}
+
+message ServiceResponseListSegmentoProduto {
+    int32 status = 1;
+    string message = 2;
+    ListResultSegmentoProduto data = 3;
+    string error = 4;
+}
+
+//Agenda
+message ListCriteriaRequestAgenda {
+    int32 idPromoter = 1;
+    int32 idUsuOpe = 2;
+    int32 items = 3;
+    int32 page = 4;
+    map<string, string> order = 5;
+}
+
+message AgendaData {
+    int32 id = 1;
     int32 idPromoter = 2;
-    int32 idStatusProspect = 3;
-    string dtDistribuicao = 4;
+    string dtAgenda = 3;
+    int32 idUsuOpe = 4;
+    string dtRegistro = 5;
+    string dtModificacao = 6;
+    string createdDate = 7;
+    string updatedDate = 8;
+    string deletedDate = 9;
 }
 
-message EfetuarAgendamentoRequest {
-    int32 idEmpresa = 1;
-    string dtAgendamento = 2;
-    string deHistorico = 3;
-    int32 idUsuOper = 4;
+message AgendaUpdateRequest {
+    int32 id = 1;
+    AgendaData agenda = 2;
 }
 
-message MarketingEmpresaData {
+message ServiceResponseAgenda {
+    int32 status = 1;
+    string message = 2;
+    repeated AgendaData data = 3;
+    string error = 4;
+}
+
+message ListResultAgenda {
+    repeated AgendaData result = 1;
+    int32 total = 2;
+}
+
+message ServiceResponseListAgenda {
+    int32 status = 1;
+    string message = 2;
+    ListResultAgenda data = 3;
+    string error = 4;
+}
+
+//AgendaHorario
+message ListCriteriaRequestAgendaHorario {
+    int32 idAgenda = 1;
+    int32 idHorario = 2;
+    int32 idEmpresa = 3;
+    int32 idPromoterInterno = 4;
+    int32 idUsuOpe = 5;
+    int32 items = 6;
+    int32 page = 7;
+    map<string, string> order = 8;
+}
+
+message AgendaHorarioData {
+    int32 id = 1;
+    int32 idAgenda = 2;
+    int32 idHorario = 3;
+    int32 idEmpresa = 4;
+    string cdHorario = 5;
+    string dtConfirmacao = 6;
+    bool cdAvaliacao = 7;
+    string dtAvaliacao = 8;
+    int32 idPromoterInterno = 9;
+    bool cdResultVisita = 10;
+    bool cdBriefing = 11;
+    string dtSugerida = 12;
+    string deObs = 13;
+    int32 idUsuOpe = 14;
+    string dtRegistro = 15;
+    string cdTipoVisita = 16;
+    string dtModificacao = 17;
+    string createdDate = 18;
+    string updatedDate = 19;
+    string deletedDate = 20;
+}
+
+message AgendaHorarioUpdateRequest {
+    int32 id = 1;
+    AgendaHorarioData agendaHorario = 2;
+}
+
+message ServiceResponseAgendaHorario {
+    int32 status = 1;
+    string message = 2;
+    repeated AgendaHorarioData data = 3;
+    string error = 4;
+}
+
+message ListResultAgendaHorario {
+    repeated AgendaHorarioData result = 1;
+    int32 total = 2;
+}
+
+message ServiceResponseListAgendaHorario {
+    int32 status = 1;
+    string message = 2;
+    ListResultAgendaHorario data = 3;
+    string error = 4;
+}
+
+//AssinaturaEmail
+message ListCriteriaRequestAssinaturaEmail {
+    int32 idUsuario = 1;
+    int32 items = 2;
+    int32 page = 3;
+    map<string, string> order = 4;
+}
+
+message AssinaturaEmailData {
+    int32 id = 1;
+    string deAssinaturaEmail = 2;
+    int32 cdAssinatura = 3;
+    string dtCadastro = 4;
+    int32 idUsuario = 5;
+    string dtModificacao = 6;
+    string createdDate = 7;
+    string updatedDate = 8;
+    string deletedDate = 9;
+}
+
+message AssinaturaEmailUpdateRequest {
+    int32 id = 1;
+    AssinaturaEmailData assinaturaEmail = 2;
+}
+
+message ServiceResponseAssinaturaEmail {
+    int32 status = 1;
+    string message = 2;
+    repeated AssinaturaEmailData data = 3;
+    string error = 4;
+}
+
+message ListResultAssinaturaEmail {
+    repeated AssinaturaEmailData result = 1;
+    int32 total = 2;
+}
+
+message ServiceResponseListAssinaturaEmail {
+    int32 status = 1;
+    string message = 2;
+    ListResultAssinaturaEmail data = 3;
+    string error = 4;
+}
+
+//AtuaisEmpresasCobranca
+message ListCriteriaRequestAtuaisEmpresasCobranca {
+    int32 idUsuOpe = 1;
+    int32 idEmpresa = 2;
+    int32 items = 3;
+    int32 page = 4;
+    map<string, string> order = 5;
+}
+
+message AtuaisEmpresasCobrancaData {
+    int32 id = 1;
+    string nmEmpresa = 2;
+    double nuHunorUtilizado = 3;
+    int32 idUsuOpe = 4;
+    int32 idEmpresa = 5;
+    string dtModificacao = 6;
+    string createdDate = 7;
+    string updatedDate = 8;
+    string deletedDate = 9;
+}
+
+message AtuaisEmpresasCobrancaUpdateRequest {
+    int32 id = 1;
+    AtuaisEmpresasCobrancaData atuaisEmpresasCobranca = 2;
+}
+
+message ServiceResponseAtuaisEmpresasCobranca {
+    int32 status = 1;
+    string message = 2;
+    repeated AtuaisEmpresasCobrancaData data = 3;
+    string error = 4;
+}
+
+message ListResultAtuaisEmpresasCobranca {
+    repeated AtuaisEmpresasCobrancaData result = 1;
+    int32 total = 2;
+}
+
+message ServiceResponseListAtuaisEmpresasCobranca {
+    int32 status = 1;
+    string message = 2;
+    ListResultAtuaisEmpresasCobranca data = 3;
+    string error = 4;
+}
+
+//Briefing
+message ListCriteriaRequestBriefing {
+    int32 idAgendaHorario = 1;
+    int32 idUsuOpe = 2;
+    int32 items = 3;
+    int32 page = 4;
+    map<string, string> order = 5;
+}
+
+message BriefingData {
+    int32 id = 1;
+    string deComentario = 2;
+    string dtCadastro = 3;
+    int32 idAgendaHorario = 4;
+    int32 idUsuOpe = 5;
+    string dtRegistro = 6;
+    string deEndereco = 7;
+    string deReferencia = 8;
+    string deHistorico = 9;
+    string dtModificacao = 10;
+    string createdDate = 11;
+    string updatedDate = 12;
+    string deletedDate = 13;
+}
+
+message BriefingUpdateRequest {
+    int32 id = 1;
+    BriefingData briefing = 2;
+}
+
+message ServiceResponseBriefing {
+    int32 status = 1;
+    string message = 2;
+    repeated BriefingData data = 3;
+    string error = 4;
+}
+
+message ListResultBriefing {
+    repeated BriefingData result = 1;
+    int32 total = 2;
+}
+
+message ServiceResponseListBriefing {
+    int32 status = 1;
+    string message = 2;
+    ListResultBriefing data = 3;
+    string error = 4;
+}
+
+//Classificacao
+message ListCriteriaRequestClassificacao {
+    int32 items = 1;
+    int32 page = 2;
+    map<string, string> order = 3;
+}
+
+message ClassificacaoData {
+    int32 id = 1;
+    string deClassificacao = 2;
+    string dtModificacao = 3;
+    string createdDate = 4;
+    string updatedDate = 5;
+    string deletedDate = 6;
+}
+
+message ClassificacaoUpdateRequest {
+    int32 id = 1;
+    ClassificacaoData classificacao = 2;
+}
+
+message ServiceResponseClassificacao {
+    int32 status = 1;
+    string message = 2;
+    repeated ClassificacaoData data = 3;
+    string error = 4;
+}
+
+message ListResultClassificacao {
+    repeated ClassificacaoData result = 1;
+    int32 total = 2;
+}
+
+message ServiceResponseListClassificacao {
+    int32 status = 1;
+    string message = 2;
+    ListResultClassificacao data = 3;
+    string error = 4;
+}
+
+//Contato
+message ListCriteriaRequestContato {
     int32 idEmpresa = 1;
+    int32 idPerfil = 2;
+    int32 idUsuOpe = 3;
+    int32 items = 4;
+    int32 page = 5;
+    map<string, string> order = 6;
+}
+
+message ContatoData {
+    int32 id = 1;
+    int32 idEmpresa = 2;
+    string deDdd = 3;
+    string nmContato = 4;
+    string deTelefone = 5;
+    string deEmail = 6;
+    string deCargo = 7;
+    int32 idPerfil = 8;
+    int32 idUsuOpe = 9;
+    string dtRegistro = 10;
+    string dtModificacao = 11;
+    string cdPrincipal = 12;
+    string createdDate = 13;
+    string updatedDate = 14;
+    string deletedDate = 15;
+}
+
+message ContatoUpdateRequest {
+    int32 id = 1;
+    ContatoData contato = 2;
+}
+
+message ServiceResponseContato {
+    int32 status = 1;
+    string message = 2;
+    repeated ContatoData data = 3;
+    string error = 4;
+}
+
+message ListResultContato {
+    repeated ContatoData result = 1;
+    int32 total = 2;
+}
+
+message ServiceResponseListContato {
+    int32 status = 1;
+    string message = 2;
+    ListResultContato data = 3;
+    string error = 4;
+}
+
+//CustomizacaoDocumento
+message ListCriteriaRequestCustomizacaoDocumento {
+    int32 idSolicitacao = 1;
+    int32 idUsuOpe = 2;
+    int32 items = 3;
+    int32 page = 4;
+    map<string, string> order = 5;
+}
+
+message CustomizacaoDocumentoData {
+    int32 id = 1;
+    int32 idSolicitacao = 2;
+    string deCustomizacao = 3;
+    string dtRegistro = 4;
+    int32 idUsuOpe = 5;
+    string dtModificacao = 6;
+    string createdDate = 7;
+    string updatedDate = 8;
+    string deletedDate = 9;
+}
+
+message CustomizacaoDocumentoUpdateRequest {
+    int32 id = 1;
+    CustomizacaoDocumentoData customizacaoDocumento = 2;
+}
+
+message ServiceResponseCustomizacaoDocumento {
+    int32 status = 1;
+    string message = 2;
+    repeated CustomizacaoDocumentoData data = 3;
+    string error = 4;
+}
+
+message ListResultCustomizacaoDocumento {
+    repeated CustomizacaoDocumentoData result = 1;
+    int32 total = 2;
+}
+
+message ServiceResponseListCustomizacaoDocumento {
+    int32 status = 1;
+    string message = 2;
+    ListResultCustomizacaoDocumento data = 3;
+    string error = 4;
+}
+
+//Empresa
+message ListCriteriaRequestEmpresa {
+    int32 idMunicipio = 1;
+    int32 idUsuOpe = 2;
+    int32 idUsuPromoter = 3;
+    int32 idStatus = 4;
+    int32 idClassificacao = 5;
+    int32 idStatusProspect = 6;
+    int32 idEnquete = 7;
+    int32 idPromoterCliente = 8;
+    int32 idGrupo = 9;
+    int32 items = 10;
+    int32 page = 11;
+    map<string, string> order = 12;
+}
+
+message EmpresaData {
+    int32 id = 1;
     string nmFantasia = 2;
     string deRazaoSocial = 3;
     string cdCnpj = 4;
@@ -59,83 +793,1793 @@ message MarketingEmpresaData {
     string deComplemento = 12;
     string deBairro = 13;
     string deCep = 14;
-    int32 idMunicipio = 15;
-    string deSite = 16;
-    string deEmail = 17;
-    double nuFaturamento = 18;
-    int32 nuFuncionarios = 19;
-    string dtCadastro = 20;
-    int32 idUsuOpe = 21;
-    string dtRegistro = 22;
-    int32 idUsuPromoter = 23;
-    string dtAgendamento = 24;
-    int32 idStatusProspect = 25;
-    string deObservacao = 26;
-    string dtPromessaBorderaux = 27;
-    bool cdExcluido = 28;
-    string dtModificacao = 29;
+    string deReferencia = 15;
+    int32 idMunicipio = 16;
+    string deSite = 17;
+    string deEmail = 18;
+    string cdTipoEmpresa = 19;
+    string nuFaturamento = 20;
+    string nuFuncionarios = 21;
+    string deInscrEstadual = 22;
+    string deInscrMunicipal = 23;
+    string dtCadastro = 24;
+    int32 idUsuOpe = 25;
+    string dtRegistro = 26;
+    int32 cdTipo = 27;
+    int32 idUsuPromoter = 28;
+    string dtAgendamento = 29;
+    int32 idStatus = 30;
+    string dtExpiracao = 31;
+    string deDominio = 32;
+    int32 idClassificacao = 33;
+    string dtDistribuicao = 34;
+    string deObservacao = 35;
+    int32 nuProrrogacao = 36;
+    bool cdProrrogacao = 37;
+    bool cdAceitoProrrogacao = 38;
+    string dtProrrogacao = 39;
+    string deMotivoProrrogacao = 40;
+    int32 idStatusProspect = 41;
+    bool cdAgRecursivo = 42;
+    int32 nuDiasRecursivo = 43;
+    string dtBordero = 44;
+    int32 nuCasos = 45;
+    double nuValor = 46;
+    int32 idEnquete = 47;
+    string nmRepresentante = 48;
+    string dtStatus = 49;
+    bool cdProspeccao = 50;
+    int32 nuSemBordero = 51;
+    int32 idPromoterCliente = 52;
+    bool cdExcluido = 53;
+    string dtModificacao = 54;
+    string dtPromessaBorderaux = 55;
+    string dtLimitePromBorderaux = 56;
+    string cdClassificacao = 57;
+    string cdLatitude = 58;
+    string cdLongitude = 59;
+    int32 idGrupo = 60;
+    string createdDate = 61;
+    string updatedDate = 62;
+    string deletedDate = 63;
 }
 
-message MarketingContatoData {
-    int32 idContato = 1;
-    int32 idEmpresa = 2;
-    string deDdd = 3;
-    string deTelefone = 4;
-    string nmContato = 5;
-    string deEmail = 6;
-    string deCargo = 7;
-    int32 idPerfil = 8;
-    int32 idUsuOpe = 9;
-    string dtRegistro = 10;
-    bool cdPrincipal = 11;
+message EmpresaUpdateRequest {
+    int32 id = 1;
+    EmpresaData empresa = 2;
 }
 
-message MarketingHistoricoLigacaoData {
-    int32 idHistorico = 1;
+message ServiceResponseEmpresa {
+    int32 status = 1;
+    string message = 2;
+    repeated EmpresaData data = 3;
+    string error = 4;
+}
+
+message ListResultEmpresa {
+    repeated EmpresaData result = 1;
+    int32 total = 2;
+}
+
+message ServiceResponseListEmpresa {
+    int32 status = 1;
+    string message = 2;
+    ListResultEmpresa data = 3;
+    string error = 4;
+}
+
+//EmpresaPromoterFixo
+message ListCriteriaRequestEmpresaPromoterFixo {
+    int32 idEmpresa = 1;
+    int32 idUsuPromoter = 2;
+    int32 idUsuOpe = 3;
+    int32 items = 4;
+    int32 page = 5;
+    map<string, string> order = 6;
+}
+
+message EmpresaPromoterFixoData {
+    int32 id = 1;
     int32 idEmpresa = 2;
-    string deHistorico = 3;
+    int32 idUsuPromoter = 3;
+    int32 idUsuOpe = 4;
+    string dtRegistro = 5;
+    string createdDate = 6;
+    string updatedDate = 7;
+    string deletedDate = 8;
+}
+
+message EmpresaPromoterFixoUpdateRequest {
+    int32 id = 1;
+    EmpresaPromoterFixoData empresaPromoterFixo = 2;
+}
+
+message ServiceResponseEmpresaPromoterFixo {
+    int32 status = 1;
+    string message = 2;
+    repeated EmpresaPromoterFixoData data = 3;
+    string error = 4;
+}
+
+message ListResultEmpresaPromoterFixo {
+    repeated EmpresaPromoterFixoData result = 1;
+    int32 total = 2;
+}
+
+message ServiceResponseListEmpresaPromoterFixo {
+    int32 status = 1;
+    string message = 2;
+    ListResultEmpresaPromoterFixo data = 3;
+    string error = 4;
+}
+
+//EmpresaSegmentoProduto
+message ListCriteriaRequestEmpresaSegmentoProduto {
+    int32 idEmpresa = 1;
+    int32 idSegmentoProduto = 2;
+    int32 idUsuOpe = 3;
+    int32 items = 4;
+    int32 page = 5;
+    map<string, string> order = 6;
+}
+
+message EmpresaSegmentoProdutoData {
+    int32 id = 1;
+    int32 idEmpresa = 2;
+    int32 idSegmentoProduto = 3;
+    int32 idUsuOpe = 4;
+    string dtRegistro = 5;
+    string dtModificacao = 6;
+    string createdDate = 7;
+    string updatedDate = 8;
+    string deletedDate = 9;
+}
+
+message EmpresaSegmentoProdutoUpdateRequest {
+    int32 id = 1;
+    EmpresaSegmentoProdutoData empresaSegmentoProduto = 2;
+}
+
+message ServiceResponseEmpresaSegmentoProduto {
+    int32 status = 1;
+    string message = 2;
+    repeated EmpresaSegmentoProdutoData data = 3;
+    string error = 4;
+}
+
+message ListResultEmpresaSegmentoProduto {
+    repeated EmpresaSegmentoProdutoData result = 1;
+    int32 total = 2;
+}
+
+message ServiceResponseListEmpresaSegmentoProduto {
+    int32 status = 1;
+    string message = 2;
+    ListResultEmpresaSegmentoProduto data = 3;
+    string error = 4;
+}
+
+//Enquete
+message ListCriteriaRequestEnquete {
+    int32 idUsuOpe = 1;
+    int32 items = 2;
+    int32 page = 3;
+    map<string, string> order = 4;
+}
+
+message EnqueteData {
+    int32 id = 1;
+    string deEnquete = 2;
+    string dtRegistro = 3;
+    int32 idUsuOpe = 4;
+    string dtModificacao = 5;
+    string createdDate = 6;
+    string updatedDate = 7;
+    string deletedDate = 8;
+}
+
+message EnqueteUpdateRequest {
+    int32 id = 1;
+    EnqueteData enquete = 2;
+}
+
+message ServiceResponseEnquete {
+    int32 status = 1;
+    string message = 2;
+    repeated EnqueteData data = 3;
+    string error = 4;
+}
+
+message ListResultEnquete {
+    repeated EnqueteData result = 1;
+    int32 total = 2;
+}
+
+message ServiceResponseListEnquete {
+    int32 status = 1;
+    string message = 2;
+    ListResultEnquete data = 3;
+    string error = 4;
+}
+
+//EnvioDocumento
+message ListCriteriaRequestEnvioDocumento {
+    int32 idSolicitacao = 1;
+    int32 idTipoDocumento = 2;
+    int32 idRecebimento = 3;
+    int32 idUsuOpe = 4;
+    int32 idEmpresa = 5;
+    int32 items = 6;
+    int32 page = 7;
+    map<string, string> order = 8;
+}
+
+message EnvioDocumentoData {
+    int32 id = 1;
+    int32 idSolicitacao = 2;
+    string dtEnvio = 3;
+    string nmArquivo = 4;
+    bytes arquivo = 5;
+    string nmArquivo1 = 6;
+    bytes arquivo1 = 7;
+    string nmArquivo2 = 8;
+    bytes arquivo2 = 9;
+    string nmArquivo3 = 10;
+    bytes arquivo3 = 11;
+    int32 idTipoDocumento = 12;
+    int32 idRecebimento = 13;
+    string deDestinatario = 14;
+    string deAssunto = 15;
+    string dtRegistro = 16;
+    int32 idUsuOpe = 17;
+    int32 idEmpresa = 18;
+    string dtModificacao = 19;
+    string createdDate = 20;
+    string updatedDate = 21;
+    string deletedDate = 22;
+}
+
+message EnvioDocumentoUpdateRequest {
+    int32 id = 1;
+    EnvioDocumentoData envioDocumento = 2;
+}
+
+message ServiceResponseEnvioDocumento {
+    int32 status = 1;
+    string message = 2;
+    repeated EnvioDocumentoData data = 3;
+    string error = 4;
+}
+
+message ListResultEnvioDocumento {
+    repeated EnvioDocumentoData result = 1;
+    int32 total = 2;
+}
+
+message ServiceResponseListEnvioDocumento {
+    int32 status = 1;
+    string message = 2;
+    ListResultEnvioDocumento data = 3;
+    string error = 4;
+}
+
+//EventosStatus
+message ListCriteriaRequestEventosStatus {
+    int32 items = 1;
+    int32 page = 2;
+    map<string, string> order = 3;
+}
+
+message EventosStatusData {
+    int32 id = 1;
+    string hrEvento = 2;
+    string dtModificacao = 3;
+    string createdDate = 4;
+    string updatedDate = 5;
+    string deletedDate = 6;
+}
+
+message EventosStatusUpdateRequest {
+    int32 id = 1;
+    EventosStatusData eventosStatus = 2;
+}
+
+message ServiceResponseEventosStatus {
+    int32 status = 1;
+    string message = 2;
+    repeated EventosStatusData data = 3;
+    string error = 4;
+}
+
+message ListResultEventosStatus {
+    repeated EventosStatusData result = 1;
+    int32 total = 2;
+}
+
+message ServiceResponseListEventosStatus {
+    int32 status = 1;
+    string message = 2;
+    ListResultEventosStatus data = 3;
+    string error = 4;
+}
+
+//Federacao
+message ListCriteriaRequestFederacao {
+    int32 idUsuOpe = 1;
+    int32 items = 2;
+    int32 page = 3;
+    map<string, string> order = 4;
+}
+
+message FederacaoData {
+    int32 id = 1;
+    string deFederacao = 2;
+    string cdFederacao = 3;
+    int32 idUsuOpe = 4;
+    string dtRegistro = 5;
+    string dtModificacao = 6;
+    string createdDate = 7;
+    string updatedDate = 8;
+    string deletedDate = 9;
+}
+
+message FederacaoUpdateRequest {
+    int32 id = 1;
+    FederacaoData federacao = 2;
+}
+
+message ServiceResponseFederacao {
+    int32 status = 1;
+    string message = 2;
+    repeated FederacaoData data = 3;
+    string error = 4;
+}
+
+message ListResultFederacao {
+    repeated FederacaoData result = 1;
+    int32 total = 2;
+}
+
+message ServiceResponseListFederacao {
+    int32 status = 1;
+    string message = 2;
+    ListResultFederacao data = 3;
+    string error = 4;
+}
+
+//Gravacao
+message ListCriteriaRequestGravacao {
+    int32 idEmpresa = 1;
+    int32 idUsuaOper = 2;
+    int32 items = 3;
+    int32 page = 4;
+    map<string, string> order = 5;
+}
+
+message GravacaoData {
+    int32 id = 1;
+    int32 idEmpresa = 2;
+    string dtCadastro = 3;
+    string deArquivo = 4;
+    int32 idUsuaOper = 5;
+    string dtRegistro = 6;
+    string cdTipoligacao = 7;
+    string cdTipochamada = 8;
+    string createdDate = 9;
+    string updatedDate = 10;
+    string deletedDate = 11;
+}
+
+message GravacaoUpdateRequest {
+    int32 id = 1;
+    GravacaoData gravacao = 2;
+}
+
+message ServiceResponseGravacao {
+    int32 status = 1;
+    string message = 2;
+    repeated GravacaoData data = 3;
+    string error = 4;
+}
+
+message ListResultGravacao {
+    repeated GravacaoData result = 1;
+    int32 total = 2;
+}
+
+message ServiceResponseListGravacao {
+    int32 status = 1;
+    string message = 2;
+    ListResultGravacao data = 3;
+    string error = 4;
+}
+
+//GrupoPagina
+message ListCriteriaRequestGrupoPagina {
+    int32 idPagina = 1;
+    int32 idGrupo = 2;
+    int32 idUsuOpe = 3;
+    int32 items = 4;
+    int32 page = 5;
+    map<string, string> order = 6;
+}
+
+message GrupoPaginaData {
+    int32 id = 1;
+    int32 idPagina = 2;
+    int32 idGrupo = 3;
+    bool cdInclusao = 4;
+    bool cdConsulta = 5;
+    bool cdAlteracao = 6;
+    bool cdExclusao = 7;
+    int32 idUsuOpe = 8;
+    string dtRegistro = 9;
+    string dtModificacao = 10;
+    string createdDate = 11;
+    string updatedDate = 12;
+    string deletedDate = 13;
+}
+
+message GrupoPaginaUpdateRequest {
+    int32 id = 1;
+    GrupoPaginaData grupoPagina = 2;
+}
+
+message ServiceResponseGrupoPagina {
+    int32 status = 1;
+    string message = 2;
+    repeated GrupoPaginaData data = 3;
+    string error = 4;
+}
+
+message ListResultGrupoPagina {
+    repeated GrupoPaginaData result = 1;
+    int32 total = 2;
+}
+
+message ServiceResponseListGrupoPagina {
+    int32 status = 1;
+    string message = 2;
+    ListResultGrupoPagina data = 3;
+    string error = 4;
+}
+
+//Grupos
+message ListCriteriaRequestGrupos {
+    int32 idUsuOpe = 1;
+    int32 items = 2;
+    int32 page = 3;
+    map<string, string> order = 4;
+}
+
+message GruposData {
+    int32 id = 1;
+    string nmGrupo = 2;
+    bool cdAtivo = 3;
+    int32 cdFuncao = 4;
+    int32 idUsuOpe = 5;
+    string dtRegistro = 6;
+    string dtModificacao = 7;
+    string createdDate = 8;
+    string updatedDate = 9;
+    string deletedDate = 10;
+}
+
+message GruposUpdateRequest {
+    int32 id = 1;
+    GruposData grupos = 2;
+}
+
+message ServiceResponseGrupos {
+    int32 status = 1;
+    string message = 2;
+    repeated GruposData data = 3;
+    string error = 4;
+}
+
+message ListResultGrupos {
+    repeated GruposData result = 1;
+    int32 total = 2;
+}
+
+message ServiceResponseListGrupos {
+    int32 status = 1;
+    string message = 2;
+    ListResultGrupos data = 3;
+    string error = 4;
+}
+
+//HistoricoDistribuicao
+message ListCriteriaRequestHistoricoDistribuicao {
+    int32 idEmpresa = 1;
+    int32 idUsuario = 2;
+    int32 idUsuOpe = 3;
+    int32 items = 4;
+    int32 page = 5;
+    map<string, string> order = 6;
+}
+
+message HistoricoDistribuicaoData {
+    int32 id = 1;
+    int32 idEmpresa = 2;
+    int32 idUsuario = 3;
+    string dtInicio = 4;
+    string dtFim = 5;
+    bool cdProrrogacao = 6;
+    string dtRegistro = 7;
+    int32 idUsuOpe = 8;
+    string dtModificacao = 9;
+    string createdDate = 10;
+    string updatedDate = 11;
+    string deletedDate = 12;
+}
+
+message HistoricoDistribuicaoUpdateRequest {
+    int32 id = 1;
+    HistoricoDistribuicaoData historicoDistribuicao = 2;
+}
+
+message ServiceResponseHistoricoDistribuicao {
+    int32 status = 1;
+    string message = 2;
+    repeated HistoricoDistribuicaoData data = 3;
+    string error = 4;
+}
+
+message ListResultHistoricoDistribuicao {
+    repeated HistoricoDistribuicaoData result = 1;
+    int32 total = 2;
+}
+
+message ServiceResponseListHistoricoDistribuicao {
+    int32 status = 1;
+    string message = 2;
+    ListResultHistoricoDistribuicao data = 3;
+    string error = 4;
+}
+
+//HistoricoEmailVisita
+message ListCriteriaRequestHistoricoEmailVisita {
+    int32 idUsuOpe = 1;
+    int32 idAgendaHorario = 2;
+    int32 items = 3;
+    int32 page = 4;
+    map<string, string> order = 5;
+}
+
+message HistoricoEmailVisitaData {
+    int32 id = 1;
+    string deHistoricoEmailVisita = 2;
+    int32 idUsuOpe = 3;
+    string dtCadastro = 4;
+    int32 idAgendaHorario = 5;
+    string dtModificacao = 6;
+    string createdDate = 7;
+    string updatedDate = 8;
+    string deletedDate = 9;
+}
+
+message HistoricoEmailVisitaUpdateRequest {
+    int32 id = 1;
+    HistoricoEmailVisitaData historicoEmailVisita = 2;
+}
+
+message ServiceResponseHistoricoEmailVisita {
+    int32 status = 1;
+    string message = 2;
+    repeated HistoricoEmailVisitaData data = 3;
+    string error = 4;
+}
+
+message ListResultHistoricoEmailVisita {
+    repeated HistoricoEmailVisitaData result = 1;
+    int32 total = 2;
+}
+
+message ServiceResponseListHistoricoEmailVisita {
+    int32 status = 1;
+    string message = 2;
+    ListResultHistoricoEmailVisita data = 3;
+    string error = 4;
+}
+
+//HistoricoEmpresaStatusLigacao
+message ListCriteriaRequestHistoricoEmpresaStatusLigacao {
+    int32 idEmpresa = 1;
+    int32 idStatus = 2;
+    int32 idUsuOpe = 3;
+    int32 items = 4;
+    int32 page = 5;
+    map<string, string> order = 6;
+}
+
+message HistoricoEmpresaStatusLigacaoData {
+    int32 id = 1;
+    int32 idEmpresa = 2;
+    int32 idStatus = 3;
+    string dtCadastro = 4;
+    int32 idUsuOpe = 5;
+    string dtModificacao = 6;
+    string createdDate = 7;
+    string updatedDate = 8;
+    string deletedDate = 9;
+}
+
+message HistoricoEmpresaStatusLigacaoUpdateRequest {
+    int32 id = 1;
+    HistoricoEmpresaStatusLigacaoData historicoEmpresaStatusLigacao = 2;
+}
+
+message ServiceResponseHistoricoEmpresaStatusLigacao {
+    int32 status = 1;
+    string message = 2;
+    repeated HistoricoEmpresaStatusLigacaoData data = 3;
+    string error = 4;
+}
+
+message ListResultHistoricoEmpresaStatusLigacao {
+    repeated HistoricoEmpresaStatusLigacaoData result = 1;
+    int32 total = 2;
+}
+
+message ServiceResponseListHistoricoEmpresaStatusLigacao {
+    int32 status = 1;
+    string message = 2;
+    ListResultHistoricoEmpresaStatusLigacao data = 3;
+    string error = 4;
+}
+
+//HistoricoLigacao
+message ListCriteriaRequestHistoricoLigacao {
+    int32 idEmpresa = 1;
+    int32 idUsuOpe = 2;
+    int32 items = 3;
+    int32 page = 4;
+    map<string, string> order = 5;
+}
+
+message HistoricoLigacaoData {
+    int32 id = 1;
+    string deHistorico = 2;
+    int32 idEmpresa = 3;
     string dtCadastro = 4;
     int32 cdReceptividade = 5;
     int32 cdHistorico = 6;
     int32 idUsuOpe = 7;
-    string tpHistorico = 8;
+    string dtModificacao = 8;
+    int32 tpHistorico = 9;
+    string createdDate = 10;
+    string updatedDate = 11;
+    string deletedDate = 12;
 }
 
-message ListCriteriaRequestMarketingEmpresa {
-    int32 idEmpresa = 1;
-    int32 idUsuPromoter = 2;
-    int32 idStatusProspect = 3;
-    string nmFantasia = 4;
+message HistoricoLigacaoUpdateRequest {
+    int32 id = 1;
+    HistoricoLigacaoData historicoLigacao = 2;
+}
+
+message ServiceResponseHistoricoLigacao {
+    int32 status = 1;
+    string message = 2;
+    repeated HistoricoLigacaoData data = 3;
+    string error = 4;
+}
+
+message ListResultHistoricoLigacao {
+    repeated HistoricoLigacaoData result = 1;
+    int32 total = 2;
+}
+
+message ServiceResponseListHistoricoLigacao {
+    int32 status = 1;
+    string message = 2;
+    ListResultHistoricoLigacao data = 3;
+    string error = 4;
+}
+
+//HistoricoVisita
+message ListCriteriaRequestHistoricoVisita {
+    int32 idAgendaHorario = 1;
+    int32 idUsuOpe = 2;
+    int32 items = 3;
+    int32 page = 4;
+    map<string, string> order = 5;
+}
+
+message HistoricoVisitaData {
+    int32 id = 1;
+    string deResultadoVisita = 2;
+    int32 idAgendaHorario = 3;
+    int32 nuDuracao = 4;
+    string dtVisita = 5;
+    int32 idUsuOpe = 6;
+    string dtCadastro = 7;
+    string dtModificacao = 8;
+    string createdDate = 9;
+    string updatedDate = 10;
+    string deletedDate = 11;
+}
+
+message HistoricoVisitaUpdateRequest {
+    int32 id = 1;
+    HistoricoVisitaData historicoVisita = 2;
+}
+
+message ServiceResponseHistoricoVisita {
+    int32 status = 1;
+    string message = 2;
+    repeated HistoricoVisitaData data = 3;
+    string error = 4;
+}
+
+message ListResultHistoricoVisita {
+    repeated HistoricoVisitaData result = 1;
+    int32 total = 2;
+}
+
+message ServiceResponseListHistoricoVisita {
+    int32 status = 1;
+    string message = 2;
+    ListResultHistoricoVisita data = 3;
+    string error = 4;
+}
+
+//Horarios
+message ListCriteriaRequestHorarios {
+    int32 idUsuOpe = 1;
+    int32 items = 2;
+    int32 page = 3;
+    map<string, string> order = 4;
+}
+
+message HorariosData {
+    int32 id = 1;
+    string dtHorario = 2;
+    int32 idUsuOpe = 3;
+    string dtRegistro = 4;
+    string dtModificacao = 5;
+    string createdDate = 6;
+    string updatedDate = 7;
+    string deletedDate = 8;
+}
+
+message HorariosUpdateRequest {
+    int32 id = 1;
+    HorariosData horarios = 2;
+}
+
+message ServiceResponseHorarios {
+    int32 status = 1;
+    string message = 2;
+    repeated HorariosData data = 3;
+    string error = 4;
+}
+
+message ListResultHorarios {
+    repeated HorariosData result = 1;
+    int32 total = 2;
+}
+
+message ServiceResponseListHorarios {
+    int32 status = 1;
+    string message = 2;
+    ListResultHorarios data = 3;
+    string error = 4;
+}
+
+//Mensagem
+message ListCriteriaRequestMensagem {
+    int32 idUsuOpe = 1;
+    int32 items = 2;
+    int32 page = 3;
+    map<string, string> order = 4;
+}
+
+message MensagemData {
+    int32 id = 1;
+    string deMensagem = 2;
+    string cdMensagem = 3;
+    int32 idUsuOpe = 4;
+    string dtRegistro = 5;
+    string dtModificacao = 6;
+    string createdDate = 7;
+    string updatedDate = 8;
+    string deletedDate = 9;
+}
+
+message MensagemUpdateRequest {
+    int32 id = 1;
+    MensagemData mensagem = 2;
+}
+
+message ServiceResponseMensagem {
+    int32 status = 1;
+    string message = 2;
+    repeated MensagemData data = 3;
+    string error = 4;
+}
+
+message ListResultMensagem {
+    repeated MensagemData result = 1;
+    int32 total = 2;
+}
+
+message ServiceResponseListMensagem {
+    int32 status = 1;
+    string message = 2;
+    ListResultMensagem data = 3;
+    string error = 4;
+}
+
+//Menu
+message ListCriteriaRequestMenu {
+    int32 idUsuOpe = 1;
+    int32 items = 2;
+    int32 page = 3;
+    map<string, string> order = 4;
+}
+
+message MenuData {
+    int32 id = 1;
+    string deMenu = 2;
+    bool cdAtivo = 3;
+    int32 idUsuOpe = 4;
+    string dtRegistro = 5;
+    int32 cdOrdem = 6;
+    string nmImagem = 7;
+    string dtModificacao = 8;
+    string createdDate = 9;
+    string updatedDate = 10;
+    string deletedDate = 11;
+}
+
+message MenuUpdateRequest {
+    int32 id = 1;
+    MenuData menu = 2;
+}
+
+message ServiceResponseMenu {
+    int32 status = 1;
+    string message = 2;
+    repeated MenuData data = 3;
+    string error = 4;
+}
+
+message ListResultMenu {
+    repeated MenuData result = 1;
+    int32 total = 2;
+}
+
+message ServiceResponseListMenu {
+    int32 status = 1;
+    string message = 2;
+    ListResultMenu data = 3;
+    string error = 4;
+}
+
+//Municipio
+message ListCriteriaRequestMunicipio {
+    int32 idFederacao = 1;
+    int32 idUsuOpe = 2;
+    int32 items = 3;
+    int32 page = 4;
+    map<string, string> order = 5;
+}
+
+message MunicipioData {
+    int32 id = 1;
+    int32 idFederacao = 2;
+    string deMunicipio = 3;
+    int32 idUsuOpe = 4;
+    string dtRegistro = 5;
+    string dtModificacao = 6;
+    string createdDate = 7;
+    string updatedDate = 8;
+    string deletedDate = 9;
+}
+
+message MunicipioUpdateRequest {
+    int32 id = 1;
+    MunicipioData municipio = 2;
+}
+
+message ServiceResponseMunicipio {
+    int32 status = 1;
+    string message = 2;
+    repeated MunicipioData data = 3;
+    string error = 4;
+}
+
+message ListResultMunicipio {
+    repeated MunicipioData result = 1;
+    int32 total = 2;
+}
+
+message ServiceResponseListMunicipio {
+    int32 status = 1;
+    string message = 2;
+    ListResultMunicipio data = 3;
+    string error = 4;
+}
+
+//PaginaAcesso
+message ListCriteriaRequestPaginaAcesso {
+    int32 idPagina = 1;
+    int32 idUsuOper = 2;
+    int32 items = 3;
+    int32 page = 4;
+    map<string, string> order = 5;
+}
+
+message PaginaAcessoData {
+    int32 id = 1;
+    int32 idPagina = 2;
+    int32 cdAcesso = 3;
+    int32 idUsuOper = 4;
+    string dtRegistro = 5;
+    string createdDate = 6;
+    string updatedDate = 7;
+    string deletedDate = 8;
+}
+
+message PaginaAcessoUpdateRequest {
+    int32 id = 1;
+    PaginaAcessoData paginaAcesso = 2;
+}
+
+message ServiceResponsePaginaAcesso {
+    int32 status = 1;
+    string message = 2;
+    repeated PaginaAcessoData data = 3;
+    string error = 4;
+}
+
+message ListResultPaginaAcesso {
+    repeated PaginaAcessoData result = 1;
+    int32 total = 2;
+}
+
+message ServiceResponseListPaginaAcesso {
+    int32 status = 1;
+    string message = 2;
+    ListResultPaginaAcesso data = 3;
+    string error = 4;
+}
+
+//Paginas
+message ListCriteriaRequestPaginas {
+    int32 idMenu = 1;
+    int32 idUsuOpe = 2;
+    int32 idPaginaPai = 3;
+    int32 items = 4;
     int32 page = 5;
-    int32 items = 6;
+    map<string, string> order = 6;
 }
 
-message ListCriteriaRequestMarketingContato {
-    int32 idEmpresa = 1;
+message PaginasData {
+    int32 id = 1;
+    string dePagina = 2;
+    string urlPagina = 3;
+    bool cdAtivo = 4;
+    int32 idMenu = 5;
+    int32 idUsuOpe = 6;
+    string dtRegistro = 7;
+    int32 cdOrdem = 8;
+    int32 idPaginaPai = 9;
+    string dtModificacao = 10;
+    string createdDate = 11;
+    string updatedDate = 12;
+    string deletedDate = 13;
 }
 
-message ListCriteriaRequestMarketingHistoricoLigacao {
-    int32 idEmpresa = 1;
+message PaginasUpdateRequest {
+    int32 id = 1;
+    PaginasData paginas = 2;
 }
 
-message ServiceResponseMarketingEmpresa {
+message ServiceResponsePaginas {
     int32 status = 1;
     string message = 2;
-    repeated MarketingEmpresaData data = 3;
+    repeated PaginasData data = 3;
     string error = 4;
-    int32 total = 5;
 }
 
-message ServiceResponseMarketingContato {
+message ListResultPaginas {
+    repeated PaginasData result = 1;
+    int32 total = 2;
+}
+
+message ServiceResponseListPaginas {
     int32 status = 1;
     string message = 2;
-    repeated MarketingContatoData data = 3;
+    ListResultPaginas data = 3;
     string error = 4;
 }
 
-message ServiceResponseMarketingHistoricoLigacao {
+//Parametros
+message ListCriteriaRequestParametros {
+    int32 idUsuOpe = 1;
+    int32 items = 2;
+    int32 page = 3;
+    map<string, string> order = 4;
+}
+
+message ParametrosData {
+    int32 id = 1;
+    string cdParametro = 2;
+    string deParametro = 3;
+    int32 nuDias = 4;
+    int32 nuHoras = 5;
+    int32 nuMinutos = 6;
+    int32 idUsuOpe = 7;
+    string dtRegistro = 8;
+    string dtModificacao = 9;
+    string createdDate = 10;
+    string updatedDate = 11;
+    string deletedDate = 12;
+}
+
+message ParametrosUpdateRequest {
+    int32 id = 1;
+    ParametrosData parametros = 2;
+}
+
+message ServiceResponseParametros {
     int32 status = 1;
     string message = 2;
-    repeated MarketingHistoricoLigacaoData data = 3;
+    repeated ParametrosData data = 3;
+    string error = 4;
+}
+
+message ListResultParametros {
+    repeated ParametrosData result = 1;
+    int32 total = 2;
+}
+
+message ServiceResponseListParametros {
+    int32 status = 1;
+    string message = 2;
+    ListResultParametros data = 3;
+    string error = 4;
+}
+
+//ParticipanteVisitas
+message ListCriteriaRequestParticipanteVisitas {
+    int32 idAgendaHorario = 1;
+    int32 idUsuOpe = 2;
+    int32 items = 3;
+    int32 page = 4;
+    map<string, string> order = 5;
+}
+
+message ParticipanteVisitasData {
+    int32 id = 1;
+    int32 idAgendaHorario = 2;
+    string nmParticipante = 3;
+    string deEmail = 4;
+    string deCargo = 5;
+    string deDdd = 6;
+    string deTelefone = 7;
+    int32 idUsuOpe = 8;
+    string dtRegistro = 9;
+    bool cdParticipou = 10;
+    string dtModificacao = 11;
+    string createdDate = 12;
+    string updatedDate = 13;
+    string deletedDate = 14;
+}
+
+message ParticipanteVisitasUpdateRequest {
+    int32 id = 1;
+    ParticipanteVisitasData participanteVisitas = 2;
+}
+
+message ServiceResponseParticipanteVisitas {
+    int32 status = 1;
+    string message = 2;
+    repeated ParticipanteVisitasData data = 3;
+    string error = 4;
+}
+
+message ListResultParticipanteVisitas {
+    repeated ParticipanteVisitasData result = 1;
+    int32 total = 2;
+}
+
+message ServiceResponseListParticipanteVisitas {
+    int32 status = 1;
+    string message = 2;
+    ListResultParticipanteVisitas data = 3;
+    string error = 4;
+}
+
+//PerfilContato
+message ListCriteriaRequestPerfilContato {
+    int32 items = 1;
+    int32 page = 2;
+    map<string, string> order = 3;
+}
+
+message PerfilContatoData {
+    int32 id = 1;
+    string dePerfil = 2;
+    bool cdAtivo = 3;
+    string dtModificacao = 4;
+    string createdDate = 5;
+    string updatedDate = 6;
+    string deletedDate = 7;
+}
+
+message PerfilContatoUpdateRequest {
+    int32 id = 1;
+    PerfilContatoData perfilContato = 2;
+}
+
+message ServiceResponsePerfilContato {
+    int32 status = 1;
+    string message = 2;
+    repeated PerfilContatoData data = 3;
+    string error = 4;
+}
+
+message ListResultPerfilContato {
+    repeated PerfilContatoData result = 1;
+    int32 total = 2;
+}
+
+message ServiceResponseListPerfilContato {
+    int32 status = 1;
+    string message = 2;
+    ListResultPerfilContato data = 3;
+    string error = 4;
+}
+
+//ProbabilidadeEmpresa
+message ListCriteriaRequestProbabilidadeEmpresa {
+    int32 idProbabilidade = 1;
+    int32 idEmpresa = 2;
+    int32 idUsuOpe = 3;
+    int32 items = 4;
+    int32 page = 5;
+    map<string, string> order = 6;
+}
+
+message ProbabilidadeEmpresaData {
+    int32 id = 1;
+    int32 idProbabilidade = 2;
+    int32 idEmpresa = 3;
+    string deDescricao = 4;
+    int32 idUsuOpe = 5;
+    string dtRegistro = 6;
+    string createdDate = 7;
+    string updatedDate = 8;
+    string deletedDate = 9;
+}
+
+message ProbabilidadeEmpresaUpdateRequest {
+    int32 id = 1;
+    ProbabilidadeEmpresaData probabilidadeEmpresa = 2;
+}
+
+message ServiceResponseProbabilidadeEmpresa {
+    int32 status = 1;
+    string message = 2;
+    repeated ProbabilidadeEmpresaData data = 3;
+    string error = 4;
+}
+
+message ListResultProbabilidadeEmpresa {
+    repeated ProbabilidadeEmpresaData result = 1;
+    int32 total = 2;
+}
+
+message ServiceResponseListProbabilidadeEmpresa {
+    int32 status = 1;
+    string message = 2;
+    ListResultProbabilidadeEmpresa data = 3;
+    string error = 4;
+}
+
+//ProbabilidadeVisita
+message ListCriteriaRequestProbabilidadeVisita {
+    int32 items = 1;
+    int32 page = 2;
+    map<string, string> order = 3;
+}
+
+message ProbabilidadeVisitaData {
+    int32 id = 1;
+    string deDdd = 2;
+    string dtGeracao = 3;
+    string dtRegistro = 4;
+    string createdDate = 5;
+    string updatedDate = 6;
+    string deletedDate = 7;
+}
+
+message ProbabilidadeVisitaUpdateRequest {
+    int32 id = 1;
+    ProbabilidadeVisitaData probabilidadeVisita = 2;
+}
+
+message ServiceResponseProbabilidadeVisita {
+    int32 status = 1;
+    string message = 2;
+    repeated ProbabilidadeVisitaData data = 3;
+    string error = 4;
+}
+
+message ListResultProbabilidadeVisita {
+    repeated ProbabilidadeVisitaData result = 1;
+    int32 total = 2;
+}
+
+message ServiceResponseListProbabilidadeVisita {
+    int32 status = 1;
+    string message = 2;
+    ListResultProbabilidadeVisita data = 3;
+    string error = 4;
+}
+
+//Produto
+message ListCriteriaRequestProduto {
+    int32 idUsuOpe = 1;
+    int32 items = 2;
+    int32 page = 3;
+    map<string, string> order = 4;
+}
+
+message ProdutoData {
+    int32 id = 1;
+    string deProduto = 2;
+    int32 idUsuOpe = 3;
+    string dtRegistro = 4;
+    string dtModificacao = 5;
+    string createdDate = 6;
+    string updatedDate = 7;
+    string deletedDate = 8;
+}
+
+message ProdutoUpdateRequest {
+    int32 id = 1;
+    ProdutoData produto = 2;
+}
+
+message ServiceResponseProduto {
+    int32 status = 1;
+    string message = 2;
+    repeated ProdutoData data = 3;
+    string error = 4;
+}
+
+message ListResultProduto {
+    repeated ProdutoData result = 1;
+    int32 total = 2;
+}
+
+message ServiceResponseListProduto {
+    int32 status = 1;
+    string message = 2;
+    ListResultProduto data = 3;
+    string error = 4;
+}
+
+//RamoAtividade
+message ListCriteriaRequestRamoAtividade {
+    int32 idUsuOpe = 1;
+    int32 items = 2;
+    int32 page = 3;
+    map<string, string> order = 4;
+}
+
+message RamoAtividadeData {
+    int32 id = 1;
+    string deRamoAtividade = 2;
+    int32 idUsuOpe = 3;
+    string dtRegistro = 4;
+    string dtModificacao = 5;
+    string createdDate = 6;
+    string updatedDate = 7;
+    string deletedDate = 8;
+}
+
+message RamoAtividadeUpdateRequest {
+    int32 id = 1;
+    RamoAtividadeData ramoAtividade = 2;
+}
+
+message ServiceResponseRamoAtividade {
+    int32 status = 1;
+    string message = 2;
+    repeated RamoAtividadeData data = 3;
+    string error = 4;
+}
+
+message ListResultRamoAtividade {
+    repeated RamoAtividadeData result = 1;
+    int32 total = 2;
+}
+
+message ServiceResponseListRamoAtividade {
+    int32 status = 1;
+    string message = 2;
+    ListResultRamoAtividade data = 3;
+    string error = 4;
+}
+
+//RecebimentoDocumento
+message ListCriteriaRequestRecebimentoDocumento {
+    int32 idTipoDocumento = 1;
+    int32 idUsuOpe = 2;
+    int32 items = 3;
+    int32 page = 4;
+    map<string, string> order = 5;
+}
+
+message RecebimentoDocumentoData {
+    int32 id = 1;
+    string dtRecebimento = 2;
+    int32 idTipoDocumento = 3;
+    string nmArquivo = 4;
+    bytes arquivo = 5;
+    string nmArquivo1 = 6;
+    bytes arquivo1 = 7;
+    string nmArquivo2 = 8;
+    bytes arquivo2 = 9;
+    string nmArquivo3 = 10;
+    bytes arquivo3 = 11;
+    string nmRemetente = 12;
+    string dtRegistro = 13;
+    int32 idUsuOpe = 14;
+    string dtModificacao = 15;
+    string createdDate = 16;
+    string updatedDate = 17;
+    string deletedDate = 18;
+}
+
+message RecebimentoDocumentoUpdateRequest {
+    int32 id = 1;
+    RecebimentoDocumentoData recebimentoDocumento = 2;
+}
+
+message ServiceResponseRecebimentoDocumento {
+    int32 status = 1;
+    string message = 2;
+    repeated RecebimentoDocumentoData data = 3;
+    string error = 4;
+}
+
+message ListResultRecebimentoDocumento {
+    repeated RecebimentoDocumentoData result = 1;
+    int32 total = 2;
+}
+
+message ServiceResponseListRecebimentoDocumento {
+    int32 status = 1;
+    string message = 2;
+    ListResultRecebimentoDocumento data = 3;
+    string error = 4;
+}
+
+//Segmento
+message ListCriteriaRequestSegmento {
+    int32 idRamoAtividade = 1;
+    int32 idUsuOpe = 2;
+    int32 items = 3;
+    int32 page = 4;
+    map<string, string> order = 5;
+}
+
+message SegmentoData {
+    int32 id = 1;
+    int32 idRamoAtividade = 2;
+    string deSegmento = 3;
+    int32 idUsuOpe = 4;
+    string dtRegistro = 5;
+    string dtModificacao = 6;
+    string createdDate = 7;
+    string updatedDate = 8;
+    string deletedDate = 9;
+}
+
+message SegmentoUpdateRequest {
+    int32 id = 1;
+    SegmentoData segmento = 2;
+}
+
+message ServiceResponseSegmento {
+    int32 status = 1;
+    string message = 2;
+    repeated SegmentoData data = 3;
+    string error = 4;
+}
+
+message ListResultSegmento {
+    repeated SegmentoData result = 1;
+    int32 total = 2;
+}
+
+message ServiceResponseListSegmento {
+    int32 status = 1;
+    string message = 2;
+    ListResultSegmento data = 3;
+    string error = 4;
+}
+
+//SolicitacaoDocumento
+message ListCriteriaRequestSolicitacaoDocumento {
+    int32 idEmpresa = 1;
+    int32 idTipoDocumento = 2;
+    int32 idUsuOpe = 3;
+    int32 items = 4;
+    int32 page = 5;
+    map<string, string> order = 6;
+}
+
+message SolicitacaoDocumentoData {
+    int32 id = 1;
+    int32 idEmpresa = 2;
+    string dtSolicitacao = 3;
+    bool cdVersao = 4;
+    int32 idTipoDocumento = 5;
+    int32 cdFormatDoc = 6;
+    string dtRegistro = 7;
+    int32 idUsuOpe = 8;
+    string dePara = 9;
+    string dtModificacao = 10;
+    string createdDate = 11;
+    string updatedDate = 12;
+    string deletedDate = 13;
+}
+
+message SolicitacaoDocumentoUpdateRequest {
+    int32 id = 1;
+    SolicitacaoDocumentoData solicitacaoDocumento = 2;
+}
+
+message ServiceResponseSolicitacaoDocumento {
+    int32 status = 1;
+    string message = 2;
+    repeated SolicitacaoDocumentoData data = 3;
+    string error = 4;
+}
+
+message ListResultSolicitacaoDocumento {
+    repeated SolicitacaoDocumentoData result = 1;
+    int32 total = 2;
+}
+
+message ServiceResponseListSolicitacaoDocumento {
+    int32 status = 1;
+    string message = 2;
+    ListResultSolicitacaoDocumento data = 3;
+    string error = 4;
+}
+
+//StatusLigacao
+message ListCriteriaRequestStatusLigacao {
+    int32 idUsuOpe = 1;
+    int32 idEvento = 2;
+    int32 items = 3;
+    int32 page = 4;
+    map<string, string> order = 5;
+}
+
+message StatusLigacaoData {
+    int32 id = 1;
+    string deStatus = 2;
+    bool cdAtivo = 3;
+    int32 cdEvento = 4;
+    int32 idUsuOpe = 5;
+    string dtRegistro = 6;
+    int32 idEvento = 7;
+    string dtModificacao = 8;
+    string createdDate = 9;
+    string updatedDate = 10;
+    string deletedDate = 11;
+}
+
+message StatusLigacaoUpdateRequest {
+    int32 id = 1;
+    StatusLigacaoData statusLigacao = 2;
+}
+
+message ServiceResponseStatusLigacao {
+    int32 status = 1;
+    string message = 2;
+    repeated StatusLigacaoData data = 3;
+    string error = 4;
+}
+
+message ListResultStatusLigacao {
+    repeated StatusLigacaoData result = 1;
+    int32 total = 2;
+}
+
+message ServiceResponseListStatusLigacao {
+    int32 status = 1;
+    string message = 2;
+    ListResultStatusLigacao data = 3;
+    string error = 4;
+}
+
+//StatusProspect
+message ListCriteriaRequestStatusProspect {
+    int32 idUsuOpe = 1;
+    int32 items = 2;
+    int32 page = 3;
+    map<string, string> order = 4;
+}
+
+message StatusProspectData {
+    int32 id = 1;
+    string deStatus = 2;
+    string cdStatus = 3;
+    bool cdAtivo = 4;
+    string dtRegistro = 5;
+    int32 idUsuOpe = 6;
+    string dtModificacao = 7;
+    string createdDate = 8;
+    string updatedDate = 9;
+    string deletedDate = 10;
+}
+
+message StatusProspectUpdateRequest {
+    int32 id = 1;
+    StatusProspectData statusProspect = 2;
+}
+
+message ServiceResponseStatusProspect {
+    int32 status = 1;
+    string message = 2;
+    repeated StatusProspectData data = 3;
+    string error = 4;
+}
+
+message ListResultStatusProspect {
+    repeated StatusProspectData result = 1;
+    int32 total = 2;
+}
+
+message ServiceResponseListStatusProspect {
+    int32 status = 1;
+    string message = 2;
+    ListResultStatusProspect data = 3;
+    string error = 4;
+}
+
+//Template
+message ListCriteriaRequestTemplate {
+    int32 idUsuOpe = 1;
+    int32 items = 2;
+    int32 page = 3;
+    map<string, string> order = 4;
+}
+
+message TemplateData {
+    int32 id = 1;
+    string deTitulo = 2;
+    string deTemplate = 3;
+    int32 idUsuOpe = 4;
+    string dtRegistro = 5;
+    string dtModificacao = 6;
+    string createdDate = 7;
+    string updatedDate = 8;
+    string deletedDate = 9;
+}
+
+message TemplateUpdateRequest {
+    int32 id = 1;
+    TemplateData template = 2;
+}
+
+message ServiceResponseTemplate {
+    int32 status = 1;
+    string message = 2;
+    repeated TemplateData data = 3;
+    string error = 4;
+}
+
+message ListResultTemplate {
+    repeated TemplateData result = 1;
+    int32 total = 2;
+}
+
+message ServiceResponseListTemplate {
+    int32 status = 1;
+    string message = 2;
+    ListResultTemplate data = 3;
+    string error = 4;
+}
+
+//TipoDocumento
+message ListCriteriaRequestTipoDocumento {
+    int32 idUsuOpe = 1;
+    int32 items = 2;
+    int32 page = 3;
+    map<string, string> order = 4;
+}
+
+message TipoDocumentoData {
+    int32 id = 1;
+    string deDocumento = 2;
+    bool cdControlado = 3;
+    string dtRegistro = 4;
+    int32 idUsuOpe = 5;
+    string dtModificacao = 6;
+    string createdDate = 7;
+    string updatedDate = 8;
+    string deletedDate = 9;
+}
+
+message TipoDocumentoUpdateRequest {
+    int32 id = 1;
+    TipoDocumentoData tipoDocumento = 2;
+}
+
+message ServiceResponseTipoDocumento {
+    int32 status = 1;
+    string message = 2;
+    repeated TipoDocumentoData data = 3;
+    string error = 4;
+}
+
+message ListResultTipoDocumento {
+    repeated TipoDocumentoData result = 1;
+    int32 total = 2;
+}
+
+message ServiceResponseListTipoDocumento {
+    int32 status = 1;
+    string message = 2;
+    ListResultTipoDocumento data = 3;
+    string error = 4;
+}
+
+//UsuarioEmpresa
+message ListCriteriaRequestUsuarioEmpresa {
+    int32 idUsuarioSgc = 1;
+    int32 idEmpresa = 2;
+    int32 idUsuaOper = 3;
+    int32 items = 4;
+    int32 page = 5;
+    map<string, string> order = 6;
+}
+
+message UsuarioEmpresaData {
+    int32 id = 1;
+    int32 idUsuarioSgc = 2;
+    int32 idEmpresa = 3;
+    string dtCadastro = 4;
+    string deTelefone = 5;
+    int32 idUsuaOper = 6;
+    string dtRegistro = 7;
+    string createdDate = 8;
+    string updatedDate = 9;
+    string deletedDate = 10;
+}
+
+message UsuarioEmpresaUpdateRequest {
+    int32 id = 1;
+    UsuarioEmpresaData usuarioEmpresa = 2;
+}
+
+message ServiceResponseUsuarioEmpresa {
+    int32 status = 1;
+    string message = 2;
+    repeated UsuarioEmpresaData data = 3;
+    string error = 4;
+}
+
+message ListResultUsuarioEmpresa {
+    repeated UsuarioEmpresaData result = 1;
+    int32 total = 2;
+}
+
+message ServiceResponseListUsuarioEmpresa {
+    int32 status = 1;
+    string message = 2;
+    ListResultUsuarioEmpresa data = 3;
+    string error = 4;
+}
+
+//Usuarios
+message ListCriteriaRequestUsuarios {
+    int32 idGrupo = 1;
+    int32 idUsuOpe = 2;
+    int32 idUsuarioSgc = 3;
+    int32 idMunicipio = 4;
+    int32 items = 5;
+    int32 page = 6;
+    map<string, string> order = 7;
+}
+
+message UsuariosData {
+    int32 id = 1;
+    string nmUsuario = 2;
+    string deLogin = 3;
+    string deSenha = 4;
+    bool cdAtivo = 5;
+    int32 idGrupo = 6;
+    string deEmail = 7;
+    int32 idUsuOpe = 8;
+    string dtRegistro = 9;
+    string dtModificacao = 10;
+    bool cdAcessoExterno = 11;
+    int32 idUsuarioSgc = 12;
+    bool cdCadProspectDesabilitado = 13;
+    bool cdVisualHistAntigosDesabilitado = 14;
+    string nuTelefone = 15;
+    int32 idMunicipio = 16;
+    string createdDate = 17;
+    string updatedDate = 18;
+    string deletedDate = 19;
+}
+
+message UsuariosUpdateRequest {
+    int32 id = 1;
+    UsuariosData usuarios = 2;
+}
+
+message ServiceResponseUsuarios {
+    int32 status = 1;
+    string message = 2;
+    repeated UsuariosData data = 3;
+    string error = 4;
+}
+
+message ListResultUsuarios {
+    repeated UsuariosData result = 1;
+    int32 total = 2;
+}
+
+message ServiceResponseListUsuarios {
+    int32 status = 1;
+    string message = 2;
+    ListResultUsuarios data = 3;
+    string error = 4;
+}
+
+//VisitaMapInfo
+message ListCriteriaRequestVisitaMapInfo {
+    int32 idEmpresa = 1;
+    int32 items = 2;
+    int32 page = 3;
+    map<string, string> order = 4;
+}
+
+message VisitaMapInfoData {
+    int32 id = 1;
+    int32 nmDia = 2;
+    string deHora = 3;
+    int32 idEmpresa = 4;
+    string nomePromoter = 5;
+    double nuDistancia = 6;
+    string createdDate = 7;
+    string updatedDate = 8;
+    string deletedDate = 9;
+}
+
+message VisitaMapInfoUpdateRequest {
+    int32 id = 1;
+    VisitaMapInfoData visitaMapInfo = 2;
+}
+
+message ServiceResponseVisitaMapInfo {
+    int32 status = 1;
+    string message = 2;
+    repeated VisitaMapInfoData data = 3;
+    string error = 4;
+}
+
+message ListResultVisitaMapInfo {
+    repeated VisitaMapInfoData result = 1;
+    int32 total = 2;
+}
+
+message ServiceResponseListVisitaMapInfo {
+    int32 status = 1;
+    string message = 2;
+    ListResultVisitaMapInfo data = 3;
     string error = 4;
 }
