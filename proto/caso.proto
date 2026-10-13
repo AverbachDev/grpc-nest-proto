@@ -104,6 +104,11 @@ service CasoService {
     // microservice-extrato (item extrato/agencia) e microservice-user
     // (cobradores do grupo 4).
     rpc obterFaturamentoCobrador (ObterFaturamentoCobradorRequest) returns (ServiceResponseListFaturamentoCobrador) {}
+    // Ultimo envio de bordero (ultimo dia em que entraram titulos) de cada
+    // cliente informado: data, nº de casos e valor desse dia. Usado pela tela
+    // de historico de ligacoes do Marketing (ex-EmpresaObterUltimoBordero*,
+    // que lia tecoTitulo/tecoTituloCadastro por linked server).
+    rpc obterUltimoEnvioBordero (UltimoEnvioBorderoRequest) returns (ServiceResponseUltimoEnvioBordero) {}
     // Porte da procedure psgaCliente_RotinaEmailVencimentoTitulo (rotinas de
     // e-mail em massa de cobranca preventiva/ativa, ex-Rotinas_EmailEmMassa.exe)
     // - reimplementada em SQL parametrizado (nao chama a SP), ver
@@ -3199,5 +3204,23 @@ message ServiceResponseProntidaoEmailMassa {
     int32 status = 1;
     string message = 2;
     ProntidaoEmailMassaData data = 3;
+    string error = 4;
+}
+
+message UltimoEnvioBorderoRequest {
+    repeated int32 idsCliente = 1;
+}
+
+message UltimoEnvioBorderoData {
+    int32 idCliente = 1;
+    string dtCadastro = 2;
+    int32 nuCaso = 3;
+    double nuValor = 4;
+}
+
+message ServiceResponseUltimoEnvioBordero {
+    int32 status = 1;
+    string message = 2;
+    repeated UltimoEnvioBorderoData data = 3;
     string error = 4;
 }
