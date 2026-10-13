@@ -347,6 +347,7 @@ service MarketingService {
   rpc excluirHistoricoLigacao (ExcluirHistoricoRequest) returns (ServiceResponseHistoricoEmpresa) {}
   rpc listarContatosEmpresa (IdRequest) returns (ServiceResponseListContatoEmpresa) {}
   rpc salvarContatoEmpresa (SalvarContatoEmpresaRequest) returns (ServiceResponseListContatoEmpresa) {}
+  rpc obterResumoClienteEmpresa (IdRequest) returns (ServiceResponseResumoClienteEmpresa) {}
 }
 
 message IdRequest {
@@ -2891,4 +2892,24 @@ message SalvarContatoEmpresaRequest {
     string deCargo = 8;
     int32 idPerfil = 9;
     string cdPrincipal = 10;
+}
+
+message UltimoBorderoData {
+    string dtCadastro = 1;
+    int32 nuCaso = 2;
+    double nuValor = 3;
+}
+
+message ResumoClienteEmpresaData {
+    bool encontrado = 1;
+    int32 idCliente = 2;
+    UltimoBorderoData ultimoBorderoEmpresa = 3;
+    UltimoBorderoData ultimoBorderoGrupo = 4;
+}
+
+message ServiceResponseResumoClienteEmpresa {
+    int32 status = 1;
+    string message = 2;
+    repeated ResumoClienteEmpresaData data = 3;
+    string error = 4;
 }
