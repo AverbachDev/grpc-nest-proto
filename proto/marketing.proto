@@ -331,6 +331,22 @@ service MarketingService {
   rpc createVisitaMapInfo (VisitaMapInfoData) returns (ServiceResponseVisitaMapInfo) {}
   rpc updateVisitaMapInfo (VisitaMapInfoUpdateRequest) returns (ServiceResponseVisitaMapInfo) {}
   rpc removeVisitaMapInfo (IdRequest) returns (ServiceResponseVisitaMapInfo) {}
+
+  //===== Casos de uso: Empresas e Prospect =====
+  rpc listEmpresasProspect (ListEmpresasProspectRequest) returns (ServiceResponseListEmpresaProspect) {}
+  rpc obterEmpresaCompleta (ObterEmpresaCompletaRequest) returns (ServiceResponseEmpresaCompleta) {}
+  rpc cadastrarEmpresaMailing (CadastrarEmpresaMailingRequest) returns (ServiceResponseEmpresa) {}
+  rpc salvarDadosEmpresa (SalvarDadosEmpresaRequest) returns (ServiceResponseEmpresaCompleta) {}
+  rpc inativarEmpresa (EmpresaOperadorRequest) returns (ServiceResponseEmpresa) {}
+  rpc reativarEmpresa (EmpresaOperadorRequest) returns (ServiceResponseEmpresa) {}
+  rpc listarOpcoesAreaAtuacao (IdRequest) returns (ServiceResponseListOpcaoAreaAtuacao) {}
+  rpc listarUsuariosMarketing (EmptyRequest) returns (ServiceResponseListUsuarioMarketing) {}
+  rpc registrarHistoricoLigacao (RegistrarHistoricoLigacaoRequest) returns (ServiceResponseHistoricoResumo) {}
+  rpc listarHistoricoEmpresa (ListarHistoricoEmpresaRequest) returns (ServiceResponseListHistoricoEmpresa) {}
+  rpc alterarTipoHistorico (AlterarTipoHistoricoRequest) returns (ServiceResponseHistoricoEmpresa) {}
+  rpc excluirHistoricoLigacao (ExcluirHistoricoRequest) returns (ServiceResponseHistoricoEmpresa) {}
+  rpc listarContatosEmpresa (IdRequest) returns (ServiceResponseListContatoEmpresa) {}
+  rpc salvarContatoEmpresa (SalvarContatoEmpresaRequest) returns (ServiceResponseListContatoEmpresa) {}
 }
 
 message IdRequest {
@@ -2582,4 +2598,297 @@ message ServiceResponseListVisitaMapInfo {
     string message = 2;
     ListResultVisitaMapInfo data = 3;
     string error = 4;
+}
+
+//===== Casos de uso: Empresas e Prospect =====
+message EmptyRequest {
+}
+
+message ListEmpresasProspectRequest {
+    int32 idUsuarioSgc = 1;
+    string cep = 2;
+    string cnpj = 3;
+    string ddd = 4;
+    int32 idStatusProspect = 5;
+    int32 idPromoterAgenda = 6;
+    int32 idStatus = 7;
+    int32 idUsuPromoter = 8;
+    int32 idFederacao = 9;
+    int32 idMunicipio = 10;
+    int32 idRamoAtividade = 11;
+    string nmFantasia = 12;
+    string dtAgendamentoInicio = 13;
+    string dtAgendamentoFim = 14;
+    string cdClassificacao = 15;
+    repeated int32 faixasUltHistorico = 16;
+    int32 items = 17;
+    int32 page = 18;
+    map<string, string> order = 19;
+}
+
+message EmpresaProspectData {
+    int32 id = 1;
+    string nmFantasia = 2;
+    string cdCnpj = 3;
+    string dtAgendamento = 4;
+    string deTelefone = 5;
+    bool cdExcluido = 6;
+    bool cdPrincipal = 7;
+    string deStatus = 8;
+    int32 idStatusProspect = 9;
+    string nmContato = 10;
+    string nmUsuario = 11;
+    string cdClassificacao = 12;
+    string deCep = 13;
+    string cdFederacao = 14;
+    string deMunicipio = 15;
+    string statusLigacao = 16;
+    int32 ultHistorico = 17;
+}
+
+message ListResultEmpresaProspect {
+    repeated EmpresaProspectData result = 1;
+    int32 total = 2;
+    bool podeCadastrar = 3;
+}
+
+message ServiceResponseListEmpresaProspect {
+    int32 status = 1;
+    string message = 2;
+    ListResultEmpresaProspect data = 3;
+    string error = 4;
+}
+
+message ObterEmpresaCompletaRequest {
+    int32 id = 1;
+    int32 idUsuarioSgc = 2;
+}
+
+message AreaAtuacaoItemData {
+    int32 idSegmentoProduto = 1;
+    int32 idSegmento = 2;
+    int32 idProduto = 3;
+    int32 idRamoAtividade = 4;
+}
+
+message CredenciaisSiteData {
+    string deUsuSite = 1;
+    string deSenSite = 2;
+    string deSenhamasterSite = 3;
+}
+
+message EmpresaCompletaData {
+    EmpresaData empresa = 1;
+    int32 idFederacao = 2;
+    string deMunicipio = 3;
+    string nmUsuarioPromoter = 4;
+    string deStatusProspect = 5;
+    repeated AreaAtuacaoItemData areaAtuacao = 6;
+    repeated AtuaisEmpresasCobrancaData atuaisEmpresasCobranca = 7;
+    bool cliente = 8;
+    CredenciaisSiteData credenciaisSite = 9;
+    repeated string avisos = 10;
+}
+
+message ServiceResponseEmpresaCompleta {
+    int32 status = 1;
+    string message = 2;
+    repeated EmpresaCompletaData data = 3;
+    string error = 4;
+}
+
+message CadastrarEmpresaMailingRequest {
+    int32 idUsuarioSgc = 1;
+    string nmFantasia = 2;
+    string deSite = 3;
+    string deDominio = 4;
+    string deDdd = 5;
+    string deTelefone = 6;
+    string deDdd1 = 7;
+    string deTelefone1 = 8;
+    string deDdd2 = 9;
+    string deTelefone2 = 10;
+    int32 idMunicipio = 11;
+    string deCep = 12;
+    string deLogradouro = 13;
+}
+
+message AtuaisEmpresasCobrancaItemRequest {
+    int32 idEmpresaCobranca = 1;
+    string nmEmpresa = 2;
+    double nuHunorUtilizado = 3;
+    bool informado = 4;
+}
+
+message SalvarDadosEmpresaRequest {
+    int32 id = 1;
+    int32 idUsuarioSgc = 2;
+    string nmFantasia = 3;
+    string deRazaoSocial = 4;
+    string cdCnpj = 5;
+    string deDominio = 6;
+    string deDdd = 7;
+    string deTelefone = 8;
+    string deDdd1 = 9;
+    string deTelefone1 = 10;
+    string deDdd2 = 11;
+    string deTelefone2 = 12;
+    string deSite = 13;
+    string nmRepresentante = 14;
+    string deInscrMunicipal = 15;
+    string deInscrEstadual = 16;
+    string deObservacao = 17;
+    string nuFaturamento = 18;
+    string nuFuncionarios = 19;
+    int32 idEnquete = 20;
+    int32 idClassificacao = 21;
+    string cdClassificacao = 22;
+    int32 idMunicipio = 23;
+    string deComplemento = 24;
+    string deLogradouro = 25;
+    string deCep = 26;
+    string deReferencia = 27;
+    repeated int32 idsSegmentoProduto = 28;
+    repeated AtuaisEmpresasCobrancaItemRequest atuaisEmpresasCobranca = 29;
+}
+
+message EmpresaOperadorRequest {
+    int32 id = 1;
+    int32 idUsuarioSgc = 2;
+}
+
+message OpcaoAreaAtuacaoData {
+    int32 idSegmentoProduto = 1;
+    int32 idSegmento = 2;
+    string deSegmento = 3;
+    int32 idProduto = 4;
+    string deProduto = 5;
+}
+
+message ServiceResponseListOpcaoAreaAtuacao {
+    int32 status = 1;
+    string message = 2;
+    repeated OpcaoAreaAtuacaoData data = 3;
+    string error = 4;
+}
+
+message UsuarioMarketingData {
+    int32 idUsuario = 1;
+    string nmUsuario = 2;
+    int32 idGrupo = 3;
+    bool cdAtivo = 4;
+    int32 idUsuarioSgc = 5;
+}
+
+message ServiceResponseListUsuarioMarketing {
+    int32 status = 1;
+    string message = 2;
+    repeated UsuarioMarketingData data = 3;
+    string error = 4;
+}
+
+message HistoricoEmpresaData {
+    int32 idHistorico = 1;
+    string dtCadastro = 2;
+    string deHistorico = 3;
+    int32 tpHistorico = 4;
+    string tpHistoricoDescricao = 5;
+    int32 cdReceptividade = 6;
+    string deReceptividade = 7;
+    string nmUsuario = 8;
+}
+
+message RegistrarHistoricoLigacaoRequest {
+    int32 idEmpresa = 1;
+    int32 idUsuarioSgc = 2;
+    string deHistorico = 3;
+    int32 tpHistorico = 4;
+    string dtAgendamento = 5;
+    string dtPromessaBorderaux = 6;
+    int32 idStatus = 7;
+}
+
+message HistoricoResumoData {
+    HistoricoEmpresaData historico = 1;
+    string dtAgendamento = 2;
+    string dtPromessaBorderaux = 3;
+    int32 idStatus = 4;
+    string dtStatus = 5;
+    string dtUltimaVisita = 6;
+}
+
+message ServiceResponseHistoricoResumo {
+    int32 status = 1;
+    string message = 2;
+    repeated HistoricoResumoData data = 3;
+    string error = 4;
+}
+
+message ListarHistoricoEmpresaRequest {
+    int32 idEmpresa = 1;
+    int32 idUsuarioSgc = 2;
+}
+
+message ListResultHistoricoEmpresa {
+    repeated HistoricoEmpresaData result = 1;
+    int32 total = 2;
+    bool podeExcluir = 3;
+    string dtUltimaVisita = 4;
+}
+
+message ServiceResponseListHistoricoEmpresa {
+    int32 status = 1;
+    string message = 2;
+    ListResultHistoricoEmpresa data = 3;
+    string error = 4;
+}
+
+message AlterarTipoHistoricoRequest {
+    int32 idHistorico = 1;
+    int32 tpHistorico = 2;
+    int32 idUsuarioSgc = 3;
+}
+
+message ExcluirHistoricoRequest {
+    int32 idHistorico = 1;
+    int32 idUsuarioSgc = 2;
+}
+
+message ServiceResponseHistoricoEmpresa {
+    int32 status = 1;
+    string message = 2;
+    repeated HistoricoEmpresaData data = 3;
+    string error = 4;
+}
+
+message ContatoEmpresaData {
+    int32 idContato = 1;
+    string nmContato = 2;
+    string deDdd = 3;
+    string deTelefone = 4;
+    string deEmail = 5;
+    string deCargo = 6;
+    int32 idPerfil = 7;
+    string dePerfil = 8;
+    string cdPrincipal = 9;
+}
+
+message ServiceResponseListContatoEmpresa {
+    int32 status = 1;
+    string message = 2;
+    repeated ContatoEmpresaData data = 3;
+    string error = 4;
+}
+
+message SalvarContatoEmpresaRequest {
+    int32 id = 1;
+    int32 idEmpresa = 2;
+    int32 idUsuarioSgc = 3;
+    string nmContato = 4;
+    string deDdd = 5;
+    string deTelefone = 6;
+    string deEmail = 7;
+    string deCargo = 8;
+    int32 idPerfil = 9;
+    string cdPrincipal = 10;
 }
