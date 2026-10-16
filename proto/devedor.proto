@@ -23,6 +23,7 @@ service DevedorService {
   rpc createContato (ContatoData) returns (ServiceResponseContato) {}
   rpc updateContato (ContatoUpdateRequest) returns (ServiceResponseContato) {} 
   rpc removeContato (IdRequest) returns (ServiceResponseContato) {}
+  rpc removeContatoByKey (ContatoKeyRequest) returns (ServiceResponseContato) {}
   rpc removeAllContato (WithoutParams) returns (ServiceResponseContato) {}
   rpc createManyContato (ContatoManyData) returns (ServiceResponseContato) {}  
 
@@ -151,6 +152,10 @@ message WithoutParams {}
 
 message IdRequest{
     int32 id = 1;
+}
+
+message ContatoKeyRequest {
+    string deKeyMicroservice = 1;
 }
 
 //Devedor
