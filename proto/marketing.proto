@@ -348,6 +348,16 @@ service MarketingService {
   rpc listarContatosEmpresa (IdRequest) returns (ServiceResponseListContatoEmpresa) {}
   rpc salvarContatoEmpresa (SalvarContatoEmpresaRequest) returns (ServiceResponseListContatoEmpresa) {}
   rpc obterResumoClienteEmpresa (IdRequest) returns (ServiceResponseResumoClienteEmpresa) {}
+
+  //===== Casos de uso: Visitas =====
+  rpc listarVisitas (ListarVisitasRequest) returns (ServiceResponseListVisita) {}
+  rpc obterContextoVisita (IdRequest) returns (ServiceResponseContextoVisita) {}
+  rpc obterVisita (IdRequest) returns (ServiceResponseVisitaCompleta) {}
+  rpc cadastrarVisita (CadastrarVisitaRequest) returns (ServiceResponseVisitaCompleta) {}
+  rpc obterEmailConfirmacaoVisita (ObterEmailVisitaRequest) returns (ServiceResponseEmailVisita) {}
+  rpc enviarEmailConfirmacaoVisita (EnviarEmailVisitaRequest) returns (ServiceResponseVisitaCompleta) {}
+  rpc recusarVisita (RecusarVisitaRequest) returns (ServiceResponseVisitaCompleta) {}
+  rpc registrarResultadoVisita (RegistrarResultadoVisitaRequest) returns (ServiceResponseVisitaCompleta) {}
 }
 
 message IdRequest {
@@ -2912,4 +2922,202 @@ message ServiceResponseResumoClienteEmpresa {
     string message = 2;
     repeated ResumoClienteEmpresaData data = 3;
     string error = 4;
+}
+
+//===== Visitas =====
+
+// tipo: 1 intenções (cd_horario 3), 2 a reprogramar (4), 3 confirmadas (1), 4 pendentes de briefing
+message ListarVisitasRequest {
+    int32 tipo = 1;
+    string cep = 2;
+    string cnpj = 3;
+    string ddd = 4;
+    int32 idStatusProspect = 5;
+    int32 idPromoterAgenda = 6;
+    int32 idUsuPromoter = 7;
+    int32 idFederacao = 8;
+    int32 idMunicipio = 9;
+    int32 idRamoAtividade = 10;
+    string nmFantasia = 11;
+    string dtVisitaInicio = 12;
+    string dtVisitaFim = 13;
+    int32 items = 14;
+    int32 page = 15;
+    map<string, string> order = 16;
+}
+
+message VisitaListaData {
+    int32 idAgendaHorario = 1;
+    int32 idEmpresa = 2;
+    int32 idAgenda = 3;
+    string data = 4;
+    string horario = 5;
+    string nmFantasia = 6;
+    string deCep = 7;
+    string cdFederacao = 8;
+    string deMunicipio = 9;
+    string nmPromoterInterno = 10;
+    string nmPromoterExterno = 11;
+    string cdHorario = 12;
+    int32 cdTipoVisita = 13;
+    bool cdBriefing = 14;
+    bool cdResultVisita = 15;
+    string dtSugerida = 16;
+    string deObs = 17;
+    string statusLigacao = 18;
+}
+
+message ListResultVisita {
+    repeated VisitaListaData result = 1;
+    int32 total = 2;
+}
+
+message ServiceResponseListVisita {
+    int32 status = 1;
+    string message = 2;
+    ListResultVisita data = 3;
+    string error = 4;
+}
+
+message ParticipanteVisitaData {
+    int32 idParticipante = 1;
+    string nmParticipante = 2;
+    string deEmail = 3;
+    string deCargo = 4;
+    string deDdd = 5;
+    string deTelefone = 6;
+    bool cdParticipou = 7;
+}
+
+message HorarioVisitaData {
+    int32 id = 1;
+    string horario = 2;
+}
+
+message VisitaEmpresaData {
+    int32 idAgendaHorario = 1;
+    int32 idAgenda = 2;
+    string descricao = 3;
+    string data = 4;
+    string horario = 5;
+    string nmPromoterExterno = 6;
+    int32 cdTipoVisita = 7;
+    string cdHorario = 8;
+    bool cdBriefing = 9;
+    bool cdResultVisita = 10;
+}
+
+message ContextoVisitaData {
+    int32 idEmpresa = 1;
+    string nmFantasia = 2;
+    string cdCnpj = 3;
+    string deEndereco = 4;
+    string deReferencia = 5;
+    bool enderecoCompleto = 6;
+    repeated ParticipanteVisitaData contatos = 7;
+    repeated UsuarioMarketingData promotersExternos = 8;
+    repeated HorarioVisitaData horarios = 9;
+    repeated VisitaEmpresaData visitas = 10;
+}
+
+message ServiceResponseContextoVisita {
+    int32 status = 1;
+    string message = 2;
+    repeated ContextoVisitaData data = 3;
+    string error = 4;
+}
+
+message VisitaCompletaData {
+    int32 idAgendaHorario = 1;
+    int32 idAgenda = 2;
+    int32 idEmpresa = 3;
+    string nmFantasia = 4;
+    string data = 5;
+    int32 idHorario = 6;
+    string horario = 7;
+    int32 duracaoMinutos = 8;
+    int32 idPromoterExterno = 9;
+    string nmPromoterExterno = 10;
+    int32 idPromoterInterno = 11;
+    string nmPromoterInterno = 12;
+    int32 cdTipoVisita = 13;
+    string cdHorario = 14;
+    bool cdAvaliacao = 15;
+    bool cdBriefing = 16;
+    bool cdResultVisita = 17;
+    string deObs = 18;
+    string dtSugerida = 19;
+    string deHistorico = 20;
+    string deEndereco = 21;
+    string deReferencia = 22;
+    string deComentario = 23;
+    repeated ParticipanteVisitaData participantes = 24;
+    int32 nuDuracaoResultado = 25;
+    string deResultadoVisita = 26;
+    string dtVisitaResultado = 27;
+}
+
+message ServiceResponseVisitaCompleta {
+    int32 status = 1;
+    string message = 2;
+    repeated VisitaCompletaData data = 3;
+    string error = 4;
+}
+
+message CadastrarVisitaRequest {
+    int32 idUsuarioSgc = 1;
+    int32 idEmpresa = 2;
+    int32 idAgendaHorario = 3;
+    int32 cdTipoVisita = 4;
+    int32 idPromoterExterno = 5;
+    string dtAgenda = 6;
+    int32 idHorario = 7;
+    int32 duracaoMinutos = 8;
+    repeated ParticipanteVisitaData participantes = 9;
+    string deHistorico = 10;
+    string deEndereco = 11;
+    string deReferencia = 12;
+    string deComentario = 13;
+}
+
+message ObterEmailVisitaRequest {
+    int32 idUsuarioSgc = 1;
+    int32 idAgendaHorario = 2;
+}
+
+message EmailVisitaData {
+    string para = 1;
+    string de = 2;
+    string assunto = 3;
+    string corpo = 4;
+}
+
+message ServiceResponseEmailVisita {
+    int32 status = 1;
+    string message = 2;
+    repeated EmailVisitaData data = 3;
+    string error = 4;
+}
+
+message EnviarEmailVisitaRequest {
+    int32 idUsuarioSgc = 1;
+    int32 idAgendaHorario = 2;
+    string para = 3;
+    string assunto = 4;
+    string corpo = 5;
+}
+
+message RecusarVisitaRequest {
+    int32 idUsuarioSgc = 1;
+    int32 idAgendaHorario = 2;
+    string dtSugerida = 3;
+    string deJustificativa = 4;
+}
+
+message RegistrarResultadoVisitaRequest {
+    int32 idUsuarioSgc = 1;
+    int32 idAgendaHorario = 2;
+    int32 nuDuracao = 3;
+    string deResultadoVisita = 4;
+    repeated ParticipanteVisitaData participantes = 5;
 }
