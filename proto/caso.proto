@@ -119,6 +119,9 @@ service CasoService {
     // de historico de ligacoes do Marketing (ex-EmpresaObterUltimoBordero*,
     // que lia tecoTitulo/tecoTituloCadastro por linked server).
     rpc obterUltimoEnvioBordero (UltimoEnvioBorderoRequest) returns (ServiceResponseUltimoEnvioBordero) {}
+    // Dados de cobranca do briefing de visita de manutencao do Marketing (ex-tmktBriefing.ListarUltimoEnvio,
+    // ListarTitulosEnviados30DD/90DD e ListarValorTotalMedio, que liam o SGC por linked server).
+    rpc obterResumoEnviosCliente (ResumoEnviosClienteRequest) returns (ServiceResponseResumoEnviosCliente) {}
     // Porte da procedure psgaCliente_RotinaEmailVencimentoTitulo (rotinas de
     // e-mail em massa de cobranca preventiva/ativa, ex-Rotinas_EmailEmMassa.exe)
     // - reimplementada em SQL parametrizado (nao chama a SP), ver
@@ -3304,5 +3307,31 @@ message ServiceResponseUltimoEnvioBordero {
     int32 status = 1;
     string message = 2;
     repeated UltimoEnvioBorderoData data = 3;
+    string error = 4;
+}
+
+message ResumoEnviosClienteRequest {
+    repeated int32 idsCliente = 1;
+}
+
+message EnvioClienteData {
+    string dtEnvio = 1;
+    int32 nuCasos = 2;
+    double nuValorMedio = 3;
+    double nuDiasVencidosMedio = 4;
+}
+
+message ResumoEnviosClienteData {
+    repeated EnvioClienteData ultimosEnvios = 1;
+    int32 nuCasos30Dias = 2;
+    int32 nuCasos90Dias = 3;
+    double nuValorTotal12Meses = 4;
+    double nuValorMedioMensal12Meses = 5;
+}
+
+message ServiceResponseResumoEnviosCliente {
+    int32 status = 1;
+    string message = 2;
+    repeated ResumoEnviosClienteData data = 3;
     string error = 4;
 }

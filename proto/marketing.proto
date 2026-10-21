@@ -361,6 +361,11 @@ service MarketingService {
   rpc listarMapaVisitas (ListarMapaVisitasRequest) returns (ServiceResponseListMapaVisita) {}
   rpc reprogramarVisita (ReprogramarVisitaRequest) returns (ServiceResponseVisitaCompleta) {}
   rpc excluirVisita (ExcluirVisitaRequest) returns (ServiceResponseExclusaoVisita) {}
+  rpc salvarBriefingVisita (SalvarBriefingVisitaRequest) returns (ServiceResponseVisitaCompleta) {}
+  rpc salvarParticipanteVisita (SalvarParticipanteVisitaRequest) returns (ServiceResponseVisitaCompleta) {}
+  rpc excluirParticipanteVisita (ExcluirParticipanteVisitaRequest) returns (ServiceResponseVisitaCompleta) {}
+  rpc listarEmpresasComBriefing (ListarEmpresasComBriefingRequest) returns (ServiceResponseListEmpresaComBriefing) {}
+  rpc gerarBriefingVisita (GerarBriefingVisitaRequest) returns (ServiceResponseBriefingDocumento) {}
 }
 
 message IdRequest {
@@ -3185,5 +3190,89 @@ message ServiceResponseExclusaoVisita {
     int32 status = 1;
     string message = 2;
     repeated ExclusaoVisitaData data = 3;
+    string error = 4;
+}
+
+//===== Visitas: briefing =====
+
+message SalvarBriefingVisitaRequest {
+    int32 idUsuarioSgc = 1;
+    int32 idAgendaHorario = 2;
+    string deEndereco = 3;
+    string deReferencia = 4;
+    string deComentario = 5;
+    string deHistorico = 6;
+}
+
+message SalvarParticipanteVisitaRequest {
+    int32 idUsuarioSgc = 1;
+    int32 idAgendaHorario = 2;
+    ParticipanteVisitaData participante = 3;
+}
+
+message ExcluirParticipanteVisitaRequest {
+    int32 idUsuarioSgc = 1;
+    int32 idAgendaHorario = 2;
+    int32 idParticipante = 3;
+}
+
+message ListarEmpresasComBriefingRequest {
+    string cep = 1;
+    string cnpj = 2;
+    string ddd = 3;
+    int32 idPromoterAgenda = 4;
+    int32 idPromoterInterno = 5;
+    int32 idFederacao = 6;
+    int32 idMunicipio = 7;
+    string nmFantasia = 8;
+    string dtVisitaInicio = 9;
+    string dtVisitaFim = 10;
+    int32 items = 11;
+    int32 page = 12;
+    map<string, string> order = 13;
+}
+
+message EmpresaComBriefingData {
+    int32 idAgendaHorario = 1;
+    int32 idEmpresa = 2;
+    string nmFantasia = 3;
+    string data = 4;
+    string horario = 5;
+    string nmPromoterInterno = 6;
+    string nmPromoterExterno = 7;
+    string cdFederacao = 8;
+    string deMunicipio = 9;
+    int32 cdTipoVisita = 10;
+    string cdHorario = 11;
+    string nmArquivo = 12;
+}
+
+message ListResultEmpresaComBriefing {
+    repeated EmpresaComBriefingData result = 1;
+    int32 total = 2;
+}
+
+message ServiceResponseListEmpresaComBriefing {
+    int32 status = 1;
+    string message = 2;
+    ListResultEmpresaComBriefing data = 3;
+    string error = 4;
+}
+
+message GerarBriefingVisitaRequest {
+    int32 idUsuarioSgc = 1;
+    int32 idAgendaHorario = 2;
+}
+
+message BriefingDocumentoData {
+    string nomeArquivo = 1;
+    string contentType = 2;
+    bytes conteudo = 3;
+}
+
+message ServiceResponseBriefingDocumento {
+    int32 status = 1;
+    string message = 2;
+    repeated BriefingDocumentoData data = 3;
     string error = 4;
 }
