@@ -108,6 +108,12 @@ service CasoService {
     // microservice-extrato (item extrato/agencia) e microservice-user
     // (cobradores do grupo 4).
     rpc obterFaturamentoCobrador (ObterFaturamentoCobradorRequest) returns (ServiceResponseListFaturamentoCobrador) {}
+    // Porte de wfmListaCobradorPrevisaoHonorarios.aspx (lista) e
+    // wfmCadCobradorPrevisaoHonorarios.aspx (cadastro) - reimplementados em
+    // TypeORM/providers (nao chamam a SP psgaCobrador_ObterListaPrevisaoHonorarios),
+    // ver ListCobradorPrevisaoHonorariosUseCase/CreateCobradorPrevisaoHonorariosUseCase.
+    rpc listCobradorPrevisaoHonorarios (ListCobradorPrevisaoHonorariosRequest) returns (ServiceResponseListCobradorPrevisaoHonorarios) {}
+    rpc createCobradorPrevisaoHonorarios (CreateCobradorPrevisaoHonorariosRequest) returns (ServiceResponseCobradorPrevisaoHonorarios) {}
     // Ultimo envio de bordero (ultimo dia em que entraram titulos) de cada
     // cliente informado: data, nº de casos e valor desse dia. Usado pela tela
     // de historico de ligacoes do Marketing (ex-EmpresaObterUltimoBordero*,
@@ -1358,6 +1364,63 @@ message ServiceResponseListFaturamentoCobrador {
 message ListResultFaturamentoCobrador {
     repeated FaturamentoCobradorData result = 1;
     int32 total = 2;
+}
+
+// Porte de wfmListaCobradorPrevisaoHonorarios.aspx.vb (ObterDados). Sem
+// dtIni, lista o status do DIA corrente (SP tp_lista=0: cobrador sem
+// lancamento hoje vem PENDENTE, com valor/data ausentes); com dtIni lista o
+// historico (tp_lista=1). Datas como 'YYYY-MM-DD' puro. statusPrevisao:
+// '0' (PENDENTE) ou '1' (LANCADO). Demais filtros aplicados em memoria
+// no ListCobradorPrevisaoHonorariosUseCase, igual ao code-behind legado.
+message ListCobradorPrevisaoHonorariosRequest {
+    optional string dtIni = 1;
+    optional string dtFim = 2;
+    optional int32 idUsuario = 3;
+    optional int32 idFederacao = 4;
+    optional double nuHonorDevedorMin = 5;
+    optional double nuHonorDevedorMax = 6;
+    optional string statusPrevisao = 7;
+}
+
+// nuHonorDevedor/dtRegistro ficam ausentes quando status = PENDENTE
+// (cobrador sem lancamento no periodo).
+message CobradorPrevisaoHonorariosData {
+    int32 idUsuario = 1;
+    string nmUsuarioLogin = 2;
+    optional double nuHonorDevedor = 3;
+    optional string dtRegistro = 4;
+    int32 idFederacao = 5;
+    string codFederacao = 6;
+    string statusPrevisao = 7;
+}
+
+message ListResultCobradorPrevisaoHonorarios {
+    repeated CobradorPrevisaoHonorariosData result = 1;
+    int32 total = 2;
+    // "Total Previsao HO" da tela legada (soma de nuHonorDevedor das linhas filtradas).
+    double totalHonorDevedor = 3;
+}
+
+message ServiceResponseListCobradorPrevisaoHonorarios {
+    int32 status = 1;
+    string message = 2;
+    ListResultCobradorPrevisaoHonorarios data = 3;
+    string error = 4;
+}
+
+// Porte de wfmCadCobradorPrevisaoHonorarios.aspx.vb (btnIncluir_Click):
+// apaga os lancamentos do dia do cobrador e insere o novo, numa transacao.
+message CreateCobradorPrevisaoHonorariosRequest {
+    int32 idUsuaCobrador = 1;
+    double nuHonorDevedor = 2;
+    int32 idUsuaOper = 3;
+}
+
+message ServiceResponseCobradorPrevisaoHonorarios {
+    int32 status = 1;
+    string message = 2;
+    CobradorPrevisaoHonorariosData data = 3;
+    string error = 4;
 }
 
 
