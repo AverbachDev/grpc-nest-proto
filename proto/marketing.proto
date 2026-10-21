@@ -358,6 +358,9 @@ service MarketingService {
   rpc enviarEmailConfirmacaoVisita (EnviarEmailVisitaRequest) returns (ServiceResponseVisitaCompleta) {}
   rpc recusarVisita (RecusarVisitaRequest) returns (ServiceResponseVisitaCompleta) {}
   rpc registrarResultadoVisita (RegistrarResultadoVisitaRequest) returns (ServiceResponseVisitaCompleta) {}
+  rpc listarMapaVisitas (ListarMapaVisitasRequest) returns (ServiceResponseListMapaVisita) {}
+  rpc reprogramarVisita (ReprogramarVisitaRequest) returns (ServiceResponseVisitaCompleta) {}
+  rpc excluirVisita (ExcluirVisitaRequest) returns (ServiceResponseExclusaoVisita) {}
 }
 
 message IdRequest {
@@ -3120,4 +3123,67 @@ message RegistrarResultadoVisitaRequest {
     int32 nuDuracao = 3;
     string deResultadoVisita = 4;
     repeated ParticipanteVisitaData participantes = 5;
+}
+
+//===== Visitas: mapa =====
+
+message ListarMapaVisitasRequest {
+    int32 idPromoterExterno = 1;
+    string dtInicio = 2;
+    string dtFim = 3;
+}
+
+message MapaVisitaData {
+    int32 idAgendaHorario = 1;
+    int32 idEmpresa = 2;
+    int32 idAgenda = 3;
+    string data = 4;
+    string horario = 5;
+    string nmFantasia = 6;
+    string deEndereco = 7;
+    string deCep = 8;
+    string deDdd = 9;
+    string nmPromoterInterno = 10;
+    string nmPromoterExterno = 11;
+    int32 cdTipoVisita = 12;
+    string cdHorario = 13;
+    bool bloqueioAgenda = 14;
+}
+
+message ListResultMapaVisita {
+    repeated MapaVisitaData result = 1;
+    int32 total = 2;
+    string dtInicio = 3;
+    string dtFim = 4;
+}
+
+message ServiceResponseListMapaVisita {
+    int32 status = 1;
+    string message = 2;
+    ListResultMapaVisita data = 3;
+    string error = 4;
+}
+
+message ReprogramarVisitaRequest {
+    int32 idUsuarioSgc = 1;
+    int32 idAgendaHorario = 2;
+    string dtAgenda = 3;
+    int32 idHorario = 4;
+}
+
+message ExcluirVisitaRequest {
+    int32 idUsuarioSgc = 1;
+    int32 idAgendaHorario = 2;
+}
+
+message ExclusaoVisitaData {
+    int32 idAgendaHorario = 1;
+    int32 slotsExcluidos = 2;
+}
+
+message ServiceResponseExclusaoVisita {
+    int32 status = 1;
+    string message = 2;
+    repeated ExclusaoVisitaData data = 3;
+    string error = 4;
 }
