@@ -365,6 +365,8 @@ service MarketingService {
   rpc salvarParticipanteVisita (SalvarParticipanteVisitaRequest) returns (ServiceResponseVisitaCompleta) {}
   rpc excluirParticipanteVisita (ExcluirParticipanteVisitaRequest) returns (ServiceResponseVisitaCompleta) {}
   rpc listarEmpresasComBriefing (ListarEmpresasComBriefingRequest) returns (ServiceResponseListEmpresaComBriefing) {}
+  rpc listarHistoricoVisitasEmpresa (IdRequest) returns (ServiceResponseListHistoricoVisitasEmpresa) {}
+  rpc listarHistoricoPossibilidadeVisita (ListarHistoricoPossibilidadeVisitaRequest) returns (ServiceResponseListHistoricoPossibilidadeVisita) {}
   rpc gerarBriefingVisita (GerarBriefingVisitaRequest) returns (ServiceResponseBriefingDocumento) {}
 }
 
@@ -3274,5 +3276,49 @@ message ServiceResponseBriefingDocumento {
     int32 status = 1;
     string message = 2;
     repeated BriefingDocumentoData data = 3;
+    string error = 4;
+}
+
+message HistoricoVisitaEmpresaData {
+    string data = 1;
+    string nmPromoterInterno = 2;
+    string nmPromoterExterno = 3;
+    string deResultadoVisita = 4;
+}
+
+message ListResultHistoricoVisitasEmpresa {
+    repeated HistoricoVisitaEmpresaData result = 1;
+    int32 total = 2;
+    string nmFantasia = 3;
+}
+
+message ServiceResponseListHistoricoVisitasEmpresa {
+    int32 status = 1;
+    string message = 2;
+    ListResultHistoricoVisitasEmpresa data = 3;
+    string error = 4;
+}
+
+message ListarHistoricoPossibilidadeVisitaRequest {
+    string ddd = 1;
+    string nmFantasia = 2;
+}
+
+message HistoricoPossibilidadeVisitaData {
+    int32 idProbabilidade = 1;
+    string deDdd = 2;
+    int32 qtdEmpresas = 3;
+    string dtGeracao = 4;
+}
+
+message ListResultHistoricoPossibilidadeVisita {
+    repeated HistoricoPossibilidadeVisitaData result = 1;
+    int32 total = 2;
+}
+
+message ServiceResponseListHistoricoPossibilidadeVisita {
+    int32 status = 1;
+    string message = 2;
+    ListResultHistoricoPossibilidadeVisita data = 3;
     string error = 4;
 }
