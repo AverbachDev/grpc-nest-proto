@@ -46,6 +46,9 @@ service ContasAReceberService {
     rpc gerarDetalheNotaFiscal (GerarDetalheNotaFiscalRequest) returns (ServiceResponseDetalheNotaFiscal) {}
     rpc listClienteEmissaoManualNotaFiscal (ListCriteriaRequestClienteEmissaoManualNotaFiscal) returns (ServiceResponseListClienteEmissaoManualNotaFiscal) {}
     rpc calcularImpostosNotaFiscal (CalcularImpostosNotaFiscalRequest) returns (ServiceResponseImpostosNotaFiscal) {}
+    // Emissao da nota fiscal (gravacao transacional: nota, itens, boleto/pagamento; registro do boleto no Bradesco apos o commit).
+    rpc emitirNotaFiscal (EmitirNotaFiscalRequest) returns (ServiceResponseEmitirNotaFiscal) {}
+    rpc emitirNotaFiscalManual (EmitirNotaFiscalManualRequest) returns (ServiceResponseEmitirNotaFiscal) {}
 
     rpc listClienteAtivoPreventivo (ListCriteriaRequestClienteAtivoPreventivo) returns (ServiceResponseListClienteAtivoPreventivo) {}
     rpc findOneClienteAtivoPreventivo (IdRequest) returns (ServiceResponseClienteAtivoPreventivo) {}
@@ -661,4 +664,56 @@ message ItemNotaFiscalManualData {
     string dtRegistro = 4;
     double nuRepasse = 5;
     int32 cdRepasse = 6;
+}
+
+
+// EMISSAO DE NOTA FISCAL - gravacao (btnSalvarNF / SALVAR_NF de wfmListaEmissaoNotaFiscal)
+
+// Chave do item: prestacao de contas + tipo de repasse (LÍQUIDO, BRUTO, RD CONCILIAÇÃO, RD).
+// Uma PC com mais de um tipo de repasse so pode ser emitida com todos os tipos juntos.
+message ItemEmissaoNotaFiscalRequest {
+    int32 idPrestconta = 1;
+    string tpRepasse = 2;
+}
+
+// Emissao por cobranca (aba 1). conteudoBase64 = PDF da nota.
+message EmitirNotaFiscalRequest {
+    int32 idCliente = 1;
+    repeated ItemEmissaoNotaFiscalRequest itens = 2;
+    string deNotafiscal = 3;
+    string nomeArquivo = 4;
+    string conteudoBase64 = 5;
+    int32 idUsuaOper = 6;
+}
+
+// Emissao manual (aba 2). cdRepasse: 0 liquido, 1 bruto, 2 RD conciliacao, 3 RD.
+// cdCnpjAverbach: 0 = Escritorio Juridico Averbach, 1 = Averbach Cobrancas Ltda.
+message EmitirNotaFiscalManualRequest {
+    int32 idCliente = 1;
+    int32 cdRepasse = 2;
+    string cdCnpjAverbach = 3;
+    double nuValorBruto = 4;
+    double nuValorLiquido = 5;
+    string deNotafiscal = 6;
+    string nomeArquivo = 7;
+    string conteudoBase64 = 8;
+    int32 idUsuaOper = 9;
+}
+
+// idBoleto = 0 quando a nota nao gerou boleto. dtVencimento em YYYY-MM-DD.
+// arquivoSalvo = false: a nota foi gravada, mas o PDF nao foi armazenado (MinIO indisponivel/nao configurado).
+// retornoBradesco: mensagem de erro do registro automatico do boleto (vazio = ok ou nao se aplica).
+message EmitirNotaFiscalData {
+    int32 idNotafiscal = 1;
+    int32 idBoleto = 2;
+    string dtVencimento = 3;
+    bool arquivoSalvo = 4;
+    string retornoBradesco = 5;
+}
+
+message ServiceResponseEmitirNotaFiscal {
+    int32 status = 1;
+    string message = 2;
+    repeated EmitirNotaFiscalData data = 3;
+    string error = 4;
 }
