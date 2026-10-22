@@ -49,6 +49,11 @@ service ContasAReceberService {
     // Emissao da nota fiscal (gravacao transacional: nota, itens, boleto/pagamento; registro do boleto no Bradesco apos o commit).
     rpc emitirNotaFiscal (EmitirNotaFiscalRequest) returns (ServiceResponseEmitirNotaFiscal) {}
     rpc emitirNotaFiscalManual (EmitirNotaFiscalManualRequest) returns (ServiceResponseEmitirNotaFiscal) {}
+    // E-mail da NF (popup wfmPopNotaFiscal): preparar (contatos, assunto, mensagem, valores), enviar, alterar vencimento e baixar anexos.
+    rpc prepararEmailNotaFiscal (PrepararEmailNotaFiscalRequest) returns (ServiceResponsePrepararEmailNotaFiscal) {}
+    rpc enviarEmailNotaFiscal (EnviarEmailNotaFiscalRequest) returns (ServiceResponseEnviarEmailNotaFiscal) {}
+    rpc alterarVencimentoNotaFiscal (AlterarVencimentoNotaFiscalRequest) returns (ServiceResponseAlterarVencimentoNotaFiscal) {}
+    rpc baixarArquivoNotaFiscal (BaixarArquivoNotaFiscalRequest) returns (ServiceResponseArquivoNotaFiscal) {}
 
     rpc listClienteAtivoPreventivo (ListCriteriaRequestClienteAtivoPreventivo) returns (ServiceResponseListClienteAtivoPreventivo) {}
     rpc findOneClienteAtivoPreventivo (IdRequest) returns (ServiceResponseClienteAtivoPreventivo) {}
@@ -715,5 +720,122 @@ message ServiceResponseEmitirNotaFiscal {
     int32 status = 1;
     string message = 2;
     repeated EmitirNotaFiscalData data = 3;
+    string error = 4;
+}
+
+
+// E-MAIL DA NOTA FISCAL (popups/wfmPopNotaFiscal.aspx)
+
+// nfVencida = true: cobranca de NF vencida (o legado abria o popup sem id_cliente); muda o texto do e-mail e, ao
+// enviar, marca tecoNotasFiscais.cd_cobrar_vencido. nmUsuario/nuTelefone/nuTelefone2/deEmailRemetente vem do
+// usuario logado e so alimentam a assinatura e o campo "De".
+message PrepararEmailNotaFiscalRequest {
+    int32 idNotafiscal = 1;
+    bool nfVencida = 2;
+    string nmUsuario = 3;
+    string nuTelefone = 4;
+    string nuTelefone2 = 5;
+    string deEmailRemetente = 6;
+}
+
+message ContatoEmailNotaFiscalData {
+    int32 idContato = 1;
+    string nmContato = 2;
+    string deEmail = 3;
+}
+
+// dtVencimento em YYYY-MM-DD (vazio se a nota nao tem boleto). nomeArquivoPrestacao so vem preenchido se a NF
+// tem prestacao de contas. possuiBoleto = a nota tem tecoBoletoNotaFiscal (o PDF do boleto ainda nao e anexado).
+message PrepararEmailNotaFiscalData {
+    string de = 1;
+    repeated ContatoEmailNotaFiscalData contatos = 2;
+    string cc = 3;
+    string bcc = 4;
+    string assunto = 5;
+    string mensagem = 6;
+    string nomeArquivoNf = 7;
+    string nomeArquivoPrestacao = 8;
+    bool possuiBoleto = 9;
+    string dtVencimento = 10;
+    double nuNota = 11;
+    double nuBoleto = 12;
+    double nuImposto = 13;
+    double nuTotal = 14;
+}
+
+message ServiceResponsePrepararEmailNotaFiscal {
+    int32 status = 1;
+    string message = 2;
+    repeated PrepararEmailNotaFiscalData data = 3;
+    string error = 4;
+}
+
+message AnexoEmailNotaFiscalRequest {
+    string nomeArquivo = 1;
+    string conteudoBase64 = 2;
+}
+
+// para = e-mails dos contatos marcados (validados; um invalido bloqueia o envio). anexos = "Outros anexos" (ate 2 no legado).
+message EnviarEmailNotaFiscalRequest {
+    int32 idNotafiscal = 1;
+    bool nfVencida = 2;
+    repeated string para = 3;
+    string cc = 4;
+    string bcc = 5;
+    string assunto = 6;
+    string mensagem = 7;
+    repeated AnexoEmailNotaFiscalRequest anexos = 8;
+    bool anexarPrestacao = 9;
+    string nmUsuario = 10;
+    int32 idUsuaOper = 11;
+}
+
+// nfAnexada = false: o PDF da nota nao foi encontrado no storage (o e-mail segue sem ele, como o legado).
+// boletoAnexado: sempre false ate o gerador do PDF do boleto da NF ser definido.
+message EnviarEmailNotaFiscalData {
+    bool nfAnexada = 1;
+    bool prestacaoAnexada = 2;
+    bool boletoAnexado = 3;
+}
+
+message ServiceResponseEnviarEmailNotaFiscal {
+    int32 status = 1;
+    string message = 2;
+    repeated EnviarEmailNotaFiscalData data = 3;
+    string error = 4;
+}
+
+message AlterarVencimentoNotaFiscalRequest {
+    int32 idNotafiscal = 1;
+    string dtVencimento = 2;
+    int32 idUsuaOper = 3;
+}
+
+message AlterarVencimentoNotaFiscalData {
+    string dtVencimento = 1;
+}
+
+message ServiceResponseAlterarVencimentoNotaFiscal {
+    int32 status = 1;
+    string message = 2;
+    repeated AlterarVencimentoNotaFiscalData data = 3;
+    string error = 4;
+}
+
+// tipo: NF (PDF da nota gravado no storage) ou PRESTACAO (planilha de prestacao de contas gerada na hora).
+message BaixarArquivoNotaFiscalRequest {
+    int32 idNotafiscal = 1;
+    string tipo = 2;
+}
+
+message ArquivoNotaFiscalData {
+    string nomeArquivo = 1;
+    string conteudoBase64 = 2;
+}
+
+message ServiceResponseArquivoNotaFiscal {
+    int32 status = 1;
+    string message = 2;
+    repeated ArquivoNotaFiscalData data = 3;
     string error = 4;
 }
