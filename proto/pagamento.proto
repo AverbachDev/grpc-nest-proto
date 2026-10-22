@@ -70,6 +70,10 @@ service PagamentoService {
     // voucher (0=Credito, 1=Rec. Direto, 2=Nota Debito). O agrupamento por
     // cliente/aba e feito por quem consome.
     rpc listPrestContasEmissao (ListCriteriaRequestPrestContasEmissao) returns (ServiceResponseListPrestContasEmissao) {}
+    // Porte da emissao de wfmListaPrestContas.aspx.vb (botoes Imprimir e Exportar Excel): grava a
+    // prestacao de contas, monta os datasets, gera o relatorio no microservice-crystal e devolve o
+    // nome do arquivo. Tudo numa transacao so (como o TransactionScope do legado).
+    rpc emitirPrestContas (PrestContasEmitirRequest) returns (ServiceResponsePrestContasEmitir) {}
 
     rpc listPrestContaSeqOriginal (ListCriteriaRequestPrestContaSeqOriginal) returns (ServiceResponseListPrestContaSeqOriginal) {}
     rpc findOnePrestContaSeqOriginal (IdRequest) returns (ServiceResponsePrestContaSeqOriginal) {}
@@ -734,6 +738,31 @@ message PrestContaEmissaoData {
     double nuRepasse = 11;
     string deUnnegocio = 12;
     bool erroEscrituracao = 13;
+}
+
+// idTipoVoucher = aba da tela: 0 Credito, 1 Rec. Direto, 2 Nota Debito. formato: "pdf" (padrao) ou "xls".
+message PrestContasEmitirRequest {
+    repeated int32 idsPagto = 1;
+    int32 idCliente = 2;
+    int32 idTipoVoucher = 3;
+    bool prestacaoCompleta = 4;
+    string formato = 5;
+    int32 idUsuaOper = 6;
+}
+
+message PrestContasEmitirData {
+    int32 idPrestconta = 1;
+    string deArquivo = 2;
+    string cdTipo = 3;
+    int32 nuSequencial = 4;
+    int32 totalVouchers = 5;
+}
+
+message ServiceResponsePrestContasEmitir {
+    int32 status = 1;
+    string message = 2;
+    repeated PrestContasEmitirData data = 3;
+    string error = 4;
 }
 
 message ListResultPrestContasEmissao {
