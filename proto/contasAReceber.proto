@@ -39,6 +39,14 @@ service ContasAReceberService {
     rpc SendBoletoAVBToBradesco (IdRequest) returns (ServiceResponseRegistroBoletoAPI) {}
     rpc SendRangeBoletoAVBToBradesco (RequestSendRangeBoletoToBradesco) returns (ServiceResponseBoolean) {}
 
+    // Porte de wfmListaEmissaoNotaFiscal.aspx (reimplementado em TypeORM, nao chama as SPs legadas
+    // psgaNotaFiscal_ListaEmissao / ObterHonorariosPC / ListaEmissaoManual / psgaNotasFiscais_GeraArquivo).
+    rpc listEmissaoNotaFiscal (ListCriteriaRequestEmissaoNotaFiscal) returns (ServiceResponseListEmissaoNotaFiscal) {}
+    rpc obterHonorariosPrestContaNotaFiscal (IdRequest) returns (ServiceResponseHonorariosPrestContaNotaFiscal) {}
+    rpc gerarDetalheNotaFiscal (GerarDetalheNotaFiscalRequest) returns (ServiceResponseDetalheNotaFiscal) {}
+    rpc listClienteEmissaoManualNotaFiscal (ListCriteriaRequestClienteEmissaoManualNotaFiscal) returns (ServiceResponseListClienteEmissaoManualNotaFiscal) {}
+    rpc calcularImpostosNotaFiscal (CalcularImpostosNotaFiscalRequest) returns (ServiceResponseImpostosNotaFiscal) {}
+
     rpc listClienteAtivoPreventivo (ListCriteriaRequestClienteAtivoPreventivo) returns (ServiceResponseListClienteAtivoPreventivo) {}
     rpc findOneClienteAtivoPreventivo (IdRequest) returns (ServiceResponseClienteAtivoPreventivo) {}
     rpc createClienteAtivoPreventivo (ClienteAtivoPreventivoPData) returns (ServiceResponseClienteAtivoPreventivo) {}
@@ -506,3 +514,151 @@ message ListResultClienteAtivoPreventivo {
     int32 total = 2;
 }
 
+
+
+// EMISSAO DE NOTA FISCAL (wfmListaEmissaoNotaFiscal.aspx)
+
+// cdPeriodicidade e obrigatorio: "0" diaria, "1" semanal, "2" quinzenal, "3" mensal.
+// Demais filtros sao opcionais (string vazia = sem filtro): cdLocalNf "RJ"/"SP",
+// tpRepasse "LÍQUIDO"/"BRUTO"/"RD"/"RD CONCILIAÇÃO", nmCliente = contem, case-insensitive.
+message ListCriteriaRequestEmissaoNotaFiscal {
+    string cdPeriodicidade = 1;
+    string cdLocalNf = 2;
+    string tpRepasse = 3;
+    string nmCliente = 4;
+}
+
+// Uma linha = uma prestacao de contas (PC) + tipo de repasse, ainda sem tecoItemNotaFiscal.
+// dtPrestconta/dtRepasse vem como "dd/MM/yyyy" (igual ao legado) para nao sofrer deslocamento de timezone.
+message EmissaoNotaFiscalData {
+    string nmCliente = 1;
+    double nuHonorCliente = 2;
+    double nuHonorDevedor = 3;
+    string cdPrestContaVl = 4;
+    string tpRepasse = 5;
+    string cdLocalNf = 6;
+    string cdPeriodicidade = 7;
+    string tpPagamento = 8;
+    string deInstrucao = 9;
+    string cdNfHonorDevedor = 10;
+    int32 idPrestconta = 11;
+    string dtPrestconta = 12;
+    string dtRepasse = 13;
+    int32 nuSequencial = 14;
+    int32 idCliente = 15;
+    int32 qtdDevedor = 16;
+    bool cdConciliarRd = 17;
+    string cdCnpjAverbachNf = 18;
+}
+
+message ListResultEmissaoNotaFiscal {
+    repeated EmissaoNotaFiscalData result = 1;
+    int32 total = 2;
+}
+
+message ServiceResponseListEmissaoNotaFiscal {
+    int32 status = 1;
+    string message = 2;
+    ListResultEmissaoNotaFiscal data = 3;
+    string error = 4;
+}
+
+// Honorario de uma PC por tipo de repasse (o legado so lia a 1a linha; aqui vem todas).
+message HonorarioPrestContaNotaFiscalData {
+    double nuHonorCliente = 1;
+    string tpRepasse = 2;
+}
+
+message ServiceResponseHonorariosPrestContaNotaFiscal {
+    int32 status = 1;
+    string message = 2;
+    repeated HonorarioPrestContaNotaFiscalData data = 3;
+    string error = 4;
+}
+
+message GerarDetalheNotaFiscalRequest {
+    int32 idCliente = 1;
+    repeated int32 idsPrestConta = 2;
+}
+
+// texto = conteudo do arquivo de detalhamento da NF (linhas separadas por \r\n).
+message DetalheNotaFiscalData {
+    string texto = 1;
+    double total = 2;
+}
+
+message ServiceResponseDetalheNotaFiscal {
+    int32 status = 1;
+    string message = 2;
+    repeated DetalheNotaFiscalData data = 3;
+    string error = 4;
+}
+
+// nmCliente preenchido tem prioridade sobre idCliente (igual a psgaNotaFiscal_ListaEmissaoManual).
+message ListCriteriaRequestClienteEmissaoManualNotaFiscal {
+    string nmCliente = 1;
+    int32 idCliente = 2;
+}
+
+// cdRepasse (0 liquido, 1 bruto, 2 RD conciliacao, 3 RD) e derivado de tpRepasse, para pre-selecionar o combo.
+message ClienteEmissaoManualNotaFiscalData {
+    int32 idCliente = 1;
+    string nmCliente = 2;
+    string cdCnpjCpf = 3;
+    string cdPrestContaVl = 4;
+    string tpRepasse = 5;
+    int32 cdRepasse = 6;
+    string cdLocalNf = 7;
+    string cdPeriodicidade = 8;
+    string tpPagamento = 9;
+    string deInstrucao = 10;
+    string cdNfHonorDevedor = 11;
+    bool cdConciliarRd = 12;
+    string cdCnpjAverbachNf = 13;
+}
+
+message ListResultClienteEmissaoManualNotaFiscal {
+    repeated ClienteEmissaoManualNotaFiscalData result = 1;
+    int32 total = 2;
+}
+
+message ServiceResponseListClienteEmissaoManualNotaFiscal {
+    int32 status = 1;
+    string message = 2;
+    ListResultClienteEmissaoManualNotaFiscal data = 3;
+    string error = 4;
+}
+
+// cdCnpjAverbach: "0" = Escritorio Juridico Averbach, "1" = Averbach Cobrancas Ltda.
+message CalcularImpostosNotaFiscalRequest {
+    double nuValor = 1;
+    int32 idCliente = 2;
+    string cdCnpjAverbach = 3;
+}
+
+message ImpostosNotaFiscalData {
+    double nuCofins = 1;
+    double nuPis = 2;
+    double nuCsll = 3;
+    double nuIr = 4;
+    double nuImposto = 5;
+    double nuLiquido = 6;
+}
+
+message ServiceResponseImpostosNotaFiscal {
+    int32 status = 1;
+    string message = 2;
+    repeated ImpostosNotaFiscalData data = 3;
+    string error = 4;
+}
+
+// ITEMNOTAFISCALMANUAL (tecoItemNotaFiscalManual - emissao manual de NF; sem colunas createdDate/updatedDate/deletedDate)
+
+message ItemNotaFiscalManualData {
+    int32 id = 1;
+    int32 idNotafiscal = 2;
+    int32 idUsuaOper = 3;
+    string dtRegistro = 4;
+    double nuRepasse = 5;
+    int32 cdRepasse = 6;
+}
