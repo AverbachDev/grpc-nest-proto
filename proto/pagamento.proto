@@ -72,6 +72,7 @@ service PagamentoService {
     rpc listPrestContasEmissao (ListCriteriaRequestPrestContasEmissao) returns (ServiceResponseListPrestContasEmissao) {}
     rpc listPrestContasEmitidasClientes (ListCriteriaRequestPrestContasEmitidasClientes) returns (ServiceResponseListPrestContasEmitidasClientes) {}
     rpc listPrestContasEmitidas (ListCriteriaRequestPrestContasEmitidas) returns (ServiceResponseListPrestContasEmitidas) {}
+    rpc reimprimirPrestConta (PrestContaReimprimirRequest) returns (ServiceResponsePrestContaReimprimir) {}
     // Porte da emissao de wfmListaPrestContas.aspx.vb (botoes Imprimir e Exportar Excel): grava a
     // prestacao de contas, monta os datasets, gera o relatorio no microservice-crystal e devolve o
     // nome do arquivo. Tudo numa transacao so (como o TransactionScope do legado).
@@ -854,6 +855,25 @@ message ServiceResponseListPrestContasEmitidas {
     int32 status = 1;
     string message = 2;
     ListResultPrestContasEmitidas data = 3;
+    string error = 4;
+}
+
+// Reabre uma PC ja emitida (GeraPrestContasPDF do legado). origem: "crystal" (regerada agora; o arquivo fica na pasta
+// servida pelo Crystal e o front monta a URL por deArquivo) ou "minio" (PC antiga; url = link temporario de download).
+message PrestContaReimprimirRequest {
+    int32 idPrestconta = 1;
+}
+
+message PrestContaReimprimirData {
+    string deArquivo = 1;
+    string url = 2;
+    string origem = 3;
+}
+
+message ServiceResponsePrestContaReimprimir {
+    int32 status = 1;
+    string message = 2;
+    repeated PrestContaReimprimirData data = 3;
     string error = 4;
 }
 
