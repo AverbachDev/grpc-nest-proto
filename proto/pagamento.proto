@@ -73,6 +73,10 @@ service PagamentoService {
     rpc listPrestContasEmitidasClientes (ListCriteriaRequestPrestContasEmitidasClientes) returns (ServiceResponseListPrestContasEmitidasClientes) {}
     rpc listPrestContasEmitidas (ListCriteriaRequestPrestContasEmitidas) returns (ServiceResponseListPrestContasEmitidas) {}
     rpc reimprimirPrestConta (PrestContaReimprimirRequest) returns (ServiceResponsePrestContaReimprimir) {}
+    rpc uploadComprovantePrestConta (PrestContaComprovanteUploadRequest) returns (ServiceResponsePrestContaComprovante) {}
+    rpc excluirComprovantePrestConta (PrestContaComprovanteIdRequest) returns (ServiceResponsePrestContaComprovante) {}
+    rpc obterComprovantePrestConta (PrestContaComprovanteIdRequest) returns (ServiceResponsePrestContaComprovante) {}
+    rpc atualizarEnviadaPrestConta (PrestContaEnviadaRequest) returns (ServiceResponsePrestContaEnviada) {}
     // Porte da emissao de wfmListaPrestContas.aspx.vb (botoes Imprimir e Exportar Excel): grava a
     // prestacao de contas, monta os datasets, gera o relatorio no microservice-crystal e devolve o
     // nome do arquivo. Tudo numa transacao so (como o TransactionScope do legado).
@@ -874,6 +878,51 @@ message ServiceResponsePrestContaReimprimir {
     int32 status = 1;
     string message = 2;
     repeated PrestContaReimprimirData data = 3;
+    string error = 4;
+}
+
+// Comprovante de repasse da PC (so aba Credito na tela). Arquivo no MinIO em Comprovantes/<idPrestconta>_<nome>.
+// conteudoBase64: arquivo inteiro (limite de 10 MB no servico).
+message PrestContaComprovanteUploadRequest {
+    int32 idPrestconta = 1;
+    string nomeArquivo = 2;
+    string conteudoBase64 = 3;
+    int32 idUsuaOper = 4;
+}
+
+message PrestContaComprovanteIdRequest {
+    int32 idPrestconta = 1;
+    int32 idUsuaOper = 2;
+}
+
+// deArquivoComprovante vazio = sem comprovante. url so em obterComprovantePrestConta (link temporario).
+message PrestContaComprovanteData {
+    string deArquivoComprovante = 1;
+    string url = 2;
+}
+
+message ServiceResponsePrestContaComprovante {
+    int32 status = 1;
+    string message = 2;
+    repeated PrestContaComprovanteData data = 3;
+    string error = 4;
+}
+
+// Marca/desmarca a PC como enviada ao cliente (checkbox da listagem). Desmarcar grava false, nao NULL.
+message PrestContaEnviadaRequest {
+    int32 idPrestconta = 1;
+    bool cdEnviada = 2;
+    int32 idUsuaOper = 3;
+}
+
+message PrestContaEnviadaData {
+    bool cdEnviada = 1;
+}
+
+message ServiceResponsePrestContaEnviada {
+    int32 status = 1;
+    string message = 2;
+    repeated PrestContaEnviadaData data = 3;
     string error = 4;
 }
 
