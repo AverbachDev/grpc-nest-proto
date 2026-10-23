@@ -70,6 +70,8 @@ service PagamentoService {
     // voucher (0=Credito, 1=Rec. Direto, 2=Nota Debito). O agrupamento por
     // cliente/aba e feito por quem consome.
     rpc listPrestContasEmissao (ListCriteriaRequestPrestContasEmissao) returns (ServiceResponseListPrestContasEmissao) {}
+    rpc listPrestContasEmitidasClientes (ListCriteriaRequestPrestContasEmitidasClientes) returns (ServiceResponseListPrestContasEmitidasClientes) {}
+    rpc listPrestContasEmitidas (ListCriteriaRequestPrestContasEmitidas) returns (ServiceResponseListPrestContasEmitidas) {}
     // Porte da emissao de wfmListaPrestContas.aspx.vb (botoes Imprimir e Exportar Excel): grava a
     // prestacao de contas, monta os datasets, gera o relatorio no microservice-crystal e devolve o
     // nome do arquivo. Tudo numa transacao so (como o TransactionScope do legado).
@@ -774,6 +776,84 @@ message ServiceResponseListPrestContasEmissao {
     int32 status = 1;
     string message = 2;
     ListResultPrestContasEmissao data = 3;
+    string error = 4;
+}
+
+// Listagem de PCs ja emitidas (wfmListaPrestContasEmitidas). cdTipoEscrituracao = aba: 0 Credito, 1 Rec. Direto, 2 Nota Debito.
+// Datas: ISO (yyyy-MM-dd), vazio = sem filtro. dtCadastro so vale com ini E fim (regra do legado).
+message ListCriteriaRequestPrestContasEmitidasClientes {
+    int32 cdTipoEscrituracao = 1;
+    string nmCliente = 2;
+    string cdCnpjCpf = 3;
+    string dtCadastroIni = 4;
+    string dtCadastroFim = 5;
+    string dtRepasseIni = 6;
+    string dtRepasseFim = 7;
+    string nuSequencial = 8;
+}
+
+message PrestContaEmitidaClienteData {
+    int32 idCliente = 1;
+    string nmCliente = 2;
+    string cdCnpjCpf = 3;
+    int32 cdTipoEscrituracao = 4;
+    bool cdEmailPrestconta = 5;
+}
+
+message ListResultPrestContasEmitidasClientes {
+    repeated PrestContaEmitidaClienteData result = 1;
+    int32 total = 2;
+}
+
+message ServiceResponseListPrestContasEmitidasClientes {
+    int32 status = 1;
+    string message = 2;
+    ListResultPrestContasEmitidasClientes data = 3;
+    string error = 4;
+}
+
+// Detalhe de um cliente, paginado (page comeca em 1), ordenado por nuSequencial decrescente.
+message ListCriteriaRequestPrestContasEmitidas {
+    int32 idCliente = 1;
+    int32 cdTipoEscrituracao = 2;
+    string dtCadastroIni = 3;
+    string dtCadastroFim = 4;
+    string dtRepasseIni = 5;
+    string dtRepasseFim = 6;
+    string nuSequencial = 7;
+    int32 items = 8;
+    int32 page = 9;
+}
+
+// cdEnviada e tri-estado: ausente = nunca enviada (NULL), false = desmarcada, true = enviada.
+message PrestContaEmitidaData {
+    int32 idPrestconta = 1;
+    int32 idGrupo = 2;
+    int32 idCliente = 3;
+    string dtCadastro = 4;
+    string deArquivoResumida = 5;
+    string deArquivoCompleta = 6;
+    string cdTipo = 7;
+    bool cdCategoria = 8;
+    string deArquivoComprovante = 9;
+    int32 nuSequencial = 10;
+    string dtRepasse = 11;
+    string deNotaFiscal = 12;
+    int32 cdTipoEscrituracao = 13;
+    bool cdEmailPrestconta = 14;
+    optional bool cdEnviada = 15;
+    string dtEmailPrestconta = 16;
+}
+
+message ListResultPrestContasEmitidas {
+    repeated PrestContaEmitidaData result = 1;
+    int32 total = 2;
+}
+
+message ServiceResponseListPrestContasEmitidas {
+    int32 status = 1;
+    string message = 2;
+    ListResultPrestContasEmitidas data = 3;
     string error = 4;
 }
 
