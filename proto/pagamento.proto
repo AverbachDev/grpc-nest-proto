@@ -77,6 +77,7 @@ service PagamentoService {
     rpc excluirComprovantePrestConta (PrestContaComprovanteIdRequest) returns (ServiceResponsePrestContaComprovante) {}
     rpc obterComprovantePrestConta (PrestContaComprovanteIdRequest) returns (ServiceResponsePrestContaComprovante) {}
     rpc atualizarEnviadaPrestConta (PrestContaEnviadaRequest) returns (ServiceResponsePrestContaEnviada) {}
+    rpc gerarArquivoPrestConta (PrestContaArquivoRequest) returns (ServiceResponsePrestContaArquivo) {}
     // Porte da emissao de wfmListaPrestContas.aspx.vb (botoes Imprimir e Exportar Excel): grava a
     // prestacao de contas, monta os datasets, gera o relatorio no microservice-crystal e devolve o
     // nome do arquivo. Tudo numa transacao so (como o TransactionScope do legado).
@@ -923,6 +924,26 @@ message ServiceResponsePrestContaEnviada {
     int32 status = 1;
     string message = 2;
     repeated PrestContaEnviadaData data = 3;
+    string error = 4;
+}
+
+// Arquivo de dados da PC emitida (CSV/TXT/Excel por grupo de cliente; GeraPrestContasXLS/GeraPrestContasTXT do legado).
+// acao: "XLS" (botao Excel da tela) ou "TXT" (botao Texto). O conteudo vai inteiro em base64.
+message PrestContaArquivoRequest {
+    int32 idPrestconta = 1;
+    string acao = 2;
+}
+
+message PrestContaArquivoData {
+    string nomeArquivo = 1;
+    string conteudoBase64 = 2;
+    string contentType = 3;
+}
+
+message ServiceResponsePrestContaArquivo {
+    int32 status = 1;
+    string message = 2;
+    repeated PrestContaArquivoData data = 3;
     string error = 4;
 }
 
