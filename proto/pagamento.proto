@@ -78,6 +78,8 @@ service PagamentoService {
     rpc obterComprovantePrestConta (PrestContaComprovanteIdRequest) returns (ServiceResponsePrestContaComprovante) {}
     rpc atualizarEnviadaPrestConta (PrestContaEnviadaRequest) returns (ServiceResponsePrestContaEnviada) {}
     rpc gerarArquivoPrestConta (PrestContaArquivoRequest) returns (ServiceResponsePrestContaArquivo) {}
+    rpc listPrestContasParaEnvio (ListCriteriaRequestPrestContasParaEnvio) returns (ServiceResponseListPrestContasParaEnvio) {}
+    rpc enviarEmailPrestConta (PrestContaEmailRequest) returns (ServiceResponsePrestContaEmail) {}
     // Porte da emissao de wfmListaPrestContas.aspx.vb (botoes Imprimir e Exportar Excel): grava a
     // prestacao de contas, monta os datasets, gera o relatorio no microservice-crystal e devolve o
     // nome do arquivo. Tudo numa transacao so (como o TransactionScope do legado).
@@ -944,6 +946,58 @@ message ServiceResponsePrestContaArquivo {
     int32 status = 1;
     string message = 2;
     repeated PrestContaArquivoData data = 3;
+    string error = 4;
+}
+
+// Envio automatico de e-mail das PCs emitidas (aba Credito). A tela lista as PCs elegiveis e envia UMA POR VEZ
+// (enviarEmailPrestConta), mostrando o progresso. Elegivel = Credito, cd_enviada nulo, contrato com envio automatico,
+// e as DUAS datas de emissao informadas (como o botao do legado, que so habilitava com o periodo preenchido).
+message ListCriteriaRequestPrestContasParaEnvio {
+    string nmCliente = 1;
+    string dtCadastroIni = 2;
+    string dtCadastroFim = 3;
+    string dtRepasseIni = 4;
+    string dtRepasseFim = 5;
+    string nuSequencial = 6;
+}
+
+message PrestContaParaEnvioData {
+    int32 idPrestconta = 1;
+    int32 idCliente = 2;
+    string nmCliente = 3;
+    int32 nuSequencial = 4;
+    string dtCadastro = 5;
+}
+
+message ListResultPrestContasParaEnvio {
+    repeated PrestContaParaEnvioData result = 1;
+    int32 total = 2;
+}
+
+message ServiceResponseListPrestContasParaEnvio {
+    int32 status = 1;
+    string message = 2;
+    ListResultPrestContasParaEnvio data = 3;
+    string error = 4;
+}
+
+message PrestContaEmailRequest {
+    int32 idPrestconta = 1;
+    int32 idUsuaOper = 2;
+}
+
+// enviada=false NAO e erro: a PC simplesmente nao foi enviada e motivo diz por que (sem contato, ja enviada, etc.).
+message PrestContaEmailData {
+    bool enviada = 1;
+    string motivo = 2;
+    int32 destinatarios = 3;
+    string nomeArquivoRetorno = 4;
+}
+
+message ServiceResponsePrestContaEmail {
+    int32 status = 1;
+    string message = 2;
+    repeated PrestContaEmailData data = 3;
     string error = 4;
 }
 
