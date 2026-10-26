@@ -54,6 +54,10 @@ service ContasAReceberService {
     rpc enviarEmailNotaFiscal (EnviarEmailNotaFiscalRequest) returns (ServiceResponseEnviarEmailNotaFiscal) {}
     rpc alterarVencimentoNotaFiscal (AlterarVencimentoNotaFiscalRequest) returns (ServiceResponseAlterarVencimentoNotaFiscal) {}
     rpc baixarArquivoNotaFiscal (BaixarArquivoNotaFiscalRequest) returns (ServiceResponseArquivoNotaFiscal) {}
+    // Lista de notas emitidas (wfmListaNotaFiscal): clientes com notas (paginado), notas de um cliente e exclusao.
+    rpc listClienteNotasFiscais (ListCriteriaRequestClienteNotasFiscais) returns (ServiceResponseListClienteNotasFiscais) {}
+    rpc listNotasFiscaisCliente (ListCriteriaRequestNotasFiscaisCliente) returns (ServiceResponseListNotasFiscaisCliente) {}
+    rpc excluirNotasFiscais (ExcluirNotasFiscaisRequest) returns (ServiceResponseExcluirNotasFiscais) {}
 
     rpc listClienteAtivoPreventivo (ListCriteriaRequestClienteAtivoPreventivo) returns (ServiceResponseListClienteAtivoPreventivo) {}
     rpc findOneClienteAtivoPreventivo (IdRequest) returns (ServiceResponseClienteAtivoPreventivo) {}
@@ -837,5 +841,93 @@ message ServiceResponseArquivoNotaFiscal {
     int32 status = 1;
     string message = 2;
     repeated ArquivoNotaFiscalData data = 3;
+    string error = 4;
+}
+
+
+// LISTA DE NOTAS FISCAIS EMITIDAS (wfmListaNotaFiscal.aspx)
+
+// Filtros (todos opcionais, vazio = sem filtro): nmCliente = contem; cdCnpjCpf = so os digitos, contem;
+// dtCadastro / dtCadastroAte = YYYY-MM-DD, inclusive os dois dias; nuNf = contem no nome do arquivo OU no numero da nota.
+// items/page: paginacao dos clientes (items = -1 traz todos).
+message ListCriteriaRequestClienteNotasFiscais {
+    string nmCliente = 1;
+    string cdCnpjCpf = 2;
+    string dtCadastro = 3;
+    string dtCadastroAte = 4;
+    string nuNf = 5;
+    int32 items = 6;
+    int32 page = 7;
+}
+
+// qtdNotas = quantas notas do cliente atendem aos filtros.
+message ClienteNotasFiscaisData {
+    int32 idCliente = 1;
+    string nmCliente = 2;
+    string cdCnpjCpf = 3;
+    int32 qtdNotas = 4;
+}
+
+message ListResultClienteNotasFiscais {
+    repeated ClienteNotasFiscaisData result = 1;
+    int32 total = 2;
+}
+
+message ServiceResponseListClienteNotasFiscais {
+    int32 status = 1;
+    string message = 2;
+    ListResultClienteNotasFiscais data = 3;
+    string error = 4;
+}
+
+// Notas de um cliente (as 100 mais recentes que atendem aos filtros, da mais nova para a mais antiga).
+message ListCriteriaRequestNotasFiscaisCliente {
+    int32 idCliente = 1;
+    string nmCliente = 2;
+    string cdCnpjCpf = 3;
+    string dtCadastro = 4;
+    string dtCadastroAte = 5;
+    string nuNf = 6;
+}
+
+// nuRepasse = soma dos itens (cobranca ou manual). nuImposto vem NEGATIVO (ou zero), como no legado.
+// Datas em YYYY-MM-DD.
+message NotaFiscalListaData {
+    int32 idNotafiscal = 1;
+    int32 idCliente = 2;
+    string dtCadastro = 3;
+    string deArquivo = 4;
+    string deNotafiscal = 5;
+    string dtVencimento = 6;
+    double nuRepasse = 7;
+    double nuImposto = 8;
+}
+
+message ListResultNotasFiscaisCliente {
+    repeated NotaFiscalListaData result = 1;
+    int32 total = 2;
+}
+
+message ServiceResponseListNotasFiscaisCliente {
+    int32 status = 1;
+    string message = 2;
+    ListResultNotasFiscaisCliente data = 3;
+    string error = 4;
+}
+
+// Exclui as notas e tudo que depende delas (itens, itens manuais, boleto, pagamento, item de extrato) numa unica transacao.
+message ExcluirNotasFiscaisRequest {
+    repeated int32 ids = 1;
+    int32 idUsuaOper = 2;
+}
+
+message ExcluirNotasFiscaisData {
+    int32 qtdExcluidas = 1;
+}
+
+message ServiceResponseExcluirNotasFiscais {
+    int32 status = 1;
+    string message = 2;
+    repeated ExcluirNotasFiscaisData data = 3;
     string error = 4;
 }
