@@ -47,6 +47,9 @@ service ClienteService {
   rpc findByKeyWithClienteDetais (ContatoByKeyRequest) returns (ServiceResponseContato) {}
   rpc createManyContato (ContatoManyData) returns (ServiceResponseContato) {}
   rpc removeAllContato (WithoutParams) returns (ServiceResponseContato) {}
+  // Prestacao de contas: operacoes ESTREITAS (nao reescrevem o resto do contato; updateContato regrava a linha inteira).
+  rpc definirContatoPrestconta (DefinirContatoPrestcontaRequest) returns (ServiceResponseContato) {}
+  rpc criarContatoPrestacaoContas (CriarContatoPrestacaoContasRequest) returns (ServiceResponseContato) {}
   
   //UnNegocio
   rpc listUnNegocio (ListCriteriaRequestUnNegocio) returns (ServiceResponseListUnNegocio) {}
@@ -354,6 +357,23 @@ message ContatoData {
 message ContatoUpdateRequest{
     int32 id = 1;
     ContatoData contato = 2;
+}
+
+// Liga/desliga so o flag "recebe prestacao de contas" (cd_prestconta) de UM contato, sem tocar nos outros campos
+// e sem propagar para as replicas (dekeyReplicatedFrom): a escolha e por cliente. Emite o evento de integracao 'update'.
+message DefinirContatoPrestcontaRequest {
+    int32 idContato = 1;
+    bool cdPrestconta = 2;
+    int32 idUsuaOper = 3;
+}
+
+// Cria um contato do cliente ja marcado como "recebe prestacao de contas" (cd_prestconta = true), com os demais campos
+// no valor neutro (sem telefone, cargo, perfil nem outras finalidades). Emite o evento de integracao 'create'.
+message CriarContatoPrestacaoContasRequest {
+    int32 idCliente = 1;
+    string nmContato = 2;
+    string deEmail = 3;
+    int32 idUsuaOper = 4;
 }
 
 message ServiceResponseContato {
