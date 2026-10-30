@@ -37,6 +37,11 @@ service RelatorioService {
     rpc removeRD (IdRequest) returns (ServiceResponseRD) {}
     rpc removeAllRD (WithoutParams) returns (ServiceResponseRD) {}
     rpc createManyRD (RDManyData) returns (ServiceResponseRD) {}
+
+    //Acordos4bio (carga semanal do relatorio de acordos da 4BIO)
+    rpc removeAllAcordos4bio (WithoutParams) returns (ServiceResponseAcordos4bio) {}
+    rpc createManyAcordos4bio (Acordos4bioManyData) returns (ServiceResponseAcordos4bio) {}
+    rpc listAcordos4bio (ListCriteriaRequestAcordos4bio) returns (ServiceResponseListAcordos4bio) {}
     
     //Devolucao
     rpc listDevolucao (ListCriteriaRequestDevolucao) returns (ServiceResponseListDevolucao) {}
@@ -380,6 +385,64 @@ message ServiceResponseRD {
     int32 status = 1;
     string message = 2;
     repeated RDData data = 3;
+    string error = 4;
+}
+
+
+//Acordos4bio
+
+message ListCriteriaRequestAcordos4bio {
+    // So devolve linhas gravadas (createdDate) a partir desta data/hora ISO. Vazio = sem filtro.
+    string dtCargaInicio = 1;
+    int32 items = 2;
+    int32 page = 3;
+    map<string, string> order = 4;
+}
+
+message Acordos4bioData {
+    int32 idAcordos4bio = 1;
+    string nmDevedor = 2;
+    string cdCnpjCpf = 3;
+    string dtCadastro = 4;
+    double totalNegociado = 5;
+    double totalRecebido = 6;
+    double saldo = 7;
+    int32 qtdParcela = 8;
+    int32 qtdParcelaPaga = 9;
+    int32 qtdParcelaAtrasada = 10;
+    string dtProximaParcela = 11;
+    double valorProximaParcela = 12;
+    double totalAtrasado = 13;
+    string statusAcordo = 14;
+    string cdQuebraAcordo = 15;
+    string segmento = 16;
+    int32 idCaso = 17;
+    string cdAcordo = 18;
+    string createdDate = 19;
+    string updatedDate = 20;
+    string deletedDate = 21;
+}
+
+message Acordos4bioManyData {
+    repeated Acordos4bioData data = 1;
+}
+
+message ListResultAcordos4bio {
+    repeated Acordos4bioData result = 1;
+    int32 total = 2;
+}
+
+message ServiceResponseListAcordos4bio {
+    int32 status = 1;
+    string message = 2;
+    ListResultAcordos4bio data = 3;
+    string error = 4;
+}
+
+message ServiceResponseAcordos4bio {
+    int32 status = 1;
+    string message = 2;
+    repeated Acordos4bioData data = 3;
     string error = 4;
 }
 
