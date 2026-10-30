@@ -39,9 +39,9 @@ service RelatorioService {
     rpc createManyRD (RDManyData) returns (ServiceResponseRD) {}
 
     //Acordos4bio (carga semanal do relatorio de acordos da 4BIO)
-    rpc removeAllAcordos4bio (WithoutParams) returns (ServiceResponseAcordos4bio) {}
-    rpc createManyAcordos4bio (Acordos4bioManyData) returns (ServiceResponseAcordos4bio) {}
-    rpc listAcordos4bio (ListCriteriaRequestAcordos4bio) returns (ServiceResponseListAcordos4bio) {}
+    rpc removeAllAcordosBio4 (WithoutParams) returns (ServiceResponseAcordos4bio) {}
+    rpc createManyAcordosBio4 (Acordos4bioManyData) returns (ServiceResponseAcordos4bio) {}
+    rpc listAcordosBio4 (ListCriteriaRequestAcordos4bio) returns (ServiceResponseListAcordos4bio) {}
     
     //Devolucao
     rpc listDevolucao (ListCriteriaRequestDevolucao) returns (ServiceResponseListDevolucao) {}
