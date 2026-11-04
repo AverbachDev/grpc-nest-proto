@@ -15,6 +15,9 @@ service ExtratoService {
     rpc agruparDepositos (AgruparDepositosRequest) returns (ServiceResponseAgruparDepositos) {}
     rpc liberarDeposito (LiberarDepositoRequest) returns (ServiceResponseLiberarDeposito) {}
     rpc aprovarDeposito (AprovarDepositoRequest) returns (ServiceResponseItemExtrato) {}
+    // Popup "Inserir Observacao no Voucher" (wfmpopExtratoObs.aspx) - anexa
+    // texto a ItemExtratoDepositante.de_obs do item.
+    rpc inserirObservacaoDeposito (InserirObservacaoDepositoRequest) returns (ServiceResponseInserirObservacaoDeposito) {}
 
     // Casos de uso especiais da tela "Depositos Pendentes de Aprovacao"
     // (wfmListaDepositosPendentesAprovacao.aspx) - segunda camada de
@@ -204,6 +207,24 @@ message AgruparDepositosRequest {
 message LiberarDepositoRequest {
     int32 idItemExtrato = 1;
     int32 idUsuaOper = 2;
+}
+
+message InserirObservacaoDepositoRequest {
+    int32 idItemExtrato = 1;
+    string observacao = 2;
+    int32 idUsuaOper = 3;
+}
+
+message InserirObservacaoDepositoData {
+    // Texto completo de de_obs apos a gravacao (concatenado com o que ja existia).
+    string deObs = 1;
+}
+
+message ServiceResponseInserirObservacaoDeposito {
+    int32 status = 1;
+    string message = 2;
+    InserirObservacaoDepositoData data = 3;
+    string error = 4;
 }
 
 message AprovarDepositoRequest {
