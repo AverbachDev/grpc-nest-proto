@@ -634,6 +634,8 @@ message ListCriteriaRequestAreaDeTrabalho {
     int32 page = 18;
     map<string, string> order = 19;
     int32 idMotivoInadimplencia = 20;
+    // Busca livre por nome do devedor (ILIKE %texto%); substitui o autocomplete.
+    string nmDevedor = 23;
     // Campos 21/22 (nuDiasSemHistCobrancaMinimo/somenteComAgendamento) foram
     // removidos - a ideia de reaproveitar este dataset pros popups Casos sem
     // Andamento/Contatos Agendados nao se sustentou: as SPs originais
@@ -800,6 +802,8 @@ message ListCriteriaRequestCasoLista {
     int32 items = 19;
     int32 page = 20;
     map<string, string> order = 21;
+    // Busca livre por nome do devedor (ILIKE %texto%); substitui o autocomplete.
+    string nmDevedor = 22;
 }
 
 message CasoListaData {
