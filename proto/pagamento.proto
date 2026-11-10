@@ -78,6 +78,8 @@ service PagamentoService {
     rpc obterComprovantePrestConta (PrestContaComprovanteIdRequest) returns (ServiceResponsePrestContaComprovante) {}
     rpc atualizarEnviadaPrestConta (PrestContaEnviadaRequest) returns (ServiceResponsePrestContaEnviada) {}
     rpc gerarArquivoPrestConta (PrestContaArquivoRequest) returns (ServiceResponsePrestContaArquivo) {}
+    // Porte de wfmPrestContasEmitidasGeraArquivo.aspx: CSV de prestacao de contas POR PERIODO, para um cliente ou um grupo.
+    rpc gerarArquivoPrestContasPeriodo (PrestContaArquivoPeriodoRequest) returns (ServiceResponsePrestContaArquivo) {}
     rpc listPrestContasParaEnvio (ListCriteriaRequestPrestContasParaEnvio) returns (ServiceResponseListPrestContasParaEnvio) {}
     rpc enviarEmailPrestConta (PrestContaEmailRequest) returns (ServiceResponsePrestContaEmail) {}
     // Porte da emissao de wfmListaPrestContas.aspx.vb (botoes Imprimir e Exportar Excel): grava a
@@ -934,6 +936,17 @@ message ServiceResponsePrestContaEnviada {
 message PrestContaArquivoRequest {
     int32 idPrestconta = 1;
     string acao = 2;
+}
+
+// Geracao por periodo (wfmPrestContasEmitidasGeraArquivo). idAlvo = id do grupo (tipoAlvo "GRUPO") ou do cliente
+// ("CLIENTE"); tipoPrestacao "NORMAL" ou "RD"; dtDe/dtAte "yyyy-MM-dd" (o dia final entra inteiro). O layout sai do NOME
+// do grupo/cliente, como no legado. O conteudo vai inteiro em base64.
+message PrestContaArquivoPeriodoRequest {
+    int32 idAlvo = 1;
+    string tipoAlvo = 2;
+    string tipoPrestacao = 3;
+    string dtDe = 4;
+    string dtAte = 5;
 }
 
 message PrestContaArquivoData {
