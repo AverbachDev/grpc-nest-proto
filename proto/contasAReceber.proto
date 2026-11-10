@@ -504,6 +504,7 @@ message ClienteAtivoPreventivoPData {
     string updatedDate = 17;
     string deletedDate = 18;
     int32 idCliente = 19;
+    string nmCliente = 20; // somente leitura (listagem): nome do cliente vinculado em idCliente
 }
 
 message ClienteAtivoPreventivoPUpdateRequest {
