@@ -52,6 +52,8 @@ service ContasAReceberService {
     // Aba "Ativo/Preventivo": NF mensal dos servicos de tecoClientesAtivosPreventivos (mesma gravacao da emissao manual).
     rpc listNotaFiscalAtivoPreventivo (ListCriteriaRequestNotaFiscalAtivoPreventivo) returns (ServiceResponseListNotaFiscalAtivoPreventivo) {}
     rpc emitirNotaFiscalAtivoPreventivo (EmitirNotaFiscalAtivoPreventivoRequest) returns (ServiceResponseEmitirNotaFiscal) {}
+    // Previa (sem gravar) de impostos e vencimento do boleto da NF Ativo/Preventivo, pelas mesmas regras da emissao.
+    rpc previaNotaFiscalAtivoPreventivo (PreviaNotaFiscalAtivoPreventivoRequest) returns (ServiceResponsePreviaNotaFiscalAtivoPreventivo) {}
     // E-mail da NF (popup wfmPopNotaFiscal): preparar (contatos, assunto, mensagem, valores), enviar, alterar vencimento e baixar anexos.
     rpc prepararEmailNotaFiscal (PrepararEmailNotaFiscalRequest) returns (ServiceResponsePrepararEmailNotaFiscal) {}
     rpc enviarEmailNotaFiscal (EnviarEmailNotaFiscalRequest) returns (ServiceResponseEnviarEmailNotaFiscal) {}
@@ -979,5 +981,29 @@ message ServiceResponseExcluirNotasFiscais {
     int32 status = 1;
     string message = 2;
     repeated ExcluirNotasFiscaisData data = 3;
+    string error = 4;
+}
+
+message PreviaNotaFiscalAtivoPreventivoRequest {
+    int32 idClienteAtivoPreventivo = 1;
+    double nuValorBruto = 2;
+}
+
+message PreviaNotaFiscalAtivoPreventivoData {
+    double nuCofins = 1;
+    double nuPis = 2;
+    double nuCsll = 3;
+    double nuIr = 4;
+    double nuImposto = 5;
+    double nuLiquido = 6;
+    string dtVencimento = 7; // AAAA-MM-DD
+    bool geraBoleto = 8;
+    double nuBoleto = 9;
+}
+
+message ServiceResponsePreviaNotaFiscalAtivoPreventivo {
+    int32 status = 1;
+    string message = 2;
+    repeated PreviaNotaFiscalAtivoPreventivoData data = 3;
     string error = 4;
 }
