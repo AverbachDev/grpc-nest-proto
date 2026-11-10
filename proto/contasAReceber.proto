@@ -49,6 +49,9 @@ service ContasAReceberService {
     // Emissao da nota fiscal (gravacao transacional: nota, itens, boleto/pagamento; registro do boleto no Bradesco apos o commit).
     rpc emitirNotaFiscal (EmitirNotaFiscalRequest) returns (ServiceResponseEmitirNotaFiscal) {}
     rpc emitirNotaFiscalManual (EmitirNotaFiscalManualRequest) returns (ServiceResponseEmitirNotaFiscal) {}
+    // Aba "Ativo/Preventivo": NF mensal dos servicos de tecoClientesAtivosPreventivos (mesma gravacao da emissao manual).
+    rpc listNotaFiscalAtivoPreventivo (ListCriteriaRequestNotaFiscalAtivoPreventivo) returns (ServiceResponseListNotaFiscalAtivoPreventivo) {}
+    rpc emitirNotaFiscalAtivoPreventivo (EmitirNotaFiscalAtivoPreventivoRequest) returns (ServiceResponseEmitirNotaFiscal) {}
     // E-mail da NF (popup wfmPopNotaFiscal): preparar (contatos, assunto, mensagem, valores), enviar, alterar vencimento e baixar anexos.
     rpc prepararEmailNotaFiscal (PrepararEmailNotaFiscalRequest) returns (ServiceResponsePrepararEmailNotaFiscal) {}
     rpc enviarEmailNotaFiscal (EnviarEmailNotaFiscalRequest) returns (ServiceResponseEnviarEmailNotaFiscal) {}
@@ -500,6 +503,7 @@ message ClienteAtivoPreventivoPData {
     string createdDate = 16;
     string updatedDate = 17;
     string deletedDate = 18;
+    int32 idCliente = 19;
 }
 
 message ClienteAtivoPreventivoPUpdateRequest {
@@ -712,6 +716,51 @@ message EmitirNotaFiscalManualRequest {
 // idBoleto = 0 quando a nota nao gerou boleto. dtVencimento em YYYY-MM-DD.
 // arquivoSalvo = false: a nota foi gravada, mas o PDF nao foi armazenado (MinIO indisponivel/nao configurado).
 // retornoBradesco: mensagem de erro do registro automatico do boleto (vazio = ok ou nao se aplica).
+// Emissao da NF do servico Ativo/Preventivo. So a competencia (mes) corrente e emitida; o servidor valida.
+// O CNPJ Averbach vem de tecoClientesAtivosPreventivos.emissao_nf; repasse BRUTO. nuValorBruto: valor editado na tela.
+message EmitirNotaFiscalAtivoPreventivoRequest {
+    int32 idClienteAtivoPreventivo = 1;
+    double nuValorBruto = 2;
+    string deNotafiscal = 3;
+    string nomeArquivo = 4;
+    string conteudoBase64 = 5;
+    int32 idUsuaOper = 6;
+}
+
+message ListCriteriaRequestNotaFiscalAtivoPreventivo {
+    string nomeEmpresa = 1;
+}
+
+// Linha da grade. nuCompetencia = AAAAMM do mes corrente. idNotafiscal > 0 = nota do mes ja gerada.
+// podeEmitir = false: motivoBloqueio explica (sem cliente vinculado, ja gerada, CNPJ nao reconhecido...).
+message NotaFiscalAtivoPreventivoData {
+    int32 idClienteAtivoPreventivo = 1;
+    string nomeEmpresa = 2;
+    string modalidade = 3;
+    int32 idCliente = 4;
+    string nmCliente = 5;
+    string emissaoNF = 6;
+    double nuValorBruto = 7;
+    string nuCompetencia = 8;
+    int32 idNotafiscal = 9;
+    string deNotafiscal = 10;
+    string dtGeracao = 11;
+    bool podeEmitir = 12;
+    string motivoBloqueio = 13;
+}
+
+message ListResultNotaFiscalAtivoPreventivo {
+    repeated NotaFiscalAtivoPreventivoData result = 1;
+    int32 total = 2;
+}
+
+message ServiceResponseListNotaFiscalAtivoPreventivo {
+    int32 status = 1;
+    string message = 2;
+    ListResultNotaFiscalAtivoPreventivo data = 3;
+    string error = 4;
+}
+
 message EmitirNotaFiscalData {
     int32 idNotafiscal = 1;
     int32 idBoleto = 2;
