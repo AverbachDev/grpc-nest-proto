@@ -954,6 +954,7 @@ message NotaFiscalListaData {
     string dtVencimento = 6;
     double nuRepasse = 7;
     double nuImposto = 8;
+    bool possuiBoleto = 9; // existe boleto (tecoBoletoNotaFiscal) imprimivel para a nota
 }
 
 message ListResultNotasFiscaisCliente {
