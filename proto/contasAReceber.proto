@@ -817,6 +817,7 @@ message PrepararEmailNotaFiscalData {
     double nuBoleto = 12;
     double nuImposto = 13;
     double nuTotal = 14;
+    string nomeArquivoBoleto = 15; // PDF do boleto gerado na hora; vazio se a nota nao tem boleto imprimivel
 }
 
 message ServiceResponsePrepararEmailNotaFiscal {
