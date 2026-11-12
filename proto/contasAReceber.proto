@@ -73,6 +73,10 @@ service ContasAReceberService {
     rpc opcoesExtratoNf (OpcoesExtratoNfRequest) returns (ServiceResponseOpcoesExtratoNf) {}
     rpc listEscrituracaoNf (ListCriteriaRequestEscrituracaoNf) returns (ServiceResponseListEscrituracaoNf) {}
     rpc escriturarNf (EscriturarNfRequest) returns (ServiceResponseEscriturarNf) {}
+    // Importacao de depositos no cadastro do Extrato NF (CNAB de retorno e API de boletos pagos do Bradesco) e relatorio (PDF).
+    rpc importarCnabExtratoNf (ImportarCnabExtratoNfRequest) returns (ServiceResponseImportacaoExtratoNf) {}
+    rpc importarApiBradescoExtratoNf (ImportarApiBradescoExtratoNfRequest) returns (ServiceResponseImportacaoExtratoNf) {}
+    rpc relatorioExtratoNf (IdRequest) returns (ServiceResponseArquivoNotaFiscal) {}
 
     rpc listClienteAtivoPreventivo (ListCriteriaRequestClienteAtivoPreventivo) returns (ServiceResponseListClienteAtivoPreventivo) {}
     rpc findOneClienteAtivoPreventivo (IdRequest) returns (ServiceResponseClienteAtivoPreventivo) {}
@@ -1063,6 +1067,7 @@ message ItemExtratoNfData {
     int32 idTipodeposito = 6;
     int32 idAgencia = 7;
     int32 idStatusdeposito = 8; // 0 = ainda nao liberado para escrituracao; 1 = aguardando escrituracao; 2 = escriturado
+    bool possivelDuplicidade = 9; // so na importacao: a nota ja tem pagamento registrado com este mesmo valor
 }
 
 // Status do extrato: 1 = Em elaboracao, 2 = Em conferencia (liberado), >2 = itens ja validados/escriturados.
@@ -1209,5 +1214,41 @@ message ServiceResponseEscriturarNf {
     int32 status = 1;
     string message = 2;
     repeated EscriturarNfData data = 3;
+    string error = 4;
+}
+
+// Retorno de cobranca (CNAB 400 do Bradesco, conta 128 / agencia 18). O arquivo vai em base64; o texto e lido como Windows-1252.
+message ImportarCnabExtratoNfRequest {
+    string nomeArquivo = 1;
+    string conteudoBase64 = 2;
+    int32 idUsuaOper = 3;
+}
+
+// Consulta a API de boletos pagos do Bradesco (agencias 18, 19 e 26) na data do extrato (AAAA-MM-DD).
+message ImportarApiBradescoExtratoNfRequest {
+    string dtExtrato = 1;
+    int32 idUsuaOper = 2;
+}
+
+message TituloNaoImportadoExtratoNfData {
+    string nossoNumero = 1;
+    double nuValor = 2;
+    string motivo = 3;
+}
+
+// itens = depositos identificados (tipo Boleto) prontos para entrar na grade; naoImportados = titulos pagos que nao
+// puderam ser ligados a uma nota (o legado os descartava em silencio); qtdIgnorados = boletos de cobranca (nosso numero 118...)
+// e ocorrencias diferentes de liquidacao; avisos = falhas por agencia na API (as demais agencias seguem).
+message ImportacaoExtratoNfData {
+    repeated ItemExtratoNfData itens = 1;
+    repeated TituloNaoImportadoExtratoNfData naoImportados = 2;
+    int32 qtdIgnorados = 3;
+    repeated string avisos = 4;
+}
+
+message ServiceResponseImportacaoExtratoNf {
+    int32 status = 1;
+    string message = 2;
+    repeated ImportacaoExtratoNfData data = 3;
     string error = 4;
 }
