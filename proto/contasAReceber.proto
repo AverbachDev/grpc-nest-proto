@@ -63,6 +63,16 @@ service ContasAReceberService {
     rpc listClienteNotasFiscais (ListCriteriaRequestClienteNotasFiscais) returns (ServiceResponseListClienteNotasFiscais) {}
     rpc listNotasFiscaisCliente (ListCriteriaRequestNotasFiscaisCliente) returns (ServiceResponseListNotasFiscaisCliente) {}
     rpc excluirNotasFiscais (ExcluirNotasFiscaisRequest) returns (ServiceResponseExcluirNotasFiscais) {}
+    // Extrato NF (wfmListaExtratoNF / wfmCadExtratoNF) e Escrituracao NF (wfmListaEscrituracaoNF).
+    rpc listExtratoNf (ListCriteriaRequestExtratoNf) returns (ServiceResponseListExtratoNf) {}
+    rpc findExtratoNf (IdRequest) returns (ServiceResponseExtratoNf) {}
+    rpc salvarExtratoNf (SalvarExtratoNfRequest) returns (ServiceResponseAcaoExtratoNf) {}
+    rpc adicionarDepositosExtratoNf (AdicionarDepositosExtratoNfRequest) returns (ServiceResponseAcaoExtratoNf) {}
+    rpc excluirExtratoNf (ExcluirExtratoNfRequest) returns (ServiceResponseAcaoExtratoNf) {}
+    rpc identificarNotaFiscalExtratoNf (IdentificarNotaFiscalExtratoNfRequest) returns (ServiceResponseIdentificarNotaFiscalExtratoNf) {}
+    rpc opcoesExtratoNf (OpcoesExtratoNfRequest) returns (ServiceResponseOpcoesExtratoNf) {}
+    rpc listEscrituracaoNf (ListCriteriaRequestEscrituracaoNf) returns (ServiceResponseListEscrituracaoNf) {}
+    rpc escriturarNf (EscriturarNfRequest) returns (ServiceResponseEscriturarNf) {}
 
     rpc listClienteAtivoPreventivo (ListCriteriaRequestClienteAtivoPreventivo) returns (ServiceResponseListClienteAtivoPreventivo) {}
     rpc findOneClienteAtivoPreventivo (IdRequest) returns (ServiceResponseClienteAtivoPreventivo) {}
@@ -1007,5 +1017,197 @@ message ServiceResponsePreviaNotaFiscalAtivoPreventivo {
     int32 status = 1;
     string message = 2;
     repeated PreviaNotaFiscalAtivoPreventivoData data = 3;
+    string error = 4;
+}
+
+// EXTRATO NF (wfmListaExtratoNF.aspx / wfmCadExtratoNF.aspx) E ESCRITURACAO NF (wfmListaEscrituracaoNF.aspx)
+
+// Filtros opcionais; datas YYYY-MM-DD inclusivas; deExtrato = contem (sem diferenciar maiusculas). items = -1 traz tudo.
+message ListCriteriaRequestExtratoNf {
+    string dtExtratoIni = 1;
+    string dtExtratoFim = 2;
+    string deExtrato = 3;
+    int32 items = 4;
+    int32 page = 5;
+}
+
+// nuValor = soma dos itens do extrato.
+message ExtratoNfListaData {
+    int32 idExtratonf = 1;
+    string dtExtrato = 2;
+    string deExtrato = 3;
+    int32 idStatusextrato = 4;
+    string deStatusextrato = 5;
+    double nuValor = 6;
+}
+
+message ListResultExtratoNf {
+    repeated ExtratoNfListaData result = 1;
+    int32 total = 2;
+}
+
+message ServiceResponseListExtratoNf {
+    int32 status = 1;
+    string message = 2;
+    ListResultExtratoNf data = 3;
+    string error = 4;
+}
+
+// Item do extrato. Na gravacao so idNotafiscal, nuValor, idTipodeposito e idAgencia sao usados (idItemextratonf = 0 para item novo).
+message ItemExtratoNfData {
+    int32 idItemextratonf = 1;
+    int32 idNotafiscal = 2;
+    string deNotafiscal = 3;
+    string nmCliente = 4;
+    double nuValor = 5;
+    int32 idTipodeposito = 6;
+    int32 idAgencia = 7;
+    int32 idStatusdeposito = 8; // 0 = ainda nao liberado para escrituracao; 1 = aguardando escrituracao; 2 = escriturado
+}
+
+// Status do extrato: 1 = Em elaboracao, 2 = Em conferencia (liberado), >2 = itens ja validados/escriturados.
+message ExtratoNfData {
+    int32 idExtratonf = 1;
+    string dtExtrato = 2;
+    int32 idStatusextrato = 3;
+    string deStatusextrato = 4;
+    repeated ItemExtratoNfData itens = 5;
+}
+
+message ServiceResponseExtratoNf {
+    int32 status = 1;
+    string message = 2;
+    repeated ExtratoNfData data = 3;
+    string error = 4;
+}
+
+// idExtratonf = 0 cria um extrato novo. liberar = true salva e libera para conferencia/escrituracao (status 2).
+message SalvarExtratoNfRequest {
+    int32 idExtratonf = 1;
+    string dtExtrato = 2;
+    repeated ItemExtratoNfData itens = 3;
+    bool liberar = 4;
+    int32 idUsuaOper = 5;
+}
+
+// Inclui depositos NOVOS num extrato ja liberado (status 2). Somente administrador.
+message AdicionarDepositosExtratoNfRequest {
+    int32 idExtratonf = 1;
+    repeated ItemExtratoNfData itens = 2;
+    int32 idUsuaOper = 3;
+    bool administrador = 4;
+}
+
+message ExcluirExtratoNfRequest {
+    int32 idExtratonf = 1;
+    int32 idUsuaOper = 2;
+}
+
+// Resultado comum de salvar, adicionar depositos e excluir (na exclusao qtdItens = itens removidos).
+message AcaoExtratoNfData {
+    int32 idExtratonf = 1;
+    int32 idStatusextrato = 2;
+    int32 qtdItens = 3;
+}
+
+message ServiceResponseAcaoExtratoNf {
+    int32 status = 1;
+    string message = 2;
+    repeated AcaoExtratoNfData data = 3;
+    string error = 4;
+}
+
+// Identifica a nota pelo numero (deNotafiscal) ou pelo id interno (idNotafiscal, quando deNotafiscal vazio).
+// O mesmo numero pode existir em mais de uma nota (722 numeros repetidos em producao): devolve TODAS as notas
+// encontradas (ate 20, da mais recente para a mais antiga) para o usuario escolher; o legado pegava a primeira em silencio.
+message IdentificarNotaFiscalExtratoNfRequest {
+    string deNotafiscal = 1;
+    int32 idNotafiscal = 2;
+}
+
+message NotaFiscalIdentificadaData {
+    int32 idNotafiscal = 1;
+    string deNotafiscal = 2;
+    string nmCliente = 3;
+    string dtCadastro = 4; // data de emissao YYYY-MM-DD
+}
+
+message ServiceResponseIdentificarNotaFiscalExtratoNf {
+    int32 status = 1;
+    string message = 2;
+    repeated NotaFiscalIdentificadaData data = 3;
+    string error = 4;
+}
+
+message OpcoesExtratoNfRequest {}
+
+message TipoDepositoExtratoNfData {
+    int32 idTipodeposito = 1;
+    string nmDeposito = 2;
+}
+
+message AgenciaExtratoNfData {
+    int32 idAgencia = 1;
+    string nuConta = 2;
+    string deAgencia = 3;
+}
+
+message OpcoesExtratoNfData {
+    repeated TipoDepositoExtratoNfData tiposDeposito = 1;
+    repeated AgenciaExtratoNfData agencias = 2;
+}
+
+message ServiceResponseOpcoesExtratoNf {
+    int32 status = 1;
+    string message = 2;
+    repeated OpcoesExtratoNfData data = 3;
+    string error = 4;
+}
+
+// Filtros opcionais da lista de escrituracao: cliente = contem; nuValorIni/nuValorFim: 0 = sem limite.
+message ListCriteriaRequestEscrituracaoNf {
+    string nmCliente = 1;
+    double nuValorIni = 2;
+    double nuValorFim = 3;
+}
+
+// Item liberado (status 1) aguardando escrituracao. deDepositante = nome do cliente da nota.
+message EscrituracaoNfData {
+    int32 idItemextratonf = 1;
+    string dtExtrato = 2;
+    string nuConta = 3;
+    string deDepositante = 4;
+    string deTipo = 5;
+    double nuValor = 6;
+    string deObs = 7;
+    int32 idNotafiscal = 8;
+    string deNotafiscal = 9;
+}
+
+message ListResultEscrituracaoNf {
+    repeated EscrituracaoNfData result = 1;
+    int32 total = 2;
+}
+
+message ServiceResponseListEscrituracaoNf {
+    int32 status = 1;
+    string message = 2;
+    ListResultEscrituracaoNf data = 3;
+    string error = 4;
+}
+
+message EscriturarNfRequest {
+    repeated int32 ids = 1;
+    int32 idUsuaOper = 2;
+}
+
+message EscriturarNfData {
+    int32 qtdEscrituradas = 1;
+}
+
+message ServiceResponseEscriturarNf {
+    int32 status = 1;
+    string message = 2;
+    repeated EscriturarNfData data = 3;
     string error = 4;
 }
