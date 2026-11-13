@@ -1311,6 +1311,8 @@ message ListCriteriaRequestTitulosReceber {
     int32 page = 11;    // base 1
     string ordenarPor = 12;   // dtVencimento (padrao) | dtCadastro | nmCliente | nuReceber | diasAtraso | deNotafiscal
     bool decrescente = 13;
+    string meioPrevisto = 14;   // BOLETO | DEPOSITO | MISTO | NAO_INFORMADO (o que o contrato do cliente preve). Vazio = todos.
+    string alerta = 15;         // BAIXA_DUPLICADA | PAGO_DIFERENTE | PENDENTE_ESCRITURACAO | BOLETO_NAO_GERADO. Vazio = todos.
 }
 
 message TituloReceberData {
@@ -1328,6 +1330,31 @@ message TituloReceberData {
     bool possuiBoleto = 12;
     int32 diasAtraso = 13;
     string statusCobranca = 14;   // vazio | AVISADO (e-mail de inadimplencia enviado) | RETORNO (cliente respondeu)
+    string meioPrevisto = 15;     // BOLETO | DEPOSITO | MISTO | NAO_INFORMADO, pelo contrato de emissao do cliente
+    int32 qtdBaixas = 16;         // quantas baixas existem em tecoNotaFiscalPagamento (mais de 1 = baixa duplicada)
+    double nuDiferenca = 17;      // nuPago - nuReceber, so para notas PAGA (positivo = pago a mais)
+    string alerta = 18;           // conciliacao (vazio = nenhum). Ver ListCriteriaRequestTitulosReceber.alerta
+}
+
+// Conciliacao (somente leitura). Alertas, por nota (um so, na ordem):
+//  BAIXA_DUPLICADA        PAGA com mais de uma baixa (a nota foi escriturada duas vezes); valor = diferenca (pago a mais)
+//  PAGO_DIFERENTE         PAGA com uma baixa de valor diferente do a receber (+/- R$ 0,01); valor = diferenca liquida
+//  PENDENTE_ESCRITURACAO  em aberto mas com item no Extrato NF sem baixa (falta escriturar); valor = a receber
+//  BOLETO_NAO_GERADO      em aberto sem boleto, cujo contrato preve boleto; valor = a receber
+message AlertaConciliacaoData {
+    string alerta = 1;
+    int32 qtd = 2;
+    double valor = 3;
+}
+
+message MeioTitulosReceberData {
+    string meio = 1;
+    int32 qtdEmitido = 2;
+    double totalEmitido = 3;
+    int32 qtdPago = 4;
+    double totalPago = 5;
+    double totalAVencer = 6;
+    double totalVencido = 7;
 }
 
 message ListResultTitulosReceber {
@@ -1375,6 +1402,8 @@ message ResumoTitulosReceberData {
     repeated OrigemTitulosReceberData porOrigem = 12;
     string dtEmissaoDe = 13;   // periodo de emissao efetivamente aplicado
     string dtEmissaoAte = 14;
+    repeated MeioTitulosReceberData porMeio = 15;
+    repeated AlertaConciliacaoData alertas = 16;   // sempre os 4 alertas, na ordem, mesmo zerados
 }
 
 message ServiceResponseResumoTitulosReceber {
