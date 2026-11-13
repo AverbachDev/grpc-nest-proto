@@ -82,6 +82,9 @@ service ContasAReceberService {
     // Controle de contas a receber (dashboard): uma linha por nota fiscal (titulo a receber) e o resumo (cards, aging, por origem).
     rpc listTitulosReceber (ListCriteriaRequestTitulosReceber) returns (ServiceResponseListTitulosReceber) {}
     rpc resumoTitulosReceber (ListCriteriaRequestTitulosReceber) returns (ServiceResponseResumoTitulosReceber) {}
+    // Indicadores por cliente (ranking de inadimplencia e pontualidade) e previsao/evolucao (calendario, serie mensal, situacao das notas).
+    rpc listClientesReceber (ListCriteriaRequestTitulosReceber) returns (ServiceResponseListClientesReceber) {}
+    rpc previsaoTitulosReceber (ListCriteriaRequestTitulosReceber) returns (ServiceResponsePrevisaoTitulosReceber) {}
 
     rpc listClienteAtivoPreventivo (ListCriteriaRequestClienteAtivoPreventivo) returns (ServiceResponseListClienteAtivoPreventivo) {}
     rpc findOneClienteAtivoPreventivo (IdRequest) returns (ServiceResponseClienteAtivoPreventivo) {}
@@ -1410,5 +1413,92 @@ message ServiceResponseResumoTitulosReceber {
     int32 status = 1;
     string message = 2;
     repeated ResumoTitulosReceberData data = 3;
+    string error = 4;
+}
+
+// ---------------------------------------------------------------------------------------------------------------
+// Controle de contas a receber - Fase 3 (somente leitura). Usam o MESMO filtro de ListCriteriaRequestTitulosReceber e,
+// como o resumo, ignoram "estado". Em listClientesReceber, "ordenarPor" aceita: totalVencido (padrao, decrescente quando
+// vazio) | totalAberto | totalEmitido | totalPago | maiorAtraso | prazoMedio | pctNoPrazo | qtdNotas | nmCliente.
+// ---------------------------------------------------------------------------------------------------------------
+
+// Um cliente: so conta notas com algo a cobrar (A_VENCER + VENCIDA + PAGA). prazoMedio = media de dias entre o vencimento
+// e o pagamento das notas pagas (negativo = pagou antes do vencimento); pctNoPrazo = % das pagas quitadas ate o vencimento.
+message ClienteReceberData {
+    int32 idCliente = 1;
+    string nmCliente = 2;
+    int32 qtdNotas = 3;
+    double totalEmitido = 4;
+    double totalPago = 5;
+    double totalAberto = 6;     // a vencer + vencido
+    double totalVencido = 7;
+    int32 qtdVencidas = 8;
+    int32 maiorAtraso = 9;      // dias da nota vencida mais antiga
+    int32 qtdPagas = 10;
+    double prazoMedio = 11;
+    double pctNoPrazo = 12;
+}
+
+message ListResultClientesReceber {
+    repeated ClienteReceberData result = 1;
+    int32 total = 2;
+}
+
+message ServiceResponseListClientesReceber {
+    int32 status = 1;
+    string message = 2;
+    ListResultClientesReceber data = 3;
+    string error = 4;
+}
+
+// data = AAAA-MM-DD (calendario de vencimentos e de recebimentos)
+message DiaPrevisaoData {
+    string data = 1;
+    int32 qtd = 2;
+    double valor = 3;
+}
+
+// Serie mensal por mes de EMISSAO (AAAA-MM): quanto foi emitido e como esta hoje (pago, a vencer, vencido)
+message MesEvolucaoData {
+    string mes = 1;
+    int32 qtdEmitido = 2;
+    double totalEmitido = 3;
+    double totalPago = 4;
+    double totalAVencer = 5;
+    double totalVencido = 6;
+}
+
+// Situacao das notas (cada nota em exatamente uma): A_VENCER | PAGA_NO_PRAZO | PAGA_COM_ATRASO | VENCIDA_SEM_AVISO |
+// VENCIDA_AVISADA (e-mail de inadimplencia enviado) | VENCIDA_COM_RETORNO (cliente respondeu). valor = pago nas pagas e a
+// receber nas demais.
+message SituacaoFunilData {
+    string situacao = 1;
+    int32 qtd = 2;
+    double valor = 3;
+}
+
+message PrazoOrigemData {
+    string origem = 1;
+    int32 qtdPagas = 2;
+    double prazoMedio = 3;
+    double pctNoPrazo = 4;
+}
+
+message PrevisaoTitulosReceberData {
+    repeated DiaPrevisaoData proximos = 1;           // a vencer nos proximos 30 dias, por vencimento
+    repeated DiaPrevisaoData recebidosRecentes = 2;  // baixas dos ultimos 30 dias, por data de pagamento
+    repeated MesEvolucaoData mensal = 3;             // todos os meses do periodo de emissao, mesmo zerados
+    repeated SituacaoFunilData situacoes = 4;        // sempre as 6 situacoes, na ordem, mesmo zeradas
+    repeated PrazoOrigemData prazoPorOrigem = 5;     // sempre as 3 origens
+    double prazoMedio = 6;
+    double pctNoPrazo = 7;
+    int32 qtdPagas = 8;
+    string hoje = 9;                                 // AAAA-MM-DD (data do servidor usada nos calculos)
+}
+
+message ServiceResponsePrevisaoTitulosReceber {
+    int32 status = 1;
+    string message = 2;
+    repeated PrevisaoTitulosReceberData data = 3;
     string error = 4;
 }
