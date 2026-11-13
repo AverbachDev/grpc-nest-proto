@@ -77,6 +77,8 @@ service ContasAReceberService {
     rpc importarCnabExtratoNf (ImportarCnabExtratoNfRequest) returns (ServiceResponseImportacaoExtratoNf) {}
     rpc importarApiBradescoExtratoNf (ImportarApiBradescoExtratoNfRequest) returns (ServiceResponseImportacaoExtratoNf) {}
     rpc relatorioExtratoNf (IdRequest) returns (ServiceResponseArquivoNotaFiscal) {}
+    // Dados cadastrais do cliente (dialog aberto a partir das telas de Extrato NF e Escrituracao NF).
+    rpc obterClienteNf (IdRequest) returns (ServiceResponseClienteNf) {}
 
     rpc listClienteAtivoPreventivo (ListCriteriaRequestClienteAtivoPreventivo) returns (ServiceResponseListClienteAtivoPreventivo) {}
     rpc findOneClienteAtivoPreventivo (IdRequest) returns (ServiceResponseClienteAtivoPreventivo) {}
@@ -1068,6 +1070,7 @@ message ItemExtratoNfData {
     int32 idAgencia = 7;
     int32 idStatusdeposito = 8; // 0 = ainda nao liberado para escrituracao; 1 = aguardando escrituracao; 2 = escriturado
     bool possivelDuplicidade = 9; // so na importacao: a nota ja tem pagamento registrado com este mesmo valor
+    int32 idCliente = 10; // cliente da nota (para abrir os dados do cliente); ignorado na gravacao
 }
 
 // Status do extrato: 1 = Em elaboracao, 2 = Em conferencia (liberado), >2 = itens ja validados/escriturados.
@@ -1135,6 +1138,7 @@ message NotaFiscalIdentificadaData {
     string deNotafiscal = 2;
     string nmCliente = 3;
     string dtCadastro = 4; // data de emissao YYYY-MM-DD
+    int32 idCliente = 5;
 }
 
 message ServiceResponseIdentificarNotaFiscalExtratoNf {
@@ -1187,6 +1191,7 @@ message EscrituracaoNfData {
     string deObs = 7;
     int32 idNotafiscal = 8;
     string deNotafiscal = 9;
+    int32 idCliente = 10;
 }
 
 message ListResultEscrituracaoNf {
@@ -1250,5 +1255,31 @@ message ServiceResponseImportacaoExtratoNf {
     int32 status = 1;
     string message = 2;
     repeated ImportacaoExtratoNfData data = 3;
+    string error = 4;
+}
+
+// Dados cadastrais do cliente de uma nota fiscal (somente leitura): razao social, CNPJ/CPF, endereco, contato.
+message ClienteNfData {
+    int32 idCliente = 1;
+    string nmCliente = 2; // razao social
+    string nmFantasia = 3;
+    string cdCnpjCpf = 4;
+    string deInscEstadual = 5;
+    string deInscMunicipal = 6;
+    string deLogradouro = 7;
+    string deComplemento = 8;
+    string deBairro = 9;
+    string desMunicipio = 10;
+    string codFederacao = 11; // UF
+    string deCep = 12;
+    string deTelefone = 13; // com DDD
+    string deEmail = 14;
+    bool inativo = 15;
+}
+
+message ServiceResponseClienteNf {
+    int32 status = 1;
+    string message = 2;
+    repeated ClienteNfData data = 3;
     string error = 4;
 }
