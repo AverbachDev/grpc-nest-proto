@@ -86,6 +86,11 @@ service ContasAReceberService {
     rpc listClientesReceber (ListCriteriaRequestTitulosReceber) returns (ServiceResponseListClientesReceber) {}
     rpc previsaoTitulosReceber (ListCriteriaRequestTitulosReceber) returns (ServiceResponsePrevisaoTitulosReceber) {}
 
+    // Porte de wfmListaControleNotasFiscais.aspx (Controle Notas Fiscais: em aberto / quitadas)
+    rpc listControleNotasFiscais (ListCriteriaRequestControleNotasFiscais) returns (ServiceResponseListControleNotasFiscais) {}
+    rpc registrarRetornoNotaVencida (RegistrarRetornoNotaVencidaRequest) returns (ServiceResponseBoolean) {}
+    rpc inserirItemExtratoNf (InserirItemExtratoNfRequest) returns (ServiceResponseAcaoExtratoNf) {}
+
     rpc listClienteAtivoPreventivo (ListCriteriaRequestClienteAtivoPreventivo) returns (ServiceResponseListClienteAtivoPreventivo) {}
     rpc findOneClienteAtivoPreventivo (IdRequest) returns (ServiceResponseClienteAtivoPreventivo) {}
     rpc createClienteAtivoPreventivo (ClienteAtivoPreventivoPData) returns (ServiceResponseClienteAtivoPreventivo) {}
@@ -1501,4 +1506,80 @@ message ServiceResponsePrevisaoTitulosReceber {
     string message = 2;
     repeated PrevisaoTitulosReceberData data = 3;
     string error = 4;
+}
+
+// ---------------------------------------------------------------------------------------------------------------
+// Controle Notas Fiscais (porte de wfmListaControleNotasFiscais.aspx): duas abas sobre o mesmo modelo de titulo
+// (uma linha por nota) do controle de contas a receber.
+//   ABERTAS  = sem baixa, vencimento a partir de 01/11/2023 e valor a receber > 0 (a vencer ou vencidas)
+//   QUITADAS = com baixa, ou sem baixa mas vencidas antes de 01/11/2023 (o controle antigo ja as encerrou)
+// ---------------------------------------------------------------------------------------------------------------
+
+// Filtros opcionais. nuValorDe/nuValorAte (0 = sem limite) valem sobre o "Valor NF". Datas AAAA-MM-DD, inclusivas.
+// Sem data de emissao inicial NAO ha periodo padrao (o legado listava todo o historico).
+message ListCriteriaRequestControleNotasFiscais {
+    string aba = 1;              // ABERTAS (padrao) | QUITADAS
+    string nuNf = 2;             // contem
+    string nmCliente = 3;        // contem
+    double nuValorDe = 4;
+    double nuValorAte = 5;
+    string dtEmissaoDe = 6;
+    string dtEmissaoAte = 7;
+    string dtVencimentoDe = 8;
+    string dtVencimentoAte = 9;
+    int32 items = 10;            // -1 ou 0 = sem paginacao
+    int32 page = 11;             // base 1
+    string ordenarPor = 12;      // dtCadastro (padrao) | nmCliente | deNotafiscal | nuValor | nuValorReceber | dtVencimento | tpPagamento | nuValorPago | dtPagto
+    bool decrescente = 13;       // padrao da tela: dtCadastro decrescente
+}
+
+message ControleNotaFiscalData {
+    int32 idNotafiscal = 1;
+    int32 idCliente = 2;
+    string nmCliente = 3;
+    string deNotafiscal = 4;
+    string dtCadastro = 5;
+    string tpPagamento = 6;          // BOLETO | DEPOSITO | MISTO (pelo contrato do cliente); vazio = nao informado
+    string statusBoleto = 7;         // SIM (tem boleto) | NAO (contrato preve boleto e nao foi gerado) | NA
+    double nuValor = 8;              // Valor NF: todos os repasses + tarifa do boleto
+    double nuValorReceber = 9;       // repasses BRUTO + tarifa do boleto - imposto
+    string dtVencimento = 10;
+    double nuValorPago = 11;
+    string dtPagto = 12;
+    string statusPagto = 13;         // A_VENCER | VENCIDO | AVISADO (e-mail de inadimplencia enviado) | RETORNO (cliente respondeu)
+    string deRetornoVencido = 14;    // texto do retorno do cliente (statusPagto = RETORNO)
+    int32 diasAtraso = 15;           // so VENCIDO/AVISADO/RETORNO em aberto
+    int32 diasAvisoVencido = 16;     // dias desde o aviso de inadimplencia (so AVISADO)
+    bool possuiItemExtrato = 17;     // ja existe deposito dessa nota no Extrato NF (esconde "Inserir no Extrato NF")
+    int32 idAgenciaPadrao = 18;      // C/C sugerida ao inserir no Extrato NF: 19 se o contrato usa o CNPJ Averbach, senao 18
+}
+
+message ListResultControleNotasFiscais {
+    repeated ControleNotaFiscalData result = 1;
+    int32 total = 2;
+}
+
+message ServiceResponseListControleNotasFiscais {
+    int32 status = 1;
+    string message = 2;
+    ListResultControleNotasFiscais data = 3;
+    string error = 4;
+}
+
+// Grava o retorno do cliente a uma nota cobrada como vencida (so notas ja avisadas).
+message RegistrarRetornoNotaVencidaRequest {
+    int32 idNotafiscal = 1;
+    string deRetorno = 2;
+}
+
+// "Inserir no Extrato NF" a partir do Controle: cria o deposito da nota ja aguardando escrituracao, no extrato da data
+// (criado em conferencia se nao existir; extrato do dia ainda em elaboracao e recusado). Nao escritura: a baixa continua na Escrituracao NF.
+message InserirItemExtratoNfRequest {
+    int32 idNotafiscal = 1;
+    double nuValor = 2;
+    int32 idTipodeposito = 3;
+    int32 idAgencia = 4;
+    string dtExtrato = 5;        // AAAA-MM-DD
+    string deObs = 6;
+    int32 idUsuaOper = 7;
 }
