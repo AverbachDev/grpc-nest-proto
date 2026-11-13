@@ -1291,7 +1291,8 @@ message ServiceResponseClienteNf {
 // Controle de contas a receber (dashboard). Titulo a receber = uma nota fiscal.
 // nuReceber = repasses BRUTO (cd_repasse 1 ou 3) + tarifa do boleto - imposto retido (igual ao valor cobrado no boleto).
 // origem: CREDITO (prestacao de contas) | MANUAL | ATIVO_PREVENTIVO.
-// estado: A_VENCER | VENCIDA | PAGA | SEM_VALOR (nada a cobrar) | LEGADO (vencida antes de 01/11/2023 sem baixa, ja
+// estado: A_VENCER | VENCIDA | PAGA | SEM_VALOR (nada a cobrar: repasse liquido, baixado sozinho na emissao; vem antes de
+// PAGA) | LEGADO (vencida antes de 01/11/2023 sem baixa, ja
 // tratada como encerrada pelo controle antigo; fora dos totais).
 // Datas em AAAA-MM-DD, inclusivas. Sem dtEmissaoDe, o servidor assume os ultimos 12 meses.
 // O resumo ignora o filtro "estado" (os cards mostram a distribuicao entre os estados).
