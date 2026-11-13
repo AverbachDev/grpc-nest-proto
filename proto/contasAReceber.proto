@@ -79,6 +79,9 @@ service ContasAReceberService {
     rpc relatorioExtratoNf (IdRequest) returns (ServiceResponseArquivoNotaFiscal) {}
     // Dados cadastrais do cliente (dialog aberto a partir das telas de Extrato NF e Escrituracao NF).
     rpc obterClienteNf (IdRequest) returns (ServiceResponseClienteNf) {}
+    // Controle de contas a receber (dashboard): uma linha por nota fiscal (titulo a receber) e o resumo (cards, aging, por origem).
+    rpc listTitulosReceber (ListCriteriaRequestTitulosReceber) returns (ServiceResponseListTitulosReceber) {}
+    rpc resumoTitulosReceber (ListCriteriaRequestTitulosReceber) returns (ServiceResponseResumoTitulosReceber) {}
 
     rpc listClienteAtivoPreventivo (ListCriteriaRequestClienteAtivoPreventivo) returns (ServiceResponseListClienteAtivoPreventivo) {}
     rpc findOneClienteAtivoPreventivo (IdRequest) returns (ServiceResponseClienteAtivoPreventivo) {}
@@ -1281,5 +1284,101 @@ message ServiceResponseClienteNf {
     int32 status = 1;
     string message = 2;
     repeated ClienteNfData data = 3;
+    string error = 4;
+}
+
+// ---------------------------------------------------------------------------------------------------------------
+// Controle de contas a receber (dashboard). Titulo a receber = uma nota fiscal.
+// nuReceber = repasses BRUTO (cd_repasse 1 ou 3) + tarifa do boleto - imposto retido (igual ao valor cobrado no boleto).
+// origem: CREDITO (prestacao de contas) | MANUAL | ATIVO_PREVENTIVO.
+// estado: A_VENCER | VENCIDA | PAGA | SEM_VALOR (nada a cobrar) | LEGADO (vencida antes de 01/11/2023 sem baixa, ja
+// tratada como encerrada pelo controle antigo; fora dos totais).
+// Datas em AAAA-MM-DD, inclusivas. Sem dtEmissaoDe, o servidor assume os ultimos 12 meses.
+// O resumo ignora o filtro "estado" (os cards mostram a distribuicao entre os estados).
+// ---------------------------------------------------------------------------------------------------------------
+message ListCriteriaRequestTitulosReceber {
+    string nmCliente = 1;
+    string nuNf = 2;
+    string cdCnpjCpf = 3;
+    string origem = 4;
+    string estado = 5;
+    string dtEmissaoDe = 6;
+    string dtEmissaoAte = 7;
+    string dtVencimentoDe = 8;
+    string dtVencimentoAte = 9;
+    int32 items = 10;   // -1 ou 0 = sem paginacao
+    int32 page = 11;    // base 1
+    string ordenarPor = 12;   // dtVencimento (padrao) | dtCadastro | nmCliente | nuReceber | diasAtraso | deNotafiscal
+    bool decrescente = 13;
+}
+
+message TituloReceberData {
+    int32 idNotafiscal = 1;
+    int32 idCliente = 2;
+    string nmCliente = 3;
+    string deNotafiscal = 4;
+    string dtCadastro = 5;
+    string dtVencimento = 6;
+    string origem = 7;
+    string estado = 8;
+    double nuReceber = 9;
+    double nuPago = 10;
+    string dtPagto = 11;
+    bool possuiBoleto = 12;
+    int32 diasAtraso = 13;
+    string statusCobranca = 14;   // vazio | AVISADO (e-mail de inadimplencia enviado) | RETORNO (cliente respondeu)
+}
+
+message ListResultTitulosReceber {
+    repeated TituloReceberData result = 1;
+    int32 total = 2;
+}
+
+message ServiceResponseListTitulosReceber {
+    int32 status = 1;
+    string message = 2;
+    ListResultTitulosReceber data = 3;
+    string error = 4;
+}
+
+// faixa: A_VENCER | 1_15 | 16_30 | 31_60 | 61_90 | 90_MAIS (dias de atraso)
+message FaixaAgingData {
+    string faixa = 1;
+    int32 qtd = 2;
+    double valor = 3;
+}
+
+message OrigemTitulosReceberData {
+    string origem = 1;
+    int32 qtdEmitido = 2;
+    double totalEmitido = 3;
+    int32 qtdPago = 4;
+    double totalPago = 5;
+    double totalAVencer = 6;
+    double totalVencido = 7;
+}
+
+// totalEmitido = nuReceber das notas com algo a cobrar (A_VENCER + VENCIDA + PAGA); totalPago = valor efetivamente baixado.
+message ResumoTitulosReceberData {
+    double totalEmitido = 1;
+    int32 qtdEmitido = 2;
+    double totalPago = 3;
+    int32 qtdPago = 4;
+    double totalAVencer = 5;
+    int32 qtdAVencer = 6;
+    double totalVencido = 7;
+    int32 qtdVencido = 8;
+    int32 qtdSemValor = 9;
+    int32 qtdLegado = 10;
+    repeated FaixaAgingData aging = 11;
+    repeated OrigemTitulosReceberData porOrigem = 12;
+    string dtEmissaoDe = 13;   // periodo de emissao efetivamente aplicado
+    string dtEmissaoAte = 14;
+}
+
+message ServiceResponseResumoTitulosReceber {
+    int32 status = 1;
+    string message = 2;
+    repeated ResumoTitulosReceberData data = 3;
     string error = 4;
 }
