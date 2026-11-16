@@ -1148,6 +1148,10 @@ message CalculoPadraoTituloData {
     double nuDiasExtra = 9;
     bool cdCalculoAcordoTabelaPrice = 10;
     int32 cdValorPreventivo = 11;
+    // Default de dbo.fecoCalculoDefault_multa SEM o override "nu_multa = 0 -> 0%"
+    // da tela de calculo. E o que o popup "Informacoes do Caso" do legado exibe
+    // (psgaCaso_ObterPercentuaisPermitidos.multa_per_max).
+    double multaPadraoSp = 12;
 }
 
 message ServiceResponseCalculoPadraoTitulo {
