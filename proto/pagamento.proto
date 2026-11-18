@@ -542,6 +542,8 @@ message TituloPaymentRdData {
     string dtRegistro = 18;
     optional bool selected = 19;
     optional bool cdPagtoJuros = 20;
+    // % de RD proprio do titulo (RD variavel por faixa); ausente/0 usa perHonorario do request
+    optional double perHonorario = 21;
 }
 
 

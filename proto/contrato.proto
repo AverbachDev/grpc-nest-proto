@@ -329,6 +329,8 @@ message ContratoData {
     repeated HonorJudicialDiasVencData honorJudicialDiasVencs = 110;
     repeated PrestContaHonorDevedorData prestContaHonorDevedors = 111;
     repeated ValorNegativacaoData valorNegativacaos = 112;
+    bool cdRecebSegueHc = 113;
+
 }
 
 message ContratoManyData {
@@ -341,6 +343,17 @@ message GetHonorariosClienteJudicialData{
 
 message GetHonorariosClienteRDData{
     double nuFixoReceb = 1;
+    // RD variavel por faixa: RD segue a taxa do HC da faixa (cd_receb_segue_hc)
+    bool cdRecebSegueHc = 2;
+    // tipo de honorario de cliente do contrato (cd_honor) e % fixo (cd_honor=1)
+    string cdHonor = 3;
+    double nuFixoAmig = 4;
+    // faixas de HC (cada uma com nuAmig = taxa HC e nuReceb = taxa RD propria)
+    repeated HonorValTitulosData valTitulos = 5;
+    repeated HonorDiasVencData diasVenc = 6;
+    repeated HonorVencTitulosData vencTitulos = 7;
+    repeated HonorDiasCadData diasCad = 8;
+    int32 idContrato = 9;
 }
 
 message GetHonorariosClienteJudicialRequest{
@@ -351,6 +364,8 @@ message GetHonorariosClienteJudicialRequest{
 
 message GetHonorariosClienteRDRequest{
     int32 idCliente = 1;
+    // contrato do titulo; sem ele usa o primeiro contrato do cliente
+    optional int32 idContrato = 2;
 }
 
 message ContratoUpdateRequest{
