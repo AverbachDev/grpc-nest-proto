@@ -703,6 +703,7 @@ message HonorDiasCadData {
     string createdDate = 8;
     string updatedDate = 9;
     string deletedDate = 10;
+    double nuReceb = 11;
 
 }
 
@@ -818,6 +819,7 @@ message HonorDiasVencData {
     string createdDate = 9;
     string updatedDate = 10;
     string deletedDate = 11;
+    double nuReceb = 12;
 
 }
 
@@ -1051,6 +1053,7 @@ message HonorValTitulosData {
     string createdDate = 8;
     string updatedDate = 9;
     string deletedDate = 10;
+    double nuReceb = 11;
 
 }
 
@@ -1105,6 +1108,7 @@ message HonorVencTitulosData {
     string createdDate = 7;
     string updatedDate = 8;
     string deletedDate = 9;
+    double nuReceb = 10;
 
 }
 
