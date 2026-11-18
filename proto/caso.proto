@@ -1107,6 +1107,11 @@ message TituloData {
     // coluna persistida, so trafega na resposta do calculo. "optional" para
     // nao obrigar todo implementador de TituloData a preenche-lo.
     optional string mensagemAjusteCalculo = 36;
+    // Preenchidos so pelo findBalanceTitulosCaso (saldo p/ escrituracao de RD):
+    // data de cadastro do titulo (tecoTituloCadastro) e valor ORIGINAL do titulo
+    // (nuValor ja vem descontado dos pagamentos). Nao sao colunas de tecoTitulo.
+    optional string dtCadastro = 37;
+    optional double nuValorOriginal = 38;
 }
 
 message TituloUpdateRequest{
