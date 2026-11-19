@@ -59,6 +59,9 @@ service CasoService {
     rpc importarMecanismoPadrao (ImportarMecanismoPadraoRequest) returns (ServiceResponseImportarMecanismoPadrao) {}
     rpc importarMecanismoIllycaffe (ImportarMecanismoIllycaffeRequest) returns (ServiceResponseImportarMecanismoIllycaffe) {}
     rpc importarMecanismoIllycaffeBaixa (ImportarMecanismoIllycaffeBaixaRequest) returns (ServiceResponseImportarMecanismoIllycaffeBaixa) {}
+    // Mecanismo novo (sem equivalente no legado) - escrituracao de RD em lote
+    // do cliente AKAD, a partir da planilha de pagamentos (status Paid).
+    rpc importarMecanismoAkadRd (ImportarMecanismoAkadRdRequest) returns (ServiceResponseImportarMecanismoAkadRd) {}
     rpc importarMecanismoIllycaffeBaseClientes (ImportarMecanismoIllycaffeBaseClientesRequest) returns (ServiceResponseImportarMecanismoIllycaffeBaseClientes) {}
     // Mecanismo novo (sem equivalente no legado) - cliente ELEVADORES ATLAS
     // SCHINDLER (id_cliente 8489 / id_grupo 5613).
@@ -3170,6 +3173,31 @@ message ImportarMecanismoIllycaffeBaixaRequest {
 }
 
 message ServiceResponseImportarMecanismoIllycaffeBaixa {
+    int32 status = 1;
+    string message = 2;
+    repeated ResultadoImportacaoLegadoData data = 3;
+    string error = 4;
+}
+
+// Mecanismo novo AKAD - RD: baixa em lote pela MESMA regra da tela de
+// Escrituracao de RD (pagamento/createPaymentRd), so para linhas Paid.
+message LinhaImportacaoAkadRdData {
+    int32 idCaso = 1;
+    string deDoc = 2;          // coluna "Identificacao do Titulo" (de_doc sem hifens)
+    string cdCnpjCpf = 3;      // CNPJ/CPF do devedor (conferencia)
+    string status = 4;         // coluna status (so "Paid" e escriturado)
+    double nuPrincipal = 5;    // coluna Principal (conferencia com o saldo)
+}
+
+message ImportarMecanismoAkadRdRequest {
+    repeated LinhaImportacaoAkadRdData linhas = 1;
+    int32 idUsuaOper = 2;
+    int32 idArquivoImportacao = 3;
+    string nomeArquivo = 4;
+    string dtEscrituracao = 5; // data da escrituracao (padrao da tela: dia util anterior)
+}
+
+message ServiceResponseImportarMecanismoAkadRd {
     int32 status = 1;
     string message = 2;
     repeated ResultadoImportacaoLegadoData data = 3;
