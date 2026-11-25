@@ -13,6 +13,10 @@ service servicesClientesService {
     rpc createTitulosLiquimoly (TitulosLiquimolyData) returns (ServiceResponseTitulosLiquimoly) {}
     rpc updateTitulosLiquimoly (TitulosLiquimolyUpdateRequest) returns (ServiceResponseTitulosLiquimoly) {}
     rpc removeTitulosLiquimoly (IdRequest) returns (ServiceResponseTitulosLiquimoly) {}
+
+    // Receiv: execucao manual dos crons de staging (carteira/lotes e alcadas)
+    rpc sincronizarCarteiraReceiv (SincronizarCarteiraReceivRequest) returns (ServiceResponseSincronizarCarteiraReceiv) {}
+    rpc sincronizarAlcadasReceiv (SincronizarAlcadasReceivRequest) returns (ServiceResponseSincronizarAlcadasReceiv) {}
 }
 
 message ListCriteriaRequestClienteLiquimolyAPI{
@@ -291,4 +295,43 @@ message ServiceResponseListTitulosLiquimoly {
 message ListResultTitulosLiquimoly {
     repeated TitulosLiquimolyData result = 1;
     int32 total = 2;
+}
+
+message SincronizarCarteiraReceivRequest {
+    repeated string origens = 1; // CARTEIRA e/ou LOTES; vazio = as duas
+}
+
+message ResumoCargaReceiv {
+    string origem = 1;
+    int32 idCarga = 2;
+    string status = 3; // COMPLETA | INCOMPLETA | ERRO | IGNORADA
+    int32 totalClientes = 4;
+    int32 clientesRecebidos = 5;
+    int32 titulosRecebidos = 6;
+    int32 paginas = 7;
+    string erro = 8;
+}
+
+message ServiceResponseSincronizarCarteiraReceiv {
+    int32 status = 1;
+    string message = 2;
+    repeated ResumoCargaReceiv data = 3;
+    string error = 4;
+}
+
+message SincronizarAlcadasReceivRequest {
+}
+
+message ResumoAlcadasReceiv {
+    int32 idCarga = 1;
+    string status = 2;
+    int32 alcadas = 3;
+    string erro = 4;
+}
+
+message ServiceResponseSincronizarAlcadasReceiv {
+    int32 status = 1;
+    string message = 2;
+    repeated ResumoAlcadasReceiv data = 3;
+    string error = 4;
 }
