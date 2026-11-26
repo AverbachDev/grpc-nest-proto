@@ -61,6 +61,8 @@ service CasoService {
     rpc simularImportacao4Bio (SimularImportacao4BioRequest) returns (ServiceResponseSimularImportacao4Bio) {}
     // 4BIO via Receiv: importa de fato (devedor, caso e titulo).
     rpc importar4Bio (Importar4BioRequest) returns (ServiceResponseImportar4Bio) {}
+    // 4BIO via Receiv: historicos candidatos a ocorrencia (so consulta).
+    rpc listarHistoricos4Bio (ListarHistoricos4BioRequest) returns (ServiceResponseListarHistoricos4Bio) {}
     rpc importarMecanismoIllycaffe (ImportarMecanismoIllycaffeRequest) returns (ServiceResponseImportarMecanismoIllycaffe) {}
     rpc importarMecanismoIllycaffeBaixa (ImportarMecanismoIllycaffeBaixaRequest) returns (ServiceResponseImportarMecanismoIllycaffeBaixa) {}
     // Mecanismo novo (sem equivalente no legado) - escrituracao de RD em lote
@@ -3135,6 +3137,30 @@ message ServiceResponseSimularImportacao4Bio {
     int32 status = 1;
     string message = 2;
     repeated ResultadoSimulacao4BioData data = 3;
+    string error = 4;
+}
+
+message ListarHistoricos4BioRequest {
+    repeated int32 idsCliente = 1;
+    string dtInicio = 2; // YYYY-MM-DD
+    repeated string prefixos = 3; // inicio da descricao do historico
+    int32 aposIdHistorico = 4; // paginacao
+    int32 limite = 5;
+}
+
+message Historico4BioData {
+    int32 idHistorico = 1;
+    int32 idCaso = 2;
+    string dtCadastro = 3; // YYYY-MM-DDTHH:mm:ss
+    string deDescricao = 4;
+    string cdCnpjCpf = 5;
+    repeated string registros = 6; // de_titulo_ar dos titulos do caso
+}
+
+message ServiceResponseListarHistoricos4Bio {
+    int32 status = 1;
+    string message = 2;
+    repeated Historico4BioData data = 3;
     string error = 4;
 }
 

@@ -19,6 +19,47 @@ service servicesClientesService {
     rpc sincronizarAlcadasReceiv (SincronizarAlcadasReceivRequest) returns (ServiceResponseSincronizarAlcadasReceiv) {}
     rpc simularImportacaoReceiv (SimularImportacaoReceivRequest) returns (ServiceResponseSimularImportacaoReceiv) {}
     rpc importarReceiv (ImportarReceivRequest) returns (ServiceResponseImportarReceiv) {}
+    // Receiv: ocorrencias (historicos do caso). A simulacao nao envia nada.
+    rpc simularOcorrenciasReceiv (OcorrenciasReceivRequest) returns (ServiceResponseOcorrenciasReceiv) {}
+    rpc enviarOcorrenciasReceiv (OcorrenciasReceivRequest) returns (ServiceResponseOcorrenciasReceiv) {}
+}
+
+message OcorrenciasReceivRequest {
+    string dtInicio = 1; // YYYY-MM-DD; so a simulacao usa (o envio le RECEIV_OCORRENCIA_DATA_INICIO)
+}
+
+message ItemOcorrenciaReceiv {
+    int32 idHistorico = 1;
+    int32 idCaso = 2;
+    string dtCadastro = 3;
+    string situacao = 4; // A_ENVIAR | ENVIADO | REJEITADO | INCERTO | JA_ENVIADO | SEM_CORRESPONDENCIA | AMBIGUO
+    string codCliente = 5;
+    int32 codOcorrencia = 6;
+    string identificadorDoCobrador = 7;
+    string descricaoOcorrencia = 8;
+    string observacoesAdicionais = 9;
+    string mensagem = 10;
+}
+
+message ResumoOcorrenciasReceiv {
+    int32 total = 1;
+    int32 aEnviar = 2;
+    int32 enviados = 3;
+    int32 rejeitados = 4;
+    int32 incertos = 5;
+    int32 jaEnviados = 6;
+    int32 semCorrespondencia = 7;
+    int32 ambiguos = 8;
+    int32 regrasAtivas = 9;
+    string dtInicio = 10;
+    repeated ItemOcorrenciaReceiv itens = 11; // no maximo 500
+}
+
+message ServiceResponseOcorrenciasReceiv {
+    int32 status = 1;
+    string message = 2;
+    repeated ResumoOcorrenciasReceiv data = 3;
+    string error = 4;
 }
 
 message ImportarReceivRequest {
