@@ -57,6 +57,8 @@ service CasoService {
     // sao mais chamadas, so serviram de especificacao.
     rpc importarArquivoLegado (ImportarArquivoLegadoRequest) returns (ServiceResponseImportarArquivoLegado) {}
     rpc importarMecanismoPadrao (ImportarMecanismoPadraoRequest) returns (ServiceResponseImportarMecanismoPadrao) {}
+    // 4BIO via Receiv: so consulta, diz o que seria importado (nao grava nada).
+    rpc simularImportacao4Bio (SimularImportacao4BioRequest) returns (ServiceResponseSimularImportacao4Bio) {}
     rpc importarMecanismoIllycaffe (ImportarMecanismoIllycaffeRequest) returns (ServiceResponseImportarMecanismoIllycaffe) {}
     rpc importarMecanismoIllycaffeBaixa (ImportarMecanismoIllycaffeBaixaRequest) returns (ServiceResponseImportarMecanismoIllycaffeBaixa) {}
     // Mecanismo novo (sem equivalente no legado) - escrituracao de RD em lote
@@ -3098,6 +3100,35 @@ message ServiceResponseImportarMecanismoEmbraportAtivo {
     int32 status = 1;
     string message = 2;
     repeated ResultadoImportacaoLegadoData data = 3;
+    string error = 4;
+}
+
+message LinhaSimulacao4BioData {
+    string codTitulo = 1;   // vira tecoTituloInformacoesDevedor.de_titulo_ar
+    int32 idCliente = 2;
+    string cdCnpjCpf = 3;
+    string deDoc = 4;
+}
+
+message SimularImportacao4BioRequest {
+    repeated LinhaSimulacao4BioData linhas = 1;
+    repeated int32 idsClientesGrupo = 2; // cadastros onde procurar (7068, 8320)
+}
+
+message ResultadoSimulacao4BioData {
+    string codTitulo = 1;
+    string situacao = 2; // NOVO | JA_CADASTRADO | CONFERIR | INVALIDO
+    string observacao = 3;
+    int32 idCaso = 4;
+    int32 idTitulo = 5;
+    bool devedorNovo = 6;
+    bool registroConfere = 7; // algum titulo do SGA tem de_titulo_ar = codTitulo
+}
+
+message ServiceResponseSimularImportacao4Bio {
+    int32 status = 1;
+    string message = 2;
+    repeated ResultadoSimulacao4BioData data = 3;
     string error = 4;
 }
 

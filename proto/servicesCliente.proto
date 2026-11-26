@@ -17,6 +17,43 @@ service servicesClientesService {
     // Receiv: execucao manual dos crons de staging (carteira/lotes e alcadas)
     rpc sincronizarCarteiraReceiv (SincronizarCarteiraReceivRequest) returns (ServiceResponseSincronizarCarteiraReceiv) {}
     rpc sincronizarAlcadasReceiv (SincronizarAlcadasReceivRequest) returns (ServiceResponseSincronizarAlcadasReceiv) {}
+    rpc simularImportacaoReceiv (SimularImportacaoReceivRequest) returns (ServiceResponseSimularImportacaoReceiv) {}
+}
+
+message SimularImportacaoReceivRequest {
+}
+
+message ItemSimulacaoReceiv {
+    string situacao = 1; // NOVO | JA_CADASTRADO | CONFERIR | INVALIDO
+    string observacao = 2;
+    int32 idCliente = 3;
+    string nome = 4;
+    string cdCnpjCpf = 5;
+    string deDoc = 6;
+    string codTitulo = 7;
+    string vencimento = 8;
+    double valor = 9;
+    int32 idCaso = 10;
+    int32 idTitulo = 11;
+    bool devedorNovo = 12;
+}
+
+message ResumoSimulacaoReceiv {
+    int32 total = 1;
+    int32 novos = 2;
+    int32 jaCadastrados = 3;
+    int32 conferir = 4;
+    int32 invalidos = 5;
+    int32 devedoresNovos = 6;
+    int32 registrosConferem = 7; // quantos cod_titulo ja existem como de_titulo_ar: valida o mapeamento
+    repeated ItemSimulacaoReceiv itens = 8;
+}
+
+message ServiceResponseSimularImportacaoReceiv {
+    int32 status = 1;
+    string message = 2;
+    repeated ResumoSimulacaoReceiv data = 3;
+    string error = 4;
 }
 
 message ListCriteriaRequestClienteLiquimolyAPI{
