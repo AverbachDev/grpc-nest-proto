@@ -1859,6 +1859,8 @@ message ImportarDepositosBradescoRequest {
     // proativos no fallback, e adiciona uma linha em branco (critica=10)
     // mesmo quando nenhuma parcela e encontrada por nenhuma via.
     bool boston = 4;
+    // true = so simula: nao marca tecoBoletoRemessa como "PG".
+    bool dryRun = 5;
 }
 
 message CandidatoDepositoBradescoData {
@@ -1876,6 +1878,8 @@ message CandidatoDepositoBradescoData {
     // 0 = identificado; 10 = "O Caso informado não possui mais o boleto
     // pago" (mesma critica do legado pra boletos sem parcela localizada).
     int32 idCritica = 12;
+    // Preenchido nos boletos sem acordo/parcela (linha sem identificacao).
+    string deObs = 13;
 }
 
 message ServiceResponseImportarDepositosBradesco {
