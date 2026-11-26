@@ -783,6 +783,8 @@ message ItemExtratoInputData {
     // Observacao do depositante (cheque/malote sem identificacao) - porte
     // de tecoItemExtratoDepositante.de_obs.
     string deObs = 10;
+    // Critica vinda da importacao (10 = boleto pago nao localizado no caso).
+    int32 idCritica = 11;
 }
 
 message SalvarExtratoRequest {
