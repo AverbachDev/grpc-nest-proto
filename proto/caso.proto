@@ -59,6 +59,8 @@ service CasoService {
     rpc importarMecanismoPadrao (ImportarMecanismoPadraoRequest) returns (ServiceResponseImportarMecanismoPadrao) {}
     // 4BIO via Receiv: so consulta, diz o que seria importado (nao grava nada).
     rpc simularImportacao4Bio (SimularImportacao4BioRequest) returns (ServiceResponseSimularImportacao4Bio) {}
+    // 4BIO via Receiv: importa de fato (devedor, caso e titulo).
+    rpc importar4Bio (Importar4BioRequest) returns (ServiceResponseImportar4Bio) {}
     rpc importarMecanismoIllycaffe (ImportarMecanismoIllycaffeRequest) returns (ServiceResponseImportarMecanismoIllycaffe) {}
     rpc importarMecanismoIllycaffeBaixa (ImportarMecanismoIllycaffeBaixaRequest) returns (ServiceResponseImportarMecanismoIllycaffeBaixa) {}
     // Mecanismo novo (sem equivalente no legado) - escrituracao de RD em lote
@@ -3129,6 +3131,51 @@ message ServiceResponseSimularImportacao4Bio {
     int32 status = 1;
     string message = 2;
     repeated ResultadoSimulacao4BioData data = 3;
+    string error = 4;
+}
+
+message Linha4BioData {
+    int32 idCliente = 1;
+    string nmDevedor = 2;
+    string cdCnpjCpf = 3;
+    string deDoc = 4;
+    string deTituloAr = 5;
+    string deLoja = 6;
+    string deIdDocumento = 7;
+    string deCodDevedor = 8;
+    string linkNotaFiscal = 9;
+    double nuValor = 10;
+    string dtVencimento = 11; // YYYY-MM-DD
+    string deLogradouro = 12;
+    string nmBairro = 13;
+    string desMunicipio = 14;
+    string codFederacao = 15;
+    string deCep = 16;
+    string deDdd = 17;
+    string deTelefone = 18;
+    string deDddCelular = 19;
+    string deCelular = 20;
+    string deEmail = 21;
+}
+
+message Importar4BioRequest {
+    repeated Linha4BioData linhas = 1;
+    int32 idUsuaOper = 2;
+}
+
+message Resultado4BioData {
+    string codTitulo = 1;
+    bool importado = 2;
+    string mensagem = 3;
+    int32 idCaso = 4;
+    int32 idTitulo = 5;
+    int32 idDevedor = 6;
+}
+
+message ServiceResponseImportar4Bio {
+    int32 status = 1;
+    string message = 2;
+    repeated Resultado4BioData data = 3;
     string error = 4;
 }
 

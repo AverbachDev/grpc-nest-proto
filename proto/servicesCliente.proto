@@ -18,6 +18,39 @@ service servicesClientesService {
     rpc sincronizarCarteiraReceiv (SincronizarCarteiraReceivRequest) returns (ServiceResponseSincronizarCarteiraReceiv) {}
     rpc sincronizarAlcadasReceiv (SincronizarAlcadasReceivRequest) returns (ServiceResponseSincronizarAlcadasReceiv) {}
     rpc simularImportacaoReceiv (SimularImportacaoReceivRequest) returns (ServiceResponseSimularImportacaoReceiv) {}
+    rpc importarReceiv (ImportarReceivRequest) returns (ServiceResponseImportarReceiv) {}
+}
+
+message ImportarReceivRequest {
+    int32 idUsuaOper = 1;
+    // Importa mesmo se nenhum titulo da carteira for reconhecido no SGA (de-para suspeito).
+    bool confirmarSemCorrespondencia = 2;
+}
+
+message ItemImportacaoReceiv {
+    string codTitulo = 1;
+    string deDoc = 2;
+    string nome = 3;
+    bool importado = 4;
+    string mensagem = 5;
+    int32 idCaso = 6;
+    int32 idTitulo = 7;
+}
+
+message ResumoImportacaoReceiv {
+    int32 importados = 1;
+    int32 falhas = 2;
+    int32 jaCadastrados = 3;
+    int32 conferir = 4;
+    int32 invalidos = 5;
+    repeated ItemImportacaoReceiv itens = 6;
+}
+
+message ServiceResponseImportarReceiv {
+    int32 status = 1;
+    string message = 2;
+    repeated ResumoImportacaoReceiv data = 3;
+    string error = 4;
 }
 
 message SimularImportacaoReceivRequest {
