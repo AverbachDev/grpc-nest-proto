@@ -79,6 +79,13 @@ service ContasAReceberService {
     rpc relatorioExtratoNf (IdRequest) returns (ServiceResponseArquivoNotaFiscal) {}
     // Dados cadastrais do cliente (dialog aberto a partir das telas de Extrato NF e Escrituracao NF).
     rpc obterClienteNf (IdRequest) returns (ServiceResponseClienteNf) {}
+    // Boletos Manuais (wfmListaBoletoAverbach / wfmCadBoletoAverbach).
+    rpc listBoletoManual (ListCriteriaRequestBoletoManual) returns (ServiceResponseListBoletoManual) {}
+    rpc findBoletoManual (IdRequest) returns (ServiceResponseBoletoManual) {}
+    rpc findFavorecidoBoleto (FavorecidoBoletoRequest) returns (ServiceResponseFavorecidoBoleto) {}
+    rpc gerarBoletoManual (GerarBoletoManualRequest) returns (ServiceResponseRegistroBoletoManual) {}
+    rpc registrarBoletoManual (RegistrarBoletoManualRequest) returns (ServiceResponseRegistroBoletoManual) {}
+    rpc pdfBoletoManual (IdRequest) returns (ServiceResponseArquivoNotaFiscal) {}
     // Controle de contas a receber (dashboard): uma linha por nota fiscal (titulo a receber) e o resumo (cards, aging, por origem).
     rpc listTitulosReceber (ListCriteriaRequestTitulosReceber) returns (ServiceResponseListTitulosReceber) {}
     rpc resumoTitulosReceber (ListCriteriaRequestTitulosReceber) returns (ServiceResponseResumoTitulosReceber) {}
@@ -1582,4 +1589,117 @@ message InserirItemExtratoNfRequest {
     string dtExtrato = 5;        // AAAA-MM-DD
     string deObs = 6;
     int32 idUsuaOper = 7;
+}
+
+// BOLETOS MANUAIS (wfmListaBoletoAverbach.aspx / wfmCadBoletoAverbach.aspx) - tecoBoletoAVBRemessa
+
+// Filtros opcionais; datas YYYY-MM-DD inclusivas; nmSacado = contem; cdCnpjCpf = so os digitos, contem. items = -1 traz tudo.
+message ListCriteriaRequestBoletoManual {
+    string nmSacado = 1;
+    string cdCnpjCpf = 2;
+    string dtEmissaoIni = 3;
+    string dtEmissaoFim = 4;
+    string dtVencimentoIni = 5;
+    string dtVencimentoFim = 6;
+    int32 items = 7;
+    int32 page = 8;
+}
+
+// dtEmissao = dt_cadastro. registrado = o Bradesco aceitou o boleto (cd_ocorrencia preenchida).
+message BoletoManualData {
+    int32 idBoleto = 1;
+    int32 idAgencia = 2; // 26 = Escritorio Juridico Averbach; 19 = Averbach Cobrancas Ltda
+    string nmSacado = 3;
+    string cdCnpjCpf = 4;
+    string deLogradouro = 5;
+    string deBairro = 6;
+    string deMunicipio = 7;
+    string deUf = 8;
+    string deCep = 9;
+    string deInstrucoes = 10;
+    double nuValor = 11;
+    string dtVencimento = 12;
+    string dtEmissao = 13;
+    string nossoNumero = 14;
+    string cdOcorrencia = 15;
+    string deSituacao = 16;
+    bool registrado = 17;
+    string nmEmpresa = 18;
+}
+
+message ListResultBoletoManual {
+    repeated BoletoManualData result = 1;
+    int32 total = 2;
+}
+
+message ServiceResponseListBoletoManual {
+    int32 status = 1;
+    string message = 2;
+    ListResultBoletoManual data = 3;
+    string error = 4;
+}
+
+message ServiceResponseBoletoManual {
+    int32 status = 1;
+    string message = 2;
+    repeated BoletoManualData data = 3;
+    string error = 4;
+}
+
+message FavorecidoBoletoRequest {
+    string cdCnpjCpf = 1;
+}
+
+// Cadastro de favorecidos (tecoFavorecidoBoleto); data vazio = CNPJ/CPF ainda nao cadastrado.
+message FavorecidoBoletoData {
+    string deRazaoSocial = 1;
+    string cdCnpjCpf = 2;
+    string deLogradouro = 3;
+    string deBairro = 4;
+    string deMunicipio = 5;
+    string deUf = 6;
+    string deCep = 7;
+}
+
+message ServiceResponseFavorecidoBoleto {
+    int32 status = 1;
+    string message = 2;
+    repeated FavorecidoBoletoData data = 3;
+    string error = 4;
+}
+
+// Grava o boleto (e o favorecido) e registra no Bradesco. dtVencimento = YYYY-MM-DD.
+message GerarBoletoManualRequest {
+    int32 idAgencia = 1;
+    string nmSacado = 2;
+    string cdCnpjCpf = 3;
+    string deLogradouro = 4;
+    string deBairro = 5;
+    string deMunicipio = 6;
+    string deUf = 7;
+    string deCep = 8;
+    string deInstrucoes = 9;
+    double nuValor = 10;
+    string dtVencimento = 11;
+    int32 idUsuaOper = 12;
+}
+
+// Nova tentativa de registro de um boleto gravado e nao aceito pelo banco.
+message RegistrarBoletoManualRequest {
+    int32 idBoleto = 1;
+    int32 idUsuaOper = 2;
+}
+
+// registrado = false: o boleto ficou gravado, mas o banco nao aceitou (motivo em mensagemRegistro).
+message RegistroBoletoManualData {
+    int32 idBoleto = 1;
+    bool registrado = 2;
+    string mensagemRegistro = 3;
+}
+
+message ServiceResponseRegistroBoletoManual {
+    int32 status = 1;
+    string message = 2;
+    repeated RegistroBoletoManualData data = 3;
+    string error = 4;
 }
